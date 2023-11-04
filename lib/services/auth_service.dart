@@ -9,7 +9,7 @@ import 'package:mobile/models/demacheur.dart';
 import 'package:mobile/models/user.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PyraAPIService{
+class AuthService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _SIGN_UP_URL = "register";
@@ -31,7 +31,7 @@ class PyraAPIService{
   Abonnement? get abonnement_demarcheur => _abonnement;
 
 
-  PyraAPIService();
+  AuthService();
 
 
   /// CREATE A NEW HTTP CLIENT FOR CALLS
@@ -133,7 +133,7 @@ class PyraAPIService{
     var client = _newClient();
     List<Commune> communesList =[];
     try{
-      print('${Uri.parse(_BASE_URL+PyraAPIService._COMMUNE_URL)} get communes');
+      print('${Uri.parse(_BASE_URL+_COMMUNE_URL)} get communes');
       http.Response response = await client.get(Uri.parse(_BASE_URL+_LOGIN_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
