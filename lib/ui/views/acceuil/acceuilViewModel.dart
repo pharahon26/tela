@@ -13,7 +13,19 @@ class AcceuilViewModel extends BaseViewModel{
   AcceuilViewModel();
 
   void navigateToEbank() async{
-    await _navigationService.navigateTo(Routes.acceuil);
+    await _navigationService.navigateTo(Routes.bank);
+  }
+  void navigateToProfile() async{
+    await _navigationService.navigateTo(Routes.profile);
+  }
+  void navigateToTV() async{
+    await _navigationService.navigateTo(Routes.programmeTv);
+  }
+  void navigateToRecherche() async{
+    await _navigationService.navigateTo(Routes.recherche);
+  }
+  void navigateToGalery() async{
+    await _navigationService.navigateTo(Routes.galerie);
   }
 
 
