@@ -12,9 +12,5 @@ class TvViewModel extends BaseViewModel{
 
   TvViewModel();
 
-  void navigateToProfile() async{
-    await _navigationService.navigateTo(Routes.acceuil);
-  }
-
 
 }

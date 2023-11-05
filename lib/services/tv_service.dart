@@ -6,14 +6,14 @@ import 'package:http/io_client.dart';
 import 'package:mobile/models/programetv.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PlaceService{
+class TVService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _TV_URL = "telaapi/tv_program";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
 
-  PlaceService();
+  TVService();
 
 
   /// CREATE A NEW HTTP CLIENT FOR CALLS
@@ -57,6 +57,14 @@ class PlaceService{
     return programes;
   }
 
+  List<TelaProgrammeTV> progTest(){
+    List<TelaProgrammeTV> list = [];
+    list.add(TelaProgrammeTV(id: 1, type: 'Jeux tv', link: 'https://youtu.be/PY_N1XdFp4w?si=KisXUS31Nj44Wavm', description: 'jeux', dateTournage: DateTime(2023, 7, 12), dateDiffusion: DateTime(2023, 7, 12)));
+    list.add(TelaProgrammeTV(id: 2, type: 'live', link: 'https://m.facebook.com/watch/?v=1031561964648882', description: 'Live DIDI B ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 3, type: 'live', link: 'https://m.facebook.com', description: 'camer ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 4, type: 'live', link: 'https://m.facebook.com/100089408409048/videos/837083301751759/?extid=WA-UNK-UNK-UNK-AN_GK0T-GK1C&mibextid=O563ZM', description: '???? ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    return list;
+  }
   void close(){
   }
 
