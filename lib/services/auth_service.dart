@@ -20,6 +20,8 @@ class AuthService{
   User? _user;
   Demarcheur? _demarcheur;
   Abonnement? _abonnement;
+  Abonnement? _abonnementTV;
+  Abonnement? _abonnementPro;
   String _token = '';
   bool _isConnected = false;
   final BehaviorSubject<bool> _isConnectedSubject = BehaviorSubject<bool>.seeded(false);
@@ -28,7 +30,9 @@ class AuthService{
   String get token => _token;
   User? get user => _user;
   Demarcheur? get demarcheur => _demarcheur;
-  Abonnement? get abonnement_demarcheur => _abonnement;
+  Abonnement? get abonnementDemarcheur => _abonnementPro;
+  Abonnement? get abonnementTV => _abonnementTV;
+  Abonnement? get abonnement => _abonnement;
 
 
   AuthService();
@@ -162,6 +166,51 @@ class AuthService{
       client.close();
     }
     return communesList;
+  }
+
+  List<Commune> getCommunes(){
+    List<Commune> list = [];
+    List<String> tt = [
+      'Abobo',
+      'Adjamé',
+      'Anyama',
+      'Attécoubé',
+      'Bingerville',
+      'Cocody',
+      'Koumassi',
+      'Marcory',
+      'Plateau',
+      'Port bouët',
+      'Treichville',
+      'Songon',
+      'Yopougon',
+    ];
+    int i = 1;
+    for (var element in tt) {
+      list.add(Commune(id: i, name: element, city: 'Abidjan'));
+      i++;
+    }
+    return  list;
+  }
+
+  void getFakeUser({bool demarcheur = false}){
+    User u = User(nom: 'Nombré', prenom: 'Séraphin Elie', isDemarcheur: demarcheur);
+    _user = u;
+    _isConnected =true;
+    _isConnectedSubject.sink.add(_isConnected);
+  }
+
+  void createFakeUser({
+    required String nom,
+    required String prenom,
+    required String telephone,
+    required String password,
+    String mail = '',
+    bool demarcheur = false}){
+    User u = User(nom: nom, prenom: prenom, phone: telephone, mail: mail, isDemarcheur: demarcheur);
+    _user = u;
+    _isConnected =true;
+    _isConnectedSubject.sink.add(_isConnected);
   }
 
   void close(){

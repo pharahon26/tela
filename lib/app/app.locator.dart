@@ -12,6 +12,10 @@ import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_services/src/snackbar/snackbar_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../services/auth_service.dart';
+import '../services/place_service.dart';
+import '../services/tv_service.dart';
+
 final locator = StackedLocator.instance;
 
 Future<void> setupLocator({
@@ -23,6 +27,9 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerSingleton(AuthService());
+  locator.registerSingleton(PlaceService());
+  locator.registerSingleton(TVService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());

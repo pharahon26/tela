@@ -21,11 +21,17 @@ class AcceuilViewModel extends BaseViewModel{
   void navigateToTV() async{
     await _navigationService.navigateTo(Routes.programmeTv);
   }
-  void navigateToRecherche() async{
-    await _navigationService.navigateTo(Routes.recherche);
+  void navigateToRechercheBureau() async{
+    await _navigationService.navigateToRecherche(isBureau: true);
+  }
+  void navigateToRechercheLogement() async{
+    await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
     await _navigationService.navigateTo(Routes.galerie);
+  }
+  void navigateToAcceuil() async{
+    await _navigationService.navigateTo(Routes.acceuil);
   }
 
 

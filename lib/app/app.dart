@@ -1,4 +1,9 @@
 
+import 'package:mobile/services/auth_service.dart';
+import 'package:mobile/services/place_service.dart';
+import 'package:mobile/services/tv_service.dart';
+import 'package:mobile/ui/views/LoginView/loginView.dart';
+import 'package:mobile/ui/views/SignInView/signInView.dart';
 import 'package:mobile/ui/views/acceuil/acceuil.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
@@ -20,6 +25,8 @@ import 'package:stacked_services/stacked_services.dart';
     routes:[
       MaterialRoute(page: Acceuil, initial: true),
       MaterialRoute(page: Profile),
+      MaterialRoute(page: SignInView),
+      MaterialRoute(page: LoginView),
       MaterialRoute(page: Bank),
       MaterialRoute(page: Depot),
       MaterialRoute(page: Versement),
@@ -31,10 +38,13 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: Tv),
     ],
     dependencies: [
-            LazySingleton(classType: NavigationService),
-            LazySingleton(classType: DialogService),
-            LazySingleton(classType: BottomSheetService),
-            LazySingleton(classType: SnackbarService),
+      Singleton(classType: AuthService),
+      Singleton(classType: PlaceService),
+      Singleton(classType: TVService),
+      LazySingleton(classType: NavigationService),
+      LazySingleton(classType: DialogService),
+      LazySingleton(classType: BottomSheetService),
+      LazySingleton(classType: SnackbarService),
     ]
 )
 class appSetup {
