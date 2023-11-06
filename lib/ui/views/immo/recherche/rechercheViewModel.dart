@@ -19,6 +19,7 @@ class RechercheViewModel extends BaseViewModel{
   late Commune commune;
 
 
+  Stream<bool> get isAuth => _authService.isConnected;
   bool isMaisonBasse = false;
   bool isAppart = false;
   bool isDuplex = false;
@@ -34,21 +35,32 @@ class RechercheViewModel extends BaseViewModel{
 
   List<Commune> communes = [];
   List<DropdownMenuItem<Commune>> dropDownItems = [];
-  RechercheViewModel(){
-    communes = _authService.getCommunes();
-    commune = communes.first;
-    for (Commune element in communes) {
-      dropDownItems.add(DropdownMenuItem(value: element,
-        child: Text(element.name,
-          style: const TextStyle(
-              color: Colors.black,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1
+
+  Future<List<DropdownMenuItem<Commune>> > cc() async {
+    if (communes.isEmpty) {
+      communes = await _authService.communes();
+      commune = communes.first;
+      for (Commune element in communes) {
+        dropDownItems.add(DropdownMenuItem(value: element,
+          child: Text(element.name,
+            style: const TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1
+            ),
           ),
-        ),
-      ));
-    }}
+        ));
+      }
+    }
+
+    return dropDownItems ;
+  }
+
+  RechercheViewModel(){
+  }
+
+
 
   void search(){
     _placeService.search(

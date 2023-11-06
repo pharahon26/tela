@@ -16,7 +16,7 @@ class _BankState extends State<Bank> {
     return ViewModelBuilder<BankViewModel>.reactive(
       viewModelBuilder: () => BankViewModel(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           body: Center(child:  Text('Bank Tela'))
       ),
     );

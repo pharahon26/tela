@@ -31,15 +31,15 @@ class User {
   static User fromJson(Map<String, dynamic> json){
     User u = User(
       nom: json["nom"],
-      prenom: json["prenom"],
-      mail: json["mail"],
+      prenom: json["prenoms"],
+      mail: json["email"],
       phone: json["phone"],
-      isSuspended: json["isSuspended"],
-      isDemarcheur: json["isDemarcheur"],
-      isStaff: json["isStaff"],
+      isSuspended: json["is_suspended"]==1,
+      isDemarcheur: json["is_demarcheur"]==1,
+      isStaff: json["is_staff"]==1,
     );
     u.id = json["id"];
-    u.creationDate = DateTime.parse(json["creationDate"]);
+    u.creationDate = DateTime.parse(json["created_at"]);
     return u;
   }
 

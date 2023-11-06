@@ -10,6 +10,7 @@ class LoginViewModel extends BaseViewModel{
   NavigationService _navigationService = locator<NavigationService>();
   AuthService _authService = locator<AuthService>();
   String phone='';
+  String mail='';
   String password='';
 
 
@@ -23,7 +24,7 @@ class LoginViewModel extends BaseViewModel{
   }
 
   void fakeLogin(){
-    _authService.getFakeUser(demarcheur: false);
+    _authService.getFakeUser(demarcheur: true);
     _navigationService.navigateToProfile();
   }
 

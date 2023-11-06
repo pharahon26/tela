@@ -12,9 +12,9 @@ import 'package:rxdart/rxdart.dart';
 class AuthService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
-  static const String _SIGN_UP_URL = "register";
+  static const String _SIGN_UP_URL = "api/users/create";
   static const String _LOGIN_URL = "login";
-  static const String _COMMUNE_URL = "tela_api/communes";
+  static const String _COMMUNE_URL = "api/communes";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
@@ -56,27 +56,29 @@ class AuthService{
   }) async {
     var client = _newClient();
     try{
-      print('${Uri.parse(_BASE_URL+_SIGN_UP_URL)} sign In : $nom $prenom $telephone');
+      print('${Uri.parse(_BASE_URL+_SIGN_UP_URL)} sign In : $nom $prenom $telephone $mail');
       http.Response response = await client.post(Uri.parse(_BASE_URL+_SIGN_UP_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
         body: jsonEncode(<String, dynamic>{
           "nom": nom,
-          "prenom": prenom,
-          "telephone": telephone,
+          "prenoms": prenom,
+          "phone": telephone,
           "password": password,
-          "mail": mail,
-          "isDemarcheur": isDemarcheur,
+          "email": mail,
+          "is_demarcheur": isDemarcheur?1:0,
+          "is_staff": 0,
+          "is_suspended": 0,
         }),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer ' + json["token"]["access_token"];
-        _user = User.fromJson(json["user"]);
+        _user = User.fromJson(json);
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
       }  else {
@@ -138,7 +140,7 @@ class AuthService{
     List<Commune> communesList =[];
     try{
       print('${Uri.parse(_BASE_URL+_COMMUNE_URL)} get communes');
-      http.Response response = await client.get(Uri.parse(_BASE_URL+_LOGIN_URL),
+      http.Response response = await client.get(Uri.parse(_BASE_URL+_COMMUNE_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -150,7 +152,7 @@ class AuthService{
         print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
 
-        for(var commune in json["communes"]){
+        for(var commune in json){
           communesList.add(Commune.fromJson(commune));
           print(commune);
         }
@@ -160,7 +162,7 @@ class AuthService{
 
     }
     catch(e){
-      print('auth api service login error** $e');
+      print('auth api service commune error** $e');
     }
     finally{
       client.close();
@@ -168,33 +170,33 @@ class AuthService{
     return communesList;
   }
 
-  List<Commune> getCommunes(){
-    List<Commune> list = [];
-    List<String> tt = [
-      'Abobo',
-      'Adjamé',
-      'Anyama',
-      'Attécoubé',
-      'Bingerville',
-      'Cocody',
-      'Koumassi',
-      'Marcory',
-      'Plateau',
-      'Port bouët',
-      'Treichville',
-      'Songon',
-      'Yopougon',
-    ];
-    int i = 1;
-    for (var element in tt) {
-      list.add(Commune(id: i, name: element, city: 'Abidjan'));
-      i++;
-    }
-    return  list;
-  }
+  // List<Commune> getCommunes(){
+  //   List<Commune> list = [];
+  //   List<String> tt = [
+  //     'Abobo',
+  //     'Adjamé',
+  //     'Anyama',
+  //     'Attécoubé',
+  //     'Bingerville',
+  //     'Cocody',
+  //     'Koumassi',
+  //     'Marcory',
+  //     'Plateau',
+  //     'Port bouët',
+  //     'Treichville',
+  //     'Songon',
+  //     'Yopougon',
+  //   ];
+  //   int i = 1;
+  //   for (var element in tt) {
+  //     list.add(Commune(id: i, name: element, city: 'Abidjan'));
+  //     i++;
+  //   }
+  //   return  list;
+  // }
 
   void getFakeUser({bool demarcheur = false}){
-    User u = User(nom: 'Nombré', prenom: 'Séraphin Elie', isDemarcheur: demarcheur);
+    User u = User(nom: 'Nombré', prenom: 'Séraphin Elie', phone: '+225 07 00 00 00 00', isDemarcheur: demarcheur);
     _user = u;
     _isConnected =true;
     _isConnectedSubject.sink.add(_isConnected);

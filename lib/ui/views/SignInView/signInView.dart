@@ -31,7 +31,7 @@ class _SignInViewState extends State<SignInView>
               appBar: AppBar(
                 title: Text('Inscription', style: TextStyle(color: Colors.white)),
                 centerTitle: true,
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 leading: InkWell(
                   onTap: () => Navigator.pop(context),
                   child: Icon(Icons.arrow_back_ios_new,
@@ -64,17 +64,6 @@ class _SignInViewState extends State<SignInView>
                         ),
                         SizedBox(
                           height: 20.0,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(color: Theme.of(context).colorScheme.primary)
-                          ),
-                          padding: EdgeInsets.all(8),
-                          child: Text('Créez votre profile', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary, letterSpacing: 1.2, fontWeight: FontWeight.w700), textAlign: TextAlign.center,),
-                        ),
-                        SizedBox(
-                          height: 40.0,
                         ),
 
                         /// nom field
@@ -201,7 +190,7 @@ class _SignInViewState extends State<SignInView>
                                     isPasswordVisible = !isPasswordVisible;
                                   });
                                 },
-                                icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined ),
+                                icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined , color: isPasswordVisible? Theme.of(context).colorScheme.primary : Colors.black,),
 
                               )
                             ),
@@ -281,7 +270,7 @@ class _SignInViewState extends State<SignInView>
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      model.fakeSignIn();
+                      model.signIn();
                     });
                   },
                   style: ElevatedButton.styleFrom(

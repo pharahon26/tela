@@ -10,10 +10,10 @@ class SignInViewModel extends BaseViewModel{
 
   AuthService _authService = locator<AuthService>();
   NavigationService _navigationService = locator<NavigationService>();
-  String nom='';
-  String prenom='';
-  String phone='';
-  String mail='';
+  String nom='SEREME';
+  String prenom='Habib Seydou Laty 2';
+  String phone='+225 07 00 00 00 00';
+  String mail='mail2@mail.com';
   String password='';
   bool isDemarcheur =false;
 
@@ -22,13 +22,8 @@ class SignInViewModel extends BaseViewModel{
 
 
   Future signIn() async {
-    // Users u = await _pyraAPIService.signIn(
-    //     username: username,
-    //     firstname: user.firstname,
-    //     lastname: user.lastname,
-    //     password: password,
-    //     period: user.period);
-    // return u;
+    User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: mail, isDemarcheur: isDemarcheur);
+    _navigationService.navigateToProfile();
   }
 
   void fakeSignIn(){

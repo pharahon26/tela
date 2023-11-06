@@ -6,6 +6,7 @@ import 'package:mobile/ui/views/LoginView/loginView.dart';
 import 'package:mobile/ui/views/SignInView/signInView.dart';
 import 'package:mobile/ui/views/acceuil/acceuil.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
+import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
 import 'package:mobile/ui/views/immo/galerie/galerie.dart';
@@ -15,6 +16,7 @@ import 'package:mobile/ui/views/immo/visite/visite.dart';
 import 'package:mobile/ui/views/profile/profile.dart';
 import 'package:mobile/ui/views/tv/programmetv/programmetv.dart';
 import 'package:mobile/ui/views/tv/tv/tv.dart';
+import 'package:mobile/ui/views/visiteAbonnement/visiteAbonnement.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -36,6 +38,8 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: Visite),
       MaterialRoute(page: ProgrammeTv),
       MaterialRoute(page: Tv),
+      MaterialRoute(page: BuyView),
+      MaterialRoute(page: VisiteAbonnement),
     ],
     dependencies: [
       Singleton(classType: AuthService),

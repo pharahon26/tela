@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile/ui/views/profile/profileViewModel.dart';
+import 'package:mobile/ui/widget/profilCliper.dart';
 import 'package:stacked/stacked.dart';
 
 class Profile extends StatefulWidget {
@@ -18,7 +19,7 @@ class _ProfileState extends State<Profile> {
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             title: const Text('Tela',
               style: TextStyle(
@@ -58,7 +59,14 @@ class _ProfileState extends State<Profile> {
                         onPressed: (){
                           model.navigateToProfile();
                         },
-                        child: Text('profile')
+                        style: TextButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+
+                        ),
+                        child: Text('profile',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),)
                     ),
                     TextButton(
                         onPressed: (){
@@ -87,140 +95,459 @@ class _ProfileState extends State<Profile> {
                   ]),
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: StreamBuilder<bool>(
-              stream: model.isAuth,
-              builder: (context, snapshot) {
-                switch(snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case ConnectionState.waiting:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case ConnectionState.active:
-                    return snapshot.data!?
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          height: 120.0,
-                          width: 120.0,
-                          child: Image.asset(
-                            'assets/images/logo_2.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text(model.user!.nom)
-                      ],
-                    )
-                    :
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+          body: SingleChildScrollView(
+            child: Scrollbar(
+              child: StreamBuilder<bool>(
+                stream: model.isAuth,
+                builder: (context, snapshot) {
+                  switch(snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case ConnectionState.active:
+                      return snapshot.data!?Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text('Vous n\'êtes pas connecté!'),
-                          SizedBox(height: 50,),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              TextButton(
-                                  onPressed: () => model.navigateToSignIn(),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).colorScheme.primary,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                          ClipPath(
+                            clipper: ProfileClipper(),
+                            child: Container(
+                              height: 180,
+                              color: Theme.of(context).colorScheme.primary,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('${model.user!.nom} ${model.user!.prenom}',
+                                      textAlign: model.user!.isDemarcheur? TextAlign.right : TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: model.user!.isDemarcheur? 18.0 : 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  child: Text('Créer un profile',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),)),
-                              TextButton(
-                                  onPressed: () => model.navigateToLogIn(),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).colorScheme.primary,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                  model.user!.isDemarcheur? Spacer() : SizedBox.shrink(),
+                                  model.user!.isDemarcheur? Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Solde',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('000000000',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ) : SizedBox.shrink(),
+                                  Spacer(),
+                                  Text('${model.user!.phone}',
+                                    textAlign: model.user!.isDemarcheur? TextAlign.left : TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:model.user!.isDemarcheur? 18.0 : 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  child: Text('Seconnecter',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),)),
-                            ],
-                          )
-                        ],
-                    );
-                  case ConnectionState.done:
-                    return snapshot.data!?
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          height: 120.0,
-                          width: 120.0,
-                          child: Image.asset(
-                            'assets/images/logo_2.png',
-                            fit: BoxFit.contain,
+                                  Spacer()
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text(model.user!.nom)
-                      ],
-                    )
-                        :
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text('Vous n\'êtes pas connecté!'),
-                        SizedBox(height: 50,),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          SizedBox(height: 40,),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                child: InkWell(
+                                  onTap: () => model.navigateToVisiteAbonnement(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24.0),
+                                    child: Text('Accédez a notre catalogue de bien immobilier. \n '
+                                        'Pour vos besoins en logement et bureaux',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                          ),
+                          model.user!.isDemarcheur? SizedBox.shrink() : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
+                                      'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: Text('Tela TV. \n '
+                                      'Divertissement, émission live, accédez à nos programmes',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                          ),
+                        ],
+                      )
+                      :
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            TextButton(
-                                onPressed: () => model.navigateToSignIn(),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.primary,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                                ),
-                                child: Text('Créer un profile',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),)),
-                            TextButton(
-                                onPressed: () => model.navigateToLogIn(),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.primary,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                                ),
-                                child: Text('Seconnecter',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),)),
-                          ],
-                        )
-                      ],
-                    );
-                }
+                            ClipPath(
+                              clipper: ProfileClipper(),
+                              child: Container(
+                                height: 180,
+                                width: double.infinity,
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('Vous n\'êtes pas connecté!',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 20,),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () => model.navigateToSignIn(),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                            ),
+                                            child: Text('Créer un profile',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),)),
+                                        TextButton(
+                                            onPressed: () => model.navigateToLogIn(),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                            ),
+                                            child: Text('Se connecter',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),)),
+                                      ],
+                                    ),
 
-              }
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 40,),
+                            Text('Creez votre compte pour accéder à nos services',
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 40,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24.0),
+                                    child: Text('Accédez a notre catalogue de bien immobilier. \n '
+                                        'Pour vos besoins en logement et bureaux',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24.0),
+                                    child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
+                                        'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24.0),
+                                    child: Text('Tela TV. \n '
+                                        'Divertissement, émission live, accédez à nos programmes',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ],
+                      );
+                    case ConnectionState.done:
+                      return snapshot.data!?Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ClipPath(
+                            clipper: ProfileClipper(),
+                            child: Container(
+                              height: 180,
+                              color: Theme.of(context).colorScheme.primary,
+                              child: Column(
+                                children: [
+                                  Text('${model.user!.nom} ${model.user!.prenom}',
+                                    textAlign: model.user!.isDemarcheur? TextAlign.right : TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: model.user!.isDemarcheur? 18.0 : 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  model.user!.isDemarcheur? Spacer() : SizedBox.shrink(),
+                                  model.user!.isDemarcheur? Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Solde',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('000000000',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ) : SizedBox.shrink(),
+                                  Spacer(),
+                                  Text('${model.user!.phone}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:model.user!.isDemarcheur? 18.0 : 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Spacer()
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 40,),
+                          Text('...'),
+                          SizedBox(height: 40,),
+                          Text('...'),
+                        ],
+                      )
+                          :
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ClipPath(
+                            clipper: ProfileClipper(),
+                            child: Container(
+                              height: 180,
+                              width: double.infinity,
+                              color: Theme.of(context).colorScheme.primary,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('Vous n\'êtes pas connecté!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20,),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () => model.navigateToSignIn(),
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Theme.of(context).colorScheme.primary,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                          ),
+                                          child: Text('Créer un profile',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),)),
+                                      TextButton(
+                                          onPressed: () => model.navigateToLogIn(),
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Theme.of(context).colorScheme.primary,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                          ),
+                                          child: Text('Seconnecter',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),)),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 40,),
+                          Text('Creez votre compte pour accéder à nos services',
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 40,),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: Text('Accédez a notre catalogue de bien immobilier. \n '
+                                      'Pour vos besoins en logement et bureaux',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
+                                      'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: Text('Tela TV. \n '
+                                      'Divertissement, émission live, accédez à nos programmes',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                          ),
+                        ],
+                      );;
+                  }
+
+                }
+              ),
             ),
           )
       ),

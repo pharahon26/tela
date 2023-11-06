@@ -19,7 +19,7 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             title: const Text('Tela TV',
               style: TextStyle(
@@ -77,7 +77,15 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
                         onPressed: (){
                           model.navigateToTV();
                         },
-                        child: Text('Tela TV')
+                        style: TextButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+
+                        ),
+                        child: Text('Tela TV',
+                          style: TextStyle(
+                            color: Colors.white
+                          ),
+                        )
                     ),
                     TextButton(
                         onPressed: (){

@@ -21,7 +21,7 @@ class _AcceuilState extends State<Acceuil> {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             title: const Text('Tela',
               style: TextStyle(
@@ -55,7 +55,14 @@ class _AcceuilState extends State<Acceuil> {
                         onPressed: (){
                           model.navigateToAcceuil();
                         },
-                        child: Text('Acceuil')
+                        style: TextButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+
+                        ),
+                        child: Text('Acceuil',
+                          style: TextStyle(
+                              color: Colors.white
+                          ),)
                     ),
                     TextButton(
                         onPressed: (){
@@ -106,8 +113,6 @@ class _AcceuilState extends State<Acceuil> {
                   ),
                 ),
                 const Spacer(),
-                TelaTVProgrameCard(programmeTV: TelaProgrammeTV(id: 1, type: 'Live', link: '', description: 'Live show Gagne un million', dateTournage: DateTime.now(), dateDiffusion: DateTime.now())),
-                const Spacer(),
                 const Text('Bienvenue sur la plateforme TELA! \n Le meilleur de l\'immobilier',
                   style: TextStyle(
                       fontSize: 16,
@@ -116,6 +121,8 @@ class _AcceuilState extends State<Acceuil> {
                       color: Colors.black
                   ),
                 ),
+                const Spacer(),
+                TelaTVProgrameCard(programmeTV: TelaProgrammeTV(id: 1, type: 'Live', link: '', description: 'Live show Gagne un million', dateTournage: DateTime.now(), dateDiffusion: DateTime.now())),
                 const Text('Parcourez nos offers de bureaux et logement vous trouverez votre bonheur',
                   style: TextStyle(
                       fontSize: 1,
@@ -131,7 +138,7 @@ class _AcceuilState extends State<Acceuil> {
                     children: [
                       TextButton(onPressed: () => model.navigateToRechercheLogement(),
                         style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor
+                          backgroundColor: Theme.of(context).colorScheme.primary
                         ),
                           child: const Text('Trouver un logement',
                             style: TextStyle(
@@ -144,7 +151,7 @@ class _AcceuilState extends State<Acceuil> {
                       ),
                       TextButton(onPressed: () => model.navigateToRechercheBureau(),
                         style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor
+                          backgroundColor: Theme.of(context).colorScheme.primary
                         ),
                           child: const Text('Trouver un Bureau',
                             style: TextStyle(

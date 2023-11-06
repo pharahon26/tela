@@ -59,10 +59,10 @@ class TVService{
 
   List<TelaProgrammeTV> progTest(){
     List<TelaProgrammeTV> list = [];
-    list.add(TelaProgrammeTV(id: 1, type: 'Jeux tv', link: 'https://youtu.be/PY_N1XdFp4w?si=KisXUS31Nj44Wavm', description: 'jeux', dateTournage: DateTime(2023, 7, 12), dateDiffusion: DateTime(2023, 7, 12)));
-    list.add(TelaProgrammeTV(id: 2, type: 'live', link: 'https://m.facebook.com/watch/?v=1031561964648882', description: 'Live DIDI B ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
-    list.add(TelaProgrammeTV(id: 3, type: 'live', link: 'https://m.facebook.com', description: 'camer ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
-    list.add(TelaProgrammeTV(id: 4, type: 'live', link: 'https://m.facebook.com/100089408409048/videos/837083301751759/?extid=WA-UNK-UNK-UNK-AN_GK0T-GK1C&mibextid=O563ZM', description: '???? ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 1, type: 'Jeux tv', link: 'https://youtu.be/PY_N1XdFp4w?si=KisXUS31Nj44Wavm', webview: true, description: 'jeux', dateTournage: DateTime(2023, 7, 12), dateDiffusion: DateTime(2023, 7, 12)));
+    list.add(TelaProgrammeTV(id: 2, type: 'live', link: 'https://m.facebook.com/watch/?v=1031561964648882', facebook: true, webview: true, description: 'Live DIDI B ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 3, type: 'Exemple', link: 'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4', description: 'camer ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 4, type: 'live', link: 'https://www.facebook.com/video.php?v={837083301751759}', webview: true,  description: '???? ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
     return list;
   }
   void close(){

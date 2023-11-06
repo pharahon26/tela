@@ -4,6 +4,8 @@ class TelaProgrammeTV{
   String type = '';
   String link = '';
   String description = '';
+  bool webview = false;
+  bool facebook = false;
   DateTime dateTournage = DateTime.now();
   DateTime dateDiffusion = DateTime.now();
 
@@ -12,6 +14,8 @@ class TelaProgrammeTV{
       {required this.id,
       required this.type,
       required this.link,
+        this.webview = false,
+        this.facebook = false,
       required this.description,
       required this.dateTournage,
       required this.dateDiffusion});

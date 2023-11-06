@@ -13,7 +13,7 @@ class Commune{
     Commune u = Commune(
       id : json["id"],
       name: json["name"],
-      city: json["city"],
+      city: json["city"]??'Abidjan',
     );
     return u;
   }

@@ -5,7 +5,7 @@ import 'package:mobile/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ProfileViewModel extends BaseViewModel{
+class VisiteAbonnementViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
 
@@ -19,7 +19,7 @@ class ProfileViewModel extends BaseViewModel{
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  ProfileViewModel();
+  VisiteAbonnementViewModel();
 
   void navigateToEbank() async{
     await _navigationService.navigateTo(Routes.bank);
@@ -48,8 +48,8 @@ class ProfileViewModel extends BaseViewModel{
   void navigateToLogIn() async{
     await _navigationService.navigateTo(Routes.loginView);
   }
-  void navigateToVisiteAbonnement() async{
-    await _navigationService.navigateToVisiteAbonnement();
+  void navigateToBuyView( String abonnement, double price,) async{
+    await _navigationService.navigateToBuyView(abonement: 'Payer Abonnement \n $abonnement', prix: price);
   }
 
 }

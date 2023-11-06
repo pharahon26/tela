@@ -22,7 +22,7 @@ class _RechercheState extends State<Recherche> {
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             title: const Text('Recherche',
               style: TextStyle(
@@ -65,16 +65,30 @@ class _RechercheState extends State<Recherche> {
                         child: Text('profile')
                     ),
                     TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
+
+                        ),
                         onPressed: (){
                           model.navigateToRechercheLogement();
                         },
-                        child: Text('Trouver un logement')
+                        child: Text('Trouver un logement',
+                          style: TextStyle(
+                              color: !widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
+                          ),)
                     ),
                     TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: !widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
+
+                        ),
                         onPressed: (){
                           model.navigateToRechercheBureau();
                         },
-                        child: Text('Trouver un Bureau')
+                        child: Text('Trouver un Bureau',
+                          style: TextStyle(
+                            color: widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
+                          ),)
                     ),
                     TextButton(
                         onPressed: (){
@@ -119,13 +133,46 @@ class _RechercheState extends State<Recherche> {
                           widget.isBureau ? 'Bureau' : 'Logement',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.2
                           ),
                         ),
                       ),
+                    ),
+
+                    StreamBuilder<bool>(
+                      stream: model.isAuth,
+                      builder: (context, snapshot) {
+                        switch(snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return SizedBox.shrink();
+                          case ConnectionState.waiting:
+                        return SizedBox.shrink();
+                          case ConnectionState.active:
+                          return snapshot.data!? SizedBox.shrink() : InkWell(
+                            onTap: () => model.navigateToProfile(),
+                              child: Text('Vous n\'êtes pas connecté! Cliquez ici pour vous connecter ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              )
+                          );
+                          case ConnectionState.done:
+                            return snapshot.data!? SizedBox.shrink() : InkWell(
+                                onTap: () => model.navigateToProfile(),
+                                child: Text('Vous n\'êtes pas connecté! Cliquez ici pour vous connecter ',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                )
+                            );
+                        }
+
+                      }
                     ),
 
                     Divider(),
@@ -136,29 +183,72 @@ class _RechercheState extends State<Recherche> {
                     /// Commune
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: PopupMenuButton(
-                            color: Colors.white,
-                            onSelected: (commm){
-                              setState(() {
-                                model.commune = commm;
-                              });
-                            },
-                            offset: const Offset(100, 0),
-                            itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
-                              value: commune,
-                              child: Text(commune.name,
-                                style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      child: FutureBuilder<List<DropdownMenuItem<Commune>>>(
+                        future: model.cc(),
+                        builder: (context, snapshot) {
+                          switch(snapshot.connectionState) {
+                            case ConnectionState.none:
+                              return Center(child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: CircularProgressIndicator(),
+                              ));
+                            case ConnectionState.waiting:
+                              return Center(child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: CircularProgressIndicator(),
+                              ));
+                            case ConnectionState.active:
+                              return Container(
+                              child: PopupMenuButton(
+                                  color: Colors.white,
+                                  onSelected: (commm){
+                                      model.commune = commm;
+                                  },
+                                  offset: const Offset(100, 0),
+                                  itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
+                                    value: commune,
+                                    child: Text(commune.name,
+                                      style: TextStyle(
+                                          color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
 
+                                    ),
+                                  )).toList(),
+                                  child: Text(model.commune.name,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
                               ),
-                          )).toList(),
-                            child: Text(model.commune.name,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
-                        ),
 
+                            );
+                            case ConnectionState.done:
+                              return Container(
+                                child: PopupMenuButton(
+                                    color: Colors.white,
+                                    onSelected: (commm){
+                                      setState(() {
+                                        model.commune = commm;
+                                      });
+                                    },
+                                    offset: const Offset(100, 0),
+                                    itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
+                                      value: commune,
+                                      child: Text(commune.name,
+                                        style: TextStyle(
+                                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+
+                                      ),
+                                    )).toList(),
+                                    child: Text(model.commune.name,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
+                                ),
+
+                              );
+                          }
+                        }
                       ),
                     ),
 
@@ -265,7 +355,11 @@ class _RechercheState extends State<Recherche> {
                         },
                             icon: Icon(Icons.remove)
                         ),
-                        Text('${model.nombreDePieces}'),
+                        Text('${model.nombreDePieces}',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary
+                          ),
+                        ),
                         IconButton(onPressed: (){
                           setState(() {
                             if (model.nombreDePieces<40) {
@@ -296,7 +390,11 @@ class _RechercheState extends State<Recherche> {
                         },
                             icon: Icon(Icons.remove)
                         ),
-                        Text('${model.nombreDeSalleDeau}'),
+                        Text('${model.nombreDeSalleDeau}',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary
+                          ),
+                        ),
                         IconButton(onPressed: (){
                           setState(() {
                             if (model.nombreDeSalleDeau<40) {
@@ -407,7 +505,7 @@ class _RechercheState extends State<Recherche> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           elevation: 8,
                         ),
                         child: const Text('Rechercher',

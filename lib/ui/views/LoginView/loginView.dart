@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView>
           appBar: AppBar(
             title: Text('Connexion', style: TextStyle(color: Colors.white)),
             centerTitle: true,
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.arrow_back_ios_new,
@@ -68,27 +68,53 @@ class _LoginViewState extends State<LoginView>
                       ),
 
                       /// phone field
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: TextField(
+                      //     autofocus: true,
+                      //     keyboardType: TextInputType.phone,
+                      //     style: TextStyle(
+                      //       color: Colors.black,
+                      //     ),
+                      //     decoration: InputDecoration(
+                      //       icon: Icon(
+                      //         Icons.phone_android,
+                      //         color: Theme.of(context).colorScheme.primary,
+                      //       ),
+                      //       labelText: 'Numéro de téléphone',
+                      //       labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                      //       enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                      //       focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                      //       hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                      //     ),
+                      //     onChanged: (value) {
+                      //       model.phone = value;
+                      //     },
+                      //   ),
+                      // ),
+
+
+                      /// mail field
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
-                          autofocus: true,
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             icon: Icon(
-                              Icons.phone_android,
+                              Icons.mail_outline,
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                            labelText: 'Numéro de téléphone',
+                            labelText: 'E-mail',
                             labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                             enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                             focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
                             hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                           ),
                           onChanged: (value) {
-                            model.phone = value;
+                            model.mail = value;
                           },
                         ),
                       ),
@@ -151,7 +177,7 @@ class _LoginViewState extends State<LoginView>
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 80.0),
                 child: Text(
-                  'Créer le profil',
+                  'Connexion',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     color: Colors.white,
