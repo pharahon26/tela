@@ -24,11 +24,14 @@ class RechercheViewModel extends BaseViewModel{
   bool isAppart = false;
   bool isDuplex = false;
   bool isHautStanding = false;
+  bool isHautStandingPicine = false;
   bool hasPiscine = false;
   bool hasGardien = false;
   bool hasGarage = false;
   bool hasCoursAvant = false;
   bool hasCoursArriere = false;
+  bool hasBalconAvant = false;
+  bool hasBalconArriere = false;
 
   int nombreDePieces = 1;
   int nombreDeSalleDeau = 1;

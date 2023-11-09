@@ -9,7 +9,7 @@ class TelaTVProgrameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
     return Card(
-      color: Theme.of(context).colorScheme.primary,
+      color: Colors.deepOrange,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25)
       ),
@@ -21,7 +21,7 @@ class TelaTVProgrameCard extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
+                colors: [Colors.orange, Colors.deepOrange])
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

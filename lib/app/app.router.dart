@@ -13,7 +13,7 @@ import 'package:mobile/ui/views/ebank/bank_resume/bank.dart' as _i6;
 import 'package:mobile/ui/views/ebank/buyView/buyView.dart' as _i15;
 import 'package:mobile/ui/views/ebank/depot/depot.dart' as _i7;
 import 'package:mobile/ui/views/ebank/versement/versement.dart' as _i8;
-import 'package:mobile/ui/views/immo/galerie/galerie.dart' as _i9;
+import 'package:mobile/ui/views/immo/catalogue/catalogue.dart' as _i9;
 import 'package:mobile/ui/views/immo/recherche/recherche.dart' as _i10;
 import 'package:mobile/ui/views/immo/resultat/resultat.dart' as _i11;
 import 'package:mobile/ui/views/immo/visite/visite.dart' as _i12;
@@ -108,7 +108,7 @@ class StackedRouter extends _i1.RouterBase {
     ),
     _i1.RouteDef(
       Routes.galerie,
-      page: _i9.Galerie,
+      page: _i9.Catalogue,
     ),
     _i1.RouteDef(
       Routes.recherche,
@@ -183,9 +183,9 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i9.Galerie: (data) {
+    _i9.Catalogue: (data) {
       return _i17.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i9.Galerie(),
+        builder: (context) => const _i9.Catalogue(),
         settings: data,
       );
     },

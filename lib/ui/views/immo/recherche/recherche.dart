@@ -321,7 +321,23 @@ class _RechercheState extends State<Recherche> {
                       ),
                     ),
 
-                    /// IS Haut standing
+                    /// IS Haut standing avec piscine
+                    CheckboxListTile(
+                        value: model.isHautStandingPicine,
+                      onChanged: (r) {
+                        setState(() {
+                          model.isHautStandingPicine = r!;
+                        });
+                      },
+                      title: Text(
+                        "Haut standing avec piscine",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
+                    ),
+                    /// IS Haut standing sans piscine
                     CheckboxListTile(
                         value: model.isHautStanding,
                       onChanged: (r) {
@@ -330,7 +346,7 @@ class _RechercheState extends State<Recherche> {
                         });
                       },
                       title: Text(
-                        "Haut standing",
+                        "Haut standing sans piscine",
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
                       ),
@@ -409,7 +425,7 @@ class _RechercheState extends State<Recherche> {
 
                     ///TYPE
                     Divider(),
-                    const Text('Commoditées',
+                    const Text('Commoditées additionnelles',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                     Divider(),
@@ -445,22 +461,54 @@ class _RechercheState extends State<Recherche> {
                         checkColor: Colors.white,
                         activeColor: Theme.of(context).colorScheme.primary
                     ),
-                    /// IS Piscine
+                    /// IS balcon avant
                     CheckboxListTile(
-                        value: model.hasPiscine,
+                        value: model.hasBalconAvant,
                       onChanged: (r) {
                         setState(() {
-                          model.hasPiscine = r!;
+                          model.hasBalconAvant = r!;
                         });
                       },
                       title: Text(
-                        "Piscine",
+                        "Balcon Avant",
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                         checkColor: Colors.white,
                         activeColor: Theme.of(context).colorScheme.primary
                     ),
+                    /// IS Balcon Arriere
+                    CheckboxListTile(
+                        value: model.hasBalconArriere,
+                      onChanged: (r) {
+                        setState(() {
+                          model.hasBalconArriere = r!;
+                        });
+                      },
+                      title: Text(
+                        "Balcon Arriere",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
+                    ),
+                    /// IS Piscine
+                    // CheckboxListTile(
+                    //     value: model.hasPiscine,
+                    //   onChanged: (r) {
+                    //     setState(() {
+                    //       model.hasPiscine = r!;
+                    //     });
+                    //   },
+                    //   title: Text(
+                    //     "Piscine",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    //   ),
+                    //     checkColor: Colors.white,
+                    //     activeColor: Theme.of(context).colorScheme.primary
+                    // ),
                     /// IS GARAGE
                     CheckboxListTile(
                         value: model.hasGarage,

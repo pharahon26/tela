@@ -9,7 +9,7 @@ import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
 import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
-import 'package:mobile/ui/views/immo/galerie/galerie.dart';
+import 'package:mobile/ui/views/immo/catalogue/catalogue.dart';
 import 'package:mobile/ui/views/immo/recherche/recherche.dart';
 import 'package:mobile/ui/views/immo/resultat/resultat.dart';
 import 'package:mobile/ui/views/immo/visite/visite.dart';
@@ -32,7 +32,7 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: Bank),
       MaterialRoute(page: Depot),
       MaterialRoute(page: Versement),
-      MaterialRoute(page: Galerie),
+      MaterialRoute(page: Catalogue),
       MaterialRoute(page: Recherche),
       MaterialRoute(page: Resultat),
       MaterialRoute(page: Visite),

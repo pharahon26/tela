@@ -84,8 +84,8 @@ class _BuyViewState extends State<BuyView> {
                                     fontSize: 20, fontWeight: FontWeight.bold),
                                 titleBackgroundColor: Theme.of(context).colorScheme.primary,
                                 configData: <String, dynamic>{
-                                  'apikey': 'API_KEY',
-                                  'site_id': int.parse("616533681120"),
+                                  'apikey': '412126359654bb6ed651509.14435556',
+                                  'site_id': int.parse("5865665"),
                                   'notify_url': 'YOUR_NOTIFY_URL'
                                 },
                                 paymentData: <String, dynamic>{
