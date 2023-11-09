@@ -122,13 +122,26 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text('${model.user!.nom} ${model.user!.prenom}',
-                                      textAlign: model.user!.isDemarcheur? TextAlign.right : TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: model.user!.isDemarcheur? 18.0 : 24,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('${model.user!.nom} ${model.user!.prenom}',
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: model.user!.isDemarcheur? 18.0 : 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(model.user!.phone,
+                                          textAlign: model.user!.isDemarcheur? TextAlign.left : TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize:model.user!.isDemarcheur? 18.0 : 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   model.user!.isDemarcheur? Spacer() : SizedBox.shrink(),
@@ -156,80 +169,156 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ],
                                   ) : SizedBox.shrink(),
-                                  Spacer(),
-                                  Text('${model.user!.phone}',
-                                    textAlign: model.user!.isDemarcheur? TextAlign.left : TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize:model.user!.isDemarcheur? 18.0 : 20,
-                                      fontWeight: FontWeight.bold,
+                                  model.user!.isDemarcheur? Spacer() : SizedBox.shrink(),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TextButton(
+                                          onPressed: () => model.navigateToGalery(),
+                                          style: TextButton.styleFrom(
+                                            alignment: Alignment.centerLeft,
+                                            backgroundColor: Colors.white,
+                                            elevation: 5,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 4),
+                                            child: Text('Mon Catalogue',style: TextStyle(
+                                                color: Theme.of(context).colorScheme.primary,
+                                                fontSize:18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          )
+                                      ),
                                     ),
-                                  ),
-                                  Spacer()
+                                  )
                                 ],
                               ),
                             ),
                           ),
                           SizedBox(height: 40,),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Abonnement Visites'),
+                                    Text('Actif/inactif'),
+                                  ],
                                 ),
-                                color: Theme.of(context).colorScheme.primary,
-                                child: InkWell(
-                                  onTap: () => model.navigateToVisiteAbonnement(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(24.0),
-                                    child: Text('Accédez a notre catalogue de bien immobilier. \n '
-                                        'Pour vos besoins en logement et bureaux',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
+                              ),
+                              Divider(
+                                color: Colors.black,
+                                thickness: 0.7,
+                                indent: 35,
+                                endIndent: 35,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Du ...'),
+                                    Text('Au ...'),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(45)
+                                    ),
+                                    color: Theme.of(context).colorScheme.primary,
+                                    child: InkWell(
+                                      onTap: () => model.navigateToVisiteAbonnement(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(24.0),
+                                        child: Text('Accédez a notre catalogue de bien immobilier. \n '
+                                            'Pour vos besoins en logement et bureaux',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                )),
+                                    )),
+                              ),
+                            ],
                           ),
-                          model.user!.isDemarcheur? SizedBox.shrink() : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)
+                          SizedBox(height: 40,),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Abonnement Démarcheur'),
+                                    Text('Actif/inactif'),
+                                  ],
                                 ),
-                                color: Theme.of(context).colorScheme.primary,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(24.0),
-                                  child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
-                                      'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)
+                              ),
+                              Divider(
+                                color: Colors.black,
+                                thickness: 0.7,
+                                indent: 35,
+                                endIndent: 35,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Du ...'),
+                                    Text('Au ...'),
+                                  ],
                                 ),
-                                color: Theme.of(context).colorScheme.primary,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(24.0),
-                                  child: Text('Tela TV. \n '
-                                      'Divertissement, émission live, accédez à nos programmes',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
+                              ),
+                              model.user!.isDemarcheur? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(45)
                                     ),
-                                  ),
-                                )),
+                                    color: Theme.of(context).colorScheme.primary,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(24.0),
+                                      child: Text('Souscrivez à votre abonnement démarcheur. \n '
+                                          'Faite apparaitre vos annonces dans les recherches, gagné de l\'argent.\n'
+                                          '\n Consultez nos offres!',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )),
+                              ) : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(45)
+                                    ),
+                                    color: Theme.of(context).colorScheme.primary,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(24.0),
+                                      child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
+                                          'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )),
+                              ),
+                            ],
                           ),
                         ],
                       )
