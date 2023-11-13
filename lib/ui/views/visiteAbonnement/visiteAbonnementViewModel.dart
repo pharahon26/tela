@@ -1,5 +1,6 @@
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
+import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
@@ -14,12 +15,15 @@ class VisiteAbonnementViewModel extends BaseViewModel{
   SnackbarService _snackbarService = locator<SnackbarService>();
 
   bool _isA = false;
-
+  String type;
+  List<AbonnementType> abonnements = [];
 
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  VisiteAbonnementViewModel();
+  VisiteAbonnementViewModel({required this.type}){
+    abonnements = _authService.abonnementType.where((element) => element.type == type).toList();
+  }
 
   void navigateToEbank() async{
     await _navigationService.navigateTo(Routes.bank);
@@ -28,7 +32,7 @@ class VisiteAbonnementViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.profile);
   }
   void navigateToTV() async{
-    await _navigationService.navigateTo(Routes.programmeTv);
+    await _navigationService.navigateTo(Routes.chanelTv);
   }
   void navigateToRechercheBureau() async{
     await _navigationService.navigateToRecherche(isBureau: true);
@@ -37,7 +41,7 @@ class VisiteAbonnementViewModel extends BaseViewModel{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.galerie);
+    await _navigationService.navigateTo(Routes.catalogue);
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);
@@ -48,8 +52,8 @@ class VisiteAbonnementViewModel extends BaseViewModel{
   void navigateToLogIn() async{
     await _navigationService.navigateTo(Routes.loginView);
   }
-  void navigateToBuyView( String abonnement, double price,) async{
-    await _navigationService.navigateToBuyView(abonement: 'Payer Abonnement \n $abonnement', prix: price);
+  void navigateToBuyView( AbonnementType abonnement) async{
+    await _navigationService.navigateToBuyView(abonement: abonnement);
   }
 
 }

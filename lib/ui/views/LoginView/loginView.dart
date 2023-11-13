@@ -68,53 +68,27 @@ class _LoginViewState extends State<LoginView>
                       ),
 
                       /// phone field
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: TextField(
-                      //     autofocus: true,
-                      //     keyboardType: TextInputType.phone,
-                      //     style: TextStyle(
-                      //       color: Colors.black,
-                      //     ),
-                      //     decoration: InputDecoration(
-                      //       icon: Icon(
-                      //         Icons.phone_android,
-                      //         color: Theme.of(context).colorScheme.primary,
-                      //       ),
-                      //       labelText: 'Numéro de téléphone',
-                      //       labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                      //       enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                      //       focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                      //       hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                      //     ),
-                      //     onChanged: (value) {
-                      //       model.phone = value;
-                      //     },
-                      //   ),
-                      // ),
-
-
-                      /// mail field
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
-                          keyboardType: TextInputType.emailAddress,
+                          autofocus: true,
+                          keyboardType: TextInputType.phone,
                           style: TextStyle(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             icon: Icon(
-                              Icons.mail_outline,
+                              Icons.phone_android,
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                            labelText: 'E-mail',
+                            labelText: 'Numéro de téléphone',
                             labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                             enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                             focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
                             hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                           ),
                           onChanged: (value) {
-                            model.mail = value;
+                            model.phone = value;
                           },
                         ),
                       ),
@@ -166,7 +140,7 @@ class _LoginViewState extends State<LoginView>
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
-                  model.fakeLogin();
+                  model.login();
                 });
               },
               style: ElevatedButton.styleFrom(

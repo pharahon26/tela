@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/ebank/buyView/bankViewModel.dart';
+import 'package:mobile/models/abonnement.dart';
+import 'package:mobile/models/abonnementType.dart';
+import 'package:mobile/models/transactions.dart';
+import 'package:mobile/ui/views/ebank/buyView/buyViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 import 'dart:async';
@@ -10,9 +13,8 @@ import 'package:get/get.dart';
 
 
 class BuyView extends StatefulWidget {
-  final String abonement;
-  final double prix;
-  const BuyView({super.key, required this.abonement, required this.prix});
+  final AbonnementType abonement;
+  const BuyView({super.key, required this.abonement});
 
   @override
   State<BuyView> createState() => _BuyViewState();
@@ -31,6 +33,25 @@ class _BuyViewState extends State<BuyView> {
       viewModelBuilder: () => BuyViewModel(),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            centerTitle: true,
+            title: const Text('Payement',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.3,
+                  color: Colors.white
+              ),
+            ),
+            elevation: 5,
+            leading: InkWell(
+              onTap: () => Navigator.pop(context),
+              child: Icon(Icons.arrow_back_ios_new,
+                color: Colors.white,
+              ),
+            ),
+          ),
           body: SafeArea(
               child: Center(
                   child: ListView(
@@ -42,13 +63,13 @@ class _BuyViewState extends State<BuyView> {
                           show ? Icon(icon, color: color, size: 150) : Container(),
                           show ? Text(message!) : Container(),
                           show ? const SizedBox(height: 50.0) : Container(),
-                          Text(widget.abonement,
+                          Text('${widget.abonement.title} ${widget.abonement.type} : ${widget.abonement.price} FCFA',
                             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 40.0),
                           ElevatedButton(
-                            child: const Text("Payer --avec CinetPay--"),
+                            child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay'),
                             onPressed: () async {
                               // String amount = amountController.text;
                               // if (amount.isEmpty) {
@@ -78,27 +99,89 @@ class _BuyViewState extends State<BuyView> {
                                   .nextInt(100000000)
                                   .toString(); // Mettre en place un endpoint à contacter côté serveur pour générer des ID unique dans votre BD
 
+
+
+                              print('Payement..................................');
+                              /// send abonnement
+                              TelaTransaction _transaction = TelaTransaction(
+                                  id: 0,
+                                  type: widget.abonement.type,
+                                  paymentWay: 'Orange',
+                                  transactionNumber: transactionId,
+                                  operationId: 'ggggg',
+                                  userID: model.user!.id,
+                                  amount: widget.abonement.price.toDouble(),
+                                  date: DateTime.now(),
+                              );
+
+                              Abonnement ab = Abonnement(
+                                  id: 0,
+                                  type: widget.abonement.type,
+                                  userId: model.user!.id,
+                                  transactionId: int.parse(transactionId),
+                                  abonnementTypeID: widget.abonement.id,
+                                  start: DateTime.now(),
+                                  end: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+                                  abonnementType: widget.abonement
+                              );
+
+                              await model.pushTransaction(_transaction, ab);
                               await Get.to(CinetPayCheckout(
-                                title: 'Payment Checkout',
+                                title: 'Payment Tela',
                                 titleStyle: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                                 titleBackgroundColor: Theme.of(context).colorScheme.primary,
                                 configData: <String, dynamic>{
                                   'apikey': '412126359654bb6ed651509.14435556',
                                   'site_id': int.parse("5865665"),
-                                  'notify_url': 'YOUR_NOTIFY_URL'
                                 },
                                 paymentData: <String, dynamic>{
                                   'transaction_id': transactionId,
-                                  'amount': widget.prix.toInt(),
+                                  'amount': widget.abonement.price,
                                   'currency': 'XOF',
                                   'channels': 'ALL',
                                   'description': 'Payment test',
+                                  'customer_name': model.user!.nom,
+                                  'customer_surname':  model.user!.prenom,
+                                  'customer_phone_number': model.user!.phone,
                                 },
-                                waitResponse: (data) {
+                                waitResponse: (data) async {
                                   if (mounted) {
+                                    print('Payement..................................');
+                                    response = data;
+                                    /// send abonnement
+                                    TelaTransaction _transaction = TelaTransaction(
+                                        id: 0,
+                                        type: widget.abonement.type,
+                                        paymentWay: data['payment_method ']??'Orange',
+                                        transactionNumber: transactionId,
+                                        operationId: data['operator_id']??'',
+                                        userID: model.user!.id,
+                                        amount: double.parse(data['amount']??widget.abonement.price),
+                                        date: data['date']??'2023-10-26'
+                                    );
+
+                                    Abonnement ab = Abonnement(
+                                        id: 0,
+                                        type: widget.abonement.type,
+                                        userId: model.user!.id,
+                                        transactionId: int.parse(transactionId),
+                                        abonnementTypeID: widget.abonement.id,
+                                        start: DateTime.now(),
+                                        end: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
+                                        abonnementType: widget.abonement
+                                    );
+
+                                    await model.pushTransaction(_transaction, ab);
+
+                                    if (data['status'] == 'ACCEPTED') {
+                                      /// create transaction
+
+
+                                      /// save transaction to server and pop out after dialog
+
+                                    }
                                     setState(() {
-                                      response = data;
                                       print(response);
                                       icon = data['status'] == 'ACCEPTED'
                                           ? Icons.check_circle
@@ -113,6 +196,7 @@ class _BuyViewState extends State<BuyView> {
                                 },
                                 onError: (data) {
                                   if (mounted) {
+                                    print('Error Payement');
                                     setState(() {
                                       response = data;
                                       message = response!['description'];

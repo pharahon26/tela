@@ -1,5 +1,6 @@
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
+import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
@@ -18,6 +19,12 @@ class ProfileViewModel extends BaseViewModel{
 
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
+  Abonnement? get abonnement => _authService.abonnement;
+  String get stra => _authService.abonnement != null?_authService.abonnementDemarcheur!.startSTR():'Du ...';
+  String get enda => _authService.abonnement != null?_authService.abonnementDemarcheur!.endSTR():'Au ...';
+  String get strd => _authService.abonnementDemarcheur != null?_authService.abonnementDemarcheur!.startSTR():'Du ...';
+  String get endd => _authService.abonnementDemarcheur != null?_authService.abonnementDemarcheur!.endSTR():'Au ...';
+  Abonnement? get abonnementDemarcheur => _authService.abonnementDemarcheur;
 
   ProfileViewModel();
 
@@ -28,7 +35,7 @@ class ProfileViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.profile);
   }
   void navigateToTV() async{
-    await _navigationService.navigateTo(Routes.programmeTv);
+    await _navigationService.navigateTo(Routes.chanelTv);
   }
   void navigateToRechercheBureau() async{
     await _navigationService.navigateToRecherche(isBureau: true);
@@ -37,7 +44,7 @@ class ProfileViewModel extends BaseViewModel{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.galerie);
+    await _navigationService.navigateTo(Routes.catalogue);
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);
@@ -48,8 +55,10 @@ class ProfileViewModel extends BaseViewModel{
   void navigateToLogIn() async{
     await _navigationService.navigateTo(Routes.loginView);
   }
-  void navigateToVisiteAbonnement() async{
-    await _navigationService.navigateToVisiteAbonnement();
+  void navigateToVisiteAbonnement(String type) async{
+    await _navigationService.navigateToVisiteAbonnement(type: type);
+  }
+  void chechPass() async{
   }
 
 }

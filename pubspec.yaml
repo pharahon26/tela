@@ -40,10 +40,13 @@ dependencies:
   stacked: ^3.4.1+1
   stacked_services: ^1.3.0
   flutter_local_notifications: ^16.1.0
+  shared_preferences: ^2.2.2
   webview_flutter: ^4.4.2
   cinetpay: ^1.0.7
   get: ^4.6.6
   video_player: ^2.8.1
+  intl: ^0.18.1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -84,6 +87,18 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/logo_2.png
+    - assets/images/acc1.jpg
+    - assets/images/acc2.jpg
+    - assets/images/acc3.jpg
+    - assets/images/acc4.jpg
+    - assets/images/acc5.jpg
+    - assets/images/acc6.jpg
+    - assets/images/sport.jpg
+    - assets/images/films.jpg
+    - assets/images/live.jpg
+    - assets/images/différé.jpg
+    - assets/images/rediffusion.jpg
+    - assets/images/pub.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -41,7 +41,7 @@ class RechercheViewModel extends BaseViewModel{
 
   Future<List<DropdownMenuItem<Commune>> > cc() async {
     if (communes.isEmpty) {
-      communes = await _authService.communes();
+      communes = _authService.communes;
       commune = communes.first;
       for (Commune element in communes) {
         dropDownItems.add(DropdownMenuItem(value: element,
@@ -61,6 +61,8 @@ class RechercheViewModel extends BaseViewModel{
   }
 
   RechercheViewModel(){
+    communes = _authService.communes;
+    commune = communes.first;
   }
 
 
@@ -83,7 +85,7 @@ class RechercheViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.profile);
   }
   void navigateToTV() async{
-    await _navigationService.navigateTo(Routes.programmeTv);
+    await _navigationService.navigateTo(Routes.chanelTv);
   }
   void navigateToRechercheBureau() async{
     await _navigationService.navigateToRecherche(isBureau: true);
@@ -92,7 +94,7 @@ class RechercheViewModel extends BaseViewModel{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.galerie);
+    await _navigationService.navigateTo(Routes.catalogue);
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);

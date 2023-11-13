@@ -1,22 +1,21 @@
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
-import 'package:mobile/services/auth_service.dart';
+import 'package:mobile/models/programetv.dart';
+import 'package:mobile/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AcceuilViewModel extends BaseViewModel{
+class ChannelTvViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
+  TVService _tvService = locator<TVService>();
   DialogService _dialogService = locator<DialogService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
-
-  AcceuilViewModel(){
-    _authService.saveCommune();
-    _authService.saveAbonnementType();
+  List<TelaProgrammeTV> program = [];
+  ChannelTvViewModel(){
+    program = _tvService.progTest();
   }
-
 
   void navigateToEbank() async{
     await _navigationService.navigateTo(Routes.bank);
@@ -30,6 +29,7 @@ class AcceuilViewModel extends BaseViewModel{
   void navigateToprogTV() async{
     await _navigationService.navigateTo(Routes.programmeTv);
   }
+
   void navigateToRechercheBureau() async{
     await _navigationService.navigateToRecherche(isBureau: true);
   }
@@ -41,6 +41,9 @@ class AcceuilViewModel extends BaseViewModel{
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);
+  }
+  void navigateToLiveTV(TelaProgrammeTV programmeTV) async{
+    await _navigationService.navigateToTv(programmeTV: programmeTV);
   }
 
 

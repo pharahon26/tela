@@ -24,7 +24,7 @@ class ProgrammeTvViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.profile);
   }
   void navigateToTV() async{
-    await _navigationService.navigateTo(Routes.programmeTv);
+    await _navigationService.navigateTo(Routes.chanelTv);
   }
 
   void navigateToRechercheBureau() async{
@@ -34,7 +34,7 @@ class ProgrammeTvViewModel extends BaseViewModel{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.galerie);
+    await _navigationService.navigateTo(Routes.catalogue);
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);

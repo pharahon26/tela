@@ -14,6 +14,8 @@ import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
 import '../services/place_service.dart';
+import '../services/telaSharedPrefs.dart';
+import '../services/transaction_service.dart';
 import '../services/tv_service.dart';
 
 final locator = StackedLocator.instance;
@@ -27,8 +29,13 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  final telaSharedPrefs = TelaSharedPrefs();
+  await telaSharedPrefs.init();
+  locator.registerSingleton(telaSharedPrefs);
+
   locator.registerSingleton(AuthService());
   locator.registerSingleton(PlaceService());
+  locator.registerSingleton(TransactionService());
   locator.registerSingleton(TVService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => DialogService());

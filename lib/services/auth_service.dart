@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:mobile/models/abonnement.dart';
+import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/commune.dart';
 import 'package:mobile/models/demacheur.dart';
 import 'package:mobile/models/user.dart';
@@ -12,9 +13,10 @@ import 'package:rxdart/rxdart.dart';
 class AuthService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
-  static const String _SIGN_UP_URL = "api/users/create";
-  static const String _LOGIN_URL = "login";
+  static const String _SIGN_UP_URL = "api/users/create/";
+  static const String _LOGIN_URL = "api/login";
   static const String _COMMUNE_URL = "api/communes";
+  static const String _ABONNEMENT_TYPE_URL = "api/type-abonnement";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
@@ -24,6 +26,10 @@ class AuthService{
   Abonnement? _abonnementPro;
   String _token = '';
   bool _isConnected = false;
+
+  List<Commune> communes = [];
+  List<AbonnementType> abonnementType = [];
+  List<Abonnement> _abonnements = [];
   final BehaviorSubject<bool> _isConnectedSubject = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isConnected => _isConnectedSubject.stream.asBroadcastStream();
 
@@ -45,6 +51,7 @@ class AuthService{
     return IOClient(ioClient);
   }
 
+
   /// SIGN IN
   Future<User?> signIn({
     required String nom,
@@ -60,6 +67,7 @@ class AuthService{
       http.Response response = await client.post(Uri.parse(_BASE_URL+_SIGN_UP_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
+          "X-CSRF-TOKEN": "https://telaci.com",
         },
         body: jsonEncode(<String, dynamic>{
           "nom": nom,
@@ -68,8 +76,6 @@ class AuthService{
           "password": password,
           "email": mail,
           "is_demarcheur": isDemarcheur?1:0,
-          "is_staff": 0,
-          "is_suspended": 0,
         }),
       );
       print('Response status: ${response.statusCode}');
@@ -114,9 +120,31 @@ class AuthService{
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         print(json);
+        print('-----------');
+        print('TEST');
+        print('------------');
         // _token = 'Bearer '+ json["token"]["access_token"];
         _user = User.fromJson(json["user"]);
         print(_user.toString());
+        _demarcheur = Demarcheur.fromJson(json["demarcheur"]);
+        print(_demarcheur.toString());
+
+        for(var ab in json["abonnement"]){
+          Abonnement abonnement = Abonnement.fromJson(ab);
+          if (abonnement.type == 'catalogue') {
+            _abonnement == abonnement;
+          }
+          if (abonnement.type == 'demarcheur') {
+            _abonnementPro == abonnement;
+          }
+          if (abonnement.type == 'tv') {
+            _abonnementTV == abonnement;
+          }
+          _abonnements.add(abonnement);
+        }
+
+        print(json["abonnement"]);
+
         // print('logged In successfully with token $_token');
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
@@ -135,7 +163,7 @@ class AuthService{
   }
 
   /// GET COMMUNES
-  Future<List<Commune>> communes() async {
+  Future<List<Commune>> getCommunes() async {
     var client = _newClient();
     List<Commune> communesList =[];
     try{
@@ -168,6 +196,88 @@ class AuthService{
       client.close();
     }
     return communesList;
+  }
+
+
+  /// GET Abonnement types
+  Future<List<AbonnementType>> getAbonnementTypes() async {
+    var client = _newClient();
+    List<AbonnementType> abtList =[];
+    try{
+      print('${Uri.parse(_BASE_URL+_ABONNEMENT_TYPE_URL)} get Abonnement types');
+      http.Response response = await client.get(Uri.parse(_BASE_URL+_ABONNEMENT_TYPE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+
+        for(var abt in json){
+          abtList.add(AbonnementType.fromJson(abt));
+            print(abt);
+        }
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service commune error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return abtList;
+  }
+
+
+  // /// GET Abonnement
+  // Future<List<Commune>> getAbonnements() async {
+  //   var client = _newClient();
+  //   List<Commune> communesList =[];
+  //   try{
+  //     print('${Uri.parse(_BASE_URL+_COMMUNE_URL)} get Abonnement types');
+  //     http.Response response = await client.get(Uri.parse(_BASE_URL+_COMMUNE_URL),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //       },
+  //     );
+  //     print('Response status: ${response.statusCode}');
+  //     print('Response body: ${response.body}');
+  //     if (response.statusCode == 200) {
+  //       final json = jsonDecode(response.body);
+  //       print(json);
+  //       // _token = 'Bearer '+ json["token"]["access_token"];
+  //
+  //       for(var commune in json){
+  //         communesList.add(Commune.fromJson(commune));
+  //         print(commune);
+  //       }
+  //     }  else {
+  //       print('ERROR reponse status code not 200');
+  //     }
+  //
+  //   }
+  //   catch(e){
+  //     print('auth api service commune error** $e');
+  //   }
+  //   finally{
+  //     client.close();
+  //   }
+  //   return communesList;
+  // }
+
+  void saveCommune() async{
+    communes = await getCommunes();
+  }
+
+  void saveAbonnementType() async{
+    abonnementType = await getAbonnementTypes();
   }
 
   // List<Commune> getCommunes(){

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mobile/models/programetv.dart';
 import 'package:mobile/ui/views/acceuil/acceuilViewModel.dart';
 import 'package:mobile/ui/widget/tela_t_v_programe_card.dart';
@@ -12,6 +15,15 @@ class Acceuil extends StatefulWidget {
 }
 
 class _AcceuilState extends State<Acceuil> {
+
+  List<String> imgs = [
+    'assets/images/acc5.jpg',
+    'assets/images/acc2.jpg',
+    'assets/images/acc3.jpg',
+    'assets/images/acc6.jpg',
+    'assets/images/acc4.jpg',
+    'assets/images/acc1.jpg',
+  ];
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -22,13 +34,21 @@ class _AcceuilState extends State<Acceuil> {
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
-            title: const Text('Tela',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1.3,
-                color: Colors.white
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Image.asset('assets/images/logo_2.png',
+                width: 30,
+                fit: BoxFit.fitWidth,
               ),
+                const Text('Tela',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.3,
+                    color: Colors.white
+                  ),
+                ),
+              ],
             ),
             elevation: 5,
             leading: Builder(
@@ -40,7 +60,41 @@ class _AcceuilState extends State<Acceuil> {
                 );
               },
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: ()=>model.navigateToProfile(),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    elevation: 5,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          gradient: const LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [Colors.orange, Colors.deepOrange])
+                      ),
+                      child: const Text('S\'abonner',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.3,
+                            color: Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+
           drawer: Drawer(
             elevation: 5,
             child: SafeArea(
@@ -91,82 +145,74 @@ class _AcceuilState extends State<Acceuil> {
                         onPressed: (){
                           model.navigateToEbank();
                         },
-                        child: Text('Tela Banking')
+                        child: Text('Tela Finance')
                     ),
                   ]),
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Center(
-                    child: Image.asset('assets/images/logo_2.png',
-                      width: mq.size.width/2,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const Text('TELA, la meilleure plateforme de recherche de logements et de bureaux en Cote D\'Ivoire',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.2,
+                    color: Colors.black
                 ),
-                const Spacer(),
-                const Text('Bienvenue sur la plateforme TELA! \n Le meilleur de l\'immobilier',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.2,
-                      color: Colors.black
-                  ),
+              ),
+              Spacer(),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: mq.size.width),
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: imgs.map((e) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(e,
+                      width: mq.size.width-80,
+                      fit: BoxFit.fitWidth,),
+                  )).toList(),
                 ),
-                const Spacer(),
-                TelaTVProgrameCard(programmeTV: TelaProgrammeTV(id: 1, type: 'Live', link: '', description: 'Live show Gagne un million', dateTournage: DateTime.now(), dateDiffusion: DateTime.now())),
-                const Text('Parcourez nos offers de bureaux et logement vous trouverez votre bonheur',
-                  style: TextStyle(
-                      fontSize: 1,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.2,
-                      color: Colors.black
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(onPressed: () => model.navigateToRechercheLogement(),
-                        style: TextButton.styleFrom(
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(onPressed: () => model.navigateToRechercheLogement(),
+                      style: TextButton.styleFrom(
                           backgroundColor: Theme.of(context).colorScheme.primary
-                        ),
-                          child: const Text('Trouver un logement',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.2,
-                                color: Colors.white
-                            ),
-                          ),
                       ),
-                      TextButton(onPressed: () => model.navigateToRechercheBureau(),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary
+                      child: const Text('Trouver un logement',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                            color: Colors.white
                         ),
-                          child: const Text('Trouver un Bureau',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.2,
-                                color: Colors.white
-                            ),
-                          ),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                    TextButton(onPressed: () => model.navigateToRechercheBureau(),
+                      style: TextButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary
+                      ),
+                      child: const Text('Trouver un Bureau',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                            color: Colors.white
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                Spacer(),
-              ],
-            ),
+              ),
+              Spacer(),
+            ],
           )
       ),
     );

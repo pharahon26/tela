@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mobile/ui/views/tv/programmetv/programmetvViewModel.dart';
+import 'package:get/get.dart';
+import 'package:mobile/ui/views/tv/chaneltv/chaneltvViewModel.dart';
 import 'package:mobile/ui/widget/tela_t_v_programe_card.dart';
 import 'package:stacked/stacked.dart';
 
-class ProgrammeTv extends StatefulWidget {
-  const ProgrammeTv({super.key});
+class ChanelTv extends StatefulWidget {
+  const ChanelTv({super.key});
 
   @override
-  State<ProgrammeTv> createState() => _ProgrammeTvState();
+  State<ChanelTv> createState() => _ChanelTvState();
 }
 
-class _ProgrammeTvState extends State<ProgrammeTv> {
+class _ChanelTvState extends State<ChanelTv> {
+  List<String> imgs = [
+  'assets/images/pub.jpg',
+  'assets/images/live.jpg',
+  'assets/images/sport.jpg',
+    'assets/images/différé.jpg',
+  'assets/images/rediffusion.jpg',
+  'assets/images/films.jpg',
+];
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ProgrammeTvViewModel>.reactive(
-      viewModelBuilder: () => ProgrammeTvViewModel(),
+    MediaQueryData mq =MediaQuery.of(context);
+    return ViewModelBuilder<ChannelTvViewModel>.reactive(
+      viewModelBuilder: () => ChannelTvViewModel(),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -97,9 +107,15 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
             ),
           ),
           body: ListView(
-            children: model.program.map((e) => InkWell(
-              onTap: () => model.navigateToLiveTV(e),
-                child: TelaTVProgrameCard(programmeTV: e,)
+            scrollDirection: Axis.vertical,
+            children: imgs.map((e) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () => model.navigateToprogTV(),
+                  child: Image.asset(e,
+                    width: mq.size.width-80,
+                    fit: BoxFit.fitWidth,)
+              ),
             )).toList(),
           )
       ),

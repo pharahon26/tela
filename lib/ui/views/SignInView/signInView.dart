@@ -128,47 +128,48 @@ class _SignInViewState extends State<SignInView>
                                   Icons.phone_android,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
+                                prefixText: '+225',
                                 labelText: 'Numéro de téléphone',
                                 labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                                 enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                                 focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
                                 hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             ),
+
                             onChanged: (value) {
                               model.phone = value;
                             },
                           ),
                         ),
-                        /// mail field
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.mail_outline,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'E-mail',
-                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                            ),
-                            onChanged: (value) {
-                              model.mail = value;
-                            },
-                          ),
-                        ),
+                        /// Lieu de naissance field
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: TextField(
+                        //     keyboardType: TextInputType.text,
+                        //     style: TextStyle(
+                        //       color: Colors.black,
+                        //     ),
+                        //     decoration: InputDecoration(
+                        //         icon: Icon(
+                        //           Icons.place_outlined,
+                        //           color: Theme.of(context).colorScheme.primary,
+                        //         ),
+                        //         labelText: 'Lieu de naissance',
+                        //         labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                        //         enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                        //         focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                        //         hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                        //     ),
+                        //     onChanged: (value) {
+                        //       model.birthPlace = value;
+                        //     },
+                        //   ),
+                        // ),
 
                         /// password field
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            autofocus: true,
                             keyboardType:  TextInputType.visiblePassword,
                             obscureText: !isPasswordVisible,
                             style: TextStyle(
@@ -204,7 +205,6 @@ class _SignInViewState extends State<SignInView>
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            autofocus: true,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: !isPasswordVisible,
                             style: TextStyle(
@@ -243,17 +243,34 @@ class _SignInViewState extends State<SignInView>
                             },
                           ),
                         ),
+                        
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextButton(
+                              onPressed: () => model.navigateToCGU(),
+                              child: Text('cliquez ICI pour consulter nos conditions générales d\'itulisation',
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.deepOrange,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600
+                                ),
+                              )
+                          ),
+                        ),
 
                         /// IS démarcheur
                         CheckboxListTile(
-                            value: model.isDemarcheur,
+                            value: model.isAccepted,
                             onChanged: (r) {
                               setState(() {
-                                model.isDemarcheur = r!;
+                                model.isAccepted = r!;
                               });
                             },
                             title: Text(
-                              "Être démarcheur ",
+                              "En cochant cette case, je déclare avoir lu et approuvé les conditions générales d'utilisation de la plateforme TELA. Lire nos conditions  \"cliquez plus haut\"",
+                              maxLines: 2,
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
                             ),
@@ -269,12 +286,52 @@ class _SignInViewState extends State<SignInView>
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () {
+                    model.isAccepted? model.signIn() : showDialog(context: context, builder: (buildContext) => Dialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(24.0),
+                            child: Text('Vous dever accepter nos conditions générales d\'itulisation',
+                              maxLines: 3,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.deepOrange,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextButton(
+                                onPressed: () => Navigator.pop(buildContext),
+                                child: Text('Retour',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                )
+                            ),
+                          )
+
+                        ],
+                      ),
+
+                    ));
+                    
+                    
                     setState(() {
-                      model.signIn();
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundColor: model.isAccepted? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withOpacity(0.6),
                       fixedSize: Size(_mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),

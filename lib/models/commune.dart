@@ -29,6 +29,6 @@ class Commune{
 
   @override
   String toString() {
-    return 'Commune{id: $id, name: $name, city: $city}';
+    return 'id: $id, name: $name, city: $city';
   }
 }

@@ -1,12 +1,13 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mobile/ui/views/visiteAbonnement/visiteAbonnementViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class VisiteAbonnement extends StatefulWidget {
-  const VisiteAbonnement({super.key});
+
+  final String type;
+
+  VisiteAbonnement({super.key, required this.type});
 
   @override
   State<VisiteAbonnement> createState() => _VisiteAbonnementState();
@@ -17,7 +18,7 @@ class _VisiteAbonnementState extends State<VisiteAbonnement> {
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
     return ViewModelBuilder<VisiteAbonnementViewModel>.reactive(
-      viewModelBuilder: () => VisiteAbonnementViewModel(),
+      viewModelBuilder: () => VisiteAbonnementViewModel(type: widget.type),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -56,152 +57,56 @@ class _VisiteAbonnementState extends State<VisiteAbonnement> {
                     case ConnectionState.active:
                       return snapshot.data!?Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Card(
-                            elevation: 8,
-                            color: Theme.of(context).colorScheme.primary,
-                            child: InkWell(
-                              onTap: () => model.navigateToBuyView('Visite Basic', 5000),
-                              child: Container(
-                                height: mq.size.height/3,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text('5000 FCFA',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2
+                        children: model.abonnements.map(
+                                (e) => Card(
+                                    elevation: 8,
+                                    color: Theme.of(context).colorScheme.primary,
+                                    child: InkWell(
+                                      onTap: () => model.navigateToBuyView(e),
+                                      child: Container(
+                                        height: mq.size.height/4,
+                                        decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text('${e.price} FCFA',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2
+                                              ),
+                                            ),
+                                            Text('${e.title}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 36,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2
+                                              ),
+                                            ),
+                                            Text('Acces ${e.type}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Text('Basic',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                          fontSize: 36,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.5
-                                      ),
-                                    ),
-                                    Text('Acces à 2 visites',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
-                          Card(
-                            elevation: 8,
-                            color: Theme.of(context).colorScheme.primary,
-                            child: InkWell(
-                              onTap: () => model.navigateToBuyView('Visite Medium : 15.000 FCFA', 15000),
-                              child: Container(
-                                height: mq.size.height/3,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text('15.000 FCFA',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2
-                                      ),
-                                    ),
-                                    Text('Medium',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                          fontSize: 36,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
-                                      ),
-                                    ),
-                                    Text('Acces à 10 visites',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
-                          Card(
-                            elevation: 8,
-                            color: Theme.of(context).colorScheme.primary,
-                            child: InkWell(
-                              onTap: () => model.navigateToBuyView('Visite Premium : 30.000 FCFA', 30000),
-                              child: Container(
-                                height: mq.size.height/3,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text('30.000 FCFA',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2
-                                      ),
-                                    ),
-                                    Text('Premium',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                          fontSize: 36,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
-                                      ),
-                                    ),
-                                    Text('Acces à 50 visites',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
-                        ],
+                                    ))
+                        ).toList(),
                       )
                       :
                       Center(
@@ -221,146 +126,56 @@ class _VisiteAbonnementState extends State<VisiteAbonnement> {
                     case ConnectionState.done:
                       return snapshot.data!?Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Card(
-                              elevation: 8,
-                              color: Theme.of(context).colorScheme.primary,
-                              child: InkWell(
-                                onTap: () => model.navigateToBuyView('Visite Basic : 5000 FCFA', 5000),
-                                child: Container(
-                                  height: mq.size.height/3,
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
+                        children: model.abonnements.map(
+                                (e) => Card(
+                                elevation: 8,
+                                color: Theme.of(context).colorScheme.primary,
+                                child: InkWell(
+                                  onTap: () => model.navigateToBuyView(e),
+                                  child: Container(
+                                    height: mq.size.height/4,
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text('${e.price} FCFA',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2
+                                          ),
+                                        ),
+                                        Text('${e.title}',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2
+                                          ),
+                                        ),
+                                        Text('Acces ${e.type}',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Text('5000 FCFA',
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                      Text('Basic',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 36,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                      Text('Acces à 2 visites',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                          Card(
-                              elevation: 8,
-                              color: Theme.of(context).colorScheme.primary,
-                              child: InkWell(
-                                onTap: () => model.navigateToBuyView('Visite Medium : 15.000 FCFA', 15000),
-                                child: Container(
-                                  height: mq.size.height/3,
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Text('15.000 FCFA',
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                      Text('Medium',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 36,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                      Text('Acces à 10 visites',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                          Card(
-                              elevation: 8,
-                              color: Theme.of(context).colorScheme.primary,
-                              child: InkWell(
-                                onTap: () => model.navigateToBuyView('Visite Premium : 30.000 FCFA', 30000),
-                                child: Container(
-                                  height: mq.size.height/3,
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Text('30.000 FCFA',
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                      Text('Premium',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 36,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                      Text('Acces à 50 visites',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ],
+                                ))
+                        ).toList(),
                       )
                           :
                       Center(

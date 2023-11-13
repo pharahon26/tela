@@ -100,7 +100,7 @@ class _RechercheState extends State<Recherche> {
                         onPressed: (){
                           model.navigateToEbank();
                         },
-                        child: Text('Tela Banking')
+                        child: Text('Tela Finance')
                     ),
                   ]),
             ),
@@ -183,72 +183,24 @@ class _RechercheState extends State<Recherche> {
                     /// Commune
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: FutureBuilder<List<DropdownMenuItem<Commune>>>(
-                        future: model.cc(),
-                        builder: (context, snapshot) {
-                          switch(snapshot.connectionState) {
-                            case ConnectionState.none:
-                              return Center(child: SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: CircularProgressIndicator(),
-                              ));
-                            case ConnectionState.waiting:
-                              return Center(child: SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: CircularProgressIndicator(),
-                              ));
-                            case ConnectionState.active:
-                              return Container(
-                              child: PopupMenuButton(
-                                  color: Colors.white,
-                                  onSelected: (commm){
-                                      model.commune = commm;
-                                  },
-                                  offset: const Offset(100, 0),
-                                  itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
-                                    value: commune,
-                                    child: Text(commune.name,
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      child: PopupMenuButton(
+                          color: Colors.white,
+                          onSelected: (commm){
+                            model.commune = commm;
+                          },
+                          offset: const Offset(100, 0),
+                          itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
+                            value: commune,
+                            child: Text(commune.name,
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
 
-                                    ),
-                                  )).toList(),
-                                  child: Text(model.commune.name,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
-                              ),
-
-                            );
-                            case ConnectionState.done:
-                              return Container(
-                                child: PopupMenuButton(
-                                    color: Colors.white,
-                                    onSelected: (commm){
-                                      setState(() {
-                                        model.commune = commm;
-                                      });
-                                    },
-                                    offset: const Offset(100, 0),
-                                    itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
-                                      value: commune,
-                                      child: Text(commune.name,
-                                        style: TextStyle(
-                                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-
-                                      ),
-                                    )).toList(),
-                                    child: Text(model.commune.name,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
-                                ),
-
-                              );
-                          }
-                        }
+                            ),
+                          )).toList(),
+                          child: Text(model.commune.name,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
                       ),
                     ),
 

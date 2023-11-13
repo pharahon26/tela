@@ -24,12 +24,11 @@ class Demarcheur {
   static Demarcheur fromJson(Map<String, dynamic> json){
     Demarcheur u = Demarcheur(
       id : json["id"],
-      balance: json["balance"],
+      balance: double.parse(json["balance"]),
       userId: json["user_id"],
-      user: json["user"],
-      isSuspended: json["isSuspended"],
+      isSuspended: json["is_suspended"] == 1? true: false,
     );
-    u.creationDate = DateTime.parse(json["creationDate"]);
+    u.creationDate = DateTime.parse(json["created_at"]);
     return u;
   }
 

@@ -8,9 +8,11 @@ class User {
   String nom;
   String mail;
   String phone;
+  double balance = 0;
   bool isDemarcheur = false;
   bool isStaff = false;
   bool isSuspended = false;
+  bool isValidated = false;
   // String token = '';
   // DateTime tokenDate = DateTime.now();
 
@@ -23,7 +25,9 @@ class User {
     required this.prenom,
     this.mail = '',
     this.phone = '',
+    this.balance = 0,
     this.isDemarcheur = false,
+    this.isValidated = false,
     this.isStaff = false,
     this.isSuspended = false,
   });
@@ -32,8 +36,10 @@ class User {
     User u = User(
       nom: json["nom"],
       prenom: json["prenoms"],
-      mail: json["email"],
+      mail: json["email"]??'',
       phone: json["phone"],
+      balance: json["balance"],
+      isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
       isDemarcheur: json["is_demarcheur"]==1,
       isStaff: json["is_staff"]==1,
@@ -51,8 +57,10 @@ class User {
       "prenom": prenom,
       "mail": mail,
       "phone": phone,
+      "balance": balance,
       "creationDate": creationDate,
       "isSuspended": isSuspended?1:0,
+      "is_validated": isValidated?1:0,
       "isDemarcheur": isDemarcheur?1:0,
       "isStaff":isStaff?1:0,
     };

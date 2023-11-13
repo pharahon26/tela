@@ -4,6 +4,7 @@ class TelaTransaction{
   String type = '';
   String paymentWay = '';
   String transactionNumber = '';
+  String operationId = '';
   int userID = 0;
   double amount = 0;
   DateTime date = DateTime.now();
@@ -14,6 +15,7 @@ class TelaTransaction{
       required this.type,
       required this.paymentWay,
       required this.transactionNumber,
+      required this.operationId,
       required this.userID,
       required this.amount,
       required this.date});
@@ -23,12 +25,13 @@ class TelaTransaction{
   static TelaTransaction fromJson(Map<String, dynamic> json){
     TelaTransaction u = TelaTransaction(
       id : json["id"],
-      amount: json["amount"],
+      amount: (json["amount"] as int).toDouble(),
       userID: json["user_id"],
-      type: json["type"],
+      type: json["transaction_type"],
       transactionNumber: json["transaction_number"],
-      date: DateTime.parse(json["date"]),
-      paymentWay: json["payment_way"],
+      date: DateTime.parse(json["date_transaction"]),
+      paymentWay: json["transaction_way"]??'',
+      operationId: '',
     );
     return u;
   }
@@ -36,13 +39,13 @@ class TelaTransaction{
   // map for database
   Map<String, dynamic> toJson(){
     return {
-      "id": id,
       "amount": amount,
       "user_id": userID,
-      "date": date.toIso8601String(),
+      "date_transaction": date.toIso8601String(),
       "transaction_number": transactionNumber,
-      "payment_way": paymentWay,
-      "type": type,
+      "transaction_way": paymentWay,
+      "operation_id": operationId,
+      "transaction_type": type,
     };
   }
 
