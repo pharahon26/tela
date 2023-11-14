@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/models/commune.dart';
+import 'package:mobile/models/place.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/services/place_service.dart';
 import 'package:stacked/stacked.dart';
@@ -13,6 +14,11 @@ class RechercheViewModel extends BaseViewModel{
   AuthService _authService = locator<AuthService>();
   PlaceService _placeService = locator<PlaceService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
+
+
+  bool havePass = false;
+
+
 
 
   bool isBureau = false;
@@ -67,15 +73,24 @@ class RechercheViewModel extends BaseViewModel{
 
 
 
-  void search(){
-    _placeService.search(
-        communeId: commune.id,
-        nombrePiece: nombreDePieces,
-        nombreSalleEau: nombreDeSalleDeau,
-        minPrice: null,
-        maxPrice: null,
+  void search() async {
+    // _placeService.search(
+    //     communeId: commune.id,
+    //     nombrePiece: nombreDePieces,
+    //     nombreSalleEau: nombreDeSalleDeau,
+    //     minPrice: null,
+    //     maxPrice: null,
+    //
+    // );
+    List<TelaPlace> plac = await _placeService.getAllPlaces();
+    navigateToResult(plac);
+  }
 
-    );
+  void navigateToResult(List<TelaPlace> places) async{
+    await _navigationService.navigateToResultat(places: places);
+  }
+  void navigateToVisiteAbonnement(String type) async{
+    await _navigationService.navigateToVisiteAbonnement(type: type);
   }
 
   void navigateToEbank() async{
@@ -98,6 +113,8 @@ class RechercheViewModel extends BaseViewModel{
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);
+  }
+  void chechPass() async{
   }
 
 

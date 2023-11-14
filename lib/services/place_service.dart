@@ -9,8 +9,8 @@ import 'package:mobile/models/place.dart';
 class PlaceService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
-  static const String _PLACE_URL = "telaapi/place";
-  static const String _IMAGE_URL = "telaapi/images";
+  static const String _PLACE_URL = "api/places";
+  static const String _IMAGE_URL = "api/images";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
 
@@ -127,6 +127,41 @@ class PlaceService{
       client.close();
     }
     return images;
+  }
+
+  /// GET all place
+  Future<List<TelaPlace>> getAllPlaces() async {
+    var client = _newClient();
+    List<TelaPlace> places =[];
+    try{
+      print('${Uri.parse(_BASE_URL+_PLACE_URL)} get places');
+      http.Response response = await client.get(Uri.parse('$_BASE_URL$_PLACE_URL'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+        for(var pl in json){
+          places.add(TelaPlace.fromJson(pl));
+          print(pl);
+        }
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('place api service images error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return places;
   }
 
   void close(){

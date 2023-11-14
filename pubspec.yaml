@@ -46,6 +46,7 @@ dependencies:
   get: ^4.6.6
   video_player: ^2.8.1
   intl: ^0.18.1
+  marquee: ^2.2.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -99,6 +100,11 @@ flutter:
     - assets/images/différé.jpg
     - assets/images/rediffusion.jpg
     - assets/images/pub.jpg
+    - assets/images/p1.webp
+    - assets/images/p2.webp
+    - assets/images/p3.webp
+    - assets/images/p4.webp
+    - assets/images/p5.webp
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -42,159 +42,58 @@ class _VisiteAbonnementState extends State<VisiteAbonnement> {
           ),
           body: SingleChildScrollView(
             child: Scrollbar(
-              child: StreamBuilder<bool>(
-                stream: model.isAuth,
-                builder: (context, snapshot) {
-                  switch(snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return  Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    case ConnectionState.waiting:
-                      return  Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    case ConnectionState.active:
-                      return snapshot.data!?Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: model.abonnements.map(
-                                (e) => Card(
-                                    elevation: 8,
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: InkWell(
-                                      onTap: () => model.navigateToBuyView(e),
-                                      child: Container(
-                                        height: mq.size.height/4,
-                                        decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.centerLeft,
-                                                end: Alignment.centerRight,
-                                                colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                                          children: [
-                                            Text('${e.price} FCFA',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 24,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 1.2
-                                              ),
-                                            ),
-                                            Text('${e.title}',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 36,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 1.2
-                                              ),
-                                            ),
-                                            Text('Acces ${e.type}',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 1.2
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ))
-                        ).toList(),
-                      )
-                      :
-                      Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: model.abonnements.map(
+                        (e) => Card(
+                        elevation: 8,
+                        color: Theme.of(context).colorScheme.primary,
                         child: InkWell(
-                            onTap: () => model.navigateToProfile(),
-                            child: Text('Vous n\'êtes pas connecté! Cliquez ici pour vous connecter ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 24,
-                                  letterSpacing: 1.2,
-                                  fontWeight: FontWeight.w600
-                              ),
-                            )
-                        ),
-                      );
-                    case ConnectionState.done:
-                      return snapshot.data!?Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: model.abonnements.map(
-                                (e) => Card(
-                                elevation: 8,
-                                color: Theme.of(context).colorScheme.primary,
-                                child: InkWell(
-                                  onTap: () => model.navigateToBuyView(e),
-                                  child: Container(
-                                    height: mq.size.height/4,
-                                    decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        Text('${e.price} FCFA',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.2
-                                          ),
-                                        ),
-                                        Text('${e.title}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 36,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.2
-                                          ),
-                                        ),
-                                        Text('Acces ${e.type}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.2
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                          onTap: () => model.navigateToBuyView(e),
+                          child: Container(
+                            height: mq.size.height/4,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text('${e.price} FCFA',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2
                                   ),
-                                ))
-                        ).toList(),
-                      )
-                          :
-                      Center(
-                        child: InkWell(
-                            onTap: () => model.navigateToProfile(),
-                            child: Text('Vous n\'êtes pas connecté! Cliquez ici pour vous connecter ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 24,
-                                  letterSpacing: 1.2,
-                                  fontWeight: FontWeight.w600
-                              ),
-                            )
-                        ),
-                      );
-                  }
-
-                }
+                                ),
+                                Text('${e.title}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2
+                                  ),
+                                ),
+                                Text('Acces ${e.type}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ))
+                ).toList(),
               ),
             ),
           )

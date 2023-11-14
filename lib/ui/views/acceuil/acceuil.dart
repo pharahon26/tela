@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mobile/models/programetv.dart';
+import 'package:marquee/marquee.dart';
 import 'package:mobile/ui/views/acceuil/acceuilViewModel.dart';
-import 'package:mobile/ui/widget/tela_t_v_programe_card.dart';
 import 'package:stacked/stacked.dart';
 
 class Acceuil extends StatefulWidget {
@@ -151,19 +150,35 @@ class _AcceuilState extends State<Acceuil> {
             ),
           ),
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Text('TELA, la meilleure plateforme de recherche de logements et de bureaux en Cote D\'Ivoire',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                    color: Colors.black
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: mq.size.width*0.9,
+                  height: 30,
+                  child: Marquee(
+                    text:'TELA, la meilleure plateforme de recherche de logements et de bureaux en Côte D\'Ivoire',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.2,
+                        color: Colors.black
+                    ),
+                    scrollAxis: Axis.horizontal,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    blankSpace: 200.0,
+                    velocity: 70.0,
+                    pauseAfterRound: Duration(seconds: 1),
+                    startPadding: 10.0,
+                    accelerationDuration: Duration(seconds: 1),
+                    accelerationCurve: Curves.linear,
+                    decelerationDuration: Duration(milliseconds: 500),
+                    decelerationCurve: Curves.easeOut,
+                  ),
                 ),
               ),
-              Spacer(),
               ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: mq.size.width),
                 child: ListView(

@@ -17,6 +17,7 @@ class AuthService{
   static const String _LOGIN_URL = "api/login";
   static const String _COMMUNE_URL = "api/communes";
   static const String _ABONNEMENT_TYPE_URL = "api/type-abonnement";
+  static const String _PASS_TYPE_URL = "api/pass-type";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
@@ -219,6 +220,41 @@ class AuthService{
 
         for(var abt in json){
           abtList.add(AbonnementType.fromJson(abt));
+            print(abt);
+        }
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service commune error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return abtList;
+  }
+
+  /// GET Pass types
+  Future<List<PassType>> getPassTypes() async {
+    var client = _newClient();
+    List<PassType> abtList =[];
+    try{
+      print('${Uri.parse(_BASE_URL+_PASS_TYPE_URL)} get Pass types');
+      http.Response response = await client.get(Uri.parse(_BASE_URL+_PASS_TYPE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+        for(var abt in json){
+          abtList.add(PassType.fromJson(abt));
             print(abt);
         }
       }  else {

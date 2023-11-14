@@ -22,6 +22,8 @@ class TelaPlace{
   bool isHautStanding = false;
   bool hasCoursAvant = false;
   bool hasCoursArriere = false;
+  bool hasBalconAvant = false;
+  bool hasBalconArriere = false;
   bool hasGardien = false;
   bool hasGarage = false;
   Commune? commune;
@@ -49,6 +51,8 @@ class TelaPlace{
       this.isHautStanding = false,
       this.hasCoursAvant = false,
       this.hasCoursArriere = false,
+      this.hasBalconAvant = false,
+      this.hasBalconArriere = false,
       this.hasGardien = false,
       this.hasGarage = false,});
 
@@ -58,25 +62,28 @@ class TelaPlace{
       proprioName: json["proprio_name"],
       proprioTelephone: json["proprio_telephone"],
       description: json["description"],
-      latitude: json["latitude"],
-      longitude: json["longitude"],
-      price: json["price"],
+      latitude: double.parse(json["latitude"]),
+      longitude: double.parse(json["longitude"]),
+      price: double.parse(json["price"]),
       communeId: json["commune_id"],
       nombrePiece: json["nombre_piece"],
       nombreSalleEau: json["nombre_salle_eau"],
       demarcheurId: json["demarcheur_id"],
-      isBureau: json["is_bureau"],
-      isAppartment: json["is_appartment"],
-      isDuplex: json["is_duplex"],
-      isHautStanding: json["is_haut_standing"],
-      isMaisonBasse: json["is_maison_basse"],
-      isStudio: json["is_studio"],
-      hasCoursArriere: json["has_cours_arriere"],
-      hasCoursAvant: json["has_cours_avant"],
-      hasGarage: json["has_garage"],
-      hasGardien: json["has_gardien"],
-      hasPiscine: json["has_piscine"],
+      isBureau: json["is_Bureau"]==1,
+      isAppartment: json["is_Appartment"]==1,
+      isDuplex: json["is_DUPLEX"]==1,
+      isHautStanding: json["is_HAUT_STANDING"]==1,
+      isMaisonBasse: json["is_MAISON_BASSE"]==1,
+      isStudio: json["is_Studio"]==1,
+      hasCoursArriere: json["has_COUR_ARRIERE"]==1,
+      hasCoursAvant: json["has_COUR_AVANT"]==1,
+      hasBalconAvant: json["has_balcon_avant"]==1,
+      hasBalconArriere: json["has_balcon_arriere"]==1,
+      hasGarage: json["has_GARAGE"]==1,
+      hasGardien: json["has_GARDIEN"]==1,
+      hasPiscine: json["has_PISCINE"]==1,
     );
+    u.commune = Commune.fromJson(json['commune']);
     return u;
   }
 
@@ -94,17 +101,19 @@ class TelaPlace{
       "nombre_piece": nombrePiece,
       "nombre_salle_eau": nombreSalleEau,
       "demarcheur_id": demarcheurId,
-      "is_bureau": isBureau,
-      "is_appartment": isAppartment,
-      "is_duplex": isDuplex,
-      "is_haut_standing": isHautStanding,
-      "is_maison_basse": isMaisonBasse,
-      "is_studio": isStudio,
-      "has_cours_arriere": hasCoursArriere,
-      "has_cours_avant": hasCoursAvant,
-      "has_garage": hasGarage,
-      "has_gardien": hasGardien,
-      "has_piscine": hasPiscine,
+      "is_bureau": isBureau?1:0,
+      "is_appartment": isAppartment?1:0,
+      "is_duplex": isDuplex?1:0,
+      "is_haut_standing": isHautStanding?1:0,
+      "is_maison_basse": isMaisonBasse?1:0,
+      "is_studio": isStudio?1:0,
+      "has_cours_arriere": hasCoursArriere?1:0,
+      "has_cours_avant": hasCoursAvant?1:0,
+      "has_balcon_arriere": hasBalconArriere?1:0,
+      "has_balcon_avant": hasBalconAvant?1:0,
+      "has_garage": hasGarage?1:0,
+      "has_gardien": hasGardien?1:0,
+      "has_piscine": hasPiscine?1:0,
     };
   }
 

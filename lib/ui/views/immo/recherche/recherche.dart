@@ -14,6 +14,7 @@ class Recherche extends StatefulWidget {
 class _RechercheState extends State<Recherche> {
 
   int type = 1;
+  String code = '';
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -142,39 +143,6 @@ class _RechercheState extends State<Recherche> {
                       ),
                     ),
 
-                    StreamBuilder<bool>(
-                      stream: model.isAuth,
-                      builder: (context, snapshot) {
-                        switch(snapshot.connectionState) {
-                          case ConnectionState.none:
-                            return SizedBox.shrink();
-                          case ConnectionState.waiting:
-                        return SizedBox.shrink();
-                          case ConnectionState.active:
-                          return snapshot.data!? SizedBox.shrink() : InkWell(
-                            onTap: () => model.navigateToProfile(),
-                              child: Text('Vous n\'êtes pas connecté! Cliquez ici pour vous connecter ',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ),
-                              )
-                          );
-                          case ConnectionState.done:
-                            return snapshot.data!? SizedBox.shrink() : InkWell(
-                                onTap: () => model.navigateToProfile(),
-                                child: Text('Vous n\'êtes pas connecté! Cliquez ici pour vous connecter ',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                )
-                            );
-                        }
-
-                      }
-                    ),
-
                     Divider(),
                     const Text('Commune',
                       style: TextStyle(
@@ -186,7 +154,9 @@ class _RechercheState extends State<Recherche> {
                       child: PopupMenuButton(
                           color: Colors.white,
                           onSelected: (commm){
-                            model.commune = commm;
+                            setState(() {
+                              model.commune = commm;
+                            });
                           },
                           offset: const Offset(100, 0),
                           itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
@@ -499,7 +469,100 @@ class _RechercheState extends State<Recherche> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                        },
+                          model.havePass? model.search() : showDialog(context: context, builder: (buildContext) => Dialog(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                  child: Text('Entrez le code de votre pass visite si dessous pour vérification',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.1
+                                    ),
+                                  ),
+                                ),
+                                 Padding(
+                                  padding: EdgeInsets.all(24.0),
+                                  child: SizedBox(
+                                    width: mq.size.width*0.7,
+                                    child: TextFormField(
+                                      autofocus: true,
+                                      keyboardType: const TextInputType.numberWithOptions(signed: true,),
+                                      maxLength: 8,
+                                      minLines: 1,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      decoration: InputDecoration(
+                                        icon: Icon(
+                                          Icons.credit_card,
+                                          color: Theme.of(context).colorScheme.primary,
+                                        ),
+                                        suffix: InkWell(
+                                          onTap: () => model.search(),
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width/5,
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context).colorScheme.primary,
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('vérifier',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.1
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        labelText: 'Pass visites',
+                                        labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                        enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                        focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                        hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                      ),
+                                      onChanged: (value) {
+                                        code = value;
+                                      },
+                                      // validator: (value) {
+                                      //
+                                      // },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                      onPressed: () => model.navigateToVisiteAbonnement('demarcheur'),
+                                      child: Text('Acheter un pass',
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            color: Theme.of(context).colorScheme.primary,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      )
+                                  ),
+                                )
+
+                              ],
+                            ),
+
+                          ));
+                          },
                         style: TextButton.styleFrom(
                           fixedSize: Size.fromWidth(mq.size.width * 0.6),
                           shape: RoundedRectangleBorder(

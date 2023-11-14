@@ -325,8 +325,7 @@ class _SignInViewState extends State<SignInView>
                       ),
 
                     ));
-                    
-                    
+
                     setState(() {
                     });
                   },
@@ -335,8 +334,8 @@ class _SignInViewState extends State<SignInView>
                       fixedSize: Size(_mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 80.0),
                     child: Text(
                       'Créer le profil',
                       textAlign: TextAlign.start,

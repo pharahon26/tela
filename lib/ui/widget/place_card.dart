@@ -4,57 +4,65 @@ import 'package:mobile/models/programetv.dart';
 
 class PlaceCard extends StatelessWidget {
   final TelaPlace place;
-  const PlaceCard({Key? key, required this.place}) : super(key: key);
+  late final String type;
+  final String image;
+  PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
+    place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
+  }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
-    return Card(
-      color: Theme.of(context).colorScheme.primary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25)
-      ),
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        height: mq.size.height/3,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(place.communeId as String,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.1,
-                      color: Colors.white
-                  )
-              ),
+    return Column(
+      children: [
+        Card(
+          color: Theme.of(context).colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25)
+          ),
+          elevation: 5,
+          child: Container(
+            width: mq.size.width/0.9,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(place.description,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.2,
-                      color: Colors.white
-                  )
-              ),
+            child: Image.asset(image,
+              fit: BoxFit.fitWidth,
+            )
             ),
-
-          ]
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+          child: Text(type,
+              style: const TextStyle(
+                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(place.commune!.name,
+                  style: const TextStyle(
+                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)),
+              Text('${place.nombrePiece} Pièces',
+                  style: const TextStyle(
+                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600))
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+          child: Text('${place.price.toString()} FCFA',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 14, fontWeight:
+              FontWeight.w600)),
+        ),
+      ],
     );
   }
 }

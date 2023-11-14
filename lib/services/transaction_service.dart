@@ -12,6 +12,7 @@ class TransactionService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _ABONNEMENT_CREATE_URL = "api/transactions/buy_abonement";
+  static const String _PASS_CREATE_URL = "api/transactions/buy_pass_visite";
   static const String _TRANSACTION_CREATE_URL = "api/transactions/create";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
@@ -114,6 +115,45 @@ class TransactionService{
       client.close();
     }
     return abonnement;
+  }
+
+  /// push buy pass
+  Future<PassVisite?> buyPassVisite({required PassVisite pass, required TelaTransaction transaction}) async {
+    var client = _newClient();
+    Map<String, dynamic> js = transaction.toJson();
+    js.addAll(pass.toJson());
+    try{
+      print('${Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL)} push abonnement : $abonnement');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(js),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        PassVisite pa = PassVisite.fromJson(json['pass']);
+        TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
+        print(transac.toString());
+        print(pa.toString());
+        pass = pa;
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service login error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return pass;
   }
 
   /// GET COMMUNES
