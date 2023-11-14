@@ -22,6 +22,15 @@ class AbonnementType{
     );
     return u;
   }
+  static AbonnementType fromString(Map<String, dynamic> json){
+    AbonnementType u = AbonnementType(
+      id : int.parse(json["id"]),
+      type: json["type"],
+      price: int.parse(json["price"]),
+      title: json["title"],
+    );
+    return u;
+  }
 
   // map for database
   Map<String, dynamic> toJson(){
@@ -63,6 +72,16 @@ class PassType{
       price: json["price"],
       numberOfVisites: json["nb_visite"],
       isVisite: json["is_visite"]==1,
+    );
+    return u;
+  }
+  static PassType fromString(Map<String, dynamic> json){
+    PassType u = PassType(
+      id : int.parse(json["id"]),
+      name: json["name"],
+      price: (json["price"]),
+      numberOfVisites: int.parse(json["numberOfVisites"]),
+      isVisite: bool.parse(json["isVisite"]),
     );
     return u;
   }

@@ -133,23 +133,23 @@ class _ProfileState extends State<Profile> {
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: model.user!.isDemarcheur? 18.0 : 24,
+                                            fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(model.user!.phone,
-                                          textAlign: model.user!.isDemarcheur? TextAlign.left : TextAlign.center,
+                                          textAlign:TextAlign.left,
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize:model.user!.isDemarcheur? 18.0 : 20,
+                                            fontSize:18.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  model.user!.isDemarcheur? const Spacer() : const SizedBox.shrink(),
-                                  model.user!.isDemarcheur? const Column(
+                                  const Spacer(),
+                                  const Column(
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -172,8 +172,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                     ],
-                                  ) : const SizedBox.shrink(),
-                                  model.user!.isDemarcheur? const Spacer() : const SizedBox.shrink(),
+                                  ),
+                                  const Spacer(),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(
@@ -203,6 +203,63 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           const SizedBox(height: 40,),
+                          /// Pass visite
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Pass visites',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                    Text(model.passVisite != null? 'Actif' : 'inactif',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                color: Colors.black,
+                                thickness: 0.7,
+                                indent: 35,
+                                endIndent: 35,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(model.strd,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                    Text(model.endd,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 40,),
+                          /// abonnement
                           Column(
                             children: [
                                Padding(
@@ -210,7 +267,7 @@ class _ProfileState extends State<Profile> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('Pass Visites',
+                                    Text('Abonnement Démarcheur',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -275,102 +332,6 @@ class _ProfileState extends State<Profile> {
                                           style: TextStyle(
                                             color: Colors.white,
                                           ),
-                                        ),
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 40,),
-                          Column(
-                            children: [
-                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Abonnement Démarcheur',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.abonnementDemarcheur != null? 'Actif' : 'inactif',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                              const Divider(
-                                color: Colors.black,
-                                thickness: 0.7,
-                                indent: 35,
-                                endIndent: 35,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(model.strd,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.endd,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                              model.user!.isDemarcheur? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(45)
-                                    ),
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: InkWell(
-                                      onTap: () => model.navigateToVisiteAbonnement('demarcheur'),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(24.0),
-                                        child: Text('Souscrivez à votre abonnement démarcheur. \n '
-                                            'Faite apparaitre vos annonces dans les recherches, gagné de l\'argent.\n'
-                                            '\n Consultez nos offres!',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                              ) : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(45)
-                                    ),
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(24.0),
-                                      child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
-                                          'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
                                         ),
                                       ),
                                     )),
@@ -573,23 +534,23 @@ class _ProfileState extends State<Profile> {
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: model.user!.isDemarcheur? 18.0 : 24,
+                                            fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(model.user!.phone,
-                                          textAlign: model.user!.isDemarcheur? TextAlign.left : TextAlign.center,
+                                          textAlign:TextAlign.left,
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize:model.user!.isDemarcheur? 18.0 : 20,
+                                            fontSize:18.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  model.user!.isDemarcheur? const Spacer() : const SizedBox.shrink(),
-                                  model.user!.isDemarcheur? const Column(
+                                  const Spacer(),
+                                  const Column(
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -612,8 +573,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                     ],
-                                  ) : const SizedBox.shrink(),
-                                  model.user!.isDemarcheur? const Spacer() : const SizedBox.shrink(),
+                                  ),
+                                  const Spacer(),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(
@@ -643,6 +604,63 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           const SizedBox(height: 40,),
+                          /// Pass visite
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Pass visites',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                    Text(model.passVisite != null? 'Actif' : 'inactif',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                color: Colors.black,
+                                thickness: 0.7,
+                                indent: 35,
+                                endIndent: 35,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(model.strd,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                    Text(model.endd,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                      ),),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 40,),
+                          /// abonnement
                           Column(
                             children: [
                               Padding(
@@ -650,7 +668,7 @@ class _ProfileState extends State<Profile> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('Pass Visites',
+                                    Text('Abonnement Démarcheur',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -715,102 +733,6 @@ class _ProfileState extends State<Profile> {
                                           style: TextStyle(
                                             color: Colors.white,
                                           ),
-                                        ),
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 40,),
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Abonnement Démarcheur',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.abonnementDemarcheur != null? 'Actif' : 'inactif',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                              const Divider(
-                                color: Colors.black,
-                                thickness: 0.7,
-                                indent: 35,
-                                endIndent: 35,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(model.strd,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.endd,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnementDemarcheur != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                              model.user!.isDemarcheur? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(45)
-                                    ),
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: InkWell(
-                                      onTap: () => model.navigateToVisiteAbonnement('demarcheur'),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(24.0),
-                                        child: Text('Souscrivez à votre abonnement démarcheur. \n '
-                                            'Faite apparaitre vos annonces dans les recherches, gagné de l\'argent.\n'
-                                            '\n Consultez nos offres!',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                              ) : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(45)
-                                    ),
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(24.0),
-                                      child: Text('Devenir démarcheur c\'est simple avec Tela. \n '
-                                          'Un Simple profil demarcheur pour publiez vos annonces.\n Consultez nos offres!',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
                                         ),
                                       ),
                                     )),
@@ -945,45 +867,51 @@ class _ProfileState extends State<Profile> {
                           const SizedBox(height: 40,),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)
-                                ),
-                                color: Theme.of(context).colorScheme.primary,
-                                child: const Padding(
-                                  padding: EdgeInsets.all(24.0),
-                                  child: Text('Achetez votre pass pour accéder aux détails de notre catalogue!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2
-                                    ),
+                            child: InkWell(
+                              onTap: () => model.navigateToVisiteAbonnement('catalogue'),
+                              child: Card(
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(45)
                                   ),
-                                )),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(24.0),
+                                    child: Text('Achetez votre pass pour accéder aux détails de notre catalogue!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2
+                                      ),
+                                    ),
+                                  )),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)
-                                ),
-                                color: Theme.of(context).colorScheme.primary,
-                                child: const Padding(
-                                  padding: EdgeInsets.all(24.0),
-                                  child: Text('Devenir démarcheur c\'est simple avec Tela! \n Créez votre profil',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2
-                                    ),
+                            child: InkWell(
+                              onTap: () => model.navigateToSignIn(),
+                              child: Card(
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(45)
                                   ),
-                                )),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(24.0),
+                                    child: Text('Devenir démarcheur c\'est simple avec Tela! \n Créez votre profil',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2
+                                      ),
+                                    ),
+                                  )),
+                            ),
                           ),
                         ],
                       );

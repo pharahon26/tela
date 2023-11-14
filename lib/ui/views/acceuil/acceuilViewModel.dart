@@ -15,6 +15,7 @@ class AcceuilViewModel extends BaseViewModel{
   AcceuilViewModel(){
     _authService.saveCommune();
     _authService.saveAbonnementType();
+    _authService.savePassType();
   }
 
 

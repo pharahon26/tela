@@ -1,5 +1,5 @@
 import 'package:mobile/models/commune.dart';
-import 'package:mobile/models/demacheur.dart';
+import 'package:mobile/models/user.dart';
 
 class TelaPlace{
   int id = 0;
@@ -27,7 +27,7 @@ class TelaPlace{
   bool hasGardien = false;
   bool hasGarage = false;
   Commune? commune;
-  Demarcheur? demarcheur;
+  User? demarcheur;
 
 
   TelaPlace({

@@ -59,13 +59,15 @@ class TelaSharedPrefs implements InitializableDependency{
     }
     return list;
   }
+
+
   /// save abonnementType
   Future<void> saveAbonnementType(List<AbonnementType> abonnementType) async {
 // Save an list of strings to 'items' key.
 
     await prefs.setStringList('abonnementType', abonnementType.map((e) => e.toString()).toList());
   }
-  /// get name
+  /// get abonnementType
   List<AbonnementType> getAbonnementType()  {
     List<AbonnementType> list = [];
     List<String>?  items = prefs.getStringList('abonnementType');
@@ -82,13 +84,38 @@ class TelaSharedPrefs implements InitializableDependency{
     }
     return list;
   }
+
+  /// save passType
+  Future<void> savePassType(List<PassType> passType) async {
+
+    await prefs.setStringList('passType', passType.map((e) => e.toString()).toList());
+  }
+  /// get passType
+  List<PassType> getPassType()  {
+    List<PassType> list = [];
+    List<String>?  items = prefs.getStringList('passType');
+    for (String element in items!) {
+      List<String> sti = element.split(', ');
+      Map<String, dynamic> json= {};
+      for(String itt in sti){
+        List<String> keyItems = itt.split(': ');
+        json[keyItems[0]] = keyItems[1];
+      }
+
+      PassType at = PassType.fromJson(json);
+      list.add(at);
+    }
+    return list;
+  }
+
+
   /// seve communes
   Future<void> saveCommunes(List<Commune> commumes) async {
 // Save an list of strings to 'items' key.
 
     await prefs.setStringList('commumes', commumes.map((e) => e.toString()).toList());
   }
-  /// get name
+  /// get Communes
   List<Commune> getCommunes()  {
     List<Commune> list = [];
     List<String>?  items = prefs.getStringList('commumes');
@@ -106,7 +133,6 @@ class TelaSharedPrefs implements InitializableDependency{
     return list;
   }
 
-  /// save RDV
 
 
 

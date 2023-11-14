@@ -3,11 +3,12 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
+import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/commune.dart';
-import 'package:mobile/models/demacheur.dart';
 import 'package:mobile/models/user.dart';
+import 'package:mobile/services/telaSharedPrefs.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AuthService{
@@ -21,26 +22,29 @@ class AuthService{
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
-  Demarcheur? _demarcheur;
   Abonnement? _abonnement;
-  Abonnement? _abonnementTV;
-  Abonnement? _abonnementPro;
+  PassTV? _passTV;
+  PassVisite? _passVisite;
   String _token = '';
   bool _isConnected = false;
 
   List<Commune> communes = [];
   List<AbonnementType> abonnementType = [];
+  List<PassType> passType = [];
   List<Abonnement> _abonnements = [];
+  List<PassVisite> _passVisites = [];
+  List<PassTV> _passTvs = [];
   final BehaviorSubject<bool> _isConnectedSubject = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isConnected => _isConnectedSubject.stream.asBroadcastStream();
 
   String get token => _token;
   User? get user => _user;
-  Demarcheur? get demarcheur => _demarcheur;
-  Abonnement? get abonnementDemarcheur => _abonnementPro;
-  Abonnement? get abonnementTV => _abonnementTV;
+  PassVisite? get passVisite => _passVisite;
+  PassTV? get passTV => _passTV;
   Abonnement? get abonnement => _abonnement;
 
+
+  TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
 
   AuthService();
 
@@ -127,21 +131,19 @@ class AuthService{
         // _token = 'Bearer '+ json["token"]["access_token"];
         _user = User.fromJson(json["user"]);
         print(_user.toString());
-        _demarcheur = Demarcheur.fromJson(json["demarcheur"]);
-        print(_demarcheur.toString());
 
         for(var ab in json["abonnement"]){
           Abonnement abonnement = Abonnement.fromJson(ab);
-          if (abonnement.type == 'catalogue') {
-            _abonnement == abonnement;
-          }
-          if (abonnement.type == 'demarcheur') {
-            _abonnementPro == abonnement;
-          }
-          if (abonnement.type == 'tv') {
-            _abonnementTV == abonnement;
-          }
+          _abonnement == abonnement;
           _abonnements.add(abonnement);
+        }
+        for(var pv in json["pass_visites"]){
+          PassVisite pass = PassVisite.fromJson(pv);
+          _passVisites.add(pass);
+        }
+        for(var ptv in json["pass_tvs"]){
+          PassTV pass = PassTV.fromJson(ptv);
+          _passTvs.add(pass);
         }
 
         print(json["abonnement"]);
@@ -183,7 +185,7 @@ class AuthService{
 
         for(var commune in json){
           communesList.add(Commune.fromJson(commune));
-          print(commune);
+          print(Commune.fromJson(commune));
         }
       }  else {
         print('ERROR reponse status code not 200');
@@ -220,7 +222,7 @@ class AuthService{
 
         for(var abt in json){
           abtList.add(AbonnementType.fromJson(abt));
-            print(abt);
+            print(AbonnementType.fromJson(abt));
         }
       }  else {
         print('ERROR reponse status code not 200');
@@ -251,11 +253,10 @@ class AuthService{
       print('Response body: ${response.body}');
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        print(json);
 
         for(var abt in json){
           abtList.add(PassType.fromJson(abt));
-            print(abt);
+            print(PassType.fromJson(abt));
         }
       }  else {
         print('ERROR reponse status code not 200');
@@ -308,12 +309,26 @@ class AuthService{
   //   return communesList;
   // }
 
+  /// gestion des pass visite
+  ///  ***** sauvegarde la liste des visite ****
+  ///  ***** check visites ****
+
+  /// sauvegarde la liste des visites
+
+
   void saveCommune() async{
     communes = await getCommunes();
+    await _telaSharedPrefs.saveCommunes(communes);
   }
 
   void saveAbonnementType() async{
     abonnementType = await getAbonnementTypes();
+    await _telaSharedPrefs.saveAbonnementType(abonnementType);
+  }
+
+  void savePassType() async{
+    passType = await getPassTypes();
+    // await _telaSharedPrefs.saveAbonnementType(abonnementType);
   }
 
   // List<Commune> getCommunes(){
@@ -341,12 +356,6 @@ class AuthService{
   //   return  list;
   // }
 
-  void getFakeUser({bool demarcheur = false}){
-    User u = User(nom: 'Nombré', prenom: 'Séraphin Elie', phone: '+225 07 00 00 00 00', isDemarcheur: demarcheur);
-    _user = u;
-    _isConnected =true;
-    _isConnectedSubject.sink.add(_isConnected);
-  }
 
   void createFakeUser({
     required String nom,
@@ -355,7 +364,7 @@ class AuthService{
     required String password,
     String mail = '',
     bool demarcheur = false}){
-    User u = User(nom: nom, prenom: prenom, phone: telephone, mail: mail, isDemarcheur: demarcheur);
+    User u = User(nom: nom, prenom: prenom, phone: telephone, mail: mail);
     _user = u;
     _isConnected =true;
     _isConnectedSubject.sink.add(_isConnected);

@@ -17,6 +17,14 @@ class Commune{
     );
     return u;
   }
+  static Commune fromString(Map<String, dynamic> json){
+    Commune u = Commune(
+      id : int.parse(json["id"]),
+      name: json["name"],
+      city: json["city"]??'Abidjan',
+    );
+    return u;
+  }
 
   // map for database
   Map<String, dynamic> toJson(){

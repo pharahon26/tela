@@ -9,7 +9,6 @@ class User {
   String mail;
   String phone;
   double balance = 0;
-  bool isDemarcheur = false;
   bool isStaff = false;
   bool isSuspended = false;
   bool isValidated = false;
@@ -21,12 +20,12 @@ class User {
 
 
   // Constructor
-  User({required this.nom,
+  User({
+    required this.nom,
     required this.prenom,
     this.mail = '',
     this.phone = '',
     this.balance = 0,
-    this.isDemarcheur = false,
     this.isValidated = false,
     this.isStaff = false,
     this.isSuspended = false,
@@ -41,11 +40,25 @@ class User {
       balance: json["balance"],
       isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
-      isDemarcheur: json["is_demarcheur"]==1,
       isStaff: json["is_staff"]==1,
     );
     u.id = json["id"];
     u.creationDate = DateTime.parse(json["created_at"]);
+    return u;
+  }
+  static User fromString(Map<String, dynamic> json){
+    User u = User(
+      nom: json["nom"],
+      prenom: json["prenom"],
+      mail: json["mail"]??'',
+      phone: json["phone"],
+      balance: double.parse(json["balance"]),
+      isValidated: bool.parse(json["isValidated"]),
+      isSuspended: bool.parse(json["isSuspended"]),
+      isStaff: bool.parse(json["isStaff"]),
+    );
+    u.id = int.parse(json["id"]);
+    u.creationDate = DateTime.parse(json["creationDate"]);
     return u;
   }
 
@@ -61,13 +74,12 @@ class User {
       "creationDate": creationDate,
       "isSuspended": isSuspended?1:0,
       "is_validated": isValidated?1:0,
-      "isDemarcheur": isDemarcheur?1:0,
       "isStaff":isStaff?1:0,
     };
   }
 
   @override
   String toString() {
-    return 'Users{id: $id, prenom: $prenom, nom: $nom, mail: $mail, phone: $phone, isDemarcheur: $isDemarcheur, isStaff: $isStaff, isSuspended: $isSuspended, creationDate: $creationDate}';
+    return 'User{id: $id, prenom: $prenom, nom: $nom, mail: $mail, phone: $phone, balance: $balance, isStaff: $isStaff, isSuspended: $isSuspended, isValidated: $isValidated, creationDate: $creationDate}';
   }
 }

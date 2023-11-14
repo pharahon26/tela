@@ -20,11 +20,11 @@ class ProfileViewModel extends BaseViewModel{
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
   Abonnement? get abonnement => _authService.abonnement;
-  String get stra => _authService.abonnement != null?_authService.abonnementDemarcheur!.startSTR():'Du ...';
-  String get enda => _authService.abonnement != null?_authService.abonnementDemarcheur!.endSTR():'Au ...';
-  String get strd => _authService.abonnementDemarcheur != null?_authService.abonnementDemarcheur!.startSTR():'Du ...';
-  String get endd => _authService.abonnementDemarcheur != null?_authService.abonnementDemarcheur!.endSTR():'Au ...';
-  Abonnement? get abonnementDemarcheur => _authService.abonnementDemarcheur;
+  String get stra => _authService.abonnement != null?_authService.abonnement!.startSTR():'Du ...';
+  String get enda => _authService.abonnement != null?_authService.abonnement!.endSTR():'Au ...';
+  String get strd => _authService.passVisite != null?_authService.passVisite!.startSTR():'Du ...';
+  String get endd => _authService.passVisite != null?_authService.passVisite!.endSTR():'Au ...';
+  PassVisite? get passVisite => _authService.passVisite;
 
   ProfileViewModel();
 
