@@ -1,24 +1,23 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/visiteAbonnement/visiteAbonnementViewModel.dart';
+import 'package:mobile/ui/views/buyAbonnement/buyAbonnementViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-class VisiteAbonnement extends StatefulWidget {
+class BuyAbonnement extends StatefulWidget {
 
-  final String type;
 
-  VisiteAbonnement({super.key, required this.type});
+  BuyAbonnement({super.key});
 
   @override
-  State<VisiteAbonnement> createState() => _VisiteAbonnementState();
+  State<BuyAbonnement> createState() => _BuyAbonnementState();
 }
 
-class _VisiteAbonnementState extends State<VisiteAbonnement> {
+class _BuyAbonnementState extends State<BuyAbonnement> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
-    return ViewModelBuilder<VisiteAbonnementViewModel>.reactive(
-      viewModelBuilder: () => VisiteAbonnementViewModel(type: widget.type),
+    return ViewModelBuilder<BuyAbonnementViewModel>.reactive(
+      viewModelBuilder: () => BuyAbonnementViewModel(),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(

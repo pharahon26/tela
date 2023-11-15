@@ -7,6 +7,7 @@ import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/commune.dart';
+import 'package:mobile/models/place.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/telaSharedPrefs.dart';
 import 'package:rxdart/rxdart.dart';
@@ -33,6 +34,7 @@ class AuthService{
   List<PassType> passType = [];
   List<Abonnement> _abonnements = [];
   List<PassVisite> _passVisites = [];
+  List<TelaPlace> _myPlaces = [];
   List<PassTV> _passTvs = [];
   final BehaviorSubject<bool> _isConnectedSubject = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isConnected => _isConnectedSubject.stream.asBroadcastStream();
@@ -132,32 +134,31 @@ class AuthService{
         _user = User.fromJson(json["user"]);
         print(_user.toString());
 
-        for(var ab in json["abonnement"]){
+        for(var ab in json["abonnements"]){
           Abonnement abonnement = Abonnement.fromJson(ab);
           _abonnement == abonnement;
           _abonnements.add(abonnement);
         }
-        for(var pv in json["pass_visites"]){
-          PassVisite pass = PassVisite.fromJson(pv);
-          _passVisites.add(pass);
-        }
-        for(var ptv in json["pass_tvs"]){
-          PassTV pass = PassTV.fromJson(ptv);
-          _passTvs.add(pass);
+        print(json["abonnements"]);
+        for(var p in json["place"]){
+          TelaPlace place = TelaPlace.fromJson(p);
+          print(place.toString());
+          _myPlaces.add(place);
         }
 
-        print(json["abonnement"]);
+        print(json["place"]);
 
         // print('logged In successfully with token $_token');
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
       }  else {
+        if (response.statusCode == 404) {
+          throw "Le numero de telephone saisit n'existe pas";
+
+        }
         print('ERROR reponse status code not 200');
       }
 
-    }
-    catch(e){
-      print('auth api service login error** $e');
     }
     finally{
       client.close();

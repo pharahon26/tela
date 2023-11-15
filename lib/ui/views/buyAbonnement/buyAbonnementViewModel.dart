@@ -6,7 +6,7 @@ import 'package:mobile/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class VisiteAbonnementViewModel extends BaseViewModel{
+class BuyAbonnementViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
 
@@ -15,14 +15,13 @@ class VisiteAbonnementViewModel extends BaseViewModel{
   SnackbarService _snackbarService = locator<SnackbarService>();
 
   bool _isA = false;
-  String type;
   List<AbonnementType> abonnements = [];
 
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  VisiteAbonnementViewModel({required this.type}){
-    abonnements = _authService.abonnementType.where((element) => element.type == type).toList();
+  BuyAbonnementViewModel(){
+    abonnements = _authService.abonnementType;
   }
 
   void navigateToEbank() async{

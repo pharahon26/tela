@@ -9,7 +9,7 @@ import 'package:mobile/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class BuyViewModel extends BaseViewModel{
+class BuyPassViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
   AuthService _authService = locator<AuthService>();
@@ -20,13 +20,14 @@ class BuyViewModel extends BaseViewModel{
 
   User? get user => _authService.user;
 
-  BuyViewModel();
+  BuyPassViewModel();
 
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.acceuil);
   }
-  Future pushTransaction(TelaTransaction transaction, Abonnement abonnement) async {
-    await _transactionService.buyAbonnement(transaction: transaction, abonnement: abonnement);
+
+  Future pushTransaction(TelaTransaction transaction, PassType passType) async {
+    return await _transactionService.buyPassVisite(transaction: transaction, pass: passType);
   }
 
 

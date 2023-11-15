@@ -37,13 +37,13 @@ class User {
       prenom: json["prenoms"],
       mail: json["email"]??'',
       phone: json["phone"],
-      balance: json["balance"],
+      balance: double.parse(json["balance"]),
       isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
       isStaff: json["is_staff"]==1,
     );
     u.id = json["id"];
-    u.creationDate = DateTime.parse(json["created_at"]);
+    u.creationDate = DateTime.parse(json["created_at"]??'2023-10-10');
     return u;
   }
   static User fromString(Map<String, dynamic> json){

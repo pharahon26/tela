@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:mobile/models/abonnement.dart';
+import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/transactions.dart';
 
 import 'package:rxdart/rxdart.dart';
@@ -118,9 +119,10 @@ class TransactionService{
   }
 
   /// push buy pass
-  Future<PassVisite?> buyPassVisite({required PassVisite pass, required TelaTransaction transaction}) async {
+  Future<PassVisite?> buyPassVisite({required PassType pass, required TelaTransaction transaction}) async {
     var client = _newClient();
     Map<String, dynamic> js = transaction.toJson();
+    late PassVisite passVisite;
     js.addAll(pass.toJson());
     try{
       print('${Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL)} push abonnement : $abonnement');
@@ -140,7 +142,7 @@ class TransactionService{
         TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
         print(transac.toString());
         print(pa.toString());
-        pass = pa;
+        passVisite = pa;
 
       }  else {
         print('ERROR reponse status code not 200');
@@ -153,7 +155,7 @@ class TransactionService{
     finally{
       client.close();
     }
-    return pass;
+    return passVisite;
   }
 
   /// GET COMMUNES

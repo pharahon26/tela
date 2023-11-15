@@ -136,12 +136,48 @@ class _LoginViewState extends State<LoginView>
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                setState(() {
-                  model.login();
-                });
+                model.login().then((us) => model.navigateToProfile()).catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                        child: Text(error.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.1
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                            onPressed: () => Navigator.of(buildContext).pop(),
+                            child: Text('Ok',
+                              maxLines: 2,
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            )
+                        ),
+                      )
+
+                    ],
+                  ),
+
+                )));
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,

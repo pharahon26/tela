@@ -20,13 +20,18 @@ class LoginViewModel extends BaseViewModel{
 
   Future login() async {
     User? u = await _authService.login(
-        phone: phone,
-        password: password).whenComplete(() {
-          _sharedPrefs.savePhoneNumber(phone);
-      _navigationService.navigateToProfile();
+        phone: '+225'+phone,
+        password: password)
+        .whenComplete(() {
+          _sharedPrefs.savePhoneNumber('+225'+phone);
 
-    });
+        })
+    ;
     return u;
+  }
+
+  void navigateToProfile(){
+    _navigationService.navigateToProfile();
   }
 
   // void fakeLogin(){C

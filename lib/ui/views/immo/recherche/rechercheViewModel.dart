@@ -89,8 +89,8 @@ class RechercheViewModel extends BaseViewModel{
   void navigateToResult(List<TelaPlace> places) async{
     await _navigationService.navigateToResultat(places: places);
   }
-  void navigateToVisiteAbonnement(String type) async{
-    await _navigationService.navigateToVisiteAbonnement(type: type);
+  void navigateToVisiteAbonnement(bool isVisite) async{
+    await _navigationService.navigateToBuyVisitePass( isVisite: isVisite);
   }
 
   void navigateToEbank() async{

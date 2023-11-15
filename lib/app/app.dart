@@ -8,8 +8,11 @@ import 'package:mobile/services/tv_service.dart';
 import 'package:mobile/ui/views/LoginView/loginView.dart';
 import 'package:mobile/ui/views/SignInView/signInView.dart';
 import 'package:mobile/ui/views/acceuil/acceuil.dart';
+import 'package:mobile/ui/views/buyAbonnement/buyabonnement.dart';
+import 'package:mobile/ui/views/buyVisitePass/buyVisitePass.dart';
 import 'package:mobile/ui/views/cgu/cgu.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
+import 'package:mobile/ui/views/ebank/buyPassView/buyPassView.dart';
 import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
@@ -21,7 +24,6 @@ import 'package:mobile/ui/views/profile/profile.dart';
 import 'package:mobile/ui/views/tv/chaneltv/channeltv.dart';
 import 'package:mobile/ui/views/tv/programmetv/programmetv.dart';
 import 'package:mobile/ui/views/tv/tv/tv.dart';
-import 'package:mobile/ui/views/visiteAbonnement/visiteAbonnement.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -46,7 +48,9 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: ChanelTv),
       MaterialRoute(page: Tv),
       MaterialRoute(page: BuyView),
-      MaterialRoute(page: VisiteAbonnement),
+      MaterialRoute(page: BuyVisitePass),
+      MaterialRoute(page: BuyPassView),
+      MaterialRoute(page: BuyAbonnement),
     ],
     dependencies: [
       InitializableSingleton(classType: TelaSharedPrefs),

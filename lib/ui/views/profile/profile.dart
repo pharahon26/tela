@@ -323,7 +323,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     color: Theme.of(context).colorScheme.primary,
                                     child: InkWell(
-                                      onTap: () => model.navigateToVisiteAbonnement('catalogue'),
+                                      onTap: () => model.navigateToVisitePass(),
                                       child: const Padding(
                                         padding: EdgeInsets.all(24.0),
                                         child: Text('Accédez a notre catalogue de bien immobilier. \n '
@@ -467,7 +467,7 @@ class _ProfileState extends State<Profile> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
-                                onTap: () => model.navigateToVisiteAbonnement('catalogue'),
+                                onTap: () => model.navigateToVisitePass(),
                                 child: Card(
                                   elevation: 8,
                                   shape: RoundedRectangleBorder(
@@ -724,7 +724,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     color: Theme.of(context).colorScheme.primary,
                                     child: InkWell(
-                                      onTap: () => model.navigateToVisiteAbonnement('catalogue'),
+                                      onTap: () => model.navigateToVisitePass(),
                                       child: const Padding(
                                         padding: EdgeInsets.all(24.0),
                                         child: Text('Accédez a notre catalogue de bien immobilier. \n '
@@ -868,7 +868,7 @@ class _ProfileState extends State<Profile> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
-                              onTap: () => model.navigateToVisiteAbonnement('catalogue'),
+                              onTap: () => model.navigateToVisitePass(),
                               child: Card(
                                   elevation: 8,
                                   shape: RoundedRectangleBorder(

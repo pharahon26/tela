@@ -546,7 +546,7 @@ class _RechercheState extends State<Recherche> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextButton(
-                                      onPressed: () => model.navigateToVisiteAbonnement('demarcheur'),
+                                      onPressed: () => model.navigateToVisiteAbonnement(true),
                                       child: Text('Acheter un pass',
                                         maxLines: 2,
                                         style: TextStyle(

@@ -1,12 +1,12 @@
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
-import 'package:mobile/models/abonnement.dart';
+import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ProfileViewModel extends BaseViewModel{
+class BuyVisitePassViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
 
@@ -15,18 +15,15 @@ class ProfileViewModel extends BaseViewModel{
   SnackbarService _snackbarService = locator<SnackbarService>();
 
   bool _isA = false;
-
+  bool isVisite;
+  List<PassType> passes = [];
 
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
-  Abonnement? get abonnement => _authService.abonnement;
-  String get stra => _authService.abonnement != null?_authService.abonnement!.startSTR():'Du ...';
-  String get enda => _authService.abonnement != null?_authService.abonnement!.endSTR():'Au ...';
-  String get strd => _authService.passVisite != null?_authService.passVisite!.startSTR():'Du ...';
-  String get endd => _authService.passVisite != null?_authService.passVisite!.endSTR():'Au ...';
-  PassVisite? get passVisite => _authService.passVisite;
 
-  ProfileViewModel();
+  BuyVisitePassViewModel({required this.isVisite}){
+    passes = _authService.passType.where((element) => element.isVisite == isVisite).toList();
+  }
 
   void navigateToEbank() async{
     await _navigationService.navigateTo(Routes.bank);
@@ -55,13 +52,8 @@ class ProfileViewModel extends BaseViewModel{
   void navigateToLogIn() async{
     await _navigationService.navigateTo(Routes.loginView);
   }
-  void navigateToVisitePass() async{
-    await _navigationService.navigateToBuyVisitePass(isVisite: true);
-  }
-  void navigateToAbonnement() async{
-    await _navigationService.navigateToBuyAbonnement();
-  }
-  void chechPass() async{
+  void navigateToBuyView( PassType pass) async{
+    await _navigationService.navigateToBuyPassView(pass: pass);
   }
 
 }
