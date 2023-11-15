@@ -5,6 +5,7 @@ import 'package:mobile/services/place_service.dart';
 import 'package:mobile/services/telaSharedPrefs.dart';
 import 'package:mobile/services/transaction_service.dart';
 import 'package:mobile/services/tv_service.dart';
+import 'package:mobile/ui/views/IdentificationView/identificationView.dart';
 import 'package:mobile/ui/views/LoginView/loginView.dart';
 import 'package:mobile/ui/views/SignInView/signInView.dart';
 import 'package:mobile/ui/views/acceuil/acceuil.dart';
@@ -17,6 +18,7 @@ import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
 import 'package:mobile/ui/views/immo/catalogue/catalogue.dart';
+import 'package:mobile/ui/views/immo/newPlace/newPlace.dart';
 import 'package:mobile/ui/views/immo/recherche/recherche.dart';
 import 'package:mobile/ui/views/immo/resultat/resultat.dart';
 import 'package:mobile/ui/views/immo/visite/visite.dart';
@@ -36,11 +38,13 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: ConditionGeneralDUtilisationS),
       MaterialRoute(page: Profile),
       MaterialRoute(page: SignInView),
+      MaterialRoute(page: IdentificationView),
       MaterialRoute(page: LoginView),
       MaterialRoute(page: Bank),
       MaterialRoute(page: Depot),
       MaterialRoute(page: Versement),
       MaterialRoute(page: Catalogue),
+      MaterialRoute(page: NewPlace),
       MaterialRoute(page: Recherche),
       MaterialRoute(page: Resultat),
       MaterialRoute(page: Visite),

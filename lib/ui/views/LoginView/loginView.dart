@@ -151,6 +151,7 @@ class _LoginViewState extends State<LoginView>
                         padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                         child: Text(error.toString(),
                           textAlign: TextAlign.center,
+                          maxLines: 20,
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.black,

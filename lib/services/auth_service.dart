@@ -46,6 +46,7 @@ class AuthService{
   Abonnement? get abonnement => _abonnement;
 
 
+  List<TelaPlace> get myPlaces => _myPlaces;
   TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
 
   AuthService();
@@ -92,6 +93,10 @@ class AuthService{
         print(json);
         // _token = 'Bearer ' + json["token"]["access_token"];
         _user = User.fromJson(json);
+        if(user != null){
+          _telaSharedPrefs.savePhoneNumber(user!.phone);
+          _telaSharedPrefs.saveName(user!.nom + ' ' + user!.prenom);
+        }
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
       }  else {
@@ -133,6 +138,10 @@ class AuthService{
         // _token = 'Bearer '+ json["token"]["access_token"];
         _user = User.fromJson(json["user"]);
         print(_user.toString());
+        if(user != null){
+          _telaSharedPrefs.savePhoneNumber(user!.phone);
+          _telaSharedPrefs.saveName(user!.nom + ' ' + user!.prenom);
+        }
 
         for(var ab in json["abonnements"]){
           Abonnement abonnement = Abonnement.fromJson(ab);

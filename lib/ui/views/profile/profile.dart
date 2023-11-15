@@ -117,13 +117,16 @@ class _ProfileState extends State<Profile> {
                       return snapshot.data!?Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          /// info personnelles
                           ClipPath(
                             clipper: ProfileClipper(),
                             child: Container(
-                              height: 180,
+                              height: 250,
                               color: Theme.of(context).colorScheme.primary,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
+                                  /// noms + phone
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
@@ -148,36 +151,67 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                   ),
-                                  const Spacer(),
-                                  const Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Solde',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
+                                  Visibility(
+                                    visible: !model.user!.isValidated,
+                                    /// solde
+                                    replacement: const Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(2.0),
+                                          child: Text('Solde',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('000000000',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: EdgeInsets.all(2.0),
+                                          child: Text('000000000',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TextButton(
+                                        onPressed: () => model.navigateToIdentification(),
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(50)
+                                          )
+                                        ),
+                                        child: const Column(
+                                          children: [
+                                            Icon(Icons.warning_amber, size: 32, color: Colors.deepOrange,),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 32),
+                                              child: Text('Votre profil n\'est pas complet. Cliquez ici pour le compléter',
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                  color: Colors.deepOrange,
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                  const Spacer(),
+                                  /// Catalogue
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                                       child: TextButton(
                                           onPressed: () => model.navigateToGalery(),
                                           style: TextButton.styleFrom(
@@ -204,64 +238,156 @@ class _ProfileState extends State<Profile> {
                           ),
                           const SizedBox(height: 40,),
                           /// Pass visite
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Pass visites',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.passVisite != null? 'Actif' : 'inactif',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
+                          Visibility(
+                            visible: model.passVisite != null,
+                            replacement:Column(
+                              children: [
+                                const Text('Entrez le code de votre pass visite si dessous et confirmer',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.1
+                                  ),
                                 ),
-                              ),
-                              const Divider(
-                                color: Colors.black,
-                                thickness: 0.7,
-                                indent: 35,
-                                endIndent: 35,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(model.strd,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.endd,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.passVisite != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    autofocus: false,
+                                    keyboardType: const TextInputType.numberWithOptions(signed: true,),
+                                    maxLength: 8,
+                                    minLines: 1,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      icon: Icon(
+                                        Icons.credit_card,
+                                        color: Theme.of(context).colorScheme.primary,
+                                      ),
+                                      suffix: InkWell(
+                                        onTap: () => model.chechPass(),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width/5,
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context).colorScheme.primary,
+                                              borderRadius: BorderRadius.circular(30)
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text('vérifier',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.1
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      labelText: 'Pass visites',
+                                      labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                      enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                      focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                      hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                    ),
+                                    onChanged: (value) {
+                                      code = value;
+                                    },
+                                    // validator: (value) {
+                                    //
+                                    // },
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () => model.navigateToVisitePass(),
+                                    child: Card(
+                                        elevation: 8,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(45)
+                                        ),
+                                        color: Theme.of(context).colorScheme.primary,
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(24.0),
+                                          child: Text('Achetez votre pass pour accéder aux détails de notre catalogue!',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Pass visites',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                        ),),
+                                      Text(model.passVisite != null? model.passVisite!.isExpired ? 'Expiré' : 'inactif': 'inactif',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                        ),),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Colors.black,
+                                  thickness: 0.7,
+                                  indent: 35,
+                                  endIndent: 35,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(model.strd,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                        ),),
+                                      Text(model.endd,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                        ),),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 40,),
+                          const SizedBox(height: 20,),
                           /// abonnement
                           Column(
                             children: [
+                              /// is actif?
                                Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
                                 child: Row(
@@ -286,55 +412,66 @@ class _ProfileState extends State<Profile> {
                                   ],
                                 ),
                               ),
-                              const Divider(
-                                color: Colors.black,
-                                thickness: 0.7,
-                                indent: 35,
-                                endIndent: 35,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(model.abonnement != null? model.abonnement!.startSTR() :'Du',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnement != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                    Text(model.enda,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 1.2,
-                                        color: model.abonnement != null? Colors.deepOrange : Colors.grey,
-                                      ),),
-                                  ],
+                              Visibility(
+                                visible: model.abonnement != null,
+                                child: const Divider(
+                                  color: Colors.black,
+                                  thickness: 0.7,
+                                  indent: 35,
+                                  endIndent: 35,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(45)
-                                    ),
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: InkWell(
-                                      onTap: () => model.navigateToVisitePass(),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(24.0),
-                                        child: Text('Accédez a notre catalogue de bien immobilier. \n '
-                                            'Pour vos besoins en logement et bureaux',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
+                              Visibility(
+                                visible: model.abonnement != null,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(model.abonnement != null? model.abonnement!.startSTR() :'Du',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: model.abonnement != null? Colors.deepOrange : Colors.grey,
+                                        ),),
+                                      Text(model.enda,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: model.abonnement != null? Colors.deepOrange : Colors.grey,
+                                        ),),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: model.abonnement == null,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                      elevation: 8,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(45)
+                                      ),
+                                      color: Theme.of(context).colorScheme.primary,
+                                      child: InkWell(
+                                        onTap: () => model.navigateToAbonnement(),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(24.0),
+                                          child: Text('Réactiver votre abonnement',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )),
+                                      )),
+                                ),
                               ),
                             ],
                           ),
@@ -344,6 +481,8 @@ class _ProfileState extends State<Profile> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+
+                            /// auth
                             ClipPath(
                               clipper: ProfileClipper(),
                               child: Container(
@@ -355,6 +494,7 @@ class _ProfileState extends State<Profile> {
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
+                                    /// is connected
                                     const Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Text('Vous n\'êtes pas connecté!',
@@ -366,6 +506,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                     ),
+
+                                    /// auth
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -403,91 +545,98 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                             const SizedBox(height: 40,),
-                            const Text('Entrez le code de votre pass visite si dessous et confirmer',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.1
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                autofocus: false,
-                                keyboardType: const TextInputType.numberWithOptions(signed: true,),
-                                maxLength: 8,
-                                minLines: 1,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                                decoration: InputDecoration(
-                                  icon: Icon(
-                                    Icons.credit_card,
-                                    color: Theme.of(context).colorScheme.primary,
+
+                            /// pass visite
+                            Column(
+                              children: [
+                                const Text('Entrez le code de votre pass visite si dessous et confirmer',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.1
                                   ),
-                                  suffix: InkWell(
-                                    onTap: () => model.chechPass(),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width/5,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context).colorScheme.primary,
-                                          borderRadius: BorderRadius.circular(30)
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    autofocus: false,
+                                    keyboardType: const TextInputType.numberWithOptions(signed: true,),
+                                    maxLength: 8,
+                                    minLines: 1,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      icon: Icon(
+                                        Icons.credit_card,
+                                        color: Theme.of(context).colorScheme.primary,
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text('vérifier',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.1
+                                      suffix: InkWell(
+                                        onTap: () => model.chechPass(),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width/5,
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context).colorScheme.primary,
+                                              borderRadius: BorderRadius.circular(30)
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('vérifier',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.1
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
+                                      labelText: 'Pass visites',
+                                      labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                      enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                      focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                      hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                                     ),
+                                    onChanged: (value) {
+                                      code = value;
+                                    },
+                                    // validator: (value) {
+                                    //
+                                    // },
                                   ),
-                                  labelText: 'Pass visites',
-                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                                 ),
-                                onChanged: (value) {
-                                  code = value;
-                                },
-                                // validator: (value) {
-                                //
-                                // },
-                              ),
-                            ),
-                            const SizedBox(height: 40,),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () => model.navigateToVisitePass(),
-                                child: Card(
-                                  elevation: 8,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)
-                                  ),
-                                  color: Theme.of(context).colorScheme.primary,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(24.0),
-                                      child: Text('Achetez votre pass pour accéder aux détails de notre catalogue!',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () => model.navigateToVisitePass(),
+                                    child: Card(
+                                        elevation: 8,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(45)
                                         ),
-                                      ),
-                                    )),
-                              ),
+                                        color: Theme.of(context).colorScheme.primary,
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(24.0),
+                                          child: Text('Achetez votre pass pour accéder aux détails de notre catalogue!',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
                             ),
+
+                            /// sign in
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(

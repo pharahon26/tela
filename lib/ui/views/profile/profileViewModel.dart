@@ -44,7 +44,7 @@ class ProfileViewModel extends BaseViewModel{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.catalogue);
+    await _navigationService.navigateToCatalogue(places: _authService.myPlaces);
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);
@@ -60,6 +60,9 @@ class ProfileViewModel extends BaseViewModel{
   }
   void navigateToAbonnement() async{
     await _navigationService.navigateToBuyAbonnement();
+  }
+  void navigateToIdentification() async{
+    await _navigationService.navigateToIdentificationView();
   }
   void chechPass() async{
   }
