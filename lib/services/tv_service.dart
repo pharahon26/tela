@@ -60,8 +60,8 @@ class TVService{
   List<TelaProgrammeTV> progTest(){
     List<TelaProgrammeTV> list = [];
     list.add(TelaProgrammeTV(id: 1, type: 'Jeux tv', link: 'https://youtu.be/PY_N1XdFp4w?si=KisXUS31Nj44Wavm', webview: true, description: 'jeux', dateTournage: DateTime(2023, 7, 12), dateDiffusion: DateTime(2023, 7, 12)));
-    list.add(TelaProgrammeTV(id: 2, type: 'live', link: 'https://m.facebook.com/watch/?v=1031561964648882', facebook: true, webview: true, description: 'Live DIDI B ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
-    list.add(TelaProgrammeTV(id: 3, type: 'Exemple', link: 'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4', description: 'camer ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 2, type: 'Exemple', link: "assets/video/venez_voir.mp4", description: 'Live DIDI B ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
+    list.add(TelaProgrammeTV(id: 3, type: 'Exemple', link: "https://firebasestorage.googleapis.com/v0/b/test-94180.appspot.com/o/videos%2FCo%CC%82te%20d'Ivoire%2C%20venez%20voir%20(%20360%20X%20640%20).mp4?alt=media&token=89ff1ebd-afa6-44c4-8a45-e9a3d12a6656", description: 'camer ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
     list.add(TelaProgrammeTV(id: 4, type: 'live', link: 'https://www.facebook.com/video.php?v={837083301751759}', webview: true,  description: '???? ', dateTournage: DateTime(2022, 10, 20), dateDiffusion: DateTime(2022, 12, 20)));
     return list;
   }

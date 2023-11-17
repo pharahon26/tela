@@ -16,18 +16,27 @@ class LoginViewModel extends BaseViewModel{
   String password='';
 
 
-  LoginViewModel();
+  LoginViewModel(){
+    getPhone();
+    print('***** Phone ${phone} ****');
+  }
 
   Future login() async {
     User? u = await _authService.login(
-        phone: '+225'+phone,
+        phone: phone,
         password: password)
         .whenComplete(() {
-          _sharedPrefs.savePhoneNumber('+225'+phone);
+          _sharedPrefs.savePhoneNumber(phone);
 
         })
     ;
     return u;
+  }
+
+  void getPhone() async {
+    phone = _sharedPrefs.getPhoneNumber()??'';
+    print('***** Phone ${phone} ****');
+    notifyListeners();
   }
 
   void navigateToProfile(){

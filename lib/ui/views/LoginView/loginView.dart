@@ -70,8 +70,8 @@ class _LoginViewState extends State<LoginView>
                       /// phone field
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          autofocus: true,
+                        child: TextFormField(
+                          initialValue: model.phone,
                           keyboardType: TextInputType.phone,
                           style: TextStyle(
                             color: Colors.black,

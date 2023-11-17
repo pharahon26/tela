@@ -17,7 +17,9 @@ class Tela extends StatelessWidget {
   /// Theme de l'application
   final ThemeData light = ThemeData(
       brightness: Brightness.light,
-      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0451b0)),
+      colorScheme: ColorScheme.fromSeed(
+          background: Colors.blueGrey.shade900,
+          seedColor: const Color(0xFF0451b0)),
       // text Theme
       fontFamily: "Ubuntu",
   );

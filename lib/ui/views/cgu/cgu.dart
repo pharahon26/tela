@@ -41,6 +41,7 @@ TELA
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData _mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<cguViewModel>.reactive(
       viewModelBuilder: () => cguViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -57,14 +58,56 @@ TELA
             elevation: 5,
           ),
         backgroundColor: Colors.white,
-          body: Center(child:  Text(cgu,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.2
+          body: SizedBox(
+            height: _mediaQuery.size.height,
+            width: _mediaQuery.size.width,
+            child: Container(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(text: const TextSpan(
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
+                    children: [
+                      /// title
+                      TextSpan(text: 'TELA, La qualité de démarcheur ou démarcheuse et de visiteur, Les CGU'),
+
+                      /// title 2
+                      TextSpan(text: 'Conditions Générales d\'utilisation'),
+
+                      /// I
+                      TextSpan(text: 'I-TELA'),
+
+                      /// 1
+                      TextSpan(text: '1- Tela est une plateforme de recherche de logement, d\'achat de maison, de vente de marchandises de tous genre. c\'est aussi une plateforme sur laquelle nous difusons des publictés et des emissions pour aider les ONG, les orphelinats et autres. A travers celle ci nous organisons des jeux pour interesser la population à nos activités'),
+
+                      /// II
+                      TextSpan(text: 'II- La qualité de démarcheur, démarcheuse ou visiteur'),
+
+                      /// 1
+                      TextSpan(text: '3- Le visiteur est celui qui, est celui qui pour effectuer la recherche d\'un logement ou d\'une maison à acheter paie des frais de visite avant de consulter les photos de la plateforme.'),
+
+                      /// 2
+                      TextSpan(text: 'Conditions Générales d\'utilisation'),
+
+                      /// III
+                      TextSpan(text: 'Conditions Générales d\'utilisation'),
+
+                      /// 1
+                      TextSpan(text: 'Conditions Générales d\'utilisation'),
+
+                      /// 2
+                      TextSpan(text: 'Conditions Générales d\'utilisation'),
+
+                      /// 3
+                      TextSpan(text: 'Conditions Générales d\'utilisation'),
+
+                    ]
+                  )),
+                ),
+              ),
             ),
-          ))
+          )
       ),
     );
   }

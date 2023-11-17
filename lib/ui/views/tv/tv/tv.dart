@@ -47,7 +47,7 @@ class _TvState extends State<Tv> {
         ..loadRequest(Uri.parse(widget.programmeTV.link));
 
     } else {
-      videoController = VideoPlayerController.networkUrl(Uri.parse(widget.programmeTV.link));
+      videoController = VideoPlayerController.asset(widget.programmeTV.link);
 
       videoController.addListener(() {
         setState(() {});
@@ -71,12 +71,9 @@ class _TvState extends State<Tv> {
                 WebViewWidget(controller: controller, key: UniqueKey(),)
                     :
                 Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                        aspectRatio: videoController.value.aspectRatio,
-                        child: VideoPlayer(videoController, key: UniqueKey(),)
-                    ),
+                  child: AspectRatio(
+                      aspectRatio: videoController.value.aspectRatio,
+                      child: VideoPlayer(videoController, key: UniqueKey(),)
                   ),
                 ),
               )

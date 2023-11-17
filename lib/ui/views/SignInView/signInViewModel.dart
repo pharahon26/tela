@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/models/user.dart';
@@ -18,6 +20,7 @@ class SignInViewModel extends BaseViewModel{
   String birthPlace='';
   String password='';
   bool isAccepted =false;
+  File? photo;
 
 
   SignInViewModel();
@@ -27,6 +30,17 @@ class SignInViewModel extends BaseViewModel{
     User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, isDemarcheur: isAccepted);
     _sharedPrefs.savePhoneNumber(phone);
     _navigationService.navigateToProfile();
+  }
+  Future pickPhoto() async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null) {
+      photo = File(result.files.single.path!);
+    } else {
+
+    }
   }
 
   void navigateToCGU() async{

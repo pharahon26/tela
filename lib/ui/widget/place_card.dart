@@ -14,6 +14,7 @@ class PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Card(
           color: Theme.of(context).colorScheme.primary,
@@ -36,27 +37,28 @@ class PlaceCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-          child: Text(type,
+          child: Text('$type à ${place.commune!.name}',
               style: const TextStyle(
                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(place.commune!.name,
-                  style: const TextStyle(
-                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)),
               Text('${place.nombrePiece} Pièces',
                   style: const TextStyle(
-                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600))
+                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)),
+              Text('${place.nombreSalleEau} Salles d\'eau',
+                  style: const TextStyle(
+                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)),
             ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-          child: Text('${place.price.toString()} FCFA',
+          child: Text('Prix: ${place.price.toString()} FCFA',
+              textAlign: TextAlign.left,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 14, fontWeight:

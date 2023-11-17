@@ -41,307 +41,349 @@ class _IdentificationViewState extends State<IdentificationView>
                 elevation: 5,
               ),
               backgroundColor: Colors.white,
-              body: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    ///Info
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          height: 120.0,
-                          width: 120.0,
-                          child: Image.asset(
-                            'assets/images/logo_2.png',
-                            fit: BoxFit.contain,
+              body: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ///Info
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: 20.0,
                           ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
+                          Text('Complétez votre profil pour accéder nos services'),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                            height: 120.0,
+                            width: 120.0,
+                            child: Image.asset(
+                              'assets/images/logo_2.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
 
-                        /// nom field
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            keyboardType: TextInputType.name,
+
+
+
+                          Divider(),
+                          const Text('Informations',
                             style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.person_outline,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'Nom',
-                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                            ),
-                            onChanged: (value) {
-                              model.nom = value;
-                            },
-                          ),
-                        ),
-                        /// prenom field
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            keyboardType: TextInputType.name,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.person_outline,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'Prénoms',
-                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                            ),
-                            onChanged: (value) {
-                              model.prenom = value;
-                            },
-                          ),
-                        ),
-                        /// phone field
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            autofocus: true,
-                            keyboardType: TextInputType.phone,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.phone_android,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                prefixText: '+225',
-                                labelText: 'Numéro de téléphone',
-                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                            ),
+                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          Divider(),
 
-                            onChanged: (value) {
-                              model.phone = value;
-                            },
-                          ),
-                        ),
-                        /// Lieu de naissance field
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: TextField(
-                        //     keyboardType: TextInputType.text,
-                        //     style: TextStyle(
-                        //       color: Colors.black,
-                        //     ),
-                        //     decoration: InputDecoration(
-                        //         icon: Icon(
-                        //           Icons.place_outlined,
-                        //           color: Theme.of(context).colorScheme.primary,
-                        //         ),
-                        //         labelText: 'Lieu de naissance',
-                        //         labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                        //         enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                        //         focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                        //         hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                        //     ),
-                        //     onChanged: (value) {
-                        //       model.birthPlace = value;
-                        //     },
-                        //   ),
-                        // ),
-
-                        /// password field
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            keyboardType:  TextInputType.visiblePassword,
-                            obscureText: !isPasswordVisible,
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.vpn_key_outlined,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'Mot de passe',
-                              labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                              enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                              focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                              hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                              suffix: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isPasswordVisible = !isPasswordVisible;
-                                  });
-                                },
-                                icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined , color: isPasswordVisible? Theme.of(context).colorScheme.primary : Colors.black,),
-
-                              )
-                            ),
-                            onChanged: (value) {
-                              model.password = value;
-                            },
-                          ),
-                        ),
-
-                        /// confirm password field
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: !isPasswordVisible,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.vpn_key_outlined,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'Confirmer le mote de passe',
-                              labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                              enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                              focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                              hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                                suffix: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isPasswordVisible = !isPasswordVisible;
-                                    });
-                                  },
-                                  icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined ),
-
-                                )
-                            ),
-                            onChanged: (value) {
-
-                              /// check the password
-                              setState(() {
-                                // if (!value.ma(model.password)) {
-                                //
-                                // } else {
-                                //
-                                // }
-                              });
-                            },
-                          ),
-                        ),
-                        
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextButton(
-                              onPressed: () => model.navigateToCGU(),
-                              child: Text('cliquez ICI pour consulter nos conditions générales d\'itulisation',
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600
-                                ),
-                              )
-                          ),
-                        ),
-
-                        /// IS démarcheur
-                        CheckboxListTile(
-                            value: model.isAccepted,
-                            onChanged: (r) {
-                              setState(() {
-                                model.isAccepted = r!;
-                              });
-                            },
-                            title: Text(
-                              "En cochant cette case, je déclare avoir lu et approuvé les conditions générales d'utilisation de la plateforme TELA. Lire nos conditions  \"cliquez plus haut\"",
-                              maxLines: 2,
+                          /// nom field
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              initialValue: model.nom,
+                              keyboardType: TextInputType.name,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.person_outline,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Nom',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.nom = value;
+                              },
                             ),
-                            checkColor: Colors.white,
-                            activeColor: Theme.of(context).colorScheme.primary
-                        ),
-                      ],
-                    ),
-                  ],
+                          ),
+
+                          /// prenom field
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              initialValue: model.prenom,
+                              keyboardType: TextInputType.name,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.person_outline,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Prénoms',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.prenom = value;
+                              },
+                            ),
+                          ),
+
+                          /// phone field
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              initialValue: model.phone,
+                              keyboardType: TextInputType.phone,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.phone_android,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  prefixText: '+225',
+                                  labelText: 'Numéro de téléphone',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+
+                              onChanged: (value) {
+                                model.phone = value;
+                              },
+                            ),
+                          ),
+
+                          /// phone2 field
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              autofocus: false,
+                              keyboardType: TextInputType.phone,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.phone_android,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  prefixText: '+225',
+                                  labelText: 'Numéro de téléphone',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+
+                              onChanged: (value) {
+                                model.phone2 = value;
+                              },
+                            ),
+                          ),
+
+                          ///date de naissance
+
+                          /// Lieu de naissance field
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.place_outlined,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Lieu de naissance',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.birthPlace = value;
+                              },
+                            ),
+                          ),
+
+                          /// genre
+
+                          /// nationnalité
+
+                          /// Lieu de residence field
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.place_outlined,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Ville de réssidence',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.villeResidence = value;
+                              },
+                            ),
+                          ),
+
+
+                          Divider(),
+                          const Text('Document d\'identification',
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          Divider(),
+
+                          /// doc number
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.file_present,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Numero de Carte d\'identitée / passeport',
+                                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                  enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                  focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.docNumber = value;
+                              },
+                            ),
+                          ),
+
+                          Divider(),
+                          const Text('Document verso',
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          Divider(),
+                          /// doc recto
+                          SizedBox(
+                            height: _mediaQuery.size.width,
+                            child: AspectRatio(
+                              aspectRatio: 9/16,
+                              child: PageView(
+                                children: [
+                                  InkWell(
+                                    child: model.docRecto != null? Image.file(model.docRecto!,
+                                      fit: BoxFit.contain,
+                                    )
+                                        :
+                                    const Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.add, color: Colors.black,),
+                                          Text('Document recto',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),)
+                                        ],
+                                      ),
+                                    ),
+                                    onTap: () async {
+                                      await model.pickRecto().whenComplete(() {
+                                        setState(() {
+
+                                        });
+                                      });
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          /// doc verso
+                          Divider(),
+                          const Text('Document verso',
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          Divider(),
+                          SizedBox(
+                            height: _mediaQuery.size.width,
+                            child: AspectRatio(
+                              aspectRatio: 9/16,
+                              child: PageView(
+                                children: [
+                                  InkWell(
+                                    child: model.docVerso != null? Image.file(model.docVerso!,
+                                      fit: BoxFit.contain,
+                                    )
+                                        :
+                                    const Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.add, color: Colors.black,),
+                                          Text('Document verso',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),)
+                                        ],
+                                      ),
+                                    ),
+                                    onTap: () async {
+                                      await model.pickVerso().whenComplete(() {
+                                        setState(() {
+
+                                        });
+                                      });
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               bottomNavigationBar: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    model.isAccepted? model.signIn() : showDialog(context: context, builder: (buildContext) => Dialog(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(24.0),
-                            child: Text('Vous dever accepter nos conditions générales d\'itulisation',
-                              maxLines: 3,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.deepOrange,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextButton(
-                                onPressed: () => Navigator.pop(buildContext),
-                                child: Text('Retour',
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                  ),
-                                )
-                            ),
-                          )
-
-                        ],
-                      ),
-
-                    ));
-
-                    setState(() {
-                    });
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: model.isAccepted? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       fixedSize: Size(_mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 80.0),
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'Créer le profil',
-                      textAlign: TextAlign.start,
+                      'Je confirme mes informations personnelles',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

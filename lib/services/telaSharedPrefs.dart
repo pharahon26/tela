@@ -36,6 +36,15 @@ class TelaSharedPrefs implements InitializableDependency{
     return prefs.getString('name');
   }
 
+  /// save first name
+  Future<void> saveFirstName(String name) async {
+    await prefs.setString('prenom', name);
+  }
+  /// get name
+  String? getFirstName()  {
+    return prefs.getString('prenom');
+  }
+
   /// save abonnements
   Future<void> saveAbonnements(List<Abonnement> abonnement) async {
 // Save an list of strings to 'items' key.

@@ -95,7 +95,8 @@ class AuthService{
         _user = User.fromJson(json);
         if(user != null){
           _telaSharedPrefs.savePhoneNumber(user!.phone);
-          _telaSharedPrefs.saveName(user!.nom + ' ' + user!.prenom);
+          _telaSharedPrefs.saveName(user!.nom);
+          _telaSharedPrefs.saveFirstName( user!.prenom);
         }
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
@@ -140,7 +141,8 @@ class AuthService{
         print(_user.toString());
         if(user != null){
           _telaSharedPrefs.savePhoneNumber(user!.phone);
-          _telaSharedPrefs.saveName(user!.nom + ' ' + user!.prenom);
+          _telaSharedPrefs.saveName(user!.nom);
+          _telaSharedPrefs.saveFirstName( user!.prenom);
         }
 
         for(var ab in json["abonnements"]){
@@ -341,30 +343,46 @@ class AuthService{
     // await _telaSharedPrefs.saveAbonnementType(abonnementType);
   }
 
-  // List<Commune> getCommunes(){
-  //   List<Commune> list = [];
-  //   List<String> tt = [
-  //     'Abobo',
-  //     'Adjamé',
-  //     'Anyama',
-  //     'Attécoubé',
-  //     'Bingerville',
-  //     'Cocody',
-  //     'Koumassi',
-  //     'Marcory',
-  //     'Plateau',
-  //     'Port bouët',
-  //     'Treichville',
-  //     'Songon',
-  //     'Yopougon',
-  //   ];
-  //   int i = 1;
-  //   for (var element in tt) {
-  //     list.add(Commune(id: i, name: element, city: 'Abidjan'));
-  //     i++;
-  //   }
-  //   return  list;
-  // }
+  List<Commune> getFackCommunes(){
+    List<Commune> list = [];
+    List<String> tt = [
+      'Abobo',
+      'Adjamé',
+      'Anyama',
+      'Attécoubé',
+      'Bingerville',
+      'Cocody',
+      'Koumassi',
+      'Marcory',
+      'Plateau',
+      'Port bouët',
+      'Treichville',
+      'Songon',
+      'Yopougon',
+    ];
+    int i = 1;
+    for (var element in tt) {
+      list.add(Commune(id: i, name: element, city: 'Abidjan'));
+      i++;
+    }
+    return  list;
+  }
+
+  List<AbonnementType> getFackAbonnementType(){
+    List<AbonnementType> list = [];
+    list.add(AbonnementType(id: 1, title: 'Basic', type: 'demarcheur', price: 5000));
+    list.add(AbonnementType(id: 2, title: 'Medium', type: 'demarcheur', price: 15000));
+    list.add(AbonnementType(id: 3, title: 'Premium', type: 'demarcheur', price: 30000));
+    return  list;
+  }
+  List<PassType> getFackPassType(){
+    List<PassType> list = [];
+    list.add(PassType(id: 1, name: 'Basic', price: '2000', isVisite: true, numberOfVisites: 5));
+    list.add(PassType(id: 2, name: 'Medium', price: '3000', isVisite: true, numberOfVisites: 10));
+    list.add(PassType(id: 3, name: 'Premium', price: '5000', isVisite: true, numberOfVisites: 20));
+    list.add(PassType(id: 3, name: 'Pass Tv', price: '300', isVisite: false, numberOfVisites: 0));
+    return  list;
+  }
 
 
   void createFakeUser({

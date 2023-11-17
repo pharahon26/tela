@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
@@ -18,12 +21,11 @@ class NewPlaceViewModel extends BaseViewModel{
 
   bool havePass = false;
 
-
-
-
   bool isBureau = false;
   late Commune commune;
 
+  String nomProprio='';
+  String phone='';
 
   Stream<bool> get isAuth => _authService.isConnected;
   bool isMaisonBasse = false;
@@ -45,6 +47,8 @@ class NewPlaceViewModel extends BaseViewModel{
   List<Commune> communes = [];
   List<DropdownMenuItem<Commune>> dropDownItems = [];
 
+  List<File?> images = [];
+  File? img;
   Future<List<DropdownMenuItem<Commune>> > cc() async {
     if (communes.isEmpty) {
       communes = _authService.communes;
@@ -69,6 +73,9 @@ class NewPlaceViewModel extends BaseViewModel{
   NewPlaceViewModel(){
     communes = _authService.communes;
     commune = communes.first;
+    for(int i = 0; i<10; i++) {
+      images.add(null);
+    }
   }
 
 
@@ -115,6 +122,18 @@ class NewPlaceViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.acceuil);
   }
   void chechPass() async{
+  }
+
+  Future pickImage(int position) async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null) {
+      images[position] = File(result.files.single.path!);
+    } else {
+
+    }
   }
 
 

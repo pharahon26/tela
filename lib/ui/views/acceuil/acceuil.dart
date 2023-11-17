@@ -93,7 +93,6 @@ class _AcceuilState extends State<Acceuil> {
               ),
             ],
           ),
-
           drawer: Drawer(
             elevation: 5,
             child: SafeArea(
@@ -169,18 +168,18 @@ class _AcceuilState extends State<Acceuil> {
                     scrollAxis: Axis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     blankSpace: 200.0,
-                    velocity: 70.0,
-                    pauseAfterRound: Duration(seconds: 1),
+                    velocity: 55.0,
+                    pauseAfterRound: const Duration(seconds: 4),
                     startPadding: 10.0,
-                    accelerationDuration: Duration(seconds: 1),
+                    accelerationDuration: const Duration(seconds: 10),
                     accelerationCurve: Curves.linear,
-                    decelerationDuration: Duration(milliseconds: 500),
+                    decelerationDuration: const Duration(milliseconds: 500),
                     decelerationCurve: Curves.easeOut,
                   ),
                 ),
               ),
-              ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: mq.size.width),
+              SizedBox(
+                height: mq.size.height * 0.6,
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: imgs.map((e) => Padding(
@@ -226,7 +225,9 @@ class _AcceuilState extends State<Acceuil> {
                   ],
                 ),
               ),
-              Spacer(),
+              Image.asset('assets/images/telatv-logo.jpg',
+                fit: BoxFit.fitWidth,
+              ),
             ],
           )
       ),
