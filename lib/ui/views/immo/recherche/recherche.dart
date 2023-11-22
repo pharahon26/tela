@@ -93,15 +93,15 @@ class _RechercheState extends State<Recherche> {
                     ),
                     TextButton(
                         onPressed: (){
-                          model.navigateToTV();
-                        },
-                        child: Text('Tela TV')
-                    ),
-                    TextButton(
-                        onPressed: (){
                           model.navigateToEbank();
                         },
                         child: Text('Tela Finance')
+                    ),
+                    TextButton(
+                        onPressed: (){
+                          model.navigateToTV();
+                        },
+                        child: Text('Tela TV')
                     ),
                   ]),
             ),

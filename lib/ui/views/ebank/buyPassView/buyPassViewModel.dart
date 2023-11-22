@@ -25,6 +25,9 @@ class BuyPassViewModel extends BaseViewModel{
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.profile);
   }
+  void navigateToBack() async{
+    _navigationService.navigateToAcceuil();
+  }
 
   Future<String> getTransactioNumber(PassType passType) async {
     return await _transactionService.getTransactionNumber(passType.isVisite? 'Visite' : 'TV');

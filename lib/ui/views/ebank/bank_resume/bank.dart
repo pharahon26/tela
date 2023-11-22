@@ -121,6 +121,18 @@ class _BankState extends State<Bank> {
                           ),)
                     ),
                     TextButton(
+                      onPressed: (){
+                        model.navigateToEbank();
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                      ),
+                      child: const Text('Tela Finance',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                    ),
+                    TextButton(
                         onPressed: (){
                           model.navigateToTV();
                         },
@@ -128,18 +140,6 @@ class _BankState extends State<Bank> {
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                           ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        style: TextButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary,
-                        ),
-                            child: Text('Tela Finance',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),),
                     ),
                   ]),
             ),

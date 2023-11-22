@@ -85,6 +85,12 @@ class _ChanelTvState extends State<ChanelTv> {
                     ),
                     TextButton(
                         onPressed: (){
+                          model.navigateToEbank();
+                        },
+                        child: Text('Tela Finance')
+                    ),
+                    TextButton(
+                        onPressed: (){
                           model.navigateToTV();
                         },
                         style: TextButton.styleFrom(
@@ -96,12 +102,6 @@ class _ChanelTvState extends State<ChanelTv> {
                             color: Colors.white
                           ),
                         )
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        child: Text('Tela Finance')
                     ),
                   ]),
             ),

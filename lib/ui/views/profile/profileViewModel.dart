@@ -48,7 +48,7 @@ class ProfileViewModel extends BaseViewModel{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
-    await _navigationService.navigateToCatalogue(places: _authService.myPlaces);
+    await _navigationService.navigateToCatalogue();
   }
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);

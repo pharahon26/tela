@@ -101,8 +101,6 @@ class PlaceService{
   }
 
   /// add place
-
-  /// push buy pass
   Future<TelaPlace?> addPlace({required TelaPlace place}) async {
     var client = _newClient();
     TelaPlace? pl;
@@ -136,6 +134,8 @@ class PlaceService{
     }
     return pl;
   }
+
+  /// push buy pass
 
   /// modif place
 

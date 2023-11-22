@@ -154,7 +154,7 @@ class _LoginViewState extends State<LoginView>
                         child: Text(error.toString(),
                           textAlign: TextAlign.center,
                           maxLines: 20,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black,
                               fontWeight: FontWeight.w600,

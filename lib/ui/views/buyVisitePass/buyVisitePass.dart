@@ -87,22 +87,28 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                                           letterSpacing: 1.2
                                       ),
                                     ),
-                                    Text('${e.name}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 36,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
+                                    Visibility(
+                                      visible: e.isVisite,
+                                      child: Text('Pour Consulter ${e.numberOfVisites} logements',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 1.2
+                                        ),
                                       ),
                                     ),
-                                    Text('Pass ${e.isVisite? 'Visite' : 'TV'}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2
+                                    Visibility(
+                                      visible: !e.isVisite,
+                                      child: Text('Pass ${e.isVisite? 'Visite' : 'TV'}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 1.2
+                                        ),
                                       ),
                                     ),
                                   ],

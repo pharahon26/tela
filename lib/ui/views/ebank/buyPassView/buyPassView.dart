@@ -299,7 +299,76 @@ class _BuyPassViewState extends State<BuyPassView> {
                                       /// send to serveur transaction scheme and pass type por creation
 
                                       await model.pushTransaction(_transaction, widget.pass)
-                                          .then((value) => model.navigateToProfile());
+                                          .then((value) => showDialog(
+                                          context: context,
+                                          builder: (buildContext) {
+                                            return Dialog(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  const Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
+                                                    child: Text('Notez bien le code ci dessous. Une fois perdu il ne peut être récupéré!',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 1.1
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(top: 10.0,),
+                                                    child: Text('Le code de votre pass est',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 1.1
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
+                                                    child: Text( value!.code,
+                                                      textAlign: TextAlign.center,
+                                                      style: const TextStyle(
+                                                          fontSize: 24,
+                                                          color: Colors.red,
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 1.1
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: TextButton(
+                                                        onPressed: () => {
+                                                          Navigator.of(buildContext).pop(),
+                                                          model.navigateToBack()},
+                                                        child: Text('Ok',
+                                                          maxLines: 2,
+                                                          style: TextStyle(
+                                                              color: Theme.of(context).colorScheme.primary,
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.w600
+                                                          ),
+                                                        )
+                                                    ),
+                                                  )
+
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                      )
+                                      );
                                       // await Get.to(CinetPayCheckout(
                                       //   title: 'Payment Tela',
                                       //   titleStyle: const TextStyle(

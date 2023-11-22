@@ -5,9 +5,8 @@ import 'package:mobile/ui/widget/place_card.dart';
 import 'package:stacked/stacked.dart';
 
 class Catalogue extends StatefulWidget {
-  const Catalogue({super.key, required this.places});
+  const Catalogue({super.key,});
   /// this list should come from a call done in the model remmove  it when implemented
-  final List<TelaPlace> places;
 
   @override
   State<Catalogue> createState() => _CatalogueState();
@@ -25,7 +24,7 @@ class _CatalogueState extends State<Catalogue> {
             centerTitle: true,
             backgroundColor: Theme.of(context).colorScheme.primary,
             leading: InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () => model.navigateToProfile(),
               child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
@@ -41,17 +40,45 @@ class _CatalogueState extends State<Catalogue> {
             elevation: 5,
           ),
           backgroundColor: Colors.white,
-          body:  ListView(
-            scrollDirection: Axis.vertical,
-            children: widget.places.map((e) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                  onTap: () => model.navigateToVisite(e),
-                  child: PlaceCard(place: e, image: 'assets/images/p4.webp')
-              ),
-            )).toList(),
+          body:  FutureBuilder<List<TelaPlace>>(
+            future: model.getMyPlaces,
+            builder: (context, snapshot) {
+              switch(snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case ConnectionState.waiting:
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case ConnectionState.active:
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  children: snapshot.data!.map((e) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                        onTap: () => model.navigateToVisite(e),
+                        child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                    ),
+                  )).toList(),
+                );
+                case ConnectionState.done:
+                  return ListView(
+                scrollDirection: Axis.vertical,
+                children: snapshot.data!.map((e) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                      onTap: () => model.navigateToVisite(e),
+                      child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                  ),
+                )).toList(),
+              );
+              }
+
+            }
           ),
-        bottomSheet: Padding(
+        bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 1),
           child: ElevatedButton(
             onPressed: () => model.navigateToNewplace(),

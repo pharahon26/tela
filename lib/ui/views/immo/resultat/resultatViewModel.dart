@@ -18,9 +18,19 @@ class ResultatViewModel extends BaseViewModel{
   ResultatViewModel();
 
   void navigateToVisite(TelaPlace place) async{
-    // await _authService.moin1Visite(code: passVisite!.code, placeID: place.id);
+    print(passVisite.toString());
+    if (passVisite != null ) {
+      bool isExp = false;
+      isExp = passVisite!.isExpired;
+      PassVisite? pv = await _authService.moin1Visite(code: passVisite!.code, placeID: place.id);
 
-    await _navigationService.navigateToVisite(place: place);
+      if (!isExp) {
+        await _navigationService.navigateToVisite(place: place);
+      }
+    }
+  }
+  void navigateToVisiteAbonnement(bool isVisite) async{
+    await _navigationService.navigateToBuyVisitePass( isVisite: isVisite);
   }
 
 

@@ -127,11 +127,18 @@ class NewPlaceViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasGardien: hasGardien,
     );
-    await _placeService.addPlace(place: place);
-    _snackbarService.showSnackbar(message: 'Test', duration: const Duration(seconds: 10));
+    TelaPlace? telaPlace = await _placeService.addPlace(place: place);
+    if (telaPlace != null) {
+      _authService.placeAdded(telaPlace);
+      _navigationService.navigateToCatalogue();
+    }
+    // _snackbarService.showSnackbar(message: 'Test', duration: const Duration(seconds: 10));
   }
   void navigateToResult(List<TelaPlace> places) async{
     await _navigationService.navigateToResultat(places: places);
+  }
+  void navigateToCatalogue() async{
+    await _navigationService.navigateToCatalogue();
   }
   void navigateToVisiteAbonnement(bool isVisite) async{
     await _navigationService.navigateToBuyVisitePass( isVisite: isVisite);

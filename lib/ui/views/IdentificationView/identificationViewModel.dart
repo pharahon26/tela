@@ -40,7 +40,7 @@ class IdentificationViewModel extends BaseViewModel{
   Future identify() async {
     await _authService.identification(nom: nom, prenom: prenom, telephone: phone, phone2: phone2, id: _authService.user!.id, genre: isMan?'Homme':'Femme', birthDate: birthDay.toIso8601String(), birthPlace: birthPlace, nation: nationnalite, pays: pays, villeResi: villeResidence, documentNumber: docNumber,);
     _sharedPrefs.savePhoneNumber(phone);
-    _navigationService.navigateToProfile();
+    // _navigationService.popRepeated(1);
   }
 
   void navigateToCGU() async{

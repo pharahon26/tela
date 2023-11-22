@@ -49,16 +49,23 @@ class _ResultatState extends State<Resultat> {
                          Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
                           child: Visibility(
-                            replacement: const Text('Nous ne retrouvons pas votre pass assurez vous d\'avoir un valide!',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.1
+                            visible: !model.passVisite!.isExpired,
+                            replacement: TextButton(onPressed: () =>
+                            {
+                              Navigator.of(buildContext).pop(),
+                              model.navigateToVisiteAbonnement(true),
+                            },
+                              child: const Text('Votre pass à expiré, cliquez ici pour en racheter un nouveau',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.1
+                                  ),
                               ),
                             ),
-                            child: Text('Il vous reste ${model.passVisite!.numberOfVisites} maisons à visiter',
+                            child: Text('Il vous reste ${model.passVisite!.numberOfVisites} maisons à Consulter',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 14,
@@ -69,20 +76,39 @@ class _ResultatState extends State<Resultat> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextButton(
-                              onPressed: () => {
-                              Navigator.of(buildContext).pop(),
-                                model.navigateToVisite(e)},
-                              child: Text('Ok',
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600
-                                ),
-                              )
+                        Visibility(
+                          visible: !model.passVisite!.isExpired,
+                          replacement: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextButton(
+                                onPressed: () => {
+                                Navigator.of(buildContext).pop(),
+                                  model.navigateToVisite(e)},
+                                child: Text('Annuler',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                )
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextButton(
+                                onPressed: () => {
+                                Navigator.of(buildContext).pop(),
+                                  model.navigateToVisite(e)},
+                                child: Text('Consulter',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                )
+                            ),
                           ),
                         )
 

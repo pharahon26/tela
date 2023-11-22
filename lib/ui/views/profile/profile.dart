@@ -86,15 +86,15 @@ class _ProfileState extends State<Profile> {
                     ),
                     TextButton(
                         onPressed: (){
-                          model.navigateToTV();
-                        },
-                        child: const Text('Tela TV')
-                    ),
-                    TextButton(
-                        onPressed: (){
                           model.navigateToEbank();
                         },
                         child: const Text('Tela Finance')
+                    ),
+                    TextButton(
+                        onPressed: (){
+                          model.navigateToTV();
+                        },
+                        child: const Text('Tela TV')
                     ),
                   ]),
             ),
@@ -236,6 +236,8 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
+
+
                           const SizedBox(height: 40,),
                           /// Pass visite
                           Visibility(
@@ -335,19 +337,19 @@ class _ProfileState extends State<Profile> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text('Pass visites',
+                                      Text(' ${model.passVisite!.numberOfVisites} visite(s )',
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2,
-                                          color: model.passVisite != null? Colors.black : Colors.grey,
+                                          color: model.passVisite!.isExpired? Colors.black : Colors.grey,
                                         ),),
-                                      Text(model.passVisite != null? model.passVisite!.isExpired ? 'Expiré' : 'Actif': 'inactif',
+                                      Text(model.passVisite!.isExpired? 'Expiré' : 'Actif',
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2,
-                                          color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                          color: model.passVisite!.isExpired? Colors.deepOrange : Colors.grey,
                                         ),),
                                     ],
                                   ),
@@ -380,9 +382,39 @@ class _ProfileState extends State<Profile> {
                                     ],
                                   ),
                                 ),
+
+                                Visibility(
+                                  visible: model.passVisite!.isExpired,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () => model.navigateToVisitePass(),
+                                      child: Card(
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(45)
+                                          ),
+                                          color: Theme.of(context).colorScheme.primary,
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
+                                            child: Text('Achetez votre pass pour consulter nos logement et bureaux disponible',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),
+
+
                           const SizedBox(height: 20,),
                           /// abonnement
                           Padding(
@@ -649,19 +681,19 @@ class _ProfileState extends State<Profile> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('Pass visites',
+                                        Text(' ${model.passVisite!.numberOfVisites} visite(s )',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 1.2,
-                                            color: model.passVisite != null? Colors.black : Colors.grey,
+                                            color: model.passVisite!.isExpired? Colors.black : Colors.grey,
                                           ),),
-                                        Text(model.passVisite != null? model.passVisite!.isExpired ? 'Expiré' : 'Actif': 'inactif',
+                                        Text(model.passVisite!.isExpired? 'Expiré' : 'Actif',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 1.2,
-                                            color: model.passVisite != null? Colors.deepOrange : Colors.grey,
+                                            color: model.passVisite!.isExpired? Colors.deepOrange : Colors.grey,
                                           ),),
                                       ],
                                     ),
@@ -694,6 +726,34 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                   ),
+
+                                  Visibility(
+                                    visible: model.passVisite!.isExpired,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () => model.navigateToVisitePass(),
+                                          child: Card(
+                                              elevation: 8,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(45)
+                                              ),
+                                              color: Theme.of(context).colorScheme.primary,
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(24.0),
+                                                child: Text('Achetez votre pass pour consulter nos logement et bureaux disponible',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.w600,
+                                                      letterSpacing: 1.2
+                                                  ),
+                                                ),
+                                              )),
+                                        ),
+                                      ),
+                                  )
                                 ],
                               ),
                             ),

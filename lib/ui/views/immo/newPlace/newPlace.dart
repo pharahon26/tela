@@ -40,7 +40,7 @@ class _NewPlaceState extends State<NewPlace> {
             ),
             elevation: 5,
             leading: InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () => model.navigateToCatalogue(),
               child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),

@@ -102,7 +102,13 @@ class RechercheViewModel extends BaseViewModel{
       hasCoursAvant: hasCoursAvant,
       hasCoursArriere: hasCoursArriere,
     );
-    navigateToResult(plac);
+    List<TelaPlace> pp = [];
+    for(var pl in plac){
+      pl.commune = communes.where((element) => element.id == pl.communeId).first;
+      pp.add(pl);
+    }
+
+    navigateToResult(pp);
   }
 
   void navigateToResult(List<TelaPlace> places) async{
