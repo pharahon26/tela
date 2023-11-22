@@ -4,12 +4,15 @@ class AbonnementType{
   String type = '';
   int price = 0;
   String title = '';
+  int pourcentage = 0;
+
 
 
   AbonnementType(
       {required this.id,
       required this.type,
       required this.price,
+      required this.pourcentage,
       required this.title,});
 
 
@@ -17,6 +20,7 @@ class AbonnementType{
     AbonnementType u = AbonnementType(
       id : json["id"],
       type: json["type"],
+      pourcentage: json["pourcentage_demarcheur"],
       price: int.parse(json["price"]),
       title: json["title"],
     );
@@ -26,6 +30,7 @@ class AbonnementType{
     AbonnementType u = AbonnementType(
       id : int.parse(json["id"]),
       type: json["type"],
+      pourcentage: json["pourcentage"],
       price: int.parse(json["price"]),
       title: json["title"],
     );
@@ -38,13 +43,22 @@ class AbonnementType{
       "id": id,
       "type": type,
       "price": price,
+      "pourcentage_demarcheur": price,
+      "title": title,
+    };
+  }// map for database
+  Map<String, dynamic> toJson2(){
+    return {
+      "type_abonnement_id": id,
+      "type": type,
+      "price": price,
       "title": title,
     };
   }
 
   @override
   String toString() {
-    return 'id: $id, type: $type, price: $price, title: $title';
+    return 'AbonnementType{id: $id, type: $type, price: $price, title: $title, pourcentage: $pourcentage}';
   }
 }
 
@@ -90,6 +104,16 @@ class PassType{
   Map<String, dynamic> toJson(){
     return {
       "id": id,
+      "name": name,
+      "nb_visite": numberOfVisites,
+      "price": price,
+      "is_visite": isVisite?1:0,
+    };
+  }
+
+ Map<String, dynamic> toJson2(){
+    return {
+      "pass_type_id": id,
       "name": name,
       "nb_visite": numberOfVisites,
       "price": price,

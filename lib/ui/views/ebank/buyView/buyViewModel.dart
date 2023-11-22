@@ -23,10 +23,13 @@ class BuyViewModel extends BaseViewModel{
   BuyViewModel();
 
   void navigateToProfile() async{
-    await _navigationService.navigateTo(Routes.acceuil);
+    await _navigationService.navigateTo(Routes.profile);
   }
-  Future pushTransaction(TelaTransaction transaction, Abonnement abonnement) async {
-    await _transactionService.buyAbonnement(transaction: transaction, abonnement: abonnement);
+  Future<String> getTransactioNumber() async {
+    return await _transactionService.getTransactionNumber('Abonnement');
+  }
+  Future pushTransaction(TelaTransaction transaction, AbonnementType abonnement) async {
+    await _transactionService.buyAbonnement(transaction: transaction, abonnement: abonnement, userId: _authService.user!.id).then((value) => navigateToProfile());
   }
 
 

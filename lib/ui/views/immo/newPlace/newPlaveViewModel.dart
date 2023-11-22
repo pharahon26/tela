@@ -26,11 +26,16 @@ class NewPlaceViewModel extends BaseViewModel{
 
   String nomProprio='';
   String phone='';
+  String prix='0';
+  String description='';
 
   Stream<bool> get isAuth => _authService.isConnected;
   bool isMaisonBasse = false;
   bool isAppart = false;
   bool isDuplex = false;
+  bool isStudio= false;
+  bool isResidence = false;
+  bool isChambre = false;
   bool isHautStanding = false;
   bool isHautStandingPicine = false;
   bool hasPiscine = false;
@@ -93,6 +98,38 @@ class NewPlaceViewModel extends BaseViewModel{
     navigateToResult(plac);
   }
 
+  void addPlace() async{
+    TelaPlace place = TelaPlace(
+        id: 0,
+        proprioName: nomProprio,
+        proprioTelephone: phone,
+        description: description,
+        latitude: 0,
+        longitude: 0,
+        price: double.parse(prix),
+        communeId: commune.id,
+        nombrePiece: nombreDePieces,
+        nombreSalleEau: nombreDeSalleDeau,
+        demarcheurId: _authService.user!.id,
+      isAppartment: isAppart,
+      isDuplex: isDuplex,
+      isBureau: isBureau,
+      isStudio: isStudio,
+      isMaisonBasse: isMaisonBasse,
+      isChambre : isChambre,
+      isResidence: isResidence,
+      isHautStanding: isHautStanding,
+      hasPiscine: hasPiscine,
+      hasCoursAvant: hasCoursAvant,
+      hasCoursArriere: hasCoursArriere,
+      hasBalconArriere: hasBalconArriere,
+      hasBalconAvant: hasBalconAvant,
+      hasGarage: hasGarage,
+      hasGardien: hasGardien,
+    );
+    await _placeService.addPlace(place: place);
+    _snackbarService.showSnackbar(message: 'Test', duration: const Duration(seconds: 10));
+  }
   void navigateToResult(List<TelaPlace> places) async{
     await _navigationService.navigateToResultat(places: places);
   }
@@ -100,29 +137,6 @@ class NewPlaceViewModel extends BaseViewModel{
     await _navigationService.navigateToBuyVisitePass( isVisite: isVisite);
   }
 
-  void navigateToEbank() async{
-    await _navigationService.navigateTo(Routes.bank);
-  }
-  void navigateToProfile() async{
-    await _navigationService.navigateTo(Routes.profile);
-  }
-  void navigateToTV() async{
-    await _navigationService.navigateTo(Routes.chanelTv);
-  }
-  void navigateToRechercheBureau() async{
-    await _navigationService.navigateToRecherche(isBureau: true);
-  }
-  void navigateToRechercheLogement() async{
-    await _navigationService.navigateToRecherche(isBureau: false);
-  }
-  void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.catalogue);
-  }
-  void navigateToAcceuil() async{
-    await _navigationService.navigateTo(Routes.acceuil);
-  }
-  void chechPass() async{
-  }
 
   Future pickImage(int position) async{
     FilePickerResult? result = await FilePicker.platform.pickFiles(

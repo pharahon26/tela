@@ -15,6 +15,8 @@ class TelaPlace{
   int demarcheurId = 0;
   bool isStudio = false;
   bool isAppartment  = false;
+  bool isChambre  = false;
+  bool isResidence  = false;
   bool isBureau = false;
   bool isMaisonBasse = false;
   bool isDuplex = false;
@@ -47,6 +49,8 @@ class TelaPlace{
       this.isBureau = false,
       this.isMaisonBasse = false,
       this.isDuplex = false,
+      this.isChambre = false,
+      this.isResidence = false,
       this.hasPiscine = false,
       this.isHautStanding = false,
       this.hasCoursAvant = false,
@@ -59,17 +63,19 @@ class TelaPlace{
   static TelaPlace fromJson(Map<String, dynamic> json){
     TelaPlace u = TelaPlace(
       id : json["id"],
-      proprioName: json["proprio_name"],
-      proprioTelephone: json["proprio_telephone"],
+      proprioName: json["proprio_name"]??'',
+      proprioTelephone: json["proprio_telephone"]??'',
       description: json["description"],
-      latitude: double.parse(json["latitude"]??''),
-      longitude: double.parse(json["longitude"]??''),
-      price: double.parse(json["price"]),
+      latitude: double.parse(json["latitude"].toString()),
+      longitude: double.parse(json["longitude"].toString()),
+      price: double.parse(json["price"].toString()),
       communeId: json["commune_id"],
       nombrePiece: json["nombre_piece"],
       nombreSalleEau: json["nombre_salle_eau"],
       demarcheurId: json["user_id"],
       isBureau: json["is_Bureau"]==1,
+      isResidence: json["is_Residence"]==1,
+      isChambre: json["is_Chambre"]==1,
       isAppartment: json["is_Appartment"]==1,
       isDuplex: json["is_DUPLEX"]==1,
       isHautStanding: json["is_HAUT_STANDING"]==1,
@@ -83,7 +89,7 @@ class TelaPlace{
       hasGardien: json["has_GARDIEN"]==1,
       hasPiscine: json["has_PISCINE"]==1,
     );
-    u.commune = Commune.fromJson(json['commune']);
+    // u.commune = Commune.fromJson(json['commune']);
     return u;
   }
 
@@ -101,19 +107,21 @@ class TelaPlace{
       "nombre_piece": nombrePiece,
       "nombre_salle_eau": nombreSalleEau,
       "user_id": demarcheurId,
-      "is_bureau": isBureau?1:0,
-      "is_appartment": isAppartment?1:0,
-      "is_duplex": isDuplex?1:0,
-      "is_haut_standing": isHautStanding?1:0,
-      "is_maison_basse": isMaisonBasse?1:0,
-      "is_studio": isStudio?1:0,
-      "has_cours_arriere": hasCoursArriere?1:0,
-      "has_cours_avant": hasCoursAvant?1:0,
+      "is_Bureau": isBureau?1:0,
+      "is_Appartment": isAppartment?1:0,
+      "is_Residence": isResidence?1:0,
+      "is_Chambre": isChambre?1:0,
+      "is_DUPLEX": isDuplex?1:0,
+      "is_HAUT_STANDING": isHautStanding?1:0,
+      "is_MAISON_BASSE": isMaisonBasse?1:0,
+      "is_Studio": isStudio?1:0,
+      "has_COUR_ARRIERE": hasCoursArriere?1:0,
+      "has_COUR_AVANT": hasCoursAvant?1:0,
       "has_balcon_arriere": hasBalconArriere?1:0,
       "has_balcon_avant": hasBalconAvant?1:0,
-      "has_garage": hasGarage?1:0,
-      "has_gardien": hasGardien?1:0,
-      "has_piscine": hasPiscine?1:0,
+      "has_GARAGE": hasGarage?1:0,
+      "has_GARDIEN": hasGardien?1:0,
+      "has_PISCINE": hasPiscine?1:0,
     };
   }
 

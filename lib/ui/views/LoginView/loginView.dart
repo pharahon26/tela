@@ -139,7 +139,9 @@ class _LoginViewState extends State<LoginView>
             padding: EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                model.login().then((us) => model.navigateToProfile()).catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
+                model.login()
+                    .then((us) => model.navigateToProfile())
+                    .catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)

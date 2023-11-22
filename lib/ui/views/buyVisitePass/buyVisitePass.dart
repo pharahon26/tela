@@ -48,11 +48,11 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Nos pass expire après une semaine! pensez avous réabonnez',
+                    child: Text('Votre pass expire après une semaine!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 18,
-                          color: Colors.black,
+                          color: Colors.deepOrange,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.1
                       ),

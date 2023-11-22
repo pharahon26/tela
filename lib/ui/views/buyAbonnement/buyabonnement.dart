@@ -79,7 +79,7 @@ class _BuyAbonnementState extends State<BuyAbonnement> {
                                       letterSpacing: 1.2
                                   ),
                                 ),
-                                Text('Acces ${e.type}',
+                                Text('Recevez ${e.pourcentage}% sur chaque visites',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,

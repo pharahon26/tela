@@ -26,10 +26,11 @@ class SignInViewModel extends BaseViewModel{
   SignInViewModel();
 
 
-  Future signIn() async {
-    User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, isDemarcheur: isAccepted);
+  Future<User?> signIn() async {
+    User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace);
     _sharedPrefs.savePhoneNumber(phone);
     _navigationService.navigateToProfile();
+    return u;
   }
   Future pickPhoto() async{
     FilePickerResult? result = await FilePicker.platform.pickFiles(

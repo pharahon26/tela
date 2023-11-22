@@ -49,12 +49,12 @@ class TelaSharedPrefs implements InitializableDependency{
   Future<void> saveAbonnements(List<Abonnement> abonnement) async {
 // Save an list of strings to 'items' key.
 
-    await prefs.setStringList('abonnement', abonnement.map((e) => e.toString()).toList());
+    await prefs.setStringList('abonnements', abonnement.map((e) => e.toString()).toList());
   }
   /// get abonnement
   List<Abonnement> getAbonnements()  {
     List<Abonnement> list = [];
-    List<String>?  items = prefs.getStringList('abonnement');
+    List<String>?  items = prefs.getStringList('abonnements');
     for (String element in items!) {
       List<String> sti = element.split(', ');
       Map<String, dynamic> json= {};
@@ -140,6 +140,51 @@ class TelaSharedPrefs implements InitializableDependency{
       list.add(commune);
     }
     return list;
+  }
+  /// save pass visite
+  Future<void> savePassVisite(PassVisite pass) async {
+// Save an list of strings to 'items' key.
+
+    await prefs.setString('passVisite', pass.toString());
+  }
+  /// get Communes
+  PassVisite? getPassVisite()  {
+    PassVisite? pass;
+    String?  item = prefs.getString('passVisite');
+    if (item != null) {
+      List<String> sti = item.split(', ');
+      Map<String, dynamic> json= {};
+      for(String key_item in sti){
+        List<String> key_items = key_item.split(': ');
+        json[key_items[0]] = key_items[1];
+      }
+      pass = PassVisite.fromString(json);
+    }
+
+    return pass;
+  }
+
+  /// save abonnement
+  Future<void> saveAbonnement(Abonnement abonnement) async {
+// Save an list of strings to 'items' key.
+
+    await prefs.setString('abonnement', abonnement.toString());
+  }
+  /// get abonnement
+  Abonnement? getAbonnement()  {
+    Abonnement? abonnement;
+    String?  item = prefs.getString('abonnement');
+    if (item != null) {
+      List<String> sti = item.split(', ');
+      Map<String, dynamic> json= {};
+      for(String key_item in sti){
+        List<String> key_items = key_item.split(': ');
+        json[key_items[0]] = key_items[1];
+      }
+      abonnement = Abonnement.fromString(json);
+    }
+
+    return abonnement;
   }
 
 

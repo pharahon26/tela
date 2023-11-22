@@ -15,11 +15,14 @@ import 'package:rxdart/rxdart.dart';
 class AuthService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
-  static const String _SIGN_UP_URL = "api/users/create/";
+  static const String _SIGN_UP_URL = "api/users/create";
+  static const String _IDENTIFICATION_URL = "api/users/update";
   static const String _LOGIN_URL = "api/login";
   static const String _COMMUNE_URL = "api/communes";
   static const String _ABONNEMENT_TYPE_URL = "api/type-abonnement";
   static const String _PASS_TYPE_URL = "api/pass-type";
+  static const String _PASS_VISITE_URL = "api/pass-visite/";
+  static const String _PASS_VISITE_DECRMENT_URL = "api/pass-visite/one_visite";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
@@ -67,7 +70,6 @@ class AuthService{
     required String telephone,
     required String password,
     required String mail,
-    required bool isDemarcheur,
   }) async {
     var client = _newClient();
     try{
@@ -75,7 +77,6 @@ class AuthService{
       http.Response response = await client.post(Uri.parse(_BASE_URL+_SIGN_UP_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
-          "X-CSRF-TOKEN": "https://telaci.com",
         },
         body: jsonEncode(<String, dynamic>{
           "nom": nom,
@@ -83,16 +84,16 @@ class AuthService{
           "phone": telephone,
           "password": password,
           "email": mail,
-          "is_demarcheur": isDemarcheur?1:0,
         }),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
+      final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer ' + json["token"]["access_token"];
         _user = User.fromJson(json);
+        print(_user);
         if(user != null){
           _telaSharedPrefs.savePhoneNumber(user!.phone);
           _telaSharedPrefs.saveName(user!.nom);
@@ -101,17 +102,73 @@ class AuthService{
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
       }  else {
-        print('ERROR reponse status code not 200');
+        if (response.statusCode == 404) {
+          throw json['message'];
+
+        }
       }
 
-    }
-    catch(e){
-      print('auth api service signnin error** $e');
     }
     finally{
       client.close();
     }
     return _user;
+  }
+
+
+  /// Identifcation
+  Future<void> identification({
+    required String nom,
+    required String prenom,
+    required String telephone,
+    required String phone2,
+    required int id,
+    required String birthDate,
+    required String birthPlace,
+    required String genre,
+    required String nation,
+    required String pays,
+    required String villeResi,
+    required String documentNumber,
+  }) async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_BASE_URL+_IDENTIFICATION_URL)} Identification : $nom $prenom $telephone ');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_IDENTIFICATION_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "name": '$nom $prenom',
+          "id": id,
+          "phone1": telephone,
+          "phone2": phone2,
+          "lieu_naissance": birthPlace,
+          "date_naissance": birthDate,
+          "genre": genre,
+          "nationalite": nation,
+          "pays": pays,
+          "domicile": villeResi,
+          // "email": documentNumber,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      // final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(json);
+        // _token = 'Bearer ' + json["token"]["access_token"];
+      }  else {
+        if (response.statusCode == 404) {
+          throw json;
+
+        }
+      }
+
+    }
+    finally{
+      client.close();
+    }
   }
 
   /// LOGIN
@@ -130,8 +187,8 @@ class AuthService{
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
+      final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
         print(json);
         print('-----------');
         print('TEST');
@@ -145,26 +202,26 @@ class AuthService{
           _telaSharedPrefs.saveFirstName( user!.prenom);
         }
 
-        for(var ab in json["abonnements"]){
+        for(var ab in json["abonnement"]){
           Abonnement abonnement = Abonnement.fromJson(ab);
           _abonnement == abonnement;
           _abonnements.add(abonnement);
         }
-        print(json["abonnements"]);
-        for(var p in json["place"]){
-          TelaPlace place = TelaPlace.fromJson(p);
-          print(place.toString());
-          _myPlaces.add(place);
-        }
-
-        print(json["place"]);
+        print(json["abonnement"]);
+        // for(var p in json["places"]){
+        //   TelaPlace place = TelaPlace.fromJson(p);
+        //   print(place.toString());
+        //   _myPlaces.add(place);
+        // }
+        //
+        // print(json["place"]);
 
         // print('logged In successfully with token $_token');
         _isConnected = true;
         _isConnectedSubject.sink.add(_isConnected);
       }  else {
         if (response.statusCode == 404) {
-          throw "Le numero de telephone saisit n'existe pas";
+          throw json['message'];
 
         }
         print('ERROR reponse status code not 200');
@@ -340,8 +397,120 @@ class AuthService{
 
   void savePassType() async{
     passType = await getPassTypes();
-    // await _telaSharedPrefs.saveAbonnementType(abonnementType);
+    await _telaSharedPrefs.saveAbonnementType(abonnementType);
   }
+
+  getPassSaved(){
+    PassVisite? passVisite = _telaSharedPrefs.getPassVisite();
+
+    print('***************??????????????****************');
+    print(passVisite.toString());
+
+    print('***************??????????????****************');
+
+    _passVisite = passVisite;
+  }
+
+  getAbonnementSaved(){
+    Abonnement? abonnement = _telaSharedPrefs.getAbonnement();
+
+    print('***************??????????????****************');
+    print(abonnement.toString());
+
+    print('***************??????????????****************');
+
+    _abonnement = abonnement;
+  }
+
+
+  ///verifPassCode
+  Future<PassVisite?> verifCodeVisite({required String code}) async {
+    var client = _newClient();
+    late PassVisite passVisite;
+
+    try{
+      print('${Uri.parse('$_BASE_URL$_PASS_VISITE_URL')} get transaction number');
+      http.Response response = await client.post(Uri.parse('$_BASE_URL$_PASS_VISITE_URL'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'code': code,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+
+        passVisite = PassVisite.fromJson(json);
+        await _telaSharedPrefs.savePassVisite(passVisite);
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service commune error** $e');
+      throw('auth api service commune error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return passVisite;
+
+  }
+
+
+
+  ///décrément visite
+  Future<PassVisite?> moin1Visite({required String code, required int placeID}) async {
+    var client = _newClient();
+    late PassVisite passVisite;
+
+    try{
+      print('${Uri.parse('$_BASE_URL$_PASS_VISITE_DECRMENT_URL')} minus 1 visite');
+      http.Response response = await client.post(Uri.parse('$_BASE_URL$_PASS_VISITE_DECRMENT_URL'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'code': code,
+          'place_id': placeID,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+
+        passVisite = PassVisite.fromJson(json);
+        await _telaSharedPrefs.savePassVisite(passVisite);
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service commune error** $e');
+      throw('auth api service décrement visite error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return passVisite;
+
+  }
+
+
+
+
+
+
 
   List<Commune> getFackCommunes(){
     List<Commune> list = [];
@@ -370,9 +539,9 @@ class AuthService{
 
   List<AbonnementType> getFackAbonnementType(){
     List<AbonnementType> list = [];
-    list.add(AbonnementType(id: 1, title: 'Basic', type: 'demarcheur', price: 5000));
-    list.add(AbonnementType(id: 2, title: 'Medium', type: 'demarcheur', price: 15000));
-    list.add(AbonnementType(id: 3, title: 'Premium', type: 'demarcheur', price: 30000));
+    list.add(AbonnementType(id: 1, title: 'Basic', type: 'demarcheur', price: 5000, pourcentage: 10));
+    list.add(AbonnementType(id: 2, title: 'Medium', type: 'demarcheur', price: 15000, pourcentage: 18));
+    list.add(AbonnementType(id: 3, title: 'Premium', type: 'demarcheur', price: 30000, pourcentage: 25));
     return  list;
   }
   List<PassType> getFackPassType(){

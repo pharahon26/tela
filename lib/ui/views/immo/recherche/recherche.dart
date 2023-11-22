@@ -176,79 +176,114 @@ class _RechercheState extends State<Recherche> {
 
                     ///TYPE
                     Divider(),
-                    const Text('Type de Bien',
+                    const Text('Type de Maison',
                         style: TextStyle(
                         color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                     Divider(),
 
+                    /// IS DUPLEX
+                    CheckboxListTile(
+                        value: model.isDuplex,
+                        onChanged: (r) {
+                          setState(() {
+                            model.isDuplex = r!;
+                          });
+                        },
+                        title: Text(
+                          "Duplex",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
+                    ),
+                    /// IS Maison BASSE
+                    CheckboxListTile(
+                        value: model.isMaisonBasse,
+                        onChanged: (r) {
+                          setState(() {
+                            model.isMaisonBasse = r!;
+                          });
+                        },
+                        title: Text(
+                          "Maison Basse",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
+                    ),
                     /// IS APPARTEMENT
-                    ListTile(
-                      title: Text("Appartement",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                      leading: Radio(
-                        value: 1,
-                        groupValue: type,
-                        onChanged: (value) {
+                    CheckboxListTile(
+                        value: model.isAppart,
+                        onChanged: (r) {
                           setState(() {
-                            type = 1;
-                            model.isAppart = true;
-                            model.isDuplex = false;
-                            model.isMaisonBasse = false;
+                            model.isAppart = r!;
                           });
                         },
-                          fillColor: MaterialStateProperty.all(Colors.black),
-                          activeColor: Theme.of(context).colorScheme.primary
-                      ),
+                        title: Text(
+                          "Appartement",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
                     ),
-                    ListTile(
-                      title: Text("Maison basse",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                      leading: Radio(
-                        value: 2,
-                        groupValue: type,
-                        onChanged: (value) {
+                    /// IS Résidence
+                    CheckboxListTile(
+                        value: model.isResidence,
+                        onChanged: (r) {
                           setState(() {
-                            type = 2;
-                            model.isAppart = false;
-                            model.isDuplex = false;
-                            model.isMaisonBasse = true;
+                            model.isResidence = r!;
                           });
                         },
-                          fillColor: MaterialStateProperty.all(Colors.black),
-                          activeColor: Theme.of(context).colorScheme.primary
-                      ),
+                        title: Text(
+                          "Résidence",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
                     ),
-                    ListTile(
-                      title: Text("Duplex",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                      leading: Radio(
-                        value: 3,
-                        groupValue: type,
-                        onChanged: (value) {
+                    /// IS Studio
+                    CheckboxListTile(
+                        value: model.isStudio,
+                        onChanged: (r) {
                           setState(() {
-                            type = 3;
-                            model.isAppart = false;
-                            model.isDuplex = true;
-                            model.isMaisonBasse = false;
+                            model.isStudio = r!;
                           });
                         },
-                          fillColor: MaterialStateProperty.all(Colors.black),
-                          activeColor: Theme.of(context).colorScheme.primary
-                      ),
+                        title: Text(
+                          "Chambre",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
+                    ),
+                    /// IS Chambre
+                    CheckboxListTile(
+                        value: model.isChambre,
+                        onChanged: (r) {
+                          setState(() {
+                            model.isChambre = r!;
+                          });
+                        },
+                        title: Text(
+                          "Chambre",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).colorScheme.primary
                     ),
 
                     /// IS Haut standing avec piscine
                     CheckboxListTile(
-                        value: model.isHautStandingPicine,
+                        value: model.hasPiscine,
                       onChanged: (r) {
                         setState(() {
-                          model.isHautStandingPicine = r!;
+                          model.hasPiscine = r!;
                         });
                       },
                       title: Text(
@@ -277,7 +312,7 @@ class _RechercheState extends State<Recherche> {
                     ),
                     /// NOMBRE DE PIECE
                     Divider(),
-                    const Text('Nombre de pièces',
+                    const Text('Nombre de pièces minimun',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
                     ),
@@ -286,7 +321,7 @@ class _RechercheState extends State<Recherche> {
                       children: [
                         IconButton(onPressed: (){
                           setState(() {
-                            if (model.nombreDePieces>1) {
+                            if (model.nombreDePieces>0) {
                               model.nombreDePieces--;
                             }
                           });
@@ -312,7 +347,7 @@ class _RechercheState extends State<Recherche> {
 
                     /// NOMBRE DE PIECE d'eau
                     Divider(),
-                    const Text('Nombre de sales d\'eau',
+                    const Text('Nombre de sales d\'eau minimun',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
                     ),
@@ -321,7 +356,7 @@ class _RechercheState extends State<Recherche> {
                       children: [
                         IconButton(onPressed: (){
                           setState(() {
-                            if (model.nombreDeSalleDeau>1) {
+                            if (model.nombreDeSalleDeau>0) {
                               model.nombreDeSalleDeau--;
                             }
                           });
@@ -507,15 +542,15 @@ class _RechercheState extends State<Recherche> {
                                           color: Theme.of(context).colorScheme.primary,
                                         ),
                                         suffix: InkWell(
-                                          onTap: () => model.search(),
+                                          onTap: () async => await model.chechPass(code).then((value) => Navigator.of(buildContext).pop),
                                           child: Container(
                                             width: MediaQuery.of(context).size.width/5,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).colorScheme.primary,
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(8.0),
                                               child: Text('vérifier',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(

@@ -23,10 +23,13 @@ class BuyPassViewModel extends BaseViewModel{
   BuyPassViewModel();
 
   void navigateToProfile() async{
-    await _navigationService.navigateTo(Routes.acceuil);
+    await _navigationService.navigateTo(Routes.profile);
   }
 
-  Future pushTransaction(TelaTransaction transaction, PassType passType) async {
+  Future<String> getTransactioNumber(PassType passType) async {
+    return await _transactionService.getTransactionNumber(passType.isVisite? 'Visite' : 'TV');
+  }
+  Future<PassVisite?> pushTransaction(TelaTransaction transaction, PassType passType) async {
     return await _transactionService.buyPassVisite(transaction: transaction, pass: passType);
   }
 

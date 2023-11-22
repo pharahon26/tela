@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
+import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/images.dart';
 import 'package:mobile/models/place.dart';
 
@@ -10,6 +11,8 @@ class PlaceService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _PLACE_URL = "api/places";
+  static const String _PLACE_ADD_URL = "api/places/create";
+  static const String _SEARCH_LOGEMENT_URL = "api/places/searchplace";
   static const String _IMAGE_URL = "api/images";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
@@ -25,7 +28,7 @@ class PlaceService{
   }
 
   /// SIGN IN
-  Future<List<TelaPlace>> search({
+  Future<List<TelaPlace>> searchLogement({
     required int? communeId,
     required int? nombrePiece,
     required int? nombreSalleEau,
@@ -33,7 +36,10 @@ class PlaceService{
     required int? maxPrice,
     bool? isBureau,
     bool? isHautStanding,
+    bool? isHautStandingPiscine,
     bool? isStudio,
+    bool? isChambre,
+    bool? isResidence,
     bool? isMaisonBasse,
     bool? isDuplex,
     bool? isAppartment,
@@ -46,8 +52,8 @@ class PlaceService{
     var client = _newClient();
     List<TelaPlace> places =[];
     try{
-      print('${Uri.parse(_BASE_URL+_PLACE_URL)}');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_URL),
+      print('${Uri.parse(_BASE_URL+_SEARCH_LOGEMENT_URL)}');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_SEARCH_LOGEMENT_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -58,10 +64,10 @@ class PlaceService{
           "min_price": minPrice,
           "max_price": maxPrice,
           "is_bureau": isBureau,
-          "is_appartment": isAppartment,
+          "is_Appartment": isAppartment,
           "is_duplex": isDuplex,
           "is_haut_standing": isHautStanding,
-          "is_maison_basse": isMaisonBasse,
+          "is_MAISON_BASSE": isMaisonBasse,
           "is_studio": isStudio,
           "has_cours_arriere": hasCoursAvant,
           "has_cours_avant": hasCoursAvant,
@@ -72,11 +78,11 @@ class PlaceService{
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         print(json);
 
-        for(var place in json["result"]){
+        for(var place in json){
           places.add(TelaPlace.fromJson(place));
           print(place);
         }
@@ -93,6 +99,48 @@ class PlaceService{
     }
     return places;
   }
+
+  /// add place
+
+  /// push buy pass
+  Future<TelaPlace?> addPlace({required TelaPlace place}) async {
+    var client = _newClient();
+    TelaPlace? pl;
+    try{
+      print('${Uri.parse(_BASE_URL+_PLACE_ADD_URL)} add place : \n ${place.toJson()}');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_ADD_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(place.toJson()),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        pl = TelaPlace.fromJson(json);
+        print(pl.toString());
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('place api service Add place error** \n $e');
+    }
+    finally{
+      client.close();
+    }
+    return pl;
+  }
+
+  /// modif place
+
+
+  /// Décrement Visites
 
   /// GET images
   Future<List<TelaImage>> images(int placeId) async {

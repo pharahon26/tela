@@ -32,10 +32,11 @@ class Abonnement{
       type: json["type"],
       start: DateTime.parse(json["start_date"]),
       end: DateTime.parse(json["end_date"]),
-      userId: json["user_id"],
+      userId: json["user_id"]??0,
       transactionId: json["transaction_id"],
       abonnementTypeID: json["type_abonnement_id"],
-      abonnementType: AbonnementType.fromJson(json["type_abonnement"]),
+      abonnementType: null,
+      // abonnementType: json["type_abonnement"] != null? AbonnementType.fromJson(json["type_abonnement"]) : null,
     );
     return u;
   }
@@ -53,10 +54,24 @@ class Abonnement{
   }
 
   String startSTR(){
-    return DateFormat.yMMMd('fr').format(start);
+    return DateFormat.yMMMd().format(start);
   }
   String endSTR(){
-    return DateFormat.yMMMd('fr').format(end);
+    return DateFormat.yMMMd().format(end);
+  }
+
+
+  static Abonnement fromString(Map<String, dynamic> json){
+    Abonnement u = Abonnement(
+      id : int.parse(json["id"]),
+      type: json["type"],
+      start: DateTime.parse(json["start"]),
+      end: DateTime.parse(json["end"]),
+      userId: int.parse(json["userId"]),
+      transactionId: int.parse(json["transactionId"]),
+      abonnementTypeID: int.parse(json["abonnementTypeID"]), abonnementType: null,
+    );
+    return u;
   }
 
   @override
@@ -102,7 +117,7 @@ class PassVisite{
       end: DateTime.parse(json["end_date"]),
       transactionId: json["transaction_id"],
       passTypeID: json["pass_type_id"],
-      passType: PassType.fromJson(json["pass_type"]),
+      passType: null,
       transactionNumber: json["transaction_number"],
       code: json["code"],
       numberOfVisites: json["nb_visite"],
@@ -127,11 +142,33 @@ class PassVisite{
     };
   }
 
+  static PassVisite fromString(Map<String, dynamic> json){
+    PassVisite u = PassVisite(
+      id : int.parse(json["id"]),
+      start: DateTime.parse(json["start"]),
+      end: DateTime.parse(json["end"]),
+      transactionId: int.parse(json["transactionId"]),
+      passTypeID: int.parse(json["passTypeID"]),
+      transactionNumber: json["transactionNumber"],
+      code: json["code"],
+      numberOfVisites: int.parse(json["numberOfVisites"]),
+      isConfirm: bool.parse(json["isConfirm"]),
+      isExpired: bool.parse(json["isExpired"]),
+    );
+    return u;
+  }
+
+
+  @override
+  String toString() {
+    return 'id: $id, transactionNumber: $transactionNumber, code: $code, numberOfVisites: $numberOfVisites, passTypeID: $passTypeID, transactionId: $transactionId, start: $start, end: $end, isConfirm: $isConfirm, isExpired: $isExpired';
+  }
+
   String startSTR(){
-    return DateFormat.yMMMd('fr').format(start);
+    return DateFormat.yMMMd().format(start);
   }
   String endSTR(){
-    return DateFormat.yMMMd('fr').format(end);
+    return DateFormat.yMMMd().format(end);
   }
 
 }

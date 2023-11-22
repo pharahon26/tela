@@ -312,8 +312,8 @@ class _SignInViewState extends State<SignInView>
               bottomNavigationBar: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    model.isAccepted? model.signIn() : showDialog(context: context, builder: (buildContext) => Dialog(
+                  onPressed: () async {
+                    model.isAccepted? await model.signIn() : showDialog(context: context, builder: (buildContext) => Dialog(
                       backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)

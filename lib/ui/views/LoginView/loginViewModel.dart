@@ -18,6 +18,7 @@ class LoginViewModel extends BaseViewModel{
 
   LoginViewModel(){
     getPhone();
+    _authService.getAbonnementSaved();
     print('***** Phone ${phone} ****');
   }
 

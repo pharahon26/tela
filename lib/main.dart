@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.locator.dart';

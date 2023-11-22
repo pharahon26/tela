@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
+import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/commune.dart';
 import 'package:mobile/models/place.dart';
 import 'package:mobile/services/auth_service.dart';
@@ -29,8 +30,10 @@ class RechercheViewModel extends BaseViewModel{
   bool isMaisonBasse = false;
   bool isAppart = false;
   bool isDuplex = false;
+  bool isResidence = false;
+  bool isStudio = false;
+  bool isChambre = false;
   bool isHautStanding = false;
-  bool isHautStandingPicine = false;
   bool hasPiscine = false;
   bool hasGardien = false;
   bool hasGarage = false;
@@ -44,6 +47,8 @@ class RechercheViewModel extends BaseViewModel{
 
   List<Commune> communes = [];
   List<DropdownMenuItem<Commune>> dropDownItems = [];
+  PassVisite? get passVisite => _authService.passVisite;
+
 
   Future<List<DropdownMenuItem<Commune>> > cc() async {
     if (communes.isEmpty) {
@@ -69,20 +74,34 @@ class RechercheViewModel extends BaseViewModel{
   RechercheViewModel(){
     communes = _authService.communes;
     commune = communes.first;
+    PassVisite? passVisite =_authService.passVisite;
+    if (passVisite != null) {
+      havePass = true;
+    }
   }
 
 
 
   void search() async {
-    // _placeService.search(
-    //     communeId: commune.id,
-    //     nombrePiece: nombreDePieces,
-    //     nombreSalleEau: nombreDeSalleDeau,
-    //     minPrice: null,
-    //     maxPrice: null,
-    //
-    // );
-    List<TelaPlace> plac = await _placeService.getAllPlaces();
+    // List<TelaPlace> plac = await _placeService.getAllPlaces();
+    List<TelaPlace> plac = await _placeService.searchLogement(
+      communeId: commune.id,
+      nombrePiece: nombreDePieces,
+      nombreSalleEau: nombreDeSalleDeau,
+      minPrice: null,
+      maxPrice: null,
+      isBureau: isBureau,
+      isStudio: isStudio,
+      isMaisonBasse: isMaisonBasse,
+      isHautStanding: isHautStanding,
+      isDuplex: isDuplex,
+      isAppartment: isAppart,
+      hasPiscine: hasPiscine,
+      hasGardien: hasGardien,
+      hasGarage: hasGarage,
+      hasCoursAvant: hasCoursAvant,
+      hasCoursArriere: hasCoursArriere,
+    );
     navigateToResult(plac);
   }
 
@@ -114,7 +133,8 @@ class RechercheViewModel extends BaseViewModel{
   void navigateToAcceuil() async{
     await _navigationService.navigateTo(Routes.acceuil);
   }
-  void chechPass() async{
+  Future chechPass(String code) async{
+    await _authService.verifCodeVisite(code: code);
   }
 
 

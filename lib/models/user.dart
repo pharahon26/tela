@@ -32,17 +32,21 @@ class User {
   });
 
   static User fromJson(Map<String, dynamic> json){
+
+    print('before *********');
     User u = User(
       nom: json["nom"],
       prenom: json["prenoms"],
       mail: json["email"]??'',
       phone: json["phone"],
-      balance: double.parse(json["balance"]),
+      balance: double.parse(json["balance"].toString()),
       isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
       isStaff: json["is_staff"]==1,
     );
     u.id = json["id"];
+
+    print('before id');
     u.creationDate = DateTime.parse(json["created_at"]??'2023-10-10');
     return u;
   }
@@ -51,7 +55,7 @@ class User {
       nom: json["nom"],
       prenom: json["prenom"],
       mail: json["mail"]??'',
-      phone: json["phone"],
+      phone: json["phone"].toString(),
       balance: double.parse(json["balance"]),
       isValidated: bool.parse(json["isValidated"]),
       isSuspended: bool.parse(json["isSuspended"]),

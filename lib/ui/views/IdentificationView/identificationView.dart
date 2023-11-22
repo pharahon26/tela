@@ -188,7 +188,86 @@ class _IdentificationViewState extends State<IdentificationView>
                             ),
                           ),
 
+                          const SizedBox(
+                            height: 30,
+                          ),
+
                           ///date de naissance
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: InkWell(
+                              splashColor: Colors.blue,
+                              borderRadius: BorderRadius.circular(30),
+                              onTap: () {
+                                showDatePicker(
+                                  context: this.context,
+                                  initialDate: DateTime(DateTime.now().year - 15),
+                                  firstDate: DateTime(1940),
+                                  lastDate: DateTime(DateTime.now().year - 15, 12, 31),
+                                  builder: (datePickcontext, child) {
+                                    return Theme(
+                                      data: ThemeData.dark().copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: Theme.of(context).colorScheme.primary,
+                                          onPrimary: Colors.white,
+                                          surface: Colors.white,
+                                          onSurface: Theme.of(context).colorScheme.primary,
+                                        ),
+                                        dialogBackgroundColor: Colors.white,
+                                      ),
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(maxHeight: _mediaQuery.size.height * 0.7),
+                                        child: child!,
+                                      ),
+                                    );
+                                  },
+                                ).then((value) {
+                                  if (value != null) {
+                                    setState(() {
+                                      model.birthDay = value;
+                                      // model.dateS = ;
+                                      // final d = DateTime.now();
+                                      // if (model.dateS != langText.today &&
+                                      //     d.isBefore(value)) {
+                                      //   // isPeriodic = true;
+                                      // }
+                                    });
+                                  }
+                                });
+                              },
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      'Date de naissance',
+                                      style: TextStyle(
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          fontSize: 14.0),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.edit_calendar,
+                                      size: 24,
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('${model.birthDay.day} / ${model.birthDay.month} / ${model.birthDay.year}',
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.primary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
 
                           /// Lieu de naissance field
                           Padding(
@@ -215,9 +294,109 @@ class _IdentificationViewState extends State<IdentificationView>
                             ),
                           ),
 
+                          const SizedBox(
+                            height: 30,
+                          ),
+
                           /// genre
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20.0),
+                                  child: Text('Genre'),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text('Homme'),
+                                        Radio<bool>(
+                                            value: true,
+                                            groupValue: model.isMan,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                model.isMan = true;
+                                              });
+                                            }
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text('Femme'),
+                                        Radio<bool>(
+                                            value: false,
+                                            groupValue: model.isMan,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                model.isMan = false;
+                                              });
+                                            }
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 30,
+                          ),
 
                           /// nationnalité
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.place_outlined,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                labelText: 'Nationnalité',
+                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.nationnalite = value;
+                              },
+                            ),
+                          ),
+
+                          /// pays
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.place_outlined,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                labelText: 'Pays',
+                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                              ),
+                              onChanged: (value) {
+                                model.pays = value;
+                              },
+                            ),
+                          ),
 
                           /// Lieu de residence field
                           Padding(
@@ -370,7 +549,7 @@ class _IdentificationViewState extends State<IdentificationView>
               bottomNavigationBar: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => model.identify(),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       fixedSize: Size(_mediaQuery.size.width - 20, 40),

@@ -26,7 +26,11 @@ class ProfileViewModel extends BaseViewModel{
   String get endd => _authService.passVisite != null?_authService.passVisite!.endSTR():'Au ...';
   PassVisite? get passVisite => _authService.passVisite;
 
-  ProfileViewModel();
+  ProfileViewModel(){
+    print('***************PASS******************');
+    print(_authService.passVisite);
+    notifyListeners();
+  }
 
   void navigateToEbank() async{
     await _navigationService.navigateTo(Routes.bank);
@@ -64,7 +68,8 @@ class ProfileViewModel extends BaseViewModel{
   void navigateToIdentification() async{
     await _navigationService.navigateToIdentificationView();
   }
-  void chechPass() async{
+  void chechPass(String code) async{
+    await _authService.verifCodeVisite(code: code);
   }
 
 }

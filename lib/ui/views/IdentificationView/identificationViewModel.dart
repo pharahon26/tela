@@ -19,13 +19,14 @@ class IdentificationViewModel extends BaseViewModel{
   String phone='+225 07 00 00 00 00';
   String phone2='+225 07 00 00 00 00';
   String birthPlace='';
-  DateTime birthDay = DateTime.now();
+  DateTime birthDay = DateTime(DateTime.now().year - 15);
   String pays='';
   String nationnalite='';
   String villeResidence ='';
   String docNumber ='';
   File? docRecto;
   File? docVerso;
+  bool isMan =false;
   bool isAccepted =false;
 
 
@@ -36,11 +37,11 @@ class IdentificationViewModel extends BaseViewModel{
   }
 
 
-  // Future signIn() async {
-  //   User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, isDemarcheur: isAccepted);
-  //   _sharedPrefs.savePhoneNumber(phone);
-  //   _navigationService.navigateToProfile();
-  // }
+  Future identify() async {
+    await _authService.identification(nom: nom, prenom: prenom, telephone: phone, phone2: phone2, id: _authService.user!.id, genre: isMan?'Homme':'Femme', birthDate: birthDay.toIso8601String(), birthPlace: birthPlace, nation: nationnalite, pays: pays, villeResi: villeResidence, documentNumber: docNumber,);
+    _sharedPrefs.savePhoneNumber(phone);
+    _navigationService.navigateToProfile();
+  }
 
   void navigateToCGU() async{
     await _navigationService.navigateTo(Routes.conditionGeneralDUtilisationS);

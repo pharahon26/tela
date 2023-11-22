@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/services/auth_service.dart';
@@ -16,7 +17,13 @@ class AcceuilViewModel extends BaseViewModel{
     _authService.saveCommune();
     _authService.saveAbonnementType();
     _authService.savePassType();
+    _authService.getPassSaved();
+    _authService.getAbonnementSaved();
+    var format = DateFormat.yMd();
+    var dateString = format.format(DateTime.now());
+    print(dateString);
   }
+
 
 
   void navigateToEbank() async{

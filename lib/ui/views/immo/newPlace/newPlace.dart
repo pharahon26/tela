@@ -56,37 +56,6 @@ class _NewPlaceState extends State<NewPlace> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Divider(),
-                      const Text('Photos',
-                        style: TextStyle(
-                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
-                      SizedBox(
-                        height: mq.size.width,
-                        child: AspectRatio(
-                          aspectRatio: 9/16,
-                          child: PageView(
-                            children: model.images.map((e) => InkWell(
-                              child: e != null? Image.file(e,
-                                fit: BoxFit.contain,
-                              )
-                                  :
-                              const Center(
-                                child: Icon(Icons.add),
-                              ),
-                              onTap: () async {
-
-                                await model.pickImage(0).whenComplete(() {
-                                  setState(() {
-
-                                  });
-                                });
-                              },
-                            )
-                            ).toList(),
-                          ),
-                        ),
-                      ),
-                      Divider(),
                       const Text('Type de maison',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
@@ -120,6 +89,82 @@ class _NewPlaceState extends State<NewPlace> {
                           ),
                         ),
                       ),
+
+                      Divider(),
+                      const Text('Photos',
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                      Divider(),
+                      SizedBox(
+                        height: mq.size.width,
+                        child: AspectRatio(
+                          aspectRatio: 9/16,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: model.images.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                child: model.images[index] != null? Image.file(model.images[index]!,
+                                  fit: BoxFit.contain,
+                                )
+                                    :
+                                const AspectRatio(
+                                  aspectRatio: 9/16,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Icon(Icons.add),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
+
+                                  await model.pickImage(index).whenComplete(() {
+                                    setState(() {
+
+                                    });
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+
+
+                      Divider(),
+                      const Text('Prix',
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                      Divider(),
+                      /// Prix
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          initialValue: '0',
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            icon: Icon(
+                              Icons.attach_money,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            labelText: 'Prix',
+                            labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                            focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                            suffixText: 'F CFA'
+                          ),
+                          onChanged: (value) {
+                            model.prix = value;
+                          },
+                        ),
+                      ),
+
+
 
                       Divider(),
                       const Text('Commune',
@@ -174,6 +219,9 @@ class _NewPlaceState extends State<NewPlace> {
                               model.isAppart = true;
                               model.isDuplex = false;
                               model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -194,6 +242,9 @@ class _NewPlaceState extends State<NewPlace> {
                               model.isAppart = false;
                               model.isDuplex = false;
                               model.isMaisonBasse = true;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -214,6 +265,9 @@ class _NewPlaceState extends State<NewPlace> {
                               model.isAppart = false;
                               model.isDuplex = true;
                               model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -226,14 +280,63 @@ class _NewPlaceState extends State<NewPlace> {
                               color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                         leading: Radio(
-                          value: 3,
+                          value: 4,
                           groupValue: type,
                           onChanged: (value) {
                             setState(() {
-                              type = 3;
+                              type = 4;
                               model.isAppart = false;
-                              model.isDuplex = true;
+                              model.isDuplex = false;
                               model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = true;
+                            });
+                          },
+                            fillColor: MaterialStateProperty.all(Colors.black),
+                            activeColor: Theme.of(context).colorScheme.primary
+                        ),
+                      ),
+                      ListTile(
+                        title: Text("Studio",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        leading: Radio(
+                          value: 5,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 5;
+                              model.isAppart = false;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = false;
+                              model.isStudio = true;
+                              model.isChambre = false;
+                              model.isResidence = false;
+                            });
+                          },
+                            fillColor: MaterialStateProperty.all(Colors.black),
+                            activeColor: Theme.of(context).colorScheme.primary
+                        ),
+                      ),
+                      ListTile(
+                        title: Text("Chambre",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        leading: Radio(
+                          value: 6,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 6;
+                              model.isAppart = false;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = true;
+                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -310,7 +413,7 @@ class _NewPlaceState extends State<NewPlace> {
 
                       /// NOMBRE DE PIECE d'eau
                       Divider(),
-                      const Text('Nombre de sales d\'eau',
+                      const Text('Nombre de salles d\'eau',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
                       ),
@@ -446,9 +549,58 @@ class _NewPlaceState extends State<NewPlace> {
                           activeColor: Theme.of(context).colorScheme.primary
                       ),
 
+                      ///Description
+                      Divider(),
+                      const Text('Description',
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                      Divider(),
+
+                      /// description field
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0),
+                          maxLines: 3,
+                          decoration: InputDecoration(
+                              floatingLabelAlignment: FloatingLabelAlignment.center,
+                              icon: Icon(
+                                Icons.description,
+                                color: Theme.of(context).colorScheme.primary,
+                                size: 16.0,
+                              ),
+                              labelText: 'Description',
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color:
+                                      Theme.of(context).colorScheme.primary),
+                                  borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color:
+                                      Theme.of(context).colorScheme.primary),
+                                  borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                              )),
+                          onChanged: (value) {
+                            setState(() {
+                              model.description = value;
+                            });
+                          },
+                        ),
+                      ),
+
 
                       Divider(),
-                      const Text('Information du propriétaire',
+                      const Text('Information du propriétaire (facultatifs)',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                       /// nom proprio
@@ -502,104 +654,13 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
                       ),
 
+
                       ///Search
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
                           onPressed: () {
-                            model.havePass? model.search() : showDialog(context: context, builder: (buildContext) => Dialog(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
-                                    child: Text('Entrez le code de votre pass visite si dessous pour vérification',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.1
-                                      ),
-                                    ),
-                                  ),
-                                   Padding(
-                                    padding: EdgeInsets.all(24.0),
-                                    child: SizedBox(
-                                      width: mq.size.width*0.7,
-                                      child: TextFormField(
-                                        autofocus: true,
-                                        keyboardType: const TextInputType.numberWithOptions(signed: true,),
-                                        maxLength: 8,
-                                        minLines: 1,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                        decoration: InputDecoration(
-                                          icon: Icon(
-                                            Icons.credit_card,
-                                            color: Theme.of(context).colorScheme.primary,
-                                          ),
-                                          suffix: InkWell(
-                                            onTap: () => model.search(),
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width/5,
-                                              decoration: BoxDecoration(
-                                                  color: Theme.of(context).colorScheme.primary,
-                                                  borderRadius: BorderRadius.circular(30)
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Text('vérifier',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.w600,
-                                                      letterSpacing: 1.1
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          labelText: 'Pass visites',
-                                          labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                          enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                          focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                          hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                                        ),
-                                        onChanged: (value) {
-                                          code = value;
-                                        },
-                                        // validator: (value) {
-                                        //
-                                        // },
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextButton(
-                                        onPressed: () => model.navigateToVisiteAbonnement(true),
-                                        child: Text('Acheter un pass',
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                              color: Theme.of(context).colorScheme.primary,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600
-                                          ),
-                                        )
-                                    ),
-                                  )
-
-                                ],
-                              ),
-
-                            ));
+                            model.addPlace();
                             },
                           style: TextButton.styleFrom(
                             fixedSize: Size.fromWidth(mq.size.width * 0.6),
