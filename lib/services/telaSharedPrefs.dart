@@ -3,6 +3,7 @@
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/commune.dart';
+import 'package:mobile/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -147,11 +148,17 @@ class TelaSharedPrefs implements InitializableDependency{
 
     await prefs.setString('passVisite', pass.toString());
   }
+  /// delete pass visite
+  Future<void> deletePassVisite() async {
+// Save an list of strings to 'items' key.
+
+    await prefs.setString('passVisite', '');
+  }
   /// get Communes
   PassVisite? getPassVisite()  {
     PassVisite? pass;
     String?  item = prefs.getString('passVisite');
-    if (item != null) {
+    if (item != null && item.isNotEmpty) {
       List<String> sti = item.split(', ');
       Map<String, dynamic> json= {};
       for(String key_item in sti){
@@ -185,6 +192,29 @@ class TelaSharedPrefs implements InitializableDependency{
     }
 
     return abonnement;
+  }
+
+  /// save profil
+  Future<void> saveIdentity(UserIdentity identity) async {
+// Save an list of strings to 'items' key.
+
+    await prefs.setString('identity', identity.toString());
+  }
+  /// get abonnement
+  UserIdentity? getIdentity()  {
+    UserIdentity? identity;
+    String?  item = prefs.getString('identity');
+    if (item != null) {
+      List<String> sti = item.split(', ');
+      Map<String, dynamic> json= {};
+      for(String key_item in sti){
+        List<String> key_items = key_item.split(': ');
+        json[key_items[0]] = key_items[1];
+      }
+      identity = UserIdentity.fromString(json);
+    }
+
+    return identity;
   }
 
 

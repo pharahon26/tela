@@ -1,35 +1,65 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/immo/newPlace/newPlaveViewModel.dart';
+import 'package:mobile/models/place.dart';
+import 'package:mobile/ui/views/immo/modifPlace/modifPlaveViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-class NewPlace extends StatefulWidget {
-  NewPlace({super.key});
+class ModifPlace extends StatefulWidget {
+
+  final TelaPlace place;
+
+  ModifPlace({super.key, required this.place});
 
   @override
-  State<NewPlace> createState() => _NewPlaceState();
+  State<ModifPlace> createState() => _ModifPlaceState();
 }
 
-class _NewPlaceState extends State<NewPlace> {
+class _ModifPlaceState extends State<ModifPlace> {
   bool isBureau = false;
 
   int type = 1;
-  String code = '';
 
   List<String> imgLink = [];
   List<File> img = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    isBureau = widget.place.isBureau;
+    if (widget.place.isAppartment) {
+      type = 1;
+    }
+    if (widget.place.isMaisonBasse) {
+      type = 2;
+    }
+    if (widget.place.isDuplex) {
+      type = 3;
+    }
+    if (widget.place.isResidence) {
+      type = 4;
+    }
+    if (widget.place.isStudio) {
+      type = 5;
+    }
+    if (widget.place.isChambre) {
+      type = 6;
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
-    return ViewModelBuilder<NewPlaceViewModel>.reactive(
-      viewModelBuilder: () => NewPlaceViewModel(),
+    return ViewModelBuilder<ModifPlaceViewModel>.reactive(
+      viewModelBuilder: () => ModifPlaceViewModel(widget.place),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
-            title: const Text('Ajouter',
+            title: const Text('Modifier',
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
@@ -39,7 +69,7 @@ class _NewPlaceState extends State<NewPlace> {
             ),
             elevation: 5,
             leading: InkWell(
-              onTap: () => model.navigateToCatalogue(),
+              onTap: () => Navigator.of(context).pop(),
               child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
@@ -140,7 +170,7 @@ class _NewPlaceState extends State<NewPlace> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          initialValue: '0',
+                          initialValue: widget.place.price.toString(),
                           keyboardType: TextInputType.number,
                           style: TextStyle(
                             color: Colors.black,
@@ -162,8 +192,6 @@ class _NewPlaceState extends State<NewPlace> {
                           },
                         ),
                       ),
-
-
 
                       Divider(),
                       const Text('Commune',
@@ -559,8 +587,9 @@ class _NewPlaceState extends State<NewPlace> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          initialValue: model.description,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16.0),
                           maxLines: 3,
@@ -659,7 +688,7 @@ class _NewPlaceState extends State<NewPlace> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
                           onPressed: () {
-                            model.addPlace();
+                            model.modifPlace();
                             },
                           style: TextButton.styleFrom(
                             fixedSize: Size.fromWidth(mq.size.width * 0.6),

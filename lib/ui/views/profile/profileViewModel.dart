@@ -69,7 +69,14 @@ class ProfileViewModel extends BaseViewModel{
     await _navigationService.navigateToIdentificationView();
   }
   void chechPass(String code) async{
-    await _authService.verifCodeVisite(code: code);
+    PassVisite? p =  await _authService.verifCodeVisite(code: code);
+    if (p != null) {
+      print(passVisite);
+      navigateToProfile();
+      print('passVisite **********++++++++');
+      print(p);
+      notifyListeners();
+    }
   }
 
 }

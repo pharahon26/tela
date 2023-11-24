@@ -3,7 +3,9 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' as http_parser;
 import 'package:http/io_client.dart';
+import 'package:mime/mime.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
@@ -78,43 +80,104 @@ class AuthService{
     required String telephone,
     required String password,
     required String mail,
+    required String photo,
   }) async {
     var client = _newClient();
     try{
-      print('${Uri.parse(_BASE_URL+_SIGN_UP_URL)} sign In : $nom $prenom $telephone $mail');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_SIGN_UP_URL),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(<String, dynamic>{
-          "nom": nom,
-          "prenoms": prenom,
-          "phone": telephone,
-          "password": password,
-          "email": mail,
-        }),
-      );
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
-      final json = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        print(json);
-        // _token = 'Bearer ' + json["token"]["access_token"];
-        _user = User.fromJson(json);
-        print(_user);
-        if(user != null){
-          _telaSharedPrefs.savePhoneNumber(user!.phone);
-          _telaSharedPrefs.saveName(user!.nom);
-          _telaSharedPrefs.saveFirstName( user!.prenom);
-        }
-        _isConnected = true;
-        _isConnectedSubject.sink.add(_isConnected);
-      }  else {
-        if (response.statusCode == 404) {
-          throw json['message'];
 
+      File img = File(photo);
+
+      final mimeTypeData = lookupMimeType(img.path, headerBytes: [0xFF, 0xD8])?.split('/');
+      String img64 = base64Encode(img.readAsBytesSync());
+      print('${Uri.parse(_BASE_URL+_SIGN_UP_URL)} sign In : $nom $prenom $telephone $mail');
+
+      var request = http.MultipartRequest('POST', Uri.parse(_BASE_URL+_SIGN_UP_URL));
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+        // 'Authorization': token,
+      });
+      request.fields['nom'] = nom;
+      request.fields['prenoms'] = prenom;
+      request.fields['phone'] = telephone;
+      request.fields['password'] = password;
+      request.fields['email'] = mail;
+
+      request.files.add(
+          await http.MultipartFile.fromPath('photo',
+              img.path,
+              contentType: http_parser.MediaType(mimeTypeData![0], mimeTypeData[1])
+          ));
+
+      request.send().then((response) async {
+        if (response.statusCode == 200) print("Uploaded!");
+        final respStr = await response.stream.bytesToString();
+
+        print('Response status: ${response.statusCode}');
+        print('Response body: ${respStr}');
+        final json = jsonDecode(respStr);
+        if (response.statusCode == 200) {
+          print(json);
+          // _token = 'Bearer ' + json["token"]["access_token"];
+          _user = User.fromJson(json);
+          print(_user);
+
+          if(user != null){
+            _telaSharedPrefs.savePhoneNumber(user!.phone);
+            _telaSharedPrefs.saveName(user!.nom);
+            _telaSharedPrefs.saveFirstName( user!.prenom);
+            if((json["abonnement"] as List<dynamic>).isEmpty){
+              Abonnement? abonnement = _telaSharedPrefs.getAbonnement();
+              if (abonnement != null) {
+                if (abonnement.userId == _user!.id) {
+                  _abonnement = abonnement;
+                } else {
+                  _abonnement = null;
+                }
+              }else {
+                _abonnement = null;
+              }
+            } else {
+              _abonnement = Abonnement.fromJson(json["abonnement"][0]);
+              for(var ab in json["abonnement"]){
+                Abonnement abonnement = Abonnement.fromJson(ab);
+                _abonnements.add(abonnement);
+              }
+
+            }
+            print(json["abonnement"]);
+            // for(var p in json["places"]){
+            //   TelaPlace place = TelaPlace.fromJson(p);
+            //   print(place.toString());
+            //   _myPlaces.add(place);
+            // }
+            //
+            // print(json["place"]);
+
+            // print('logged In successfully with token $_token');
+            _isConnected = true;
+            _isConnectedSubject.sink.add(_isConnected);
+          }
+          // if(user != null){
+          //   _telaSharedPrefs.savePhoneNumber(user!.phone);
+          //   _telaSharedPrefs.saveName(user!.nom);
+          //   _telaSharedPrefs.saveFirstName( user!.prenom);
+          // }
+          // _isConnected = true;
+          // _isConnectedSubject.sink.add(_isConnected);
+        }  else {
+          if (response.statusCode == 404) {
+            throw json['message'];
+
+          }
         }
-      }
+
+      });
+
+
+
+
+
 
     }
     finally{
@@ -123,6 +186,102 @@ class AuthService{
     return _user;
   }
 
+
+  /// Identifcation
+  // Future<void> identification({
+  //   required String nom,
+  //   required String prenom,
+  //   required String telephone,
+  //   required String phone2,
+  //   required int id,
+  //   required String birthDate,
+  //   required String birthPlace,
+  //   required String genre,
+  //   required String nation,
+  //   required String pays,
+  //   required String villeResi,
+  //   required String documentNumber,
+  //   required String photo,
+  //   required String docRecto,
+  //   required String docVerso,
+  // }) async {
+  //   var client = _newClient();
+  //   try{
+  //
+  //
+  //     File img = File(photo);
+  //     File rec = File(docRecto);
+  //     File ver = File(docVerso);
+  //
+  //     final photoMimeTypeData = lookupMimeType(img.path, headerBytes: [0xFF, 0xD8])?.split('/');
+  //     final rectoMimeTypeData = lookupMimeType(rec.path, headerBytes: [0xFF, 0xD8])?.split('/');
+  //     final versooMimeTypeData = lookupMimeType(ver.path, headerBytes: [0xFF, 0xD8])?.split('/');
+  //
+  //     // String photoImg64 = base64Encode(img.readAsBytesSync());
+  //     // String rectoImg64 = base64Encode(rec.readAsBytesSync());
+  //     // String versoImg64 = base64Encode(ver.readAsBytesSync());
+  //
+  //     print('${Uri.parse(_BASE_URL+_IDENTIFICATION_URL)} identification : $nom $prenom $telephone ');
+  //
+  //     var request = http.MultipartRequest('POST', Uri.parse(_BASE_URL+_IDENTIFICATION_URL));
+  //     request.headers.addAll({
+  //       'Content-Type': 'multipart/form-data',
+  //       'Accept': 'application/json',
+  //       // 'Authorization': token,
+  //     });
+  //     request.fields['name'] = '$nom $prenom';
+  //     request.fields['id'] = id.toString();
+  //     request.fields['phone1'] = telephone;
+  //     request.fields['phone2'] = phone2;
+  //     request.fields['lieu_naissance'] = birthPlace;
+  //     request.fields['date_naissance'] = birthDate;
+  //     request.fields['genre'] = genre;
+  //     request.fields['nationalite'] = birthDate;
+  //     request.fields['pays'] = pays;
+  //     request.fields['domicile'] = villeResi;
+  //     request.fields['document_number'] = documentNumber;
+  //
+  //
+  //     request.files.add(
+  //         await http.MultipartFile.fromPath('photo',
+  //             img.path,
+  //             contentType: http_parser.MediaType(photoMimeTypeData![0], photoMimeTypeData[1])
+  //         ));
+  //     request.files.add(
+  //         await http.MultipartFile.fromPath('cni_recto',
+  //             rec.path,
+  //             contentType: http_parser.MediaType(rectoMimeTypeData![0], rectoMimeTypeData[1])
+  //         ));
+  //     request.files.add(
+  //         await http.MultipartFile.fromPath('cni_verso',
+  //             ver.path,
+  //             contentType: http_parser.MediaType(versooMimeTypeData![0], versooMimeTypeData[1])
+  //         ));
+  //
+  //     request.send().then((response) async {
+  //       if (response.statusCode == 200) print("Uploaded!");
+  //       final respStr = await response.stream.bytesToString();
+  //
+  //       print('Response status: ${response.statusCode}');
+  //       print('Response body: ${respStr}');
+  //       final json = jsonDecode(respStr);
+  //
+  //       if (response.statusCode == 200) {
+  //         print(json.toString());
+  //         // _token = 'Bearer ' + json["token"]["access_token"];
+  //       }  else {
+  //         if (response.statusCode == 404) {
+  //           throw json;
+  //
+  //         }
+  //       }
+  //     });
+  //
+  //   }
+  //   finally{
+  //     client.close();
+  //   }
+  // }
 
   /// Identifcation
   Future<void> identification({
@@ -138,10 +297,25 @@ class AuthService{
     required String pays,
     required String villeResi,
     required String documentNumber,
+    required String photo,
+    required String docRecto,
+    required String docVerso,
   }) async {
     var client = _newClient();
     try{
       print('${Uri.parse(_BASE_URL+_IDENTIFICATION_URL)} Identification : $nom $prenom $telephone ');
+
+      File img = File(photo);
+      File rec = File(docRecto);
+      File ver = File(docVerso);
+
+      // final photoMimeTypeData = lookupMimeType(img.path, headerBytes: [0xFF, 0xD8])?.split('/');
+      // final rectoMimeTypeData = lookupMimeType(rec.path, headerBytes: [0xFF, 0xD8])?.split('/');
+      // final versooMimeTypeData = lookupMimeType(ver.path, headerBytes: [0xFF, 0xD8])?.split('/');
+
+      String photoImg64 = base64Encode(img.readAsBytesSync());
+      String rectoImg64 = base64Encode(rec.readAsBytesSync());
+      String versoImg64 = base64Encode(ver.readAsBytesSync());
       http.Response response = await client.post(Uri.parse(_BASE_URL+_IDENTIFICATION_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -157,7 +331,10 @@ class AuthService{
           "nationalite": nation,
           "pays": pays,
           "domicile": villeResi,
-          // "email": documentNumber,
+          "document_number": documentNumber,
+          "photo": photoImg64,
+          "cni_recto": rectoImg64,
+          "cni_verso": versoImg64,
         }),
       );
       print('Response status: ${response.statusCode}');
@@ -166,10 +343,16 @@ class AuthService{
       if (response.statusCode == 200) {
         print(json.toString());
         // _token = 'Bearer ' + json["token"]["access_token"];
+        if (json != null) {
+          UserIdentity userIdentity = UserIdentity.fromJson(json);
+          print('******** User Identity **********');
+          print(userIdentity);
+          await _telaSharedPrefs.saveIdentity(userIdentity);
+
+        }
       }  else {
         if (response.statusCode == 404) {
           throw json;
-
         }
       }
 
@@ -480,6 +663,18 @@ class AuthService{
     }
 
   }
+  void deletePass() async {
+    PassVisite? passVisite = _telaSharedPrefs.getPassVisite();
+    print('***************??????pass v????????****************');
+    print(passVisite.toString());
+
+    print('***************??????????????****************');
+    if (passVisite != null) {
+      _telaSharedPrefs.deletePassVisite();
+        _passVisite = null;
+    }
+
+  }
 
   getAbonnementSaved(){
     Abonnement? abonnement = _telaSharedPrefs.getAbonnement();
@@ -517,6 +712,7 @@ class AuthService{
 
         passVisite = PassVisite.fromJson(json[0]);
         await _telaSharedPrefs.savePassVisite(passVisite);
+        _passVisite = passVisite;
       }  else {
         print('ERROR reponse status code not 200');
       }

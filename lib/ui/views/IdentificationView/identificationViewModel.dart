@@ -28,6 +28,7 @@ class IdentificationViewModel extends BaseViewModel{
   File? docVerso;
   bool isMan =false;
   bool isAccepted =false;
+  File? photo;
 
 
   IdentificationViewModel(){
@@ -38,9 +39,38 @@ class IdentificationViewModel extends BaseViewModel{
 
 
   Future identify() async {
-    await _authService.identification(nom: nom, prenom: prenom, telephone: phone, phone2: phone2, id: _authService.user!.id, genre: isMan?'Homme':'Femme', birthDate: birthDay.toIso8601String(), birthPlace: birthPlace, nation: nationnalite, pays: pays, villeResi: villeResidence, documentNumber: docNumber,);
+    await _authService.identification(
+      nom: nom,
+      prenom: prenom,
+      telephone: phone,
+      phone2: phone2,
+      id: _authService.user!.id,
+      genre: isMan?'Homme':'Femme',
+      birthDate: birthDay.toIso8601String(),
+      birthPlace: birthPlace,
+      nation: nationnalite,
+      pays: pays,
+      villeResi: villeResidence,
+      documentNumber: docNumber,
+      photo: photo?.path??'',
+      docRecto: docRecto?.path??'',
+      docVerso: docVerso?.path??'',
+    );
     _sharedPrefs.savePhoneNumber(phone);
-    // _navigationService.popRepeated(1);
+    _navigationService.popRepeated(1);
+  }
+
+
+  Future pickPhoto() async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null) {
+      photo = File(result.files.single.path!);
+    } else {
+
+    }
   }
 
   void navigateToCGU() async{

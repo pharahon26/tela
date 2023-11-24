@@ -148,87 +148,91 @@ class _AcceuilState extends State<Acceuil> {
                   ]),
             ),
           ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: mq.size.width*0.9,
-                  height: 30,
-                  child: Marquee(
-                    text:'TELA, la meilleure plateforme de recherche de logements et de bureaux en Côte D\'Ivoire',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.2,
-                        color: Colors.black
-                    ),
-                    scrollAxis: Axis.horizontal,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    blankSpace: 200.0,
-                    velocity: 55.0,
-                    pauseAfterRound: const Duration(seconds: 4),
-                    startPadding: 10.0,
-                    accelerationDuration: const Duration(seconds: 10),
-                    accelerationCurve: Curves.linear,
-                    decelerationDuration: const Duration(milliseconds: 500),
-                    decelerationCurve: Curves.easeOut,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: mq.size.height * 0.6,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: imgs.map((e) => Padding(
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: mq.size.height,
+              width: mq.size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(e,
-                      width: mq.size.width-80,
-                      fit: BoxFit.fitWidth,),
-                  )).toList(),
-                ),
-              ),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(onPressed: () => model.navigateToRechercheLogement(),
-                      style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary
-                      ),
-                      child: const Text('Trouver un logement',
+                    child: SizedBox(
+                      width: mq.size.width*0.9,
+                      height: 30,
+                      child: Marquee(
+                        text:'TELA, la meilleure plateforme de recherche de logements et de bureaux en Côte D\'Ivoire',
                         style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
                             letterSpacing: 1.2,
-                            color: Colors.white
+                            color: Colors.black
                         ),
+                        scrollAxis: Axis.horizontal,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        blankSpace: 200.0,
+                        velocity: 55.0,
+                        pauseAfterRound: const Duration(seconds: 4),
+                        startPadding: 10.0,
+                        accelerationDuration: const Duration(seconds: 10),
+                        accelerationCurve: Curves.linear,
+                        decelerationDuration: const Duration(milliseconds: 500),
+                        decelerationCurve: Curves.easeOut,
                       ),
                     ),
-                    TextButton(onPressed: () => model.navigateToRechercheBureau(),
-                      style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary
-                      ),
-                      child: const Text('Trouver un Bureau',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
-                            color: Colors.white
+                  ),
+                  SizedBox(
+                    height: mq.size.height * 0.6,
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: imgs.map((e) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(e,
+                          width: mq.size.width-80,
+                          fit: BoxFit.fitWidth,),
+                      )).toList(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(onPressed: () => model.navigateToRechercheLogement(),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary
+                          ),
+                          child: const Text('Trouver un logement',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.2,
+                                color: Colors.white
+                            ),
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                        TextButton(onPressed: () => model.navigateToRechercheBureau(),
+                          style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary
+                          ),
+                          child: const Text('Trouver un Bureau',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.2,
+                                color: Colors.white
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Image.asset('assets/images/telatv-logo.jpg',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ],
               ),
-              Image.asset('assets/images/telatv-logo.jpg',
-                fit: BoxFit.fitWidth,
-              ),
-            ],
+            ),
           )
       ),
     );

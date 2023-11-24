@@ -59,17 +59,40 @@ class _IdentificationViewState extends State<IdentificationView>
                           SizedBox(
                             height: 20.0,
                           ),
-                          Container(
-                            height: 120.0,
-                            width: 120.0,
-                            child: Image.asset(
-                              'assets/images/logo_2.png',
-                              fit: BoxFit.contain,
+
+                          /// photo
+                          Divider(),
+                          const Text('Photo',
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          Divider(),
+                          SizedBox(
+                            height: _mediaQuery.size.width,
+                            child: AspectRatio(
+                              aspectRatio: 9/16,
+                              child: PageView(
+                                children: [
+                                  InkWell(
+                                    child: model.photo != null? Image.file(model.photo!,
+                                      fit: BoxFit.contain,
+                                    )
+                                        :
+                                    const Center(
+                                      child: Icon(Icons.add),
+                                    ),
+                                    onTap: () async {
+                                      await model.pickPhoto().whenComplete(() {
+                                        setState(() {
+
+                                        });
+                                      });
+                                    },
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
+
 
 
 
@@ -192,6 +215,56 @@ class _IdentificationViewState extends State<IdentificationView>
                             height: 30,
                           ),
 
+                          /// genre
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20.0),
+                                  child: Text('Genre'),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text('Homme'),
+                                        Radio<bool>(
+                                            value: true,
+                                            groupValue: model.isMan,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                model.isMan = true;
+                                              });
+                                            }
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text('Femme'),
+                                        Radio<bool>(
+                                            value: false,
+                                            groupValue: model.isMan,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                model.isMan = false;
+                                              });
+                                            }
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 30,
+                          ),
+
                           ///date de naissance
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -294,59 +367,6 @@ class _IdentificationViewState extends State<IdentificationView>
                             ),
                           ),
 
-                          const SizedBox(
-                            height: 30,
-                          ),
-
-                          /// genre
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 20.0),
-                                  child: Text('Genre'),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text('Homme'),
-                                        Radio<bool>(
-                                            value: true,
-                                            groupValue: model.isMan,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                model.isMan = true;
-                                              });
-                                            }
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text('Femme'),
-                                        Radio<bool>(
-                                            value: false,
-                                            groupValue: model.isMan,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                model.isMan = false;
-                                              });
-                                            }
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          const SizedBox(
-                            height: 30,
-                          ),
 
                           /// nationnalité
                           Padding(

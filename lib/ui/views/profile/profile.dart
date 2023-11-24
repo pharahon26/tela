@@ -257,7 +257,6 @@ class _ProfileState extends State<Profile> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextFormField(
                                     autofocus: false,
-                                    keyboardType: const TextInputType.numberWithOptions(signed: true,),
                                     maxLength: 8,
                                     minLines: 1,
                                     style: const TextStyle(
@@ -601,7 +600,6 @@ class _ProfileState extends State<Profile> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
                                       autofocus: false,
-                                      keyboardType: const TextInputType.numberWithOptions(signed: true,),
                                       maxLength: 8,
                                       minLines: 1,
                                       style: const TextStyle(
@@ -681,19 +679,19 @@ class _ProfileState extends State<Profile> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(' ${model.passVisite!.numberOfVisites} visite(s )',
+                                        Text(' ${model.passVisite != null? model.passVisite!.numberOfVisites : ''} visite(s )',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 1.2,
-                                            color: model.passVisite!.isExpired? Colors.black : Colors.grey,
+                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.black : Colors.grey : Colors.grey,
                                           ),),
-                                        Text(model.passVisite!.isExpired? 'Expiré' : 'Actif',
+                                        Text(model.passVisite != null? model.passVisite!.isExpired? 'Expiré' : 'Actif': '',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 1.2,
-                                            color: model.passVisite!.isExpired? Colors.deepOrange : Colors.grey,
+                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.deepOrange : Colors.grey : Colors.grey,
                                           ),),
                                       ],
                                     ),
@@ -728,7 +726,7 @@ class _ProfileState extends State<Profile> {
                                   ),
 
                                   Visibility(
-                                    visible: model.passVisite!.isExpired,
+                                    visible: model.passVisite != null? model.passVisite!.isExpired : false,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: InkWell(

@@ -12,6 +12,7 @@ class PlaceService{
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _PLACE_URL = "api/places";
   static const String _PLACE_ADD_URL = "api/places/create";
+  static const String _PLACE_MODIF_URL = "api/places/updateplace";
   static const String _SEARCH_LOGEMENT_URL = "api/places/searchplace";
   static const String _IMAGE_URL = "api/images";
 
@@ -80,7 +81,8 @@ class PlaceService{
       print('Response body: ${response.body}');
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        print(json);
+        print('deceode errror *****');
+        print((json as List).length);
 
         for(var place in json){
           places.add(TelaPlace.fromJson(place));
@@ -101,16 +103,25 @@ class PlaceService{
   }
 
   /// add place
-  Future<TelaPlace?> addPlace({required TelaPlace place}) async {
+  Future<TelaPlace?> addPlace({required TelaPlace place, required List<File?> images}) async {
     var client = _newClient();
     TelaPlace? pl;
+    Map<String, dynamic> toSend = place.toJson();
+
+    for(int i = 0; i<10; i++){
+      if (images[i] != null) {
+        String photoImg64 = base64Encode(images[i]!.readAsBytesSync());
+        toSend['picture$i'] = photoImg64;
+      }
+    }
+
     try{
       print('${Uri.parse(_BASE_URL+_PLACE_ADD_URL)} add place : \n ${place.toJson()}');
       http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_ADD_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(place.toJson()),
+        body: jsonEncode(toSend),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -128,6 +139,50 @@ class PlaceService{
     }
     catch(e){
       print('place api service Add place error** \n $e');
+    }
+    finally{
+      client.close();
+    }
+    return pl;
+  }
+
+  /// modif place
+  Future<TelaPlace?> modifPlace({required TelaPlace place, required List<File?> images}) async {
+    var client = _newClient();
+    TelaPlace? pl;
+    Map<String, dynamic> toSend = place.toJson();
+
+    for(int i = 0; i<10; i++){
+      if (images[i] != null) {
+        String photoImg64 = base64Encode(images[i]!.readAsBytesSync());
+        toSend['picture$i'] = photoImg64;
+      }
+    }
+
+    try{
+      print('${Uri.parse(_BASE_URL+_PLACE_MODIF_URL)} modif place : \n ${place.toJson()}');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_MODIF_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(toSend),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        pl = TelaPlace.fromJson(json);
+        print(pl.toString());
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('place api service Modif place error** \n $e');
     }
     finally{
       client.close();

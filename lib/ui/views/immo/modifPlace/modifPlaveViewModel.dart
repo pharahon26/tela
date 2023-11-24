@@ -11,7 +11,7 @@ import 'package:mobile/services/place_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class NewPlaceViewModel extends BaseViewModel{
+class ModifPlaceViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
   AuthService _authService = locator<AuthService>();
@@ -75,16 +75,35 @@ class NewPlaceViewModel extends BaseViewModel{
     return dropDownItems ;
   }
 
-  NewPlaceViewModel(){
+  ModifPlaceViewModel(TelaPlace place){
     communes = _authService.communes;
     commune = communes.first;
+
+    isHautStanding = place.isHautStanding;
+    isHautStandingPicine = place.hasPiscine;
+
+    hasCoursAvant = place.hasCoursAvant;
+    hasCoursArriere = place.hasCoursArriere;
+    hasBalconAvant = place.hasBalconAvant;
+    hasBalconArriere = place.hasBalconArriere;
+    hasGarage = place.hasGarage;
+    hasGardien = place.hasGardien;
+
+    description = place.description;
+    nombreDeSalleDeau = place.nombreSalleEau;
+    nombreDePieces = place.nombrePiece;
+    nomProprio = place.proprioName;
+    phone = place.proprioTelephone;
+
+    commune = communes.firstWhere((element) => element.id == place.communeId);
+
     for(int i = 0; i<10; i++) {
       images.add(null);
     }
   }
 
 
-  void addPlace() async{
+  void modifPlace() async{
     TelaPlace place = TelaPlace(
         id: 0,
         proprioName: nomProprio,
@@ -113,7 +132,7 @@ class NewPlaceViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasGardien: hasGardien,
     );
-    TelaPlace? telaPlace = await _placeService.addPlace(place: place, images: images);
+    TelaPlace? telaPlace = await _placeService.modifPlace(place: place, images: images);
     if (telaPlace != null) {
       _authService.placeAdded(telaPlace);
       _navigationService.navigateToCatalogue();

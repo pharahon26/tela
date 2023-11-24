@@ -19,6 +19,8 @@ import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
 import 'package:mobile/ui/views/immo/catalogue/catalogue.dart';
+import 'package:mobile/ui/views/immo/modifPlace/modifPlace.dart';
+import 'package:mobile/ui/views/immo/myVisite/myVisite.dart';
 import 'package:mobile/ui/views/immo/newPlace/newPlace.dart';
 import 'package:mobile/ui/views/immo/recherche/recherche.dart';
 import 'package:mobile/ui/views/immo/resultat/resultat.dart';
@@ -46,7 +48,9 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: Depot),
       MaterialRoute(page: Versement),
       MaterialRoute(page: Catalogue),
+      MaterialRoute(page: MyVisite),
       MaterialRoute(page: NewPlace),
+      MaterialRoute(page: ModifPlace),
       MaterialRoute(page: Recherche),
       MaterialRoute(page: Resultat),
       MaterialRoute(page: Visite),

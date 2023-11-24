@@ -58,7 +58,7 @@ class _CatalogueState extends State<Catalogue> {
                   children: snapshot.data!.map((e) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                        onTap: () => model.navigateToVisite(e),
+                        onTap: () => model.navigateToMyVisite(e),
                         child: PlaceCard(place: e, image: 'assets/images/p4.webp')
                     ),
                   )).toList(),
@@ -69,7 +69,7 @@ class _CatalogueState extends State<Catalogue> {
                 children: snapshot.data!.map((e) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                      onTap: () => model.navigateToVisite(e),
+                      onTap: () => model.navigateToMyVisite(e),
                       child: PlaceCard(place: e, image: 'assets/images/p4.webp')
                   ),
                 )).toList(),

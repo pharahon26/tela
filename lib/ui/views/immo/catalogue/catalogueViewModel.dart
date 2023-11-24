@@ -21,8 +21,8 @@ class CatalogueViewModel extends BaseViewModel{
     await _navigationService.navigateToProfile();
   }
 
-  void navigateToVisite(TelaPlace place) async{
-    await _navigationService.navigateToVisite(place: place);
+  void navigateToMyVisite(TelaPlace place) async{
+    await _navigationService.navigateToMyVisite(place: place);
   }
   void navigateToNewplace() async{
     await _navigationService.navigateToNewPlace();
