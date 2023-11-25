@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/ui/views/IdentificationView//identificationViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -414,6 +415,38 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                               onChanged: (value) {
                                 model.pays = value;
+                              },
+                            ),
+                          ),
+
+                          /// PAYS
+                          TextButton.icon(
+                            icon: Icon(Icons.flag_outlined,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            label: Row(
+                              children: [
+                                Text('Pays: ',
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor
+                                  ),
+                                ),
+                                Text(' nationalite2',
+                                  style: TextStyle(
+                                      color: Colors.red
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            onPressed: () => showCountryPicker(
+                              context: context,
+                              showPhoneCode: false, // optional. Shows phone code before the country name.
+                              onSelect: (Country country) {
+                                print('Select country: ${country.name}');
+                                setState(() {
+                                  model.nationnalite = country.name;
+                                });
                               },
                             ),
                           ),

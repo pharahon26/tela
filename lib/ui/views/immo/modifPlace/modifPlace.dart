@@ -148,7 +148,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                                 ),
                                 onTap: () async {
 
-                                  await model.pickImage(index).whenComplete(() {
+                                  await model.navigateToCameraView(index).whenComplete(() {
                                     setState(() {
 
                                     });
@@ -158,6 +158,31 @@ class _ModifPlaceState extends State<ModifPlace> {
                             },
                           ),
                         ),
+                      ),
+
+
+                      Divider(),
+
+                      const Text('Status',
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                      Divider(),
+
+                      /// Occuupé?
+                      CheckboxListTile(
+                          value: model.isOccupe,
+                          onChanged: (r) {
+                            setState(() {
+                              model.isOccupe = r!;
+                            });
+                          },
+                          title: Text(
+                            "Actuellement opccupé",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+                          checkColor: Colors.white,
+                          activeColor: Theme.of(context).colorScheme.primary
                       ),
 
 

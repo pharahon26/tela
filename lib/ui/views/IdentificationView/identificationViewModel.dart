@@ -62,15 +62,9 @@ class IdentificationViewModel extends BaseViewModel{
 
 
   Future pickPhoto() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      photo = File(result.files.single.path!);
-    } else {
-
-    }
+    File? pic = await _navigationService.navigateToCameraView();
+    photo = pic;
+    notifyListeners();
   }
 
   void navigateToCGU() async{
@@ -79,27 +73,16 @@ class IdentificationViewModel extends BaseViewModel{
 
 
   Future pickRecto() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      docRecto = File(result.files.single.path!);
-    } else {
-
-    }
+    File? pic = await _navigationService.navigateToCameraView();
+    docRecto = pic;
+    notifyListeners();
   }
 
   Future pickVerso() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
 
-    if (result != null) {
-      docVerso = File(result.files.single.path!);
-    } else {
-
-    }
+    File? pic = await _navigationService.navigateToCameraView();
+    docVerso = pic;
+    notifyListeners();
   }
 
 

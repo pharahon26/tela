@@ -19,6 +19,7 @@ class ModifPlaceViewModel extends BaseViewModel{
   SnackbarService _snackbarService = locator<SnackbarService>();
 
 
+  TelaPlace place;
   bool havePass = false;
 
   bool isBureau = false;
@@ -45,6 +46,7 @@ class ModifPlaceViewModel extends BaseViewModel{
   bool hasCoursArriere = false;
   bool hasBalconAvant = false;
   bool hasBalconArriere = false;
+  bool isOccupe = false;
 
   int nombreDePieces = 1;
   int nombreDeSalleDeau = 1;
@@ -75,7 +77,7 @@ class ModifPlaceViewModel extends BaseViewModel{
     return dropDownItems ;
   }
 
-  ModifPlaceViewModel(TelaPlace place){
+  ModifPlaceViewModel(this.place){
     communes = _authService.communes;
     commune = communes.first;
 
@@ -95,6 +97,8 @@ class ModifPlaceViewModel extends BaseViewModel{
     nomProprio = place.proprioName;
     phone = place.proprioTelephone;
 
+    isOccupe = place.isOccupe;
+
     commune = communes.firstWhere((element) => element.id == place.communeId);
 
     for(int i = 0; i<10; i++) {
@@ -104,8 +108,8 @@ class ModifPlaceViewModel extends BaseViewModel{
 
 
   void modifPlace() async{
-    TelaPlace place = TelaPlace(
-        id: 0,
+    TelaPlace plac = TelaPlace(
+        id: place.id,
         proprioName: nomProprio,
         proprioTelephone: phone,
         description: description,
@@ -116,6 +120,7 @@ class ModifPlaceViewModel extends BaseViewModel{
         nombrePiece: nombreDePieces,
         nombreSalleEau: nombreDeSalleDeau,
         demarcheurId: _authService.user!.id,
+      isOccupe: isOccupe,
       isAppartment: isAppart,
       isDuplex: isDuplex,
       isBureau: isBureau,
@@ -132,7 +137,7 @@ class ModifPlaceViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasGardien: hasGardien,
     );
-    TelaPlace? telaPlace = await _placeService.modifPlace(place: place, images: images);
+    TelaPlace? telaPlace = await _placeService.modifPlace(place: plac, images: images);
     if (telaPlace != null) {
       _authService.placeAdded(telaPlace);
       _navigationService.navigateToCatalogue();
@@ -150,16 +155,10 @@ class ModifPlaceViewModel extends BaseViewModel{
   }
 
 
-  Future pickImage(int position) async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      images[position] = File(result.files.single.path!);
-    } else {
-
-    }
+  Future navigateToCameraView(int index) async{
+    File? pic = await _navigationService.navigateToCameraView();
+    images[index] = pic;
+    notifyListeners();
   }
 
 

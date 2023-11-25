@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -45,6 +46,7 @@ class NewPlaceViewModel extends BaseViewModel{
   bool hasCoursArriere = false;
   bool hasBalconAvant = false;
   bool hasBalconArriere = false;
+  bool isOccupe = false;
 
   int nombreDePieces = 1;
   int nombreDeSalleDeau = 1;
@@ -97,6 +99,7 @@ class NewPlaceViewModel extends BaseViewModel{
         nombrePiece: nombreDePieces,
         nombreSalleEau: nombreDeSalleDeau,
         demarcheurId: _authService.user!.id,
+      isOccupe: isOccupe,
       isAppartment: isAppart,
       isDuplex: isDuplex,
       isBureau: isBureau,
@@ -131,16 +134,10 @@ class NewPlaceViewModel extends BaseViewModel{
   }
 
 
-  Future pickImage(int position) async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      images[position] = File(result.files.single.path!);
-    } else {
-
-    }
+  Future navigateToCameraView(int index) async{
+    File? pic = await _navigationService.navigateToCameraView();
+    images[index] = pic;
+    notifyListeners();
   }
 
 

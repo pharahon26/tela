@@ -33,15 +33,9 @@ class SignInViewModel extends BaseViewModel{
     return u;
   }
   Future pickPhoto() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      photo = File(result.files.single.path!);
-    } else {
-
-    }
+    File? pic = await _navigationService.navigateToCameraView();
+    photo = pic;
+    notifyListeners();
   }
 
   void navigateToCGU() async{

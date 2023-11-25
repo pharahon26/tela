@@ -107,9 +107,10 @@ class _NewPlaceState extends State<NewPlace> {
                                   fit: BoxFit.contain,
                                 )
                                     :
-                                const AspectRatio(
-                                  aspectRatio: 9/16,
-                                  child: Padding(
+                                SizedBox(
+                                  height: mq.size.width*0.8,
+                                  width: mq.size.width*0.8,
+                                  child: const Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Center(
                                       child: Icon(Icons.add),
@@ -117,12 +118,14 @@ class _NewPlaceState extends State<NewPlace> {
                                   ),
                                 ),
                                 onTap: () async {
+                                  model.navigateToCameraView(index).whenComplete(() => setState((){
 
-                                  await model.pickImage(index).whenComplete(() {
-                                    setState(() {
-
-                                    });
-                                  });
+                                  }));
+                                  // await model.pickImage(index).whenComplete(() {
+                                  //   setState(() {
+                                  //
+                                  //   });
+                                  // });
                                 },
                               );
                             },
@@ -130,6 +133,29 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
                       ),
 
+
+                      Divider(),
+                      const Text('Status',
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                      Divider(),
+
+                      /// Occuupé?
+                      CheckboxListTile(
+                          value: model.isOccupe,
+                          onChanged: (r) {
+                            setState(() {
+                              model.isOccupe = r!;
+                            });
+                          },
+                          title: Text(
+                            "Actuellement opccupé",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+                          checkColor: Colors.white,
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
 
                       Divider(),
                       const Text('Prix',

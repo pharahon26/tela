@@ -1,5 +1,6 @@
 
 
+import 'package:camera/camera.dart';
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/commune.dart';
@@ -16,8 +17,10 @@ class TelaSharedPrefs implements InitializableDependency{
 // Obtain shared preferences.
   late SharedPreferences prefs ;
 
+  late final List<CameraDescription> cameras;
   Future<void> init() async{
     prefs = await SharedPreferences.getInstance();
+    cameras = await availableCameras();
   }
 
   /// save phone number

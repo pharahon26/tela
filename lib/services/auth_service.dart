@@ -58,6 +58,15 @@ class AuthService{
   List<TelaPlace> get myPlaces => _myPlaces;
   TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
 
+  File? _imagetemp;
+
+
+  File? get imagetemp => _imagetemp;
+
+  setImagetemp(File? value) {
+    _imagetemp = value;
+  }
+
   AuthService();
 
 

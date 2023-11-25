@@ -28,6 +28,7 @@ class TelaPlace{
   bool hasBalconArriere = false;
   bool hasGardien = false;
   bool hasGarage = false;
+  bool isOccupe = false;
   Commune? commune;
   User? demarcheur;
 
@@ -44,6 +45,7 @@ class TelaPlace{
       required this.nombrePiece,
       required this.nombreSalleEau,
       required this.demarcheurId,
+      this.isOccupe = false,
       this.isStudio = false,
       this.isAppartment = false,
       this.isBureau = false,
@@ -73,6 +75,7 @@ class TelaPlace{
       nombrePiece: json["nombre_piece"],
       nombreSalleEau: json["nombre_salle_eau"],
       demarcheurId: json["user_id"],
+      isOccupe: json["is_occupe"]==1,
       isBureau: json["is_Bureau"]==1,
       isResidence: json["is_Residence"]==1,
       isChambre: json["is_Chambre"]==1,
@@ -107,6 +110,7 @@ class TelaPlace{
       "nombre_piece": nombrePiece,
       "nombre_salle_eau": nombreSalleEau,
       "user_id": demarcheurId,
+      "is_occupe": isOccupe?1:0,
       "is_Bureau": isBureau?1:0,
       "is_Appartment": isAppartment?1:0,
       "is_Residence": isResidence?1:0,

@@ -11,6 +11,8 @@ import 'package:mobile/ui/views/SignInView/signInView.dart';
 import 'package:mobile/ui/views/acceuil/acceuil.dart';
 import 'package:mobile/ui/views/buyAbonnement/buyabonnement.dart';
 import 'package:mobile/ui/views/buyVisitePass/buyVisitePass.dart';
+import 'package:mobile/ui/views/camera/camera_view.dart';
+import 'package:mobile/ui/views/camera/capture.dart';
 import 'package:mobile/ui/views/cgu/cgu.dart';
 import 'package:mobile/ui/views/cguFinance/cguFinance.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
@@ -40,6 +42,8 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: Acceuil, initial: true),
       MaterialRoute(page: ConditionGeneralDUtilisationS),
       MaterialRoute(page: ConditionGeneralDUtilisationSFinance),
+      MaterialRoute(page: CameraView),
+      MaterialRoute(page: CaptureView),
       MaterialRoute(page: Profile),
       MaterialRoute(page: SignInView),
       MaterialRoute(page: IdentificationView),

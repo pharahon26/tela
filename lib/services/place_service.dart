@@ -12,7 +12,7 @@ class PlaceService{
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _PLACE_URL = "api/places";
   static const String _PLACE_ADD_URL = "api/places/create";
-  static const String _PLACE_MODIF_URL = "api/places/updateplace";
+  static const String _PLACE_MODIF_URL = "api/places/";
   static const String _SEARCH_LOGEMENT_URL = "api/places/searchplace";
   static const String _IMAGE_URL = "api/images";
 
@@ -160,8 +160,8 @@ class PlaceService{
     }
 
     try{
-      print('${Uri.parse(_BASE_URL+_PLACE_MODIF_URL)} modif place : \n ${place.toJson()}');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_MODIF_URL),
+      print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace')} modif place : \n ${place.toJson()}');
+      http.Response response = await client.post(Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
