@@ -69,28 +69,22 @@ class _IdentificationViewState extends State<IdentificationView>
                           Divider(),
                           SizedBox(
                             height: _mediaQuery.size.width,
-                            child: AspectRatio(
-                              aspectRatio: 9/16,
-                              child: PageView(
-                                children: [
-                                  InkWell(
-                                    child: model.photo != null? Image.file(model.photo!,
-                                      fit: BoxFit.contain,
-                                    )
-                                        :
-                                    const Center(
-                                      child: Icon(Icons.add),
-                                    ),
-                                    onTap: () async {
-                                      await model.pickPhoto().whenComplete(() {
-                                        setState(() {
-
-                                        });
-                                      });
-                                    },
-                                  )
-                                ],
+                            width: _mediaQuery.size.width,
+                            child: InkWell(
+                              child: model.photo != null? Image.file(model.photo!,
+                                fit: BoxFit.contain,
+                              )
+                                  :
+                              const Center(
+                                child: Icon(Icons.add),
                               ),
+                              onTap: () async {
+                                await model.pickPhoto().whenComplete(() {
+                                  setState(() {
+
+                                  });
+                                });
+                              },
                             ),
                           ),
 
@@ -370,74 +364,36 @@ class _IdentificationViewState extends State<IdentificationView>
 
 
                           /// nationnalité
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                              decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.place_outlined,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'Nationnalité',
-                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                              ),
-                              onChanged: (value) {
-                                model.nationnalite = value;
-                              },
-                            ),
-                          ),
 
-                          /// pays
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                              decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.place_outlined,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                labelText: 'Pays',
-                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                              ),
-                              onChanged: (value) {
-                                model.pays = value;
-                              },
-                            ),
-                          ),
-
-                          /// PAYS
                           TextButton.icon(
-                            icon: Icon(Icons.flag_outlined,
-                              color: Theme.of(context).primaryColor,
+                            icon: Icon(
+                              Icons.place_outlined,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             label: Row(
                               children: [
-                                Text('Pays: ',
+                                Text('nationnalité: ',
                                   style: TextStyle(
-                                      color: Theme.of(context).primaryColor
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 1.2,
+                                      color: Colors.grey
                                   ),
                                 ),
-                                Text(' nationalite2',
+                                Text(model.nationnalite,
                                   style: TextStyle(
-                                      color: Colors.red
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2,
+                                      color: Colors.black
                                   ),
                                 ),
-
                               ],
+                            ),
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Theme.of(context).colorScheme.primary)
+                              )
                             ),
                             onPressed: () => showCountryPicker(
                               context: context,
@@ -446,6 +402,50 @@ class _IdentificationViewState extends State<IdentificationView>
                                 print('Select country: ${country.name}');
                                 setState(() {
                                   model.nationnalite = country.name;
+                                });
+                              },
+                            ),
+                          ),
+                          /// PAYS
+                          TextButton.icon(
+                            icon: Icon(
+                              Icons.place_outlined,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            label: Row(
+                              children: [
+                                Text('Pays: ',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 1.2,
+                                      color: Colors.grey
+                                  ),
+                                ),
+                                Text(model.pays,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2,
+                                      color: Colors.black
+                                  ),
+                                ),
+
+                              ],
+                            ),
+
+                            style: TextButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide(color: Theme.of(context).colorScheme.primary)
+                                )
+                            ),
+                            onPressed: () => showCountryPicker(
+                              context: context,
+                              showPhoneCode: false, // optional. Shows phone code before the country name.
+                              onSelect: (Country country) {
+                                print('Select country: ${country.name}');
+                                setState(() {
+                                  model.pays = country.name;
                                 });
                               },
                             ),
@@ -464,7 +464,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                     Icons.place_outlined,
                                     color: Theme.of(context).colorScheme.primary,
                                   ),
-                                  labelText: 'Ville de réssidence',
+                                  labelText: 'Ville de résidence',
                                   labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                                   enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                                   focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
@@ -516,37 +516,31 @@ class _IdentificationViewState extends State<IdentificationView>
                           /// doc recto
                           SizedBox(
                             height: _mediaQuery.size.width,
-                            child: AspectRatio(
-                              aspectRatio: 9/16,
-                              child: PageView(
-                                children: [
-                                  InkWell(
-                                    child: model.docRecto != null? Image.file(model.docRecto!,
-                                      fit: BoxFit.contain,
-                                    )
-                                        :
-                                    const Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.add, color: Colors.black,),
-                                          Text('Document recto',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),)
-                                        ],
-                                      ),
-                                    ),
-                                    onTap: () async {
-                                      await model.pickRecto().whenComplete(() {
-                                        setState(() {
-
-                                        });
-                                      });
-                                    },
-                                  )
-                                ],
+                            width: _mediaQuery.size.width,
+                            child: InkWell(
+                              child: model.docRecto != null? Image.file(model.docRecto!,
+                                fit: BoxFit.contain,
+                              )
+                                  :
+                              const Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add, color: Colors.grey,),
+                                    Text('Document recto',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w600),)
+                                  ],
+                                ),
                               ),
+                              onTap: () async {
+                                await model.pickRecto().whenComplete(() {
+                                  setState(() {
+
+                                  });
+                                });
+                              },
                             ),
                           ),
 
@@ -558,67 +552,60 @@ class _IdentificationViewState extends State<IdentificationView>
                           Divider(),
                           SizedBox(
                             height: _mediaQuery.size.width,
-                            child: AspectRatio(
-                              aspectRatio: 9/16,
-                              child: PageView(
-                                children: [
-                                  InkWell(
-                                    child: model.docVerso != null? Image.file(model.docVerso!,
-                                      fit: BoxFit.contain,
-                                    )
-                                        :
-                                    const Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.add, color: Colors.black,),
-                                          Text('Document verso',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),)
-                                        ],
-                                      ),
-                                    ),
-                                    onTap: () async {
-                                      await model.pickVerso().whenComplete(() {
-                                        setState(() {
+                            width: _mediaQuery.size.width,
+                            child: InkWell(
+                              child: model.docVerso != null? Image.file(model.docVerso!,
+                                fit: BoxFit.contain,
+                              )
+                                  :
+                              const Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add, color: Colors.grey,),
+                                    Text('Document verso',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w600),)
+                                  ],
+                                ),
+                              ),
+                              onTap: () async {
+                                await model.pickVerso().whenComplete(() {
+                                  setState(() {
 
-                                        });
-                                      });
-                                    },
-                                  )
-                                ],
+                                  });
+                                });
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () => model.identify(),
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).colorScheme.primary,
+                                  fixedSize: Size(_mediaQuery.size.width - 20, 40),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  'Je confirme mes informations personnelles',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
 
-
                         ],
                       ),
                     ],
-                  ),
-                ),
-              ),
-              bottomNavigationBar: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () => model.identify(),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      fixedSize: Size(_mediaQuery.size.width - 20, 40),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      'Je confirme mes informations personnelles',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ),
               ),

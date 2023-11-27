@@ -60,28 +60,21 @@ class _SignInViewState extends State<SignInView>
                           Divider(),
                           SizedBox(
                             height: _mediaQuery.size.width,
-                            child: AspectRatio(
-                              aspectRatio: 9/16,
-                              child: PageView(
-                                children: [
-                                  InkWell(
-                                    child: model.photo != null? Image.file(model.photo!,
-                                      fit: BoxFit.contain,
-                                    )
-                                        :
-                                    const Center(
-                                      child: Icon(Icons.add),
-                                    ),
-                                    onTap: () async {
-                                      await model.pickPhoto().whenComplete(() {
-                                        setState(() {
-
-                                        });
-                                      });
-                                    },
-                                  )
-                                ],
+                            child: InkWell(
+                              child: model.photo != null? Image.file(model.photo!,
+                                fit: BoxFit.contain,
+                              )
+                                  :
+                              const Center(
+                                child: Icon(Icons.add),
                               ),
+                              onTap: () async {
+                                await model.pickPhoto().whenComplete(() {
+                                  setState(() {
+
+                                  });
+                                });
+                              },
                             ),
                           ),
 

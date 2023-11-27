@@ -716,10 +716,10 @@ class AuthService{
       print('Response body: ${response.body}');
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        print(json[0]);
+        print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
 
-        passVisite = PassVisite.fromJson(json[0]);
+        passVisite = PassVisite.fromJson(json);
         await _telaSharedPrefs.savePassVisite(passVisite);
         _passVisite = passVisite;
       }  else {

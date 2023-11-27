@@ -42,7 +42,7 @@ class _MyVisiteState extends State<MyVisite> {
                 child: TextButton(
                     onPressed: () => model.navigateToModifPlace(widget.place),
                     child: const Text('Modifier',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                     )
                 ),
               )

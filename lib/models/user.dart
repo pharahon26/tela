@@ -147,7 +147,7 @@ class UserIdentity {
       phone: json["phone1"],
       phone2: 'phone2',
       genre: json["genre"],
-      photo: 'photo',
+      photo: json["photo"],
       docRecto: json["cni_recto"],
       docVerso: json["cni_verso"],
       docNumber: json["cni_number"]??'',

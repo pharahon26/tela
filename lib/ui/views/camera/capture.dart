@@ -40,26 +40,32 @@ class _CaptureViewState extends State<CaptureView> with SingleTickerProviderStat
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(false),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                            padding: EdgeInsets.all(8),
-                            color: Colors.black.withOpacity(0.3),
-                            child: Icon(Icons.close, size: 32, color: Colors.red,)
-                        )
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pop(false),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(70),
+                          child: Container(
+                              padding: EdgeInsets.all(8),
+                              color: Colors.black.withOpacity(0.3),
+                              child: Icon(Icons.close, size: 32, color: Colors.red,)
+                          )
+                      ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(true),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          color: Colors.black.withOpacity(0.3),
-                            child: Icon(Icons.check, size: 32, color: Theme.of(context).colorScheme.primary,)
-                        )
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pop(true),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            color: Colors.black.withOpacity(0.3),
+                              child: Icon(Icons.check, size: 32, color: Theme.of(context).colorScheme.primary,)
+                          )
+                      ),
                     ),
                   )
                 ],

@@ -209,7 +209,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   /// Catalogue
                                   Align(
-                                    alignment: Alignment.centerLeft,
+                                    alignment: Alignment.center,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                                       child: TextButton(
@@ -684,14 +684,14 @@ class _ProfileState extends State<Profile> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 1.2,
-                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.black : Colors.grey : Colors.grey,
+                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.black : Colors.grey,
                                           ),),
                                         Text(model.passVisite != null? model.passVisite!.isExpired? 'Expiré' : 'Actif': '',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 1.2,
-                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.deepOrange : Colors.grey : Colors.grey,
+                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.deepOrange : Colors.grey,
                                           ),),
                                       ],
                                     ),
