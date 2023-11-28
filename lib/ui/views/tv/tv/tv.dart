@@ -47,12 +47,13 @@ class _TvState extends State<Tv> {
         ..loadRequest(Uri.parse(widget.programmeTV.link));
 
     } else {
-      videoController = VideoPlayerController.asset(widget.programmeTV.link);
+      videoController = VideoPlayerController.networkUrl(Uri.parse(widget.programmeTV.link));
 
       videoController.addListener(() {
         setState(() {});
       });
       videoController.setLooping(true);
+      videoController.seekTo(const Duration(seconds: 15));
       videoController.initialize().then((_) => setState(() {}));
       videoController.play();
     }

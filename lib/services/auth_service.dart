@@ -28,6 +28,7 @@ class AuthService{
   static const String _PASS_VISITE_URL = "api/pass-visite/";
   static const String _PASS_VISITE_VERIF_URL = "api/pass-visite/verif";
   static const String _PASS_VISITE_DECRMENT_URL = "api/pass-visite/one_visite";
+  static const String _PASS_VISITE_MAISON_URL = "api/pass-visite/get_pass_visite";
   static const String _PLACE_URL = "api/places";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
@@ -480,6 +481,48 @@ class AuthService{
     }
     catch(e){
       print('place api service images error** $e');
+      throw 'Erreur innatendue';
+    }
+    finally{
+      client.close();
+    }
+    return places;
+  }
+  /// GET maisons visite
+  Future<List<TelaPlace>> getMaisonsVisite() async {
+    var client = _newClient();
+    List<TelaPlace> places =[];
+    try{
+      print('${Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL')} get places visited');
+      http.Response response = await client.post(Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'code': _passVisite!.code,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+        for(var pl in json){
+          TelaPlace tp = TelaPlace.fromJson(pl);
+          tp.commune = communes.where((element) => element.id == tp.communeId).first;
+          places.add(tp);
+          print(pl);
+        }
+        _myPlaces = places;
+      }  else {
+        print('ERROR reponse status code not 200');
+        throw json.toString();
+      }
+
+    }
+    catch(e){
+      print('place api service place visited error** $e');
       throw 'Erreur innatendue';
     }
     finally{

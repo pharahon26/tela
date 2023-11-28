@@ -1,5 +1,6 @@
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
+import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/auth_service.dart';
@@ -16,12 +17,13 @@ class BuyVisitePassViewModel extends BaseViewModel{
 
   bool _isA = false;
   bool isVisite;
+  bool isRenew;
   List<PassType> passes = [];
 
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  BuyVisitePassViewModel({required this.isVisite}){
+  BuyVisitePassViewModel({required this.isVisite, required this.isRenew}){
     passes = _authService.passType.where((element) => element.isVisite == isVisite).toList();
   }
 
@@ -54,6 +56,9 @@ class BuyVisitePassViewModel extends BaseViewModel{
   }
   void navigateToBuyView( PassType pass) async{
     await _navigationService.navigateToBuyPassView(pass: pass);
+  }
+  void navigateToRenewView( PassType pass) async{
+    await _navigationService.navigateToRenewPassView(pass: pass, passVisite: _authService.passVisite!);
   }
 
 }

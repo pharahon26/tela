@@ -68,6 +68,12 @@ class ProfileViewModel extends BaseViewModel{
   void navigateToIdentification() async{
     await _navigationService.navigateToIdentificationView();
   }
+  void navigateToMaisonVisite() async{
+    await _navigationService.navigateToMaisonVisite();
+  }
+  void navigateToProlongeVisitePass() async{
+    await _navigationService.navigateToBuyVisitePass(isVisite: true, isRenew: true);
+  }
   void chechPass(String code) async{
     PassVisite? p =  await _authService.verifCodeVisite(code: code);
     if (p != null) {
@@ -78,5 +84,7 @@ class ProfileViewModel extends BaseViewModel{
       notifyListeners();
     }
   }
+
+
 
 }

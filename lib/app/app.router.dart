@@ -5,42 +5,47 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:io' as _i29;
+import 'dart:io' as _i32;
 
+import 'package:flutter/material.dart' as _i31;
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as _i28;
-import 'package:mobile/models/abonnementType.dart' as _i32;
-import 'package:mobile/models/place.dart' as _i30;
-import 'package:mobile/models/programetv.dart' as _i31;
+import 'package:mobile/models/abonnement.dart' as _i35;
+import 'package:mobile/models/abonnementType.dart' as _i34;
+import 'package:mobile/models/place.dart' as _i33;
+import 'package:mobile/models/programetv.dart' as _i36;
 import 'package:mobile/ui/views/acceuil/acceuil.dart' as _i2;
-import 'package:mobile/ui/views/buyAbonnement/buyabonnement.dart' as _i27;
-import 'package:mobile/ui/views/buyVisitePass/buyVisitePass.dart' as _i25;
+import 'package:mobile/ui/views/buyAbonnement/buyabonnement.dart' as _i30;
+import 'package:mobile/ui/views/buyVisitePass/buyVisitePass.dart' as _i28;
 import 'package:mobile/ui/views/camera/camera_view.dart' as _i5;
 import 'package:mobile/ui/views/camera/capture.dart' as _i6;
 import 'package:mobile/ui/views/cgu/cgu.dart' as _i3;
 import 'package:mobile/ui/views/cguFinance/cguFinance.dart' as _i4;
 import 'package:mobile/ui/views/ebank/bank_resume/bank.dart' as _i11;
-import 'package:mobile/ui/views/ebank/buyPassView/buyPassView.dart' as _i26;
-import 'package:mobile/ui/views/ebank/buyView/buyView.dart' as _i24;
+import 'package:mobile/ui/views/ebank/buyPassView/buyPassView.dart' as _i29;
+import 'package:mobile/ui/views/ebank/buyView/buyView.dart' as _i27;
 import 'package:mobile/ui/views/ebank/depot/depot.dart' as _i12;
+import 'package:mobile/ui/views/ebank/renewVisitePass/renewPassView.dart'
+    as _i21;
 import 'package:mobile/ui/views/ebank/versement/versement.dart' as _i13;
 import 'package:mobile/ui/views/IdentificationView/identificationView.dart'
     as _i9;
 import 'package:mobile/ui/views/immo/catalogue/catalogue.dart' as _i14;
+import 'package:mobile/ui/views/immo/imageNav/imgeNav.dart' as _i23;
+import 'package:mobile/ui/views/immo/maisonVisite/maisonVisite.dart' as _i20;
 import 'package:mobile/ui/views/immo/modifPlace/modifPlace.dart' as _i17;
 import 'package:mobile/ui/views/immo/myVisite/myVisite.dart' as _i15;
 import 'package:mobile/ui/views/immo/newPlace/newPlace.dart' as _i16;
 import 'package:mobile/ui/views/immo/recherche/recherche.dart' as _i18;
 import 'package:mobile/ui/views/immo/resultat/resultat.dart' as _i19;
-import 'package:mobile/ui/views/immo/visite/visite.dart' as _i20;
+import 'package:mobile/ui/views/immo/visite/visite.dart' as _i22;
 import 'package:mobile/ui/views/LoginView/loginView.dart' as _i10;
 import 'package:mobile/ui/views/profile/profile.dart' as _i7;
 import 'package:mobile/ui/views/SignInView/signInView.dart' as _i8;
-import 'package:mobile/ui/views/tv/chaneltv/channeltv.dart' as _i22;
-import 'package:mobile/ui/views/tv/programmetv/programmetv.dart' as _i21;
-import 'package:mobile/ui/views/tv/tv/tv.dart' as _i23;
+import 'package:mobile/ui/views/tv/chaneltv/channeltv.dart' as _i25;
+import 'package:mobile/ui/views/tv/programmetv/programmetv.dart' as _i24;
+import 'package:mobile/ui/views/tv/tv/tv.dart' as _i26;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i33;
+import 'package:stacked_services/stacked_services.dart' as _i37;
 
 class Routes {
   static const acceuil = '/';
@@ -81,7 +86,13 @@ class Routes {
 
   static const resultat = '/Resultat';
 
+  static const maisonVisite = '/maison-visite';
+
+  static const renewPassView = '/renew-pass-view';
+
   static const visite = '/Visite';
+
+  static const imageNav = '/image-nav';
 
   static const programmeTv = '/programme-tv';
 
@@ -116,7 +127,10 @@ class Routes {
     modifPlace,
     recherche,
     resultat,
+    maisonVisite,
+    renewPassView,
     visite,
+    imageNav,
     programmeTv,
     chanelTv,
     tv,
@@ -202,122 +216,134 @@ class StackedRouter extends _i1.RouterBase {
       page: _i19.Resultat,
     ),
     _i1.RouteDef(
+      Routes.maisonVisite,
+      page: _i20.MaisonVisite,
+    ),
+    _i1.RouteDef(
+      Routes.renewPassView,
+      page: _i21.RenewPassView,
+    ),
+    _i1.RouteDef(
       Routes.visite,
-      page: _i20.Visite,
+      page: _i22.Visite,
+    ),
+    _i1.RouteDef(
+      Routes.imageNav,
+      page: _i23.ImageNav,
     ),
     _i1.RouteDef(
       Routes.programmeTv,
-      page: _i21.ProgrammeTv,
+      page: _i24.ProgrammeTv,
     ),
     _i1.RouteDef(
       Routes.chanelTv,
-      page: _i22.ChanelTv,
+      page: _i25.ChanelTv,
     ),
     _i1.RouteDef(
       Routes.tv,
-      page: _i23.Tv,
+      page: _i26.Tv,
     ),
     _i1.RouteDef(
       Routes.buyView,
-      page: _i24.BuyView,
+      page: _i27.BuyView,
     ),
     _i1.RouteDef(
       Routes.buyVisitePass,
-      page: _i25.BuyVisitePass,
+      page: _i28.BuyVisitePass,
     ),
     _i1.RouteDef(
       Routes.buyPassView,
-      page: _i26.BuyPassView,
+      page: _i29.BuyPassView,
     ),
     _i1.RouteDef(
       Routes.buyAbonnement,
-      page: _i27.BuyAbonnement,
+      page: _i30.BuyAbonnement,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.Acceuil: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.Acceuil(),
         settings: data,
       );
     },
     _i3.ConditionGeneralDUtilisationS: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.ConditionGeneralDUtilisationS(),
         settings: data,
       );
     },
     _i4.ConditionGeneralDUtilisationSFinance: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.ConditionGeneralDUtilisationSFinance(),
         settings: data,
       );
     },
     _i5.CameraView: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.CameraView(),
         settings: data,
       );
     },
     _i6.CaptureView: (data) {
       final args = data.getArgs<CaptureViewArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.CaptureView(image: args.image),
         settings: data,
       );
     },
     _i7.Profile: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.Profile(),
         settings: data,
       );
     },
     _i8.SignInView: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i8.SignInView(),
         settings: data,
       );
     },
     _i9.IdentificationView: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i9.IdentificationView(),
         settings: data,
       );
     },
     _i10.LoginView: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i10.LoginView(),
         settings: data,
       );
     },
     _i11.Bank: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.Bank(),
         settings: data,
       );
     },
     _i12.Depot: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.Depot(),
         settings: data,
       );
     },
     _i13.Versement: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.Versement(),
         settings: data,
       );
     },
     _i14.Catalogue: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.Catalogue(),
         settings: data,
       );
     },
     _i15.MyVisite: (data) {
       final args = data.getArgs<MyVisiteArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i15.MyVisite(key: args.key, place: args.place),
         settings: data,
       );
@@ -326,21 +352,21 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<NewPlaceArguments>(
         orElse: () => const NewPlaceArguments(),
       );
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i16.NewPlace(key: args.key),
         settings: data,
       );
     },
     _i17.ModifPlace: (data) {
       final args = data.getArgs<ModifPlaceArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i17.ModifPlace(key: args.key, place: args.place),
         settings: data,
       );
     },
     _i18.Recherche: (data) {
       final args = data.getArgs<RechercheArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i18.Recherche(key: args.key, isBureau: args.isBureau),
         settings: data,
@@ -348,67 +374,89 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i19.Resultat: (data) {
       final args = data.getArgs<ResultatArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) => _i19.Resultat(key: args.key, places: args.places),
         settings: data,
       );
     },
-    _i20.Visite: (data) {
+    _i20.MaisonVisite: (data) {
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i20.MaisonVisite(),
+        settings: data,
+      );
+    },
+    _i21.RenewPassView: (data) {
+      final args = data.getArgs<RenewPassViewArguments>(nullOk: false);
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => _i21.RenewPassView(
+            key: args.key, pass: args.pass, passVisite: args.passVisite),
+        settings: data,
+      );
+    },
+    _i22.Visite: (data) {
       final args = data.getArgs<VisiteArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
-        builder: (context) => _i20.Visite(key: args.key, place: args.place),
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => _i22.Visite(key: args.key, place: args.place),
         settings: data,
       );
     },
-    _i21.ProgrammeTv: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i21.ProgrammeTv(),
+    _i23.ImageNav: (data) {
+      final args = data.getArgs<ImageNavArguments>(nullOk: false);
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => _i23.ImageNav(
+            key: args.key, startIndex: args.startIndex, images: args.images),
         settings: data,
       );
     },
-    _i22.ChanelTv: (data) {
-      return _i28.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i22.ChanelTv(),
+    _i24.ProgrammeTv: (data) {
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i24.ProgrammeTv(),
         settings: data,
       );
     },
-    _i23.Tv: (data) {
+    _i25.ChanelTv: (data) {
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i25.ChanelTv(),
+        settings: data,
+      );
+    },
+    _i26.Tv: (data) {
       final args = data.getArgs<TvArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i23.Tv(key: args.key, programmeTV: args.programmeTV),
+            _i26.Tv(key: args.key, programmeTV: args.programmeTV),
         settings: data,
       );
     },
-    _i24.BuyView: (data) {
+    _i27.BuyView: (data) {
       final args = data.getArgs<BuyViewArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
+      return _i31.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i24.BuyView(key: args.key, abonement: args.abonement),
+            _i27.BuyView(key: args.key, abonement: args.abonement),
         settings: data,
       );
     },
-    _i25.BuyVisitePass: (data) {
+    _i28.BuyVisitePass: (data) {
       final args = data.getArgs<BuyVisitePassArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i25.BuyVisitePass(key: args.key, isVisite: args.isVisite),
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => _i28.BuyVisitePass(
+            key: args.key, isVisite: args.isVisite, isRenew: args.isRenew),
         settings: data,
       );
     },
-    _i26.BuyPassView: (data) {
+    _i29.BuyPassView: (data) {
       final args = data.getArgs<BuyPassViewArguments>(nullOk: false);
-      return _i28.MaterialPageRoute<dynamic>(
-        builder: (context) => _i26.BuyPassView(key: args.key, pass: args.pass),
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => _i29.BuyPassView(key: args.key, pass: args.pass),
         settings: data,
       );
     },
-    _i27.BuyAbonnement: (data) {
+    _i30.BuyAbonnement: (data) {
       final args = data.getArgs<BuyAbonnementArguments>(
         orElse: () => const BuyAbonnementArguments(),
       );
-      return _i28.MaterialPageRoute<dynamic>(
-        builder: (context) => _i27.BuyAbonnement(key: args.key),
+      return _i31.MaterialPageRoute<dynamic>(
+        builder: (context) => _i30.BuyAbonnement(key: args.key),
         settings: data,
       );
     },
@@ -424,7 +472,7 @@ class StackedRouter extends _i1.RouterBase {
 class CaptureViewArguments {
   const CaptureViewArguments({required this.image});
 
-  final _i29.File image;
+  final _i32.File image;
 
   @override
   String toString() {
@@ -449,9 +497,9 @@ class MyVisiteArguments {
     required this.place,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i30.TelaPlace place;
+  final _i33.TelaPlace place;
 
   @override
   String toString() {
@@ -473,7 +521,7 @@ class MyVisiteArguments {
 class NewPlaceArguments {
   const NewPlaceArguments({this.key});
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -498,9 +546,9 @@ class ModifPlaceArguments {
     required this.place,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i30.TelaPlace place;
+  final _i33.TelaPlace place;
 
   @override
   String toString() {
@@ -525,7 +573,7 @@ class RechercheArguments {
     required this.isBureau,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   final bool isBureau;
 
@@ -552,9 +600,9 @@ class ResultatArguments {
     required this.places,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final List<_i30.TelaPlace> places;
+  final List<_i33.TelaPlace> places;
 
   @override
   String toString() {
@@ -573,15 +621,47 @@ class ResultatArguments {
   }
 }
 
+class RenewPassViewArguments {
+  const RenewPassViewArguments({
+    this.key,
+    required this.pass,
+    required this.passVisite,
+  });
+
+  final _i31.Key? key;
+
+  final _i34.PassType pass;
+
+  final _i35.PassVisite passVisite;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "pass": "$pass", "passVisite": "$passVisite"}';
+  }
+
+  @override
+  bool operator ==(covariant RenewPassViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.pass == pass &&
+        other.passVisite == passVisite;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ pass.hashCode ^ passVisite.hashCode;
+  }
+}
+
 class VisiteArguments {
   const VisiteArguments({
     this.key,
     required this.place,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i30.TelaPlace place;
+  final _i33.TelaPlace place;
 
   @override
   String toString() {
@@ -600,15 +680,47 @@ class VisiteArguments {
   }
 }
 
+class ImageNavArguments {
+  const ImageNavArguments({
+    this.key,
+    this.startIndex = 0,
+    required this.images,
+  });
+
+  final _i31.Key? key;
+
+  final int startIndex;
+
+  final List<String> images;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "startIndex": "$startIndex", "images": "$images"}';
+  }
+
+  @override
+  bool operator ==(covariant ImageNavArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.startIndex == startIndex &&
+        other.images == images;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ startIndex.hashCode ^ images.hashCode;
+  }
+}
+
 class TvArguments {
   const TvArguments({
     this.key,
     required this.programmeTV,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i31.TelaProgrammeTV programmeTV;
+  final _i36.TelaProgrammeTV programmeTV;
 
   @override
   String toString() {
@@ -633,9 +745,9 @@ class BuyViewArguments {
     required this.abonement,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i32.AbonnementType abonement;
+  final _i34.AbonnementType abonement;
 
   @override
   String toString() {
@@ -658,26 +770,31 @@ class BuyVisitePassArguments {
   const BuyVisitePassArguments({
     this.key,
     required this.isVisite,
+    this.isRenew = false,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   final bool isVisite;
 
+  final bool isRenew;
+
   @override
   String toString() {
-    return '{"key": "$key", "isVisite": "$isVisite"}';
+    return '{"key": "$key", "isVisite": "$isVisite", "isRenew": "$isRenew"}';
   }
 
   @override
   bool operator ==(covariant BuyVisitePassArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.isVisite == isVisite;
+    return other.key == key &&
+        other.isVisite == isVisite &&
+        other.isRenew == isRenew;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ isVisite.hashCode;
+    return key.hashCode ^ isVisite.hashCode ^ isRenew.hashCode;
   }
 }
 
@@ -687,9 +804,9 @@ class BuyPassViewArguments {
     required this.pass,
   });
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i32.PassType pass;
+  final _i34.PassType pass;
 
   @override
   String toString() {
@@ -711,7 +828,7 @@ class BuyPassViewArguments {
 class BuyAbonnementArguments {
   const BuyAbonnementArguments({this.key});
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -730,7 +847,7 @@ class BuyAbonnementArguments {
   }
 }
 
-extension NavigatorStateExtension on _i33.NavigationService {
+extension NavigatorStateExtension on _i37.NavigationService {
   Future<dynamic> navigateToAcceuil([
     int? routerId,
     bool preventDuplicates = true,
@@ -788,7 +905,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToCaptureView({
-    required _i29.File image,
+    required _i32.File image,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -916,8 +1033,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToMyVisite({
-    _i28.Key? key,
-    required _i30.TelaPlace place,
+    _i31.Key? key,
+    required _i33.TelaPlace place,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -933,7 +1050,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToNewPlace({
-    _i28.Key? key,
+    _i31.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -949,8 +1066,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToModifPlace({
-    _i28.Key? key,
-    required _i30.TelaPlace place,
+    _i31.Key? key,
+    required _i33.TelaPlace place,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -966,7 +1083,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToRecherche({
-    _i28.Key? key,
+    _i31.Key? key,
     required bool isBureau,
     int? routerId,
     bool preventDuplicates = true,
@@ -983,8 +1100,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToResultat({
-    _i28.Key? key,
-    required List<_i30.TelaPlace> places,
+    _i31.Key? key,
+    required List<_i33.TelaPlace> places,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -999,9 +1116,42 @@ extension NavigatorStateExtension on _i33.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToMaisonVisite([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.maisonVisite,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToRenewPassView({
+    _i31.Key? key,
+    required _i34.PassType pass,
+    required _i35.PassVisite passVisite,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.renewPassView,
+        arguments: RenewPassViewArguments(
+            key: key, pass: pass, passVisite: passVisite),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> navigateToVisite({
-    _i28.Key? key,
-    required _i30.TelaPlace place,
+    _i31.Key? key,
+    required _i33.TelaPlace place,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1010,6 +1160,25 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.visite,
         arguments: VisiteArguments(key: key, place: place),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToImageNav({
+    _i31.Key? key,
+    int startIndex = 0,
+    required List<String> images,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.imageNav,
+        arguments:
+            ImageNavArguments(key: key, startIndex: startIndex, images: images),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1045,8 +1214,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToTv({
-    _i28.Key? key,
-    required _i31.TelaProgrammeTV programmeTV,
+    _i31.Key? key,
+    required _i36.TelaProgrammeTV programmeTV,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1062,8 +1231,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToBuyView({
-    _i28.Key? key,
-    required _i32.AbonnementType abonement,
+    _i31.Key? key,
+    required _i34.AbonnementType abonement,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1079,8 +1248,9 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToBuyVisitePass({
-    _i28.Key? key,
+    _i31.Key? key,
     required bool isVisite,
+    bool isRenew = false,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1088,7 +1258,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.buyVisitePass,
-        arguments: BuyVisitePassArguments(key: key, isVisite: isVisite),
+        arguments: BuyVisitePassArguments(
+            key: key, isVisite: isVisite, isRenew: isRenew),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1096,8 +1267,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToBuyPassView({
-    _i28.Key? key,
-    required _i32.PassType pass,
+    _i31.Key? key,
+    required _i34.PassType pass,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1113,7 +1284,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> navigateToBuyAbonnement({
-    _i28.Key? key,
+    _i31.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1185,7 +1356,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithCaptureView({
-    required _i29.File image,
+    required _i32.File image,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1313,8 +1484,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithMyVisite({
-    _i28.Key? key,
-    required _i30.TelaPlace place,
+    _i31.Key? key,
+    required _i33.TelaPlace place,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1330,7 +1501,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithNewPlace({
-    _i28.Key? key,
+    _i31.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1346,8 +1517,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithModifPlace({
-    _i28.Key? key,
-    required _i30.TelaPlace place,
+    _i31.Key? key,
+    required _i33.TelaPlace place,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1363,7 +1534,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithRecherche({
-    _i28.Key? key,
+    _i31.Key? key,
     required bool isBureau,
     int? routerId,
     bool preventDuplicates = true,
@@ -1380,8 +1551,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithResultat({
-    _i28.Key? key,
-    required List<_i30.TelaPlace> places,
+    _i31.Key? key,
+    required List<_i33.TelaPlace> places,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1396,9 +1567,42 @@ extension NavigatorStateExtension on _i33.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> replaceWithMaisonVisite([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.maisonVisite,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithRenewPassView({
+    _i31.Key? key,
+    required _i34.PassType pass,
+    required _i35.PassVisite passVisite,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.renewPassView,
+        arguments: RenewPassViewArguments(
+            key: key, pass: pass, passVisite: passVisite),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithVisite({
-    _i28.Key? key,
-    required _i30.TelaPlace place,
+    _i31.Key? key,
+    required _i33.TelaPlace place,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1407,6 +1611,25 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.visite,
         arguments: VisiteArguments(key: key, place: place),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithImageNav({
+    _i31.Key? key,
+    int startIndex = 0,
+    required List<String> images,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.imageNav,
+        arguments:
+            ImageNavArguments(key: key, startIndex: startIndex, images: images),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1442,8 +1665,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithTv({
-    _i28.Key? key,
-    required _i31.TelaProgrammeTV programmeTV,
+    _i31.Key? key,
+    required _i36.TelaProgrammeTV programmeTV,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1459,8 +1682,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithBuyView({
-    _i28.Key? key,
-    required _i32.AbonnementType abonement,
+    _i31.Key? key,
+    required _i34.AbonnementType abonement,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1476,8 +1699,9 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithBuyVisitePass({
-    _i28.Key? key,
+    _i31.Key? key,
     required bool isVisite,
+    bool isRenew = false,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1485,7 +1709,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.buyVisitePass,
-        arguments: BuyVisitePassArguments(key: key, isVisite: isVisite),
+        arguments: BuyVisitePassArguments(
+            key: key, isVisite: isVisite, isRenew: isRenew),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1493,8 +1718,8 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithBuyPassView({
-    _i28.Key? key,
-    required _i32.PassType pass,
+    _i31.Key? key,
+    required _i34.PassType pass,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1510,7 +1735,7 @@ extension NavigatorStateExtension on _i33.NavigationService {
   }
 
   Future<dynamic> replaceWithBuyAbonnement({
-    _i28.Key? key,
+    _i31.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,

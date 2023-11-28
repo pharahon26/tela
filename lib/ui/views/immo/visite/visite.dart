@@ -51,14 +51,18 @@ class _VisiteState extends State<Visite> {
                   SizedBox(
                     width: mq.size.width,
                     height: mq.size.height*0.6,
-                    child: ListView(
+                    child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      children: imgs.map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(e,
-                          width: mq.size.width-80,
-                          fit: BoxFit.fitWidth,),
-                      )).toList(),
+                      itemCount: imgs.length,
+                      itemBuilder: (BuildContext context, int index) => InkWell(
+                        onTap: () =>  model.navigateToImageNav(imgs, index),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(imgs[index],
+                            width: mq.size.width-80,
+                            fit: BoxFit.fitWidth,),
+                        ),
+                      ),
                     ),
                   ),
 

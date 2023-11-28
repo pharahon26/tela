@@ -19,8 +19,11 @@ import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
 import 'package:mobile/ui/views/ebank/buyPassView/buyPassView.dart';
 import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
+import 'package:mobile/ui/views/ebank/renewVisitePass/renewPassView.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
 import 'package:mobile/ui/views/immo/catalogue/catalogue.dart';
+import 'package:mobile/ui/views/immo/imageNav/imgeNav.dart';
+import 'package:mobile/ui/views/immo/maisonVisite/maisonVisite.dart';
 import 'package:mobile/ui/views/immo/modifPlace/modifPlace.dart';
 import 'package:mobile/ui/views/immo/myVisite/myVisite.dart';
 import 'package:mobile/ui/views/immo/newPlace/newPlace.dart';
@@ -57,7 +60,10 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: ModifPlace),
       MaterialRoute(page: Recherche),
       MaterialRoute(page: Resultat),
+      MaterialRoute(page: MaisonVisite),
+      MaterialRoute(page: RenewPassView),
       MaterialRoute(page: Visite),
+      MaterialRoute(page: ImageNav),
       MaterialRoute(page: ProgrammeTv),
       MaterialRoute(page: ChanelTv),
       MaterialRoute(page: Tv),

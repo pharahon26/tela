@@ -8,8 +8,9 @@ import 'package:stacked/stacked.dart';
 class BuyVisitePass extends StatefulWidget {
 
   final bool isVisite;
+  final bool isRenew;
 
-  BuyVisitePass({super.key, required this.isVisite});
+  BuyVisitePass({super.key, required this.isVisite, this.isRenew = false});
 
   @override
   State<BuyVisitePass> createState() => _BuyVisitePassState();
@@ -20,7 +21,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
     return ViewModelBuilder<BuyVisitePassViewModel>.reactive(
-      viewModelBuilder: () => BuyVisitePassViewModel(isVisite: widget.isVisite),
+      viewModelBuilder: () => BuyVisitePassViewModel(isVisite: widget.isVisite, isRenew: widget.isRenew),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -65,7 +66,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                             elevation: 8,
                             color: Theme.of(context).colorScheme.primary,
                             child: InkWell(
-                              onTap: () => model.navigateToBuyView(e),
+                              onTap: () => widget.isRenew? model.navigateToRenewView(e) : model.navigateToBuyView(e),
                               child: Container(
                                 height: mq.size.height/4,
                                 decoration: BoxDecoration(

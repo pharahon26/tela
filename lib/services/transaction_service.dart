@@ -16,6 +16,7 @@ class TransactionService{
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _ABONNEMENT_CREATE_URL = "api/abonnements/buy_abonement";
   static const String _PASS_CREATE_URL = "api/pass-visite/buy_pass_visite";
+  static const String _PASS_VISITE_PROLONGE_URL = "api/pass-visite/prolonge_pass_visite";
   static const String _TRANSACTION_CREATE_URL = "api/transactions/create";
   static const String _TRANSACTION_URL = "api/transactions/";
 
@@ -135,6 +136,48 @@ class TransactionService{
     try{
       print('${Uri.parse(_BASE_URL+_PASS_CREATE_URL)} buy pass : $js');
       http.Response response = await client.post(Uri.parse(_BASE_URL+_PASS_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(js),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        PassVisite pa = PassVisite.fromJson(json['passvisite']);
+        TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
+        print(transac.toString());
+        print(pa.toString());
+        passVisite = pa;
+        await _telaSharedPrefs.savePassVisite(pa);
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('transaction api service Buy pass error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return passVisite;
+  }
+
+
+  Future<PassVisite?> renewPassVisite({required PassVisite passVisit,required PassType pass, required TelaTransaction transaction}) async {
+    var client = _newClient();
+    Map<String, dynamic> js = transaction.toJson();
+    PassVisite? passVisite;
+    js.addAll(pass.toJson2());
+    js.addAll(passVisit.toJson());
+    try{
+      print('${Uri.parse(_BASE_URL+_PASS_VISITE_PROLONGE_URL)} prolonge pass : $js');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_PASS_VISITE_PROLONGE_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

@@ -82,6 +82,17 @@ class _MyVisiteState extends State<MyVisite> {
                             fontSize: 32, fontWeight:
                         FontWeight.w600)),
                   ),
+
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                    child: Text('${widget.place.visites.toString()} Visites',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24, fontWeight:
+                        FontWeight.w600)),
+                  ),
                   Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),

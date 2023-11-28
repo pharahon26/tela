@@ -331,59 +331,97 @@ class _ProfileState extends State<Profile> {
                             ),
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                InkWell(
+                                  onTap: (){
+                                    if (!model.passVisite!.isExpired) {
+                                      model.navigateToMaisonVisite();
+                                    }
+                                  },
+                                  child: Column(
                                     children: [
-                                      Text(' ${model.passVisite!.numberOfVisites} visite(s )',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: model.passVisite!.isExpired? Colors.black : Colors.grey,
-                                        ),),
-                                      Text(model.passVisite!.isExpired? 'Expiré' : 'Actif',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: model.passVisite!.isExpired? Colors.deepOrange : Colors.grey,
-                                        ),),
-                                    ],
-                                  ),
-                                ),
-                                const Divider(
-                                  color: Colors.black,
-                                  thickness: 0.7,
-                                  indent: 35,
-                                  endIndent: 35,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(model.strd,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: model.passVisite != null? Colors.black : Colors.grey,
-                                        ),),
-                                      Text(model.endd,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: model.passVisite != null? Colors.black : Colors.grey,
-                                        ),),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(' ${model.passVisite != null? model.passVisite!.numberOfVisites : ''} visite(s )',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2,
+                                                color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.black : Colors.grey,
+                                              ),),
+                                            Text(model.passVisite != null? model.passVisite!.isExpired? 'Expiré' : 'Actif': '',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2,
+                                                color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.deepOrange : Colors.grey,
+                                              ),),
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider(
+                                        color: Colors.black,
+                                        thickness: 0.7,
+                                        indent: 35,
+                                        endIndent: 35,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(model.strd,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2,
+                                                color: model.passVisite != null? Colors.black : Colors.grey,
+                                              ),),
+                                            Text(model.endd,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2,
+                                                color: model.passVisite != null? Colors.black : Colors.grey,
+                                              ),),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
 
                                 Visibility(
-                                  visible: model.passVisite!.isExpired,
+                                  visible: model.passVisite != null? model.passVisite!.isExpired : false,
+                                  replacement: model.passVisite != null?
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () => model.navigateToProlongeVisitePass(),
+                                      child: Card(
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(45)
+                                          ),
+                                          color: Theme.of(context).colorScheme.primary,
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
+                                            child: Text('Prolongez votre pass',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                  )
+                                      :
+                                  const SizedBox.shrink(),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: InkWell(
@@ -674,59 +712,97 @@ class _ProfileState extends State<Profile> {
                               ),
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  InkWell(
+                                    onTap: (){
+                                      if (!model.passVisite!.isExpired) {
+                                        model.navigateToMaisonVisite();
+                                      }
+                                    },
+                                    child: Column(
                                       children: [
-                                        Text(' ${model.passVisite != null? model.passVisite!.numberOfVisites : ''} visite(s )',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.black : Colors.grey,
-                                          ),),
-                                        Text(model.passVisite != null? model.passVisite!.isExpired? 'Expiré' : 'Actif': '',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.deepOrange : Colors.grey,
-                                          ),),
-                                      ],
-                                    ),
-                                  ),
-                                  const Divider(
-                                    color: Colors.black,
-                                    thickness: 0.7,
-                                    indent: 35,
-                                    endIndent: 35,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(model.strd,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: model.passVisite != null? Colors.black : Colors.grey,
-                                          ),),
-                                        Text(model.endd,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: model.passVisite != null? Colors.black : Colors.grey,
-                                          ),),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(' ${model.passVisite != null? model.passVisite!.numberOfVisites : ''} visite(s )',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.black : Colors.grey,
+                                                ),),
+                                              Text(model.passVisite != null? model.passVisite!.isExpired? 'Expiré' : 'Actif': '',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: model.passVisite != null? model.passVisite!.isExpired? Colors.grey : Colors.deepOrange : Colors.grey,
+                                                ),),
+                                            ],
+                                          ),
+                                        ),
+                                        const Divider(
+                                          color: Colors.black,
+                                          thickness: 0.7,
+                                          indent: 35,
+                                          endIndent: 35,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(model.strd,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: model.passVisite != null? Colors.black : Colors.grey,
+                                                ),),
+                                              Text(model.endd,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: model.passVisite != null? Colors.black : Colors.grey,
+                                                ),),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
 
                                   Visibility(
                                     visible: model.passVisite != null? model.passVisite!.isExpired : false,
+                                      replacement: model.passVisite != null?
+                                      Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () => model.navigateToProlongeVisitePass(),
+                                        child: Card(
+                                            elevation: 8,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(45)
+                                            ),
+                                            color: Theme.of(context).colorScheme.primary,
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(24.0),
+                                              child: Text('Prolongez votre pass',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2
+                                                ),
+                                              ),
+                                            )),
+                                      ),
+                                    )
+                                          :
+                                      const SizedBox.shrink(),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: InkWell(

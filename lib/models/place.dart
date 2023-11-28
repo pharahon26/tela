@@ -9,6 +9,7 @@ class TelaPlace{
   double latitude = 0;
   double longitude = 0;
   double price = 0;
+  int visites = 0;
   int communeId = 0;
   int nombrePiece = 0;
   int nombreSalleEau = 0;
@@ -45,6 +46,7 @@ class TelaPlace{
       required this.nombrePiece,
       required this.nombreSalleEau,
       required this.demarcheurId,
+      this.visites = 0,
       this.isOccupe = false,
       this.isStudio = false,
       this.isAppartment = false,
@@ -71,6 +73,7 @@ class TelaPlace{
       latitude: double.parse(json["latitude"].toString()),
       longitude: double.parse(json["longitude"].toString()),
       price: double.parse(json["price"].toString()),
+      visites: json["passvisites_count"]??0,
       communeId: json["commune_id"],
       nombrePiece: json["nombre_piece"],
       nombreSalleEau: json["nombre_salle_eau"],
