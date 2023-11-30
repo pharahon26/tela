@@ -33,6 +33,8 @@ class TelaPlace{
   Commune? commune;
   User? demarcheur;
 
+  List<String> images = [];
+
 
   TelaPlace({
       required this.id,
@@ -95,7 +97,16 @@ class TelaPlace{
       hasGardien: json["has_GARDIEN"]==1,
       hasPiscine: json["has_PISCINE"]==1,
     );
-    // u.commune = Commune.fromJson(json['commune']);
+     for(var image in json["image"]??[]){
+        u.images.add(image["url"]);
+        print(image);
+    }
+    if (json['commune'] != null) {
+      u.commune = Commune.fromJson(json['commune']);
+    }
+    if (json['user'] != null) {
+      u.demarcheur = User.fromJson(json['user']);
+    }
     return u;
   }
 

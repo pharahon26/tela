@@ -13,6 +13,8 @@ class MyVisite extends StatefulWidget {
 
 class _MyVisiteState extends State<MyVisite> {
 
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
+
   List<String> imgs = [
     'assets/images/p1.webp',
     'assets/images/p2.webp',
@@ -23,6 +25,7 @@ class _MyVisiteState extends State<MyVisite> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
+    print('******${widget.place.images}************');
     return ViewModelBuilder<VisiteViewModel>.reactive(
       viewModelBuilder: () => VisiteViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -39,13 +42,72 @@ class _MyVisiteState extends State<MyVisite> {
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                    onPressed: () => model.navigateToModifPlace(widget.place),
-                    child: const Text('Modifier',
-                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                    )
+                child: InkWell(
+                    onTap: () => model.navigateToModifPlace(widget.place),
+                    child: const Icon(Icons.edit, size: 24, color: Colors.white,)
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                    onTap: () => showDialog(context: context, builder: (buildContext) => Dialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                            child: Text('Voulez vous vraiment supprimer cette maison de votre catalogue de maison?',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.1
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton(
+                                    onPressed: () => Navigator.of(context).pop(),
+                                    child: const Text('Annuler',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          color: Colors.deepOrange,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600
+                                      ),
+                                    )
+                                ),
+                                TextButton(
+                                    onPressed: () => model.deletePlace(widget.place),
+                                    child: Text('Supprimer',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          color: Theme.of(context).colorScheme.primary,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+
+                    )),
+                    child: const Icon(Icons.delete_outline, size: 24, color: Colors.white,)
+                ),
+              ),
             ],
             elevation: 5,
           ),
@@ -64,9 +126,9 @@ class _MyVisiteState extends State<MyVisite> {
                     height: mq.size.height*0.6,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
-                      children: imgs.map((e) => Padding(
+                      children: widget.place.images.map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(e,
+                        child: Image.network('$_BASE_URL$e',
                           width: mq.size.width-80,
                           fit: BoxFit.fitWidth,),
                       )).toList(),
@@ -118,20 +180,22 @@ class _MyVisiteState extends State<MyVisite> {
                               ),
                           ),
                         ),
-                        const Column(
+                        Column(
                           children: [
                             Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text('Simon N\'Da',
+                              child: Text('${widget.place.demarcheur?.nom ?? ''} ${widget.place.demarcheur?.prenom ?? ''}',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                             ),
                             Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text('07 89 54 48 22',
+                              child: Text(widget.place.demarcheur?.phone??'',
                                 textAlign: TextAlign.left,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                             ),
                           ],

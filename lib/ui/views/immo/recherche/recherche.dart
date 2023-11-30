@@ -254,7 +254,7 @@ class _RechercheState extends State<Recherche> {
                           });
                         },
                         title: Text(
-                          "Chambre",
+                          "Studio",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
                         ),

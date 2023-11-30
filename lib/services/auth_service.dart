@@ -313,7 +313,7 @@ class AuthService{
   }) async {
     var client = _newClient();
     try{
-      print('${Uri.parse(_BASE_URL+_IDENTIFICATION_URL)} Identification : $nom $prenom $telephone ');
+      print('${Uri.parse(_BASE_URL+_IDENTIFICATION_URL)} Identification : $photo $docRecto $telephone ');
 
       File img = File(photo);
       File rec = File(docRecto);
@@ -493,7 +493,7 @@ class AuthService{
     var client = _newClient();
     List<TelaPlace> places =[];
     try{
-      print('${Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL')} get places visited');
+      print('${Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL')} get places visited ${_passVisite!.code}');
       http.Response response = await client.post(Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL'),
         headers: <String, String>{
           'Content-Type': 'application/json',

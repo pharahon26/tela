@@ -192,7 +192,35 @@ class PlaceService{
 
   /// push buy pass
 
-  /// modif place
+  /// delete place
+  Future deletePlace({required TelaPlace place}) async {
+    var client = _newClient();
+
+    try{
+      print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/deleteplace')} delete place : \n ${place.toJson()}');
+      http.Response response = await client.get(Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/deleteplace'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('place api service Modif place error** \n $e');
+    }
+    finally{
+      client.close();
+    }
+  }
 
 
   /// Décrement Visites
@@ -218,7 +246,10 @@ class PlaceService{
           images.add(TelaImage.fromJson(image));
           print(image);
         }
-      }  else {
+      }  else if (response.statusCode == 500) {
+        print('ERROR reponse status code 500');
+        throw'Une erreur inattendue est survenu';
+      } else {
         print('ERROR reponse status code not 200');
       }
 

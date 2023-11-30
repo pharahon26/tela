@@ -52,9 +52,9 @@ class IdentificationViewModel extends BaseViewModel{
       pays: pays,
       villeResi: villeResidence,
       documentNumber: docNumber,
-      photo: photo?.path??'',
-      docRecto: docRecto?.path??'',
-      docVerso: docVerso?.path??'',
+      photo: photo!.path??'',
+      docRecto: docRecto!.path??'',
+      docVerso: docVerso!.path??'',
     );
     _sharedPrefs.savePhoneNumber(phone);
     _navigationService.popRepeated(1);

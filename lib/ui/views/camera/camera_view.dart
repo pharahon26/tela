@@ -118,38 +118,31 @@ class _CameraViewState extends State<CameraView> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ///SWITCH CAMERA
-                        IconButton(
-                          onPressed: () async {
-                            if (cameras.length > 1) {
-                              selectedCamera = selectedCamera == 0 ? 1 : 0;
-                              await cam(selectedCamera);
-                              setState(() {
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ///SWITCH CAMERA
+                          IconButton(
+                            onPressed: () async {
+                              if (cameras.length > 1) {
+                                selectedCamera = selectedCamera == 0 ? 1 : 0;
+                                await cam(selectedCamera);
+                                setState(() {
 
-                              });
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('Pas de seconde camera trouvé'),
-                                duration: const Duration(seconds: 2),
-                              ));
-                            }
-                          },
-                          icon: Icon(Icons.switch_camera_rounded, color: Theme.of(context).colorScheme.primary),
-                        ),
-                        /// CAPTURE BUTTON
-                        GestureDetector(
-                          onTap: () async {
-                            await _cameraInitialization; //To make sure camera is initialized
-                            var xFile = await _cameraController.takePicture();
-
-                            // final ass = await getImageFileFromAssets('cnib.jpeg');
-                            image = File(xFile.path);
-                            model.navigateToCapture(image);
-                          },
-                          child: Container(
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text('Pas de seconde camera trouvé'),
+                                  duration: const Duration(seconds: 2),
+                                ));
+                              }
+                            },
+                            icon: Icon(Icons.switch_camera_rounded, color: Theme.of(context).colorScheme.primary),
+                          ),
+                          /// CAPTURE BUTTON
+                          Container(
                             height: 60,
                             width: 60,
                             decoration: BoxDecoration(
@@ -157,17 +150,36 @@ class _CameraViewState extends State<CameraView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 border: Border.all(color: Theme.of(context).colorScheme.primary , width: 3.0)
                             ),
-                          ),
-                        ),
+                            child: InkWell(
+                              onTap: () async {
+                                await _cameraInitialization; //To make sure camera is initialized
+                                var xFile = await _cameraController.takePicture();
 
-                        /// Galery
-                        IconButton(
-                          onPressed: () => setState(() {
-                            model.pickImage();
-                          }),
-                          icon: Icon(Icons.image_outlined, color: Theme.of(context).colorScheme.primary, size: 32,),
-                        ),
-                      ],
+                                // final ass = await getImageFileFromAssets('cnib.jpeg');
+                                image = File(xFile.path);
+                                model.navigateToCapture(image);
+                              },
+                              splashColor: Colors.deepOrange,
+                              borderRadius: BorderRadius.circular(50),
+                              customBorder: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                    shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          /// Galery
+                          IconButton(
+                            onPressed: () => setState(() {
+                              model.pickImage();
+                            }),
+                            icon: Icon(Icons.image_outlined, color: Theme.of(context).colorScheme.primary, size: 32,),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
