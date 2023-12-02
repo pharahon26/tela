@@ -338,43 +338,43 @@ class _RenewPassViewState extends State<RenewPassView> {
 
                                             await model.pushTransaction(_transaction, widget.pass, widget.passVisite)
                                                 .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(30)
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                    child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
-                                                      textAlign: TextAlign.center,
-                                                      maxLines: 20,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.w600,
-                                                          letterSpacing: 1.1
-                                                      ),
-                                                    ),
+                                                  backgroundColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(30)
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: TextButton(
-                                                        onPressed: () =>  model.navigateToProfile(),
-                                                        child: Text('Ok',
-                                                          maxLines: 2,
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                        child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
+                                                          textAlign: TextAlign.center,
+                                                          maxLines: 20,
                                                           style: TextStyle(
-                                                              color: Theme.of(context).colorScheme.primary,
-                                                              fontSize: 18,
-                                                              fontWeight: FontWeight.w600
+                                                              fontSize: 14,
+                                                              color: Colors.black,
+                                                              fontWeight: FontWeight.w600,
+                                                              letterSpacing: 1.1
                                                           ),
-                                                        )
-                                                    ),
-                                                  )
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: TextButton(
+                                                            onPressed: () =>  model.navigateToProfile(),
+                                                            child: Text('Ok',
+                                                              maxLines: 2,
+                                                              style: TextStyle(
+                                                                  color: Theme.of(context).colorScheme.primary,
+                                                                  fontSize: 18,
+                                                                  fontWeight: FontWeight.w600
+                                                              ),
+                                                            )
+                                                        ),
+                                                      )
 
-                                                ],
-                                              ),
+                                                    ],
+                                                  ),
 
                                             ))
                                             );

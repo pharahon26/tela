@@ -13,13 +13,16 @@ class Visite extends StatefulWidget {
 
 class _VisiteState extends State<Visite> {
 
-  List<String> imgs = [
-    'assets/images/p1.webp',
-    'assets/images/p2.webp',
-    'assets/images/p3.webp',
-    'assets/images/p4.webp',
-    'assets/images/p5.webp',
-  ];
+  // List<String> imgs = [
+  //   'assets/images/p1.webp',
+  //   'assets/images/p2.webp',
+  //   'assets/images/p3.webp',
+  //   'assets/images/p4.webp',
+  //   'assets/images/p5.webp',
+  // ];
+
+
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -50,15 +53,15 @@ class _VisiteState extends State<Visite> {
                           color: Theme.of(context).colorScheme.primary, fontSize: 32, fontWeight: FontWeight.w600)),
                   SizedBox(
                     width: mq.size.width,
-                    height: mq.size.height*0.6,
+                    height: mq.size.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: imgs.length,
+                      itemCount: widget.place.images.length,
                       itemBuilder: (BuildContext context, int index) => InkWell(
-                        onTap: () =>  model.navigateToImageNav(imgs, index),
+                        onTap: () =>  model.navigateToImageNav(widget.place.images, index),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(imgs[index],
+                          child: Image.network('$_BASE_URL${widget.place.images[index]}',
                             width: mq.size.width-80,
                             fit: BoxFit.fitWidth,),
                         ),

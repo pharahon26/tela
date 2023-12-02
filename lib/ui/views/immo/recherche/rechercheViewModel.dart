@@ -84,6 +84,24 @@ class RechercheViewModel extends BaseViewModel{
 
   void search() async {
     // List<TelaPlace> plac = await _placeService.getAllPlaces();
+    // if (!(isDuplex || isMaisonBasse || isAppart || isResidence || isStudio || isChambre)) {
+    //   isDuplex = true;
+    //   isMaisonBasse = true;
+    //   isAppart = true;
+    //   isResidence = true;
+    //   isStudio = true;
+    //   isChambre = true;
+    // }
+    // if (!(hasCoursAvant || hasCoursArriere || hasBalconAvant || hasBalconArriere || hasGarage || hasGardien)) {
+    //   hasCoursAvant = true;
+    //   hasCoursArriere = true;
+    //   hasBalconAvant = true;
+    //   hasBalconArriere = true;
+    //   hasGarage = true;
+    //   hasGardien = true;
+    // }
+
+
     List<TelaPlace> plac = await _placeService.searchLogement(
       communeId: commune.id,
       nombrePiece: nombreDePieces,

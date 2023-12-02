@@ -19,6 +19,7 @@ class _ImageNavState extends State<ImageNav> {
   late PageController _pageController;
   int index = 0;
 
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
   @override
   void initState() {
     _pageController = PageController(initialPage: widget.startIndex);
@@ -66,7 +67,7 @@ class _ImageNavState extends State<ImageNav> {
                 PageView(
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
-                  children: widget.images.map((e) => Image.asset(e,
+                  children: widget.images.map((e) => Image.network('$_BASE_URL$e',
                     fit: BoxFit.contain,
                   )).toList(),
                 ),

@@ -19,6 +19,7 @@ class _LoginViewState extends State<LoginView>
     super.initState();
   }
 
+  final _formKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -48,88 +49,106 @@ class _LoginViewState extends State<LoginView>
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   ///Info
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Container(
-                        height: 120.0,
-                        width: 120.0,
-                        child: Image.asset(
-                          'assets/images/logo_2.png',
-                          fit: BoxFit.contain,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 40.0,
                         ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-
-                      /// phone field
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          initialValue: model.phone,
-                          keyboardType: TextInputType.phone,
-                          style: TextStyle(
-                            color: Colors.black,
+                        Container(
+                          height: 120.0,
+                          width: 120.0,
+                          child: Image.asset(
+                            'assets/images/logo_2.png',
+                            fit: BoxFit.contain,
                           ),
-                          decoration: InputDecoration(
-                            icon: Icon(
-                              Icons.phone_android,
-                              color: Theme.of(context).colorScheme.primary,
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+
+                        /// phone field
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            initialValue: model.phone,
+                            keyboardType: TextInputType.phone,
+                            style: TextStyle(
+                              color: Colors.black,
                             ),
-                            labelText: 'Numéro de téléphone',
-                            labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                            focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                          ),
-                          onChanged: (value) {
-                            model.phone = value;
-                          },
-                        ),
-                      ),
-
-                      /// password field
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          autofocus: true,
-                          keyboardType:  TextInputType.visiblePassword,
-                          obscureText: !isPasswordVisible,
-                          style: TextStyle(
-                              color: Colors.black
-                          ),
-                          decoration: InputDecoration(
+                            decoration: InputDecoration(
                               icon: Icon(
-                                Icons.vpn_key_outlined,
+                                Icons.phone_android,
                                 color: Theme.of(context).colorScheme.primary,
                               ),
-                              labelText: 'Mot de passe',
+                              labelText: 'Numéro de téléphone',
                               labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                               enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                               focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
                               hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-                              suffix: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isPasswordVisible = !isPasswordVisible;
-                                  });
-                                },
-                                icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined ),
-
-                              )
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Vous devez entrer votre nuùéro de téléphone';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              model.phone = value;
+                            },
                           ),
-                          onChanged: (value) {
-                            model.password = value;
-                          },
                         ),
-                      ),
 
-                    ],
+                        /// password field
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            autofocus: true,
+                            keyboardType:  TextInputType.visiblePassword,
+                            obscureText: !isPasswordVisible,
+                            style: TextStyle(
+                                color: Colors.black
+                            ),
+                            decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.vpn_key_outlined,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                labelText: 'Mot de passe',
+                                labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                suffix: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPasswordVisible = !isPasswordVisible;
+                                    });
+                                  },
+                                  icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined ),
+
+                                )
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Vous devez entrer votre mot de passe';
+                              }
+                              if (value.length < 8) {
+                                return 'Mot de passe trop court';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              model.password = value;
+                            },
+                          ),
+                        ),
+
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -139,56 +158,59 @@ class _LoginViewState extends State<LoginView>
             padding: EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                model.login()
-                    .then((us) => model.navigateToProfile())
-                    .catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                        child: Text(error.toString(),
-                          textAlign: TextAlign.center,
-                          maxLines: 20,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 1.1
+
+                if (_formKey.currentState!.validate()) {
+                  model.login()
+                      .then((us) => model.navigateToProfile())
+                      .catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                          child: Text(error.toString(),
+                            textAlign: TextAlign.center,
+                            maxLines: 20,
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.1
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextButton(
-                            onPressed: () => Navigator.of(buildContext).pop(),
-                            child: Text('Ok',
-                              maxLines: 2,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600
-                              ),
-                            )
-                        ),
-                      )
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextButton(
+                              onPressed: () => Navigator.of(buildContext).pop(),
+                              child: Text('Ok',
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600
+                                ),
+                              )
+                          ),
+                        )
 
-                    ],
-                  ),
+                      ],
+                    ),
 
-                )));
+                  )));
+                }
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   fixedSize: Size(_mediaQuery.size.width - 20, 40),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80.0),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 80.0),
                 child: Text(
                   'Connexion',
                   textAlign: TextAlign.start,

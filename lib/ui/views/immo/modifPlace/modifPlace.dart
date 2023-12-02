@@ -25,6 +25,7 @@ class _ModifPlaceState extends State<ModifPlace> {
   List<String> imgLink = [];
   List<File> img = [];
 
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -78,6 +79,7 @@ class _ModifPlaceState extends State<ModifPlace> {
             ),
           ),
           body: Form(
+            key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Scrollbar(
@@ -214,6 +216,15 @@ class _ModifPlaceState extends State<ModifPlace> {
                             hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                             suffixText: 'F CFA'
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Vous devez entrer Le prix';
+                            }
+                            if (value == '0') {
+                              return 'Vous devez entrer un prix supérieur a zero (0)';
+                            }
+                            return null;
+                          },
                           onChanged: (value) {
                             model.prix = value;
                           },
@@ -710,12 +721,15 @@ class _ModifPlaceState extends State<ModifPlace> {
                       ),
 
 
-                      ///Search
+                      ///Modify
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
                           onPressed: () {
-                            model.modifPlace();
+
+                            if (_formKey.currentState!.validate()) {
+                              model.modifPlace();
+                            }
                             },
                           style: TextButton.styleFrom(
                             fixedSize: Size.fromWidth(mq.size.width * 0.6),

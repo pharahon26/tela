@@ -116,7 +116,7 @@ class _ResultatState extends State<Resultat> {
                     ),
 
                   )),
-                  child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                  child: PlaceCard(place: e, image: e.images[0])
               ),
             )).toList(),
           )

@@ -20,6 +20,10 @@ class VisiteViewModel extends BaseViewModel{
   void navigateToModifPlace(TelaPlace place) async{
     await _navigationService.navigateToModifPlace(place: place);
   }
+  void navigateToImageNav(List<String> images, int index) async{
+    await _navigationService.navigateToImageNav(images: images, startIndex: index);
+  }
+
   void deletePlace(TelaPlace place) async{
     await _placeService.deletePlace(place: place).whenComplete(() => _navigationService.popRepeated(1));
 

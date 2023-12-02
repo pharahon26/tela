@@ -51,7 +51,7 @@ class _MaisonVisiteState extends State<MaisonVisite> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                         onTap: () => model.navigateToMyVisite(e),
-                        child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                        child: PlaceCard(place: e, image:  (e.images.first)??'')
                     ),
                   )).toList(),
                 );
@@ -62,7 +62,7 @@ class _MaisonVisiteState extends State<MaisonVisite> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                       onTap: () => model.navigateToMyVisite(e),
-                      child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                      child: PlaceCard(place: e, image: (e.images.first)??'')
                   ),
                 )).toList(),
               );

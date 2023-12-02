@@ -59,7 +59,7 @@ class _CatalogueState extends State<Catalogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                         onTap: () => model.navigateToMyVisite(e),
-                        child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                        child: PlaceCard(place: e, image: e.images[0])
                     ),
                   )).toList(),
                 );
@@ -70,7 +70,7 @@ class _CatalogueState extends State<Catalogue> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                       onTap: () => model.navigateToMyVisite(e),
-                      child: PlaceCard(place: e, image: 'assets/images/p4.webp')
+                      child: PlaceCard(place: e, image: e.images[0])
                   ),
                 )).toList(),
               );

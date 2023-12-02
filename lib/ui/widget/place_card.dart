@@ -6,6 +6,7 @@ class PlaceCard extends StatelessWidget {
   final TelaPlace place;
   late final String type;
   final String image;
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
   PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
     place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
   }
@@ -30,9 +31,9 @@ class PlaceCard extends StatelessWidget {
                     end: Alignment.centerRight,
                     colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
             ),
-            child: Image.asset(image,
-              fit: BoxFit.fitWidth,
-            )
+            child: Image.network('$_BASE_URL$image',
+              width: mq.size.width-80,
+              fit: BoxFit.fitWidth,),
             ),
         ),
         Padding(

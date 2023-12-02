@@ -15,13 +15,6 @@ class _MyVisiteState extends State<MyVisite> {
 
   static const String _BASE_URL = "http://10.0.2.2:8000/";
 
-  List<String> imgs = [
-    'assets/images/p1.webp',
-    'assets/images/p2.webp',
-    'assets/images/p3.webp',
-    'assets/images/p4.webp',
-    'assets/images/p5.webp',
-  ];
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -124,15 +117,19 @@ class _MyVisiteState extends State<MyVisite> {
                   SizedBox(
                     width: mq.size.width,
                     height: mq.size.height*0.6,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: widget.place.images.map((e) => Padding(
+                    child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: widget.place.images.length,
+                    itemBuilder: (BuildContext context, int index) => InkWell(
+                      onTap: () =>  model.navigateToImageNav(widget.place.images, index),
+                      child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.network('$_BASE_URL$e',
+                        child: Image.network('$_BASE_URL${widget.place.images[index]}',
                           width: mq.size.width-80,
                           fit: BoxFit.fitWidth,),
-                      )).toList(),
+                      ),
                     ),
+                  ),
                   ),
 
                   Padding(
