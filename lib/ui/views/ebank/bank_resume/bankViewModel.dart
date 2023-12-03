@@ -30,6 +30,9 @@ class BankViewModel extends BaseViewModel{
   void navigateToRechercheLogement() async{
     await _navigationService.navigateToRecherche(isBureau: false);
   }
+  void navigateToDepot() async{
+    await _navigationService.navigateToDepot();
+  }
   void navigateToGalery() async{
     await _navigationService.navigateTo(Routes.catalogue);
   }

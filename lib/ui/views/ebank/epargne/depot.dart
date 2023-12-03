@@ -36,7 +36,6 @@ class _DepotState extends State<Depot> {
             ),
           ),
           body: SingleChildScrollView(
-
             child: Scrollbar(
               child: Column(
                 children: [

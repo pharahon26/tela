@@ -304,7 +304,7 @@ class _BankState extends State<Bank> {
                         ),
                       ),
                     ),
-                    TextButton(onPressed: () => model.navigateToRechercheLogement(),
+                    TextButton(onPressed: () => model.navigateToDepot(),
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.white,
                       ),

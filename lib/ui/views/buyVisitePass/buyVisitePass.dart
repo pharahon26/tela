@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile/models/abonnement.dart';
-import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/ui/views/buyVisitePass/buyVisitePassViewModel.dart';
 import 'package:stacked/stacked.dart';
 

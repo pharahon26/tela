@@ -71,3 +71,87 @@ class TelaTransaction{
     return 'TelaTransaction{id: $id, type: $type, paymentWay: $paymentWay, TransactionNumber: $transactionNumber, amount: $amount, date: $date}';
   }
 }
+
+/// EBANK TRANSAACTIONS
+class TelaEBankTransaction{
+
+  int id = 0;
+  int transactionId = 0;
+  bool isRetrait = false;
+  TelaTransaction? transaction;
+
+  DateTime date = DateTime.now();
+
+
+  TelaEBankTransaction(
+      {required this.id,
+        required this.transactionId,
+        required this.isRetrait,
+        this.transaction,
+        required this.date});
+
+
+
+  static TelaEBankTransaction fromJson(Map<String, dynamic> json){
+    TelaEBankTransaction u = TelaEBankTransaction(
+      id : json["id"],
+      transactionId : json["transaction_id"],
+      transaction : json["transaction"],
+      isRetrait : json["is_retrait"]==1,
+      date: DateTime.parse(json["creation_date"]),
+    );
+    return u;
+  }
+
+  // map for database
+  Map<String, dynamic> toJson(){
+    return {
+      "id": id,
+      "creation_date": date.toIso8601String(),
+      "transaction_id": transactionId,
+      "is_retrait": isRetrait?1:0,
+    };
+  }
+
+}
+class TelaEpargneTransaction{
+
+  int id = 0;
+  int transactionId = 0;
+  bool isRetrait = false;
+  TelaTransaction? transaction;
+
+  DateTime date = DateTime.now();
+
+
+  TelaEpargneTransaction(
+      {required this.id,
+        required this.transactionId,
+        required this.isRetrait,
+        this.transaction,
+        required this.date});
+
+
+
+  static TelaEpargneTransaction fromJson(Map<String, dynamic> json){
+    TelaEpargneTransaction u = TelaEpargneTransaction(
+      id : json["id"],
+      transactionId : json["transaction_id"],
+      transaction : json["transaction"],
+      isRetrait : json["is_retrait"]==1,
+      date: DateTime.parse(json["creation_date"]),
+    );
+    return u;
+  }
+
+  // map for database
+  Map<String, dynamic> toJson(){
+    return {
+      "id": id,
+      "creation_date": date.toIso8601String(),
+      "transaction_id": transactionId,
+      "is_retrait": isRetrait?1:0,
+    };
+  }
+
+}
