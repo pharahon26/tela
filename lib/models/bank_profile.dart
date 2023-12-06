@@ -3,7 +3,10 @@ import 'package:mobile/models/user.dart';
 class TelaBankProfile{
   int? id = 0;
   String? mail;
+  String? nom;
+  String? prenom;
   String phone;
+  String photo;
   double balance = 0;
   bool isStaff = false;
   bool isDemarcheur = false;
@@ -25,7 +28,10 @@ class TelaBankProfile{
     required this.phone,
     required this.balance,
     required this.userIdentityId,
+    required this.photo,
     this.mail,
+    this.nom,
+    this.prenom,
     this.hasEpargne = false,
     this.isValidated = false,
     this.isDemarcheur = false,
@@ -40,8 +46,11 @@ class TelaBankProfile{
   static TelaBankProfile fromJson(Map<String, dynamic> json){
     TelaBankProfile u = TelaBankProfile(
       userId: json["user_id"],
+      nom: json["nom"],
+      prenom: json["prenom"],
       phone: json["phone"],
-      balance: double.parse(json["balance"]),
+      photo: json["photo"],
+      balance: double.parse(json["balance"].toString()),
       userIdentityId: json["information_identity_id"],
       mail: json["email"],
       isValidated: json["is_validated"]==1,
@@ -60,7 +69,10 @@ class TelaBankProfile{
       "id": id,
       "information_identity_id": userIdentityId,
       "mail": mail,
+      "nom": nom,
+      "prenoms": prenom,
       "phone": phone,
+      "photo": photo,
       "balance": balance,
       "creationDate": creationDate,
       "isSuspended": isSuspended?1:0,
@@ -102,8 +114,8 @@ class TelaBankEpargne{
   static TelaBankEpargne fromJson(Map<String, dynamic> json){
     TelaBankEpargne u = TelaBankEpargne(
       eBankId: json["ebank_profil_id"],
-      balance: double.parse(json["balance"]),
-      amountFrezze: double.parse(json["amount_freeze"]),
+      balance: double.parse(json["balance"].toString()),
+      amountFrezze: double.parse(json["amount_freeze"].toString()),
       eBankProfile: json["ebank_profil"],
       debutEpargne: DateTime.parse(json["debut_epargne"]),
       finEpargne: DateTime.parse(json["fin_epargne"]),

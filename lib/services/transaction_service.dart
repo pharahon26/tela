@@ -18,7 +18,15 @@ class TransactionService{
   static const String _PASS_CREATE_URL = "api/pass-visite/buy_pass_visite";
   static const String _PASS_VISITE_PROLONGE_URL = "api/pass-visite/prolonge_pass_visite";
   static const String _TRANSACTION_CREATE_URL = "api/transactions/create";
+  // static const String _TRANSACTION_CREATE_URL = "api/transactions/create";
   static const String _TRANSACTION_URL = "api/transactions/";
+  static const String _BANK_BUY_ABONNEMENT_URL = "api/ebanking-profil/buy_abonement_ebank";
+  static const String _BANK_DEPOT_URL = "api/ebanking-profil/depot";
+  static const String _BANK_RETRAIT_URL = "api/ebanking-profil/retrait";
+  static const String _BANK_EPARGNE_URL = "api/ebanking-profil/epargner";
+  static const String _BANK_EPARGNE_INVERSE_URL = "api/ebanking-profil/epargne_inverse";
+  static const String _BANK_TRANSACTIONS_URL = "api/ebanking-profil/ebank_transactions";
+  static const String _BANK_EPARGNE_TRANSACTIONS_URL = "api/ebanking-profil/epargne_transactions";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   Abonnement? _abonnement;
@@ -85,8 +93,186 @@ class TransactionService{
     return transaction;
   }
 
+  /// push retrait
+  Future<TelaTransaction?> postRetrait({required TelaTransaction transaction}) async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(transaction.toJson()),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        TelaTransaction transac = TelaTransaction.fromJson(json);
+        print(transac.toString());
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service login error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return transaction;
+  }
+
+  /// push depot
+  Future<TelaTransaction?> postDepot({required TelaTransaction transaction}) async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(transaction.toJson()),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        TelaTransaction transac = TelaTransaction.fromJson(json);
+        print(transac.toString());
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service login error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return transaction;
+  }
+
+  /// push epargne
+  Future<TelaTransaction?> postVersementToEpargne({required TelaTransaction transaction}) async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(transaction.toJson()),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        TelaTransaction transac = TelaTransaction.fromJson(json);
+        print(transac.toString());
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service login error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return transaction;
+  }
+
+  /// push epargne inverse
+  Future<TelaTransaction?> postVersementFromEpargne({required TelaTransaction transaction}) async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(transaction.toJson()),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        TelaTransaction transac = TelaTransaction.fromJson(json);
+        print(transac.toString());
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('auth api service login error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return transaction;
+  }
+
   /// push abonnement
   Future<Abonnement?> buyAbonnement({required AbonnementType abonnement, required TelaTransaction transaction, required int userId}) async {
+    var client = _newClient();
+    Map<String, dynamic> js = transaction.toJson();
+    js.addAll(abonnement.toJson2());
+    js['user_id'] = userId;
+    Abonnement? abonnem;
+    try{
+      print('${Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL)} push abonnement : $js');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(js),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        Abonnement abon = Abonnement.fromJson(json['abonnement']);
+        // TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
+        _telaSharedPrefs.saveAbonnement(abon);
+        // print(transac.toString());
+        print(abon.toString());
+        abonnem = abon;
+
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('transaction api service buy abonnemet error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return abonnem;
+  }
+
+  /// push abonnement from Ebank
+  Future<Abonnement?> buyAbonnementFromEbank({required AbonnementType abonnement, required TelaTransaction transaction, required int userId}) async {
     var client = _newClient();
     Map<String, dynamic> js = transaction.toJson();
     js.addAll(abonnement.toJson2());
@@ -245,6 +431,88 @@ class TransactionService{
   }
 
 
+  // Future<List<TelaEBankTransaction>> getEBankTransactions() async {
+  //   var client = _newClient();
+  //   List<TelaPlace> places =[];
+  //   try{
+  //     print('${Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL')} get places visited ${_passVisite!.code}');
+  //     http.Response response = await client.post(Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: jsonEncode(<String, dynamic>{
+  //         'code': _passVisite!.code,
+  //       }),
+  //     );
+  //     print('Response status: ${response.statusCode}');
+  //     print('Response body: ${response.body}');
+  //     if (response.statusCode == 200) {
+  //       final json = jsonDecode(response.body);
+  //       print(json);
+  //
+  //       for(var pl in json){
+  //         TelaPlace tp = TelaPlace.fromJson(pl);
+  //         tp.commune = communes.where((element) => element.id == tp.communeId).first;
+  //         places.add(tp);
+  //         print(pl);
+  //       }
+  //       _myPlaces = places;
+  //     }  else {
+  //       print('ERROR reponse status code not 200');
+  //       throw json.toString();
+  //     }
+  //
+  //   }
+  //   catch(e){
+  //     print('place api service place visited error** $e');
+  //     throw 'Erreur innatendue';
+  //   }
+  //   finally{
+  //     client.close();
+  //   }
+  //   return places;
+  // }
+  // Future<List<TelaEpargneTransaction>> getEBankEpargneTransactions() async {
+  //   var client = _newClient();
+  //   List<TelaPlace> places =[];
+  //   try{
+  //     print('${Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL')} get places visited ${_passVisite!.code}');
+  //     http.Response response = await client.post(Uri.parse('$_BASE_URL$_PASS_VISITE_MAISON_URL'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: jsonEncode(<String, dynamic>{
+  //         'code': _passVisite!.code,
+  //       }),
+  //     );
+  //     print('Response status: ${response.statusCode}');
+  //     print('Response body: ${response.body}');
+  //     if (response.statusCode == 200) {
+  //       final json = jsonDecode(response.body);
+  //       print(json);
+  //
+  //       for(var pl in json){
+  //         TelaPlace tp = TelaPlace.fromJson(pl);
+  //         tp.commune = communes.where((element) => element.id == tp.communeId).first;
+  //         places.add(tp);
+  //         print(pl);
+  //       }
+  //       _myPlaces = places;
+  //     }  else {
+  //       print('ERROR reponse status code not 200');
+  //       throw json.toString();
+  //     }
+  //
+  //   }
+  //   catch(e){
+  //     print('place api service place visited error** $e');
+  //     throw 'Erreur innatendue';
+  //   }
+  //   finally{
+  //     client.close();
+  //   }
+  //   return places;
+  // }
 
 
 

@@ -5,7 +5,7 @@ import 'package:mobile/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class VersementViewModel extends BaseViewModel{
+class RetraitViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
   DialogService _dialogService = locator<DialogService>();
@@ -14,16 +14,16 @@ class VersementViewModel extends BaseViewModel{
   TransactionService _transactionService = locator<TransactionService>();
 
   double montant = 0;
-
-
-  VersementViewModel();
+  RetraitViewModel();
 
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.acceuil);
   }
-
   void navigateToBank() async{
     await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
+  }
+  void retrait() async{
+    // await _transactionService.postRetrait(transaction: transaction);
   }
 
 

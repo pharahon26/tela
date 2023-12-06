@@ -14,6 +14,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   String code = '';
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
 
   @override
   Widget build(BuildContext context) {

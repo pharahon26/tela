@@ -9,8 +9,10 @@ import 'package:mime/mime.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
+import 'package:mobile/models/bank_profile.dart';
 import 'package:mobile/models/commune.dart';
 import 'package:mobile/models/place.dart';
+import 'package:mobile/models/transactions.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/telaSharedPrefs.dart';
 import 'package:rxdart/rxdart.dart';
@@ -20,6 +22,8 @@ class AuthService{
   /// URLS
   static const String _BASE_URL = "http://10.0.2.2:8000/";
   static const String _SIGN_UP_URL = "api/users/create";
+  static const String _SIGN_UP_BANK_URL = "api/ebanking-profil/create";
+  static const String _LOGIN_BANK_URL = "api/ebanking-profil/login";
   static const String _IDENTIFICATION_URL = "api/users/update";
   static const String _LOGIN_URL = "api/login";
   static const String _COMMUNE_URL = "api/communes";
@@ -31,8 +35,14 @@ class AuthService{
   static const String _PASS_VISITE_MAISON_URL = "api/pass-visite/get_pass_visite";
   static const String _PLACE_URL = "api/places";
 
+  static const String _BANK_TRANSACTIONS_URL = "api/ebanking-profil/ebank_transactions";
+  static const String _BANK_EPARGNE_TRANSACTIONS_URL = "api/ebanking-profil/epargne_transactions";
+
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
+  UserIdentity? _userIdentity;
+  TelaBankProfile? _bankProfile;
+  TelaBankEpargne? _bankEpargne;
   Abonnement? _abonnement;
   PassTV? _passTV;
   PassVisite? _passVisite;
@@ -45,12 +55,19 @@ class AuthService{
   List<Abonnement> _abonnements = [];
   List<PassVisite> _passVisites = [];
   List<TelaPlace> _myPlaces = [];
+  List<TelaTransaction> _myBankTransactions = [];
+  List<TelaEBankTransaction> _myBankEbankTransactions = [];
+  List<TelaTransaction> _myEpargneTransactions = [];
+  List<TelaEpargneTransaction> _myBankEpargneTransactions = [];
   List<PassTV> _passTvs = [];
   final BehaviorSubject<bool> _isConnectedSubject = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isConnected => _isConnectedSubject.stream.asBroadcastStream();
 
   String get token => _token;
   User? get user => _user;
+  UserIdentity? get userIdentity => _userIdentity;
+  TelaBankProfile? get bankProfile => _bankProfile;
+  TelaBankEpargne? get bankEpargne => _bankEpargne;
   PassVisite? get passVisite => _passVisite;
   PassTV? get passTV => _passTV;
   Abonnement? get abonnement => _abonnement;
@@ -194,6 +211,68 @@ class AuthService{
       client.close();
     }
     return _user;
+  }
+
+  /// SIGN IN BANK
+  Future<TelaBankProfile?> signInEBank({
+    required String nom,
+    required String prenom,
+    required String telephone,
+    required String password,
+    required String mail,
+    required String photo,
+  }) async {
+    var client = _newClient();
+    try{
+
+      print('${Uri.parse(_BASE_URL+_SIGN_UP_BANK_URL)} sign In : $nom $prenom $telephone $mail');
+
+      File img = File(photo);
+      String photoImg64 = base64Encode(img.readAsBytesSync());
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_SIGN_UP_BANK_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "nom": nom,
+          "prenoms": prenom,
+          "phone": telephone,
+          "password": password,
+          "email": mail,
+          "photo": photoImg64,
+        }),
+      );
+
+
+      if (response.statusCode == 200) print("Uploaded!");
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(json);
+        // _token = 'Bearer ' + json["token"]["access_token"];
+        _bankProfile = TelaBankProfile.fromJson(json['profil']);
+        print(_bankProfile);
+
+        if(_bankProfile != null){
+          _telaSharedPrefs.savePhoneNumber(_bankProfile!.phone);
+          _telaSharedPrefs.saveName(_bankProfile!.nom??'');
+          _telaSharedPrefs.saveFirstName( _bankProfile!.prenom??'');
+
+        }
+      }  else {
+        if (response.statusCode == 404) {
+          throw json['message'];
+
+        }
+      }
+
+    }
+    finally{
+      client.close();
+    }
+    return _bankProfile;
   }
 
 
@@ -449,6 +528,172 @@ class AuthService{
   }
 
 
+  /// LOGIN BANK
+  Future<TelaBankProfile?> loginEBank({required String phone, required String password}) async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_BASE_URL+_LOGIN_BANK_URL)} Log In : $phone');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_LOGIN_BANK_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'phone': phone,
+          'password': password,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(json);
+        print('-----------');
+        print('TEST');
+        print('------------');
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        _bankProfile = TelaBankProfile.fromJson(json["ebank_profile"]);
+        print(_user.toString());
+        if(_bankProfile != null){
+          _telaSharedPrefs.savePhoneNumber(_bankProfile!.phone);
+          _telaSharedPrefs.saveName(_bankProfile!.nom??'');
+          _telaSharedPrefs.saveFirstName( _bankProfile!.prenom??'');
+          if((json["transactions"] as List).isNotEmpty){
+            for(var ab in json["transactions"]){
+              TelaTransaction transaction = TelaTransaction.fromJson(ab);
+              _myBankTransactions.add(transaction);
+            }
+
+          }
+          if((json["ebank_transactions"] as List<dynamic>).isNotEmpty){
+            for(var ab in json["ebank_transactions"]){
+              TelaEBankTransaction transaction = TelaEBankTransaction.fromJson(ab);
+              _myBankEbankTransactions.add(transaction);
+            }
+
+          }
+
+          if (json["epargne"] != null) {
+            _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
+            if((json["transactions_ep"] as List<dynamic>).isNotEmpty){
+              for(var ab in json["transactions_ep"]){
+                TelaTransaction transaction = TelaTransaction.fromJson(ab);
+                _myEpargneTransactions.add(transaction);
+              }
+
+            }
+            if((json["epargne_transactions"] as List<dynamic>).isNotEmpty){
+              for(var ab in json["epargne_transactions"]){
+                TelaEpargneTransaction transaction = TelaEpargneTransaction.fromJson(ab);
+                _myBankEpargneTransactions.add(transaction);
+              }
+
+            }
+
+          }
+
+        }
+      }  else {
+        if (response.statusCode == 404) {
+          throw json;
+
+        }
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    finally{
+      client.close();
+    }
+    return _bankProfile;
+  }
+
+
+  /// GET bank transactions
+  Future<List<TelaEBankTransaction>> getMyEbankTransactions() async {
+    var client = _newClient();
+    List<TelaEBankTransaction> transactions =[];
+    try{
+      print('${Uri.parse('$_BASE_URL$_BANK_TRANSACTIONS_URL')} get my transactions');
+      http.Response response = await client.post(Uri.parse('$_BASE_URL$_BANK_TRANSACTIONS_URL'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'id': _bankProfile?.id,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+        for(var pl in json){
+          TelaEBankTransaction tp = TelaEBankTransaction.fromJson(pl);
+          transactions.add(tp);
+          print(pl);
+        }
+        _myBankEbankTransactions = transactions;
+      }  else {
+        print('ERROR reponse status code not 200');
+        throw json.toString();
+      }
+
+    }
+    catch(e){
+      print('place api service images error** $e');
+      throw 'Erreur innatendue';
+    }
+    finally{
+      client.close();
+    }
+    return transactions;
+  }
+  /// GET bank epargne transactions
+  Future<List<TelaEpargneTransaction>> getMyEpargneTransactions() async {
+    var client = _newClient();
+    List<TelaEpargneTransaction> places =[];
+    try{
+      print('${Uri.parse('$_BASE_URL$_BANK_EPARGNE_TRANSACTIONS_URL')} get my epargne transactions');
+      http.Response response = await client.post(Uri.parse('$_BASE_URL$_BANK_EPARGNE_TRANSACTIONS_URL'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'id': _bankEpargne?.id,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+        for(var pl in json){
+          TelaEpargneTransaction tp = TelaEpargneTransaction.fromJson(pl);
+          places.add(tp);
+          print(pl);
+        }
+        _myBankEpargneTransactions = places;
+      }  else {
+        print('ERROR reponse status code not 200');
+        throw json.toString();
+      }
+
+    }
+    catch(e){
+      print('place api service images error** $e');
+      throw 'Erreur innatendue';
+    }
+    finally{
+      client.close();
+    }
+    return places;
+  }
+
+
+
+
   /// GET my place
   Future<List<TelaPlace>> getMyPlaces() async {
     var client = _newClient();
@@ -530,6 +775,9 @@ class AuthService{
     }
     return places;
   }
+
+
+  /// GET maisons visite
 
 
   /// GET COMMUNES
@@ -761,7 +1009,6 @@ class AuthService{
         final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
-
         passVisite = PassVisite.fromJson(json);
         await _telaSharedPrefs.savePassVisite(passVisite);
         _passVisite = passVisite;
@@ -771,8 +1018,8 @@ class AuthService{
 
     }
     catch(e){
-      print('auth api service commune error** $e');
-      throw('auth api service commune error** $e');
+      print('auth api service verif code error** $e');
+      throw('auth api service verif code error** $e');
     }
     finally{
       client.close();

@@ -16,10 +16,14 @@ import 'package:mobile/ui/views/camera/capture.dart';
 import 'package:mobile/ui/views/cgu/cgu.dart';
 import 'package:mobile/ui/views/cguFinance/cguFinance.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bank.dart';
+import 'package:mobile/ui/views/ebank/buyAbonnement/buyabonnementEbank.dart';
 import 'package:mobile/ui/views/ebank/buyPassView/buyPassView.dart';
 import 'package:mobile/ui/views/ebank/buyView/buyView.dart';
 import 'package:mobile/ui/views/ebank/depot/depot.dart';
+import 'package:mobile/ui/views/ebank/ebankLoginView/ebankLoginView.dart';
+import 'package:mobile/ui/views/ebank/ebankSignInView/ebankSignInView.dart';
 import 'package:mobile/ui/views/ebank/renewVisitePass/renewPassView.dart';
+import 'package:mobile/ui/views/ebank/retrait/retrait.dart';
 import 'package:mobile/ui/views/ebank/versement/versement.dart';
 import 'package:mobile/ui/views/immo/catalogue/catalogue.dart';
 import 'package:mobile/ui/views/immo/imageNav/imgeNav.dart';
@@ -52,7 +56,10 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: IdentificationView),
       MaterialRoute(page: LoginView),
       MaterialRoute(page: Bank),
+      MaterialRoute(page: EbankLoginView),
+      MaterialRoute(page: EbankSignInView),
       MaterialRoute(page: Depot),
+      MaterialRoute(page: Retrait),
       MaterialRoute(page: Versement),
       MaterialRoute(page: Catalogue),
       MaterialRoute(page: MyVisite),
@@ -71,6 +78,7 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: BuyVisitePass),
       MaterialRoute(page: BuyPassView),
       MaterialRoute(page: BuyAbonnement),
+      MaterialRoute(page: BuyAbonnementEbank),
     ],
     dependencies: [
       InitializableSingleton(classType: TelaSharedPrefs),

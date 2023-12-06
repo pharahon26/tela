@@ -137,7 +137,7 @@ class RechercheViewModel extends BaseViewModel{
   }
 
   void navigateToEbank() async{
-    await _navigationService.navigateTo(Routes.bank);
+    await _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
   }
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.profile);
