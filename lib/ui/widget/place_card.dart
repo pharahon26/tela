@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/place.dart';
-import 'package:mobile/models/programetv.dart';
+import 'package:tela/models/place.dart';
+import 'package:tela/models/programetv.dart';
 
 class PlaceCard extends StatelessWidget {
   final TelaPlace place;

@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:mobile/app/app.locator.dart';
-import 'package:mobile/app/app.router.dart';
-import 'package:mobile/services/tv_service.dart';
+import 'package:tela/app/app.locator.dart';
+import 'package:tela/app/app.router.dart';
+import 'package:tela/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:video_player/video_player.dart';

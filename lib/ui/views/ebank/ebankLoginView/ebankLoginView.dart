@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/ebank/ebankLoginView/ebankLoginViewModel.dart';
+import 'package:tela/ui/views/ebank/ebankLoginView/ebankLoginViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 /// Created by Laty 26 PHARAHON entertainment on 17/09/2020.

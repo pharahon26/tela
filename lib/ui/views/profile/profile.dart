@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile/ui/views/profile/profileViewModel.dart';
-import 'package:mobile/ui/widget/profilCliper.dart';
+import 'package:tela/ui/views/profile/profileViewModel.dart';
+import 'package:tela/ui/widget/profilCliper.dart';
 import 'package:stacked/stacked.dart';
 
 class Profile extends StatefulWidget {

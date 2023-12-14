@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/place.dart';
-import 'package:mobile/ui/views/immo/visite/visiteViewModel.dart';
+import 'package:tela/models/place.dart';
+import 'package:tela/ui/views/immo/visite/visiteViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Visite extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:mobile/models/transactions.dart';
-import 'package:mobile/ui/views/ebank/bank_resume/bankViewModel.dart';
-import 'package:mobile/ui/views/ebank/compte/compte.dart';
-import 'package:mobile/ui/views/ebank/epargne/epargne.dart';
-import 'package:mobile/ui/widget/bank_epargne_tab_header.dart';
-import 'package:mobile/ui/widget/bank_profile_tab_header.dart';
+import 'package:tela/models/transactions.dart';
+import 'package:tela/ui/views/ebank/bank_resume/bankViewModel.dart';
+import 'package:tela/ui/views/ebank/compte/compte.dart';
+import 'package:tela/ui/views/ebank/epargne/epargne.dart';
+import 'package:tela/ui/widget/bank_epargne_tab_header.dart';
+import 'package:tela/ui/widget/bank_profile_tab_header.dart';
 import 'package:stacked/stacked.dart';
 
 class Bank extends StatefulWidget {
@@ -19,7 +19,7 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
   double compteBalance = 0;

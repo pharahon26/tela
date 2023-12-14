@@ -9,49 +9,49 @@ import 'dart:io' as _i37;
 
 import 'package:flutter/material.dart' as _i36;
 import 'package:flutter/material.dart';
-import 'package:mobile/models/abonnement.dart' as _i40;
-import 'package:mobile/models/abonnementType.dart' as _i39;
-import 'package:mobile/models/place.dart' as _i38;
-import 'package:mobile/models/programetv.dart' as _i41;
-import 'package:mobile/ui/views/acceuil/acceuil.dart' as _i2;
-import 'package:mobile/ui/views/buyAbonnement/buyabonnement.dart' as _i34;
-import 'package:mobile/ui/views/buyVisitePass/buyVisitePass.dart' as _i32;
-import 'package:mobile/ui/views/camera/camera_view.dart' as _i5;
-import 'package:mobile/ui/views/camera/capture.dart' as _i6;
-import 'package:mobile/ui/views/cgu/cgu.dart' as _i3;
-import 'package:mobile/ui/views/cguFinance/cguFinance.dart' as _i4;
-import 'package:mobile/ui/views/ebank/bank_resume/bank.dart' as _i11;
-import 'package:mobile/ui/views/ebank/buyAbonnement/buyabonnementEbank.dart'
+import 'package:tela/models/abonnement.dart' as _i40;
+import 'package:tela/models/abonnementType.dart' as _i39;
+import 'package:tela/models/place.dart' as _i38;
+import 'package:tela/models/programetv.dart' as _i41;
+import 'package:tela/ui/views/acceuil/acceuil.dart' as _i2;
+import 'package:tela/ui/views/buyAbonnement/buyabonnement.dart' as _i34;
+import 'package:tela/ui/views/buyVisitePass/buyVisitePass.dart' as _i32;
+import 'package:tela/ui/views/camera/camera_view.dart' as _i5;
+import 'package:tela/ui/views/camera/capture.dart' as _i6;
+import 'package:tela/ui/views/cgu/cgu.dart' as _i3;
+import 'package:tela/ui/views/cguFinance/cguFinance.dart' as _i4;
+import 'package:tela/ui/views/ebank/bank_resume/bank.dart' as _i11;
+import 'package:tela/ui/views/ebank/buyAbonnement/buyabonnementEbank.dart'
     as _i35;
-import 'package:mobile/ui/views/ebank/buyPassView/buyPassView.dart' as _i33;
-import 'package:mobile/ui/views/ebank/buyView/buyView.dart' as _i31;
-import 'package:mobile/ui/views/ebank/depot/depot.dart' as _i14;
-import 'package:mobile/ui/views/ebank/ebankLoginView/ebankLoginView.dart'
+import 'package:tela/ui/views/ebank/buyPassView/buyPassView.dart' as _i33;
+import 'package:tela/ui/views/ebank/buyView/buyView.dart' as _i31;
+import 'package:tela/ui/views/ebank/depot/depot.dart' as _i14;
+import 'package:tela/ui/views/ebank/ebankLoginView/ebankLoginView.dart'
     as _i12;
-import 'package:mobile/ui/views/ebank/ebankSignInView/ebankSignInView.dart'
+import 'package:tela/ui/views/ebank/ebankSignInView/ebankSignInView.dart'
     as _i13;
-import 'package:mobile/ui/views/ebank/renewVisitePass/renewPassView.dart'
+import 'package:tela/ui/views/ebank/renewVisitePass/renewPassView.dart'
     as _i24;
-import 'package:mobile/ui/views/ebank/retrait/retrait.dart' as _i15;
-import 'package:mobile/ui/views/ebank/versement/versement.dart' as _i16;
-import 'package:mobile/ui/views/IdentificationView/identificationView.dart'
+import 'package:tela/ui/views/ebank/retrait/retrait.dart' as _i15;
+import 'package:tela/ui/views/ebank/versement/versement.dart' as _i16;
+import 'package:tela/ui/views/IdentificationView/identificationView.dart'
     as _i9;
-import 'package:mobile/ui/views/immo/catalogue/catalogue.dart' as _i17;
-import 'package:mobile/ui/views/immo/imageNav/imgeNav.dart' as _i26;
-import 'package:mobile/ui/views/immo/maisonVisite/maisonVisite.dart' as _i23;
-import 'package:mobile/ui/views/immo/modifPlace/modifPlace.dart' as _i20;
-import 'package:mobile/ui/views/immo/myVisite/myVisite.dart' as _i18;
-import 'package:mobile/ui/views/immo/newPlace/newPlace.dart' as _i19;
-import 'package:mobile/ui/views/immo/recherche/recherche.dart' as _i21;
-import 'package:mobile/ui/views/immo/resultat/resultat.dart' as _i22;
-import 'package:mobile/ui/views/immo/visite/visite.dart' as _i25;
-import 'package:mobile/ui/views/LoginView/loginView.dart' as _i10;
-import 'package:mobile/ui/views/profile/profile.dart' as _i7;
-import 'package:mobile/ui/views/SignInView/signInView.dart' as _i8;
-import 'package:mobile/ui/views/tv/chaneltv/channeltv.dart' as _i28;
-import 'package:mobile/ui/views/tv/programmetv/programmetv.dart' as _i27;
-import 'package:mobile/ui/views/tv/tv/tv.dart' as _i29;
-import 'package:mobile/ui/views/tv2/tv2.dart' as _i30;
+import 'package:tela/ui/views/immo/catalogue/catalogue.dart' as _i17;
+import 'package:tela/ui/views/immo/imageNav/imgeNav.dart' as _i26;
+import 'package:tela/ui/views/immo/maisonVisite/maisonVisite.dart' as _i23;
+import 'package:tela/ui/views/immo/modifPlace/modifPlace.dart' as _i20;
+import 'package:tela/ui/views/immo/myVisite/myVisite.dart' as _i18;
+import 'package:tela/ui/views/immo/newPlace/newPlace.dart' as _i19;
+import 'package:tela/ui/views/immo/recherche/recherche.dart' as _i21;
+import 'package:tela/ui/views/immo/resultat/resultat.dart' as _i22;
+import 'package:tela/ui/views/immo/visite/visite.dart' as _i25;
+import 'package:tela/ui/views/LoginView/loginView.dart' as _i10;
+import 'package:tela/ui/views/profile/profile.dart' as _i7;
+import 'package:tela/ui/views/SignInView/signInView.dart' as _i8;
+import 'package:tela/ui/views/tv/chaneltv/channeltv.dart' as _i28;
+import 'package:tela/ui/views/tv/programmetv/programmetv.dart' as _i27;
+import 'package:tela/ui/views/tv/tv/tv.dart' as _i29;
+import 'package:tela/ui/views/tv2/tv2.dart' as _i30;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i42;
 

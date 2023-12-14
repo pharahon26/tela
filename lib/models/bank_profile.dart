@@ -1,4 +1,4 @@
-import 'package:mobile/models/user.dart';
+import 'package:tela/models/user.dart';
 
 class TelaBankProfile{
   int? id = 0;

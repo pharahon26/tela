@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/immo/newPlace/newPlaveViewModel.dart';
+import 'package:tela/ui/views/immo/newPlace/newPlaveViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class NewPlace extends StatefulWidget {

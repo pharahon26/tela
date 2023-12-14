@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/abonnement.dart';
-import 'package:mobile/models/abonnementType.dart';
-import 'package:mobile/models/transactions.dart';
-import 'package:mobile/ui/views/ebank/buyPassView/buyPassViewModel.dart';
+import 'package:tela/models/abonnement.dart';
+import 'package:tela/models/abonnementType.dart';
+import 'package:tela/models/transactions.dart';
+import 'package:tela/ui/views/ebank/buyPassView/buyPassViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 import 'dart:async';

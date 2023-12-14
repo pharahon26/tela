@@ -1,10 +1,10 @@
 
 
 import 'package:camera/camera.dart';
-import 'package:mobile/models/abonnement.dart';
-import 'package:mobile/models/abonnementType.dart';
-import 'package:mobile/models/commune.dart';
-import 'package:mobile/models/user.dart';
+import 'package:tela/models/abonnement.dart';
+import 'package:tela/models/abonnementType.dart';
+import 'package:tela/models/commune.dart';
+import 'package:tela/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked_annotations.dart';
 

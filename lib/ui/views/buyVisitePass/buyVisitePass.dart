@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/buyVisitePass/buyVisitePassViewModel.dart';
+import 'package:tela/ui/views/buyVisitePass/buyVisitePassViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class BuyVisitePass extends StatefulWidget {

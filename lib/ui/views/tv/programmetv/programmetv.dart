@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mobile/ui/views/tv/programmetv/programmetvViewModel.dart';
-import 'package:mobile/ui/widget/tela_t_v_programe_card.dart';
+import 'package:tela/ui/views/tv/programmetv/programmetvViewModel.dart';
+import 'package:tela/ui/widget/tela_t_v_programe_card.dart';
 import 'package:stacked/stacked.dart';
 
 class ProgrammeTv extends StatefulWidget {

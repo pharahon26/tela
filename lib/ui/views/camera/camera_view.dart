@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/app/app.locator.dart';
-import 'package:mobile/services/telaSharedPrefs.dart';
-import 'package:mobile/ui/views/camera/cameraViewModel.dart';
+import 'package:tela/app/app.locator.dart';
+import 'package:tela/services/telaSharedPrefs.dart';
+import 'package:tela/ui/views/camera/cameraViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 

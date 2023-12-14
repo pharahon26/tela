@@ -1,5 +1,5 @@
-import 'package:mobile/models/commune.dart';
-import 'package:mobile/models/user.dart';
+import 'package:tela/models/commune.dart';
+import 'package:tela/models/user.dart';
 
 class TelaPlace{
   int id = 0;

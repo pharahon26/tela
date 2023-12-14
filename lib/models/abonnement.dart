@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:mobile/models/abonnementType.dart';
+import 'package:tela/models/abonnementType.dart';
 
 class Abonnement{
 

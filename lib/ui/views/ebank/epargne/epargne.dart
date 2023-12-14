@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/transactions.dart';
-import 'package:mobile/ui/views/ebank/epargne/epargneViewModel.dart';
+import 'package:tela/models/transactions.dart';
+import 'package:tela/ui/views/ebank/epargne/epargneViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Epargne extends StatefulWidget {

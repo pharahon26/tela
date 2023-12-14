@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/ebank/buyAbonnement/buyAbonnementEbankViewModel.dart';
+import 'package:tela/ui/views/ebank/buyAbonnement/buyAbonnementEbankViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class BuyAbonnementEbank extends StatefulWidget {

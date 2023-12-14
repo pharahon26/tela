@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/SignInView/signInViewModel.dart';
+import 'package:tela/ui/views/SignInView/signInViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 

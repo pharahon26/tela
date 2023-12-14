@@ -1,4 +1,4 @@
-name: mobile
+name: tela
 description: Tela application de la plateforme immobiliere TELA CI
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -111,9 +111,6 @@ flutter:
     - assets/images/p4.webp
     - assets/images/p5.webp
     - assets/images/telatv-logo.jpg
-    - assets/video/venez_voir.mp4
-    - assets/video/METALIVOIRE.mp4
-    - assets/video/Salsa.mp4
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

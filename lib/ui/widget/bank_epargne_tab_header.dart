@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/app/app.locator.dart';
-import 'package:mobile/services/auth_service.dart';
+import 'package:tela/app/app.locator.dart';
+import 'package:tela/services/auth_service.dart';
 
 class BankEpargneTabHeader extends StatelessWidget {
   BankEpargneTabHeader({Key? key}) : super(key: key);

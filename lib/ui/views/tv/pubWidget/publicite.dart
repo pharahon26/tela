@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mobile/models/programetv.dart';
-import 'package:mobile/ui/views/tv/pubWidget/publiciteViewModel.dart';
+import 'package:tela/models/programetv.dart';
+import 'package:tela/ui/views/tv/pubWidget/publiciteViewModel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';

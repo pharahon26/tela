@@ -3,12 +3,12 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
-import 'package:mobile/app/app.locator.dart';
-import 'package:mobile/models/abonnement.dart';
-import 'package:mobile/models/abonnementType.dart';
-import 'package:mobile/models/bank_profile.dart';
-import 'package:mobile/models/transactions.dart';
-import 'package:mobile/services/telaSharedPrefs.dart';
+import 'package:tela/app/app.locator.dart';
+import 'package:tela/models/abonnement.dart';
+import 'package:tela/models/abonnementType.dart';
+import 'package:tela/models/bank_profile.dart';
+import 'package:tela/models/transactions.dart';
+import 'package:tela/services/telaSharedPrefs.dart';
 
 import 'package:rxdart/rxdart.dart';
 

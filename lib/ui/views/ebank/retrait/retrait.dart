@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/ui/views/ebank/retrait/retraitViewModel.dart';
+import 'package:tela/ui/views/ebank/retrait/retraitViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Retrait extends StatefulWidget {

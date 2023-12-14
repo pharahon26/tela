@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/programetv.dart';
+import 'package:tela/models/programetv.dart';
 
 class TelaTVProgrameCard extends StatelessWidget {
   final TelaProgrammeTV programmeTV;

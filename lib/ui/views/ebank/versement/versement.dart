@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mobile/ui/views/ebank/versement/versementViewModel.dart';
+import 'package:tela/ui/views/ebank/versement/versementViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Versement extends StatefulWidget {

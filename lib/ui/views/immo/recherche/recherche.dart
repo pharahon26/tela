@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/commune.dart';
-import 'package:mobile/ui/views/immo/recherche/rechercheViewModel.dart';
+import 'package:tela/models/commune.dart';
+import 'package:tela/ui/views/immo/recherche/rechercheViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Recherche extends StatefulWidget {
