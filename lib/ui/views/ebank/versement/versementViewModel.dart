@@ -11,7 +11,7 @@ class VersementViewModel extends BaseViewModel{
   DialogService _dialogService = locator<DialogService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
   AuthService authService = locator<AuthService>();
-  TransactionService _transactionService = locator<TransactionService>();
+  TransactionService transactionService = locator<TransactionService>();
 
   double montant = 0;
 

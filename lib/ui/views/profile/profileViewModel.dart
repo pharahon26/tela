@@ -10,30 +10,30 @@ class ProfileViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
 
-  AuthService _authService = locator<AuthService>();
+  AuthService authService = locator<AuthService>();
   DialogService _dialogService = locator<DialogService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
   bool _isA = false;
 
 
-  Stream<bool> get isAuth => _authService.isConnected;
-  User? get user => _authService.user;
-  Abonnement? get abonnement => _authService.abonnement;
-  String get stra => _authService.abonnement != null?_authService.abonnement!.startSTR():'Du ...';
-  String get enda => _authService.abonnement != null?_authService.abonnement!.endSTR():'Au ...';
-  String get strd => _authService.passVisite != null?_authService.passVisite!.startSTR():'Du ...';
-  String get endd => _authService.passVisite != null?_authService.passVisite!.endSTR():'Au ...';
-  PassVisite? get passVisite => _authService.passVisite;
+  Stream<bool> get isAuth => authService.isConnected;
+  User? get user => authService.user;
+  Abonnement? get abonnement => authService.abonnement;
+  String get stra => authService.abonnement != null?authService.abonnement!.startSTR():'Du ...';
+  String get enda => authService.abonnement != null?authService.abonnement!.endSTR():'Au ...';
+  String get strd => authService.passVisite != null?authService.passVisite!.startSTR():'Du ...';
+  String get endd => authService.passVisite != null?authService.passVisite!.endSTR():'Au ...';
+  PassVisite? get passVisite => authService.passVisite;
 
   ProfileViewModel(){
     print('***************PASS******************');
-    print(_authService.passVisite);
+    print(authService.passVisite);
     notifyListeners();
   }
 
   void navigateToEbank() async{
-    await _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
+    await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.profile);
@@ -75,7 +75,7 @@ class ProfileViewModel extends BaseViewModel{
     await _navigationService.navigateToBuyVisitePass(isVisite: true, isRenew: true);
   }
   void chechPass(String code) async{
-    PassVisite? p =  await _authService.verifCodeVisite(code: code);
+    PassVisite? p =  await authService.verifCodeVisite(code: code);
     if (p != null) {
       print(passVisite);
       navigateToProfile();

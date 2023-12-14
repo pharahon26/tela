@@ -38,6 +38,7 @@ import 'package:mobile/ui/views/profile/profile.dart';
 import 'package:mobile/ui/views/tv/chaneltv/channeltv.dart';
 import 'package:mobile/ui/views/tv/programmetv/programmetv.dart';
 import 'package:mobile/ui/views/tv/tv/tv.dart';
+import 'package:mobile/ui/views/tv2/tv2.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -74,6 +75,7 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: ProgrammeTv),
       MaterialRoute(page: ChanelTv),
       MaterialRoute(page: Tv),
+      MaterialRoute(page: Tv2),
       MaterialRoute(page: BuyView),
       MaterialRoute(page: BuyVisitePass),
       MaterialRoute(page: BuyPassView),

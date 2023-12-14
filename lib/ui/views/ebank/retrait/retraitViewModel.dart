@@ -23,7 +23,8 @@ class RetraitViewModel extends BaseViewModel{
     await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
   void retrait() async{
-    // await _transactionService.postRetrait(transaction: transaction);
+    await _transactionService.postRetrait(amount: montant, profile: authService.bankProfile!, fromEpargne: false);
+    navigateToBank();
   }
 
 

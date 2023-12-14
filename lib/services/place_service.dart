@@ -9,7 +9,7 @@ import 'package:mobile/models/place.dart';
 
 class PlaceService{
   /// URLS
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _PLACE_URL = "api/places";
   static const String _PLACE_ADD_URL = "api/places/create";
   static const String _PLACE_MODIF_URL = "api/places/";
@@ -107,16 +107,18 @@ class PlaceService{
     var client = _newClient();
     TelaPlace? pl;
     Map<String, dynamic> toSend = place.toJson();
+    List<String> img = [];
 
     for(int i = 0; i<10; i++){
       if (images[i] != null) {
         String photoImg64 = base64Encode(images[i]!.readAsBytesSync());
-        toSend['picture$i'] = photoImg64;
+        img.add(photoImg64);
       }
     }
+    toSend['images'] = img;
 
     try{
-      print('${Uri.parse(_BASE_URL+_PLACE_ADD_URL)} add place : \n ${place.toJson()}');
+      print('${Uri.parse(_BASE_URL+_PLACE_ADD_URL)} add place : \n ${toSend}');
       http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_ADD_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -147,17 +149,17 @@ class PlaceService{
   }
 
   /// modif place
-  Future<TelaPlace?> modifPlace({required TelaPlace place, required List<File?> images}) async {
+  Future<TelaPlace?> modifPlace({required TelaPlace place}) async {
     var client = _newClient();
     TelaPlace? pl;
     Map<String, dynamic> toSend = place.toJson();
 
-    for(int i = 0; i<10; i++){
-      if (images[i] != null) {
-        String photoImg64 = base64Encode(images[i]!.readAsBytesSync());
-        toSend['picture$i'] = photoImg64;
-      }
-    }
+    // for(int i = 0; i<10; i++){
+    //   if (images[i] != null) {
+    //     String photoImg64 = base64Encode(images[i]!.readAsBytesSync());
+    //     toSend['picture$i'] = photoImg64;
+    //   }
+    // }
 
     try{
       print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace')} modif place : \n ${place.toJson()}');

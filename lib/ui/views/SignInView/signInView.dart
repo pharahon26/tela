@@ -22,6 +22,8 @@ class _SignInViewState extends State<SignInView>
   }
 
   bool isPasswordVisible = false;
+  bool isPasswordVisible2 = false;
+  bool loading = false;
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -235,7 +237,7 @@ class _SignInViewState extends State<SignInView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.visiblePassword,
-                                obscureText: !isPasswordVisible,
+                                obscureText: !isPasswordVisible2,
                                 style: TextStyle(
                                   color: Colors.black,
                                 ),
@@ -252,10 +254,10 @@ class _SignInViewState extends State<SignInView>
                                     suffix: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          isPasswordVisible = !isPasswordVisible;
+                                          isPasswordVisible2 = !isPasswordVisible2;
                                         });
                                       },
-                                      icon: Icon(isPasswordVisible? Icons.visibility_outlined : Icons.visibility_off_outlined ),
+                                      icon: Icon(isPasswordVisible2? Icons.visibility_outlined : Icons.visibility_off_outlined ),
 
                                     )
                                 ),
@@ -327,10 +329,56 @@ class _SignInViewState extends State<SignInView>
                 child: ElevatedButton(
                   onPressed: () async {
 
-                    if (_formKey.currentState!.validate()) {
-                      model.isAccepted?
-                      await model.signIn()
-                          :
+                    if (_formKey.currentState!.validate() && !loading) {
+                      model.isAccepted?{
+                        model.signIn()
+                          .catchError((error, trace)  {
+                              setState(() {
+                              loading = false;
+                              });
+                              showDialog(context: context, builder: (buildContext) => Dialog(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                      child: Text(error.toString(),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 20,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.1
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TextButton(
+                                        onPressed: () => Navigator.of(buildContext).pop(),
+                                        child: Text('Ok',
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                            color: Theme.of(context).colorScheme.primary,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600
+                                          ),
+                                        )
+                                      ),
+                                    )
+
+                                  ],
+                                  ),
+
+                                )
+                              );
+                          })
+                      } :
                       showDialog(context: context, builder: (buildContext) => Dialog(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -379,15 +427,19 @@ class _SignInViewState extends State<SignInView>
                       fixedSize: Size(_mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 80.0),
-                    child: Text(
-                      'Créer le profil',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+                    child: Visibility(
+                      visible: !loading,
+                      replacement: const CircularProgressIndicator(color: Colors.white,),
+                      child: const Text(
+                        'Créer le profil',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

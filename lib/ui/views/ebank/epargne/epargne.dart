@@ -16,100 +16,156 @@ class _EpargneState extends State<Epargne> {
     return ViewModelBuilder<EpargneViewModel>.reactive(
       viewModelBuilder: () => EpargneViewModel(),
       builder: (context, model, child) => Scrollbar(
-        child: Column(
+        child:  Column(
           children: [
-            TextButton(onPressed: () => {},
-              style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary
-              ),
-              child: const Text('transfer vers compte',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                    color: Colors.white
-                ),
-              ),
-            ),
-            TextButton(onPressed: () => model.retrait(),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
-              child: Text('Retrait',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                    color: Theme.of(context).colorScheme.background
-                ),
-              ),
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     TextButton(onPressed: () => model.retrait(),
+            //       style: TextButton.styleFrom(
+            //         elevation: 8,
+            //         backgroundColor: Theme.of(context).colorScheme.primary,
+            //         shape: StadiumBorder(),
+            //       ),
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+            //         child: Text('Retrait',
+            //           style: TextStyle(
+            //               fontSize: 16,
+            //               fontWeight: FontWeight.w600,
+            //               letterSpacing: 1.2,
+            //               color: Colors.white
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     TextButton(onPressed: () => model.depot(),
+            //       style: TextButton.styleFrom(
+            //         elevation: 8,
+            //         backgroundColor: Theme.of(context).colorScheme.primary,
+            //         shape: StadiumBorder(),
+            //       ),
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+            //         child: Text('Dépot',
+            //           style: TextStyle(
+            //               fontSize: 16,
+            //               fontWeight: FontWeight.w600,
+            //               letterSpacing: 1.2,
+            //               color: Colors.white
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
             TextButton(onPressed: () => model.depot(),
               style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
+                elevation: 8,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                shape: StadiumBorder(),
               ),
-              child: Text('Dépot',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                    color: Theme.of(context).colorScheme.background
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: Text('Dépot',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                      color: Colors.white
+                  ),
                 ),
               ),
             ),
-            FutureBuilder<List<TelaEpargneTransaction>>(
-                future: model.authService.getMyEpargneTransactions(),
-                builder: (context, snapshot) {
-                  switch(snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    case ConnectionState.waiting:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    case ConnectionState.active:
-                      return snapshot.data!.isNotEmpty? ListView(
-                        scrollDirection: Axis.vertical,
-                        children: snapshot.data!.map((e) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                              onTap: () => {},
-                              child: Row(
-                                children: [
-                                  Text('test')
-                                ],
-                              )
+            TextButton(onPressed: () => model.verserSurCompte(),
+              style: TextButton.styleFrom(
+                elevation: 8,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                shape: StadiumBorder(),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: const Text('Dépot vers le compte',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                      color: Colors.white
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FutureBuilder<List<TelaTransaction>>(
+                  future: model.authService.getMyEpargneTransactions(),
+                  builder: (context, snapshot) {
+                    switch(snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      case ConnectionState.waiting:
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      case ConnectionState.active:
+                        return snapshot.data!.isNotEmpty? ListView(
+                          scrollDirection: Axis.vertical,
+                          children: snapshot.data!.map((e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                                onTap: () => {},
+                                child: Row(
+                                  children: [
+                                    Text('test')
+                                  ],
+                                )
+                            ),
+                          )).toList(),
+                        )
+                            :
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Pas de transactions',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18
+                              ),
+                            ),
                           ),
-                        )).toList(),
-                      )
-                          :
-                      Center(
-                        child: Text('Pas de transactions'),
-                      );
-                    case ConnectionState.done:
-                      return snapshot.data!.isNotEmpty? ListView(
-                        scrollDirection: Axis.vertical,
-                        children: snapshot.data!.map((e) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                              onTap: () => {},
-                              child: Row(
-                                children: [
-                                  Text('test')
-                                ],
-                              )
+                        );
+                      case ConnectionState.done:
+                        return snapshot.data!.isNotEmpty? ListView(
+                          scrollDirection: Axis.vertical,
+                          children: snapshot.data!.map((e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                                onTap: () => {},
+                                child: Row(
+                                  children: [
+                                    Text('test')
+                                  ],
+                                )
+                            ),
+                          )).toList(),
+                        )
+                            :
+                        Center(
+                          child: Text('Pas de transactions',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18
+                            ),
                           ),
-                        )).toList(),
-                      )
-                          :
-                      Center(
-                        child: Text('Pas de transactions'),
-                      );
-                  }
+                        );
+                    }
 
-                }
+                  }
+              ),
             ),
           ],
         ),

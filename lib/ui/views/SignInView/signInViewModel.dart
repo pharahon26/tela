@@ -26,7 +26,7 @@ class SignInViewModel extends BaseViewModel{
   SignInViewModel();
 
 
-  Future<User?> signIn() async {
+  Future signIn() async {
     User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, photo: photo?.path??'');
     _sharedPrefs.savePhoneNumber(phone);
     _navigationService.navigateToProfile();

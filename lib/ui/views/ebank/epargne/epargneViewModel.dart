@@ -30,5 +30,7 @@ class EpargneViewModel extends BaseViewModel{
     await _navigationService.navigateToVersement();
   }
 
+  verserSurCompte() {}
+
 
 }

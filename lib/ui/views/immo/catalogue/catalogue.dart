@@ -53,7 +53,7 @@ class _CatalogueState extends State<Catalogue> {
                     child: CircularProgressIndicator(),
                   );
                 case ConnectionState.active:
-                return ListView(
+                return snapshot.data!.isNotEmpty? ListView(
                   scrollDirection: Axis.vertical,
                   children: snapshot.data!.map((e) => Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -62,6 +62,14 @@ class _CatalogueState extends State<Catalogue> {
                         child: PlaceCard(place: e, image: e.images[0])
                     ),
                   )).toList(),
+                ) : Center(
+                  child: Text('Pas de maisons dans votres catalogue pour le momnent',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
                 );
                 case ConnectionState.done:
                   return ListView(

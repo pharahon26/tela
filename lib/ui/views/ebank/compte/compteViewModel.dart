@@ -32,7 +32,10 @@ class CompteViewModel extends BaseViewModel{
     await _navigationService.navigateToVersement();
   }
 
-  createEpargne() {}
+  createEpargne() async {
+    await authService.createEpargne(phone: authService.bankProfile!.phone);
+
+  }
 
 
 }

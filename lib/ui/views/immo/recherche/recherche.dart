@@ -504,7 +504,7 @@ class _RechercheState extends State<Recherche> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                          model.havePass? model.search() : showDialog(context: context, builder: (buildContext) => Dialog(
+                          model.authService.passVisite != null? model.search() : showDialog(context: context, builder: (buildContext) => Dialog(
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30)
@@ -542,7 +542,7 @@ class _RechercheState extends State<Recherche> {
                                           color: Theme.of(context).colorScheme.primary,
                                         ),
                                         suffix: InkWell(
-                                          onTap: () async => await model.chechPass(code).then((value) => Navigator.of(buildContext).pop),
+                                          onTap: () async => await model.chechPass(code).whenComplete(() => Navigator.of(buildContext).pop()),
                                           child: Container(
                                             width: MediaQuery.of(context).size.width/5,
                                             decoration: BoxDecoration(

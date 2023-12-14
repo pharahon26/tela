@@ -93,6 +93,8 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/logo_2.png
+    - assets/images/pub.png
+    - assets/images/exclu.png
     - assets/images/acc1.jpg
     - assets/images/acc2.jpg
     - assets/images/acc3.jpg
@@ -111,9 +113,9 @@ flutter:
     - assets/images/p4.webp
     - assets/images/p5.webp
     - assets/images/telatv-logo.jpg
-    - assets/video/venez_voir.mp4
-    - assets/video/METALIVOIRE.mp4
-    - assets/video/Salsa.mp4
+#    - assets/video/venez_voir.mp4
+#    - assets/video/METALIVOIRE.mp4
+#    - assets/video/Salsa.mp4
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

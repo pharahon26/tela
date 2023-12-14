@@ -1,6 +1,7 @@
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/models/place.dart';
+import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/services/place_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -9,10 +10,14 @@ class VisiteViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
   PlaceService _placeService = locator<PlaceService>();
+  AuthService authService = locator<AuthService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
 
-  VisiteViewModel();
+  VisiteViewModel(){
+    print('+***********USER PHOTO');
+    print('${authService.user!.photo}');
+  }
 
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.acceuil);

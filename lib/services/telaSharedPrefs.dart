@@ -73,7 +73,6 @@ class TelaSharedPrefs implements InitializableDependency{
     return list;
   }
 
-
   /// save abonnementType
   Future<void> saveAbonnementType(List<AbonnementType> abonnementType) async {
 // Save an list of strings to 'items' key.
@@ -185,17 +184,26 @@ class TelaSharedPrefs implements InitializableDependency{
     Abonnement? abonnement;
     String?  item = prefs.getString('abonnement');
     if (item != null) {
-      List<String> sti = item.split(', ');
-      Map<String, dynamic> json= {};
-      for(String key_item in sti){
-        List<String> key_items = key_item.split(': ');
-        json[key_items[0]] = key_items[1];
+      if (item.isNotEmpty) {
+        List<String> sti = item.split(', ');
+        Map<String, dynamic> json= {};
+        for(String key_item in sti){
+          List<String> key_items = key_item.split(': ');
+          json[key_items[0]] = key_items[1];
+        }
+        abonnement = Abonnement.fromString(json);
       }
-      abonnement = Abonnement.fromString(json);
     }
 
     return abonnement;
   }
+  /// delete abonnement
+  Future<void> deleteAbonnement() async {
+// Save an list of strings to 'items' key.
+
+    await prefs.setString('abonnement', '');
+  }
+
 
   /// save profil
   Future<void> saveIdentity(UserIdentity identity) async {

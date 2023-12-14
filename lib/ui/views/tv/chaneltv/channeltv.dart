@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mobile/ui/views/tv/chaneltv/chaneltvViewModel.dart';
+import 'package:mobile/ui/views/tv/pubWidget/publicite.dart';
 import 'package:mobile/ui/widget/tela_t_v_programe_card.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,13 +15,16 @@ class ChanelTv extends StatefulWidget {
 
 class _ChanelTvState extends State<ChanelTv> {
   List<String> imgs = [
-  'assets/images/pub.jpg',
   'assets/images/live.jpg',
   'assets/images/sport.jpg',
     'assets/images/différé.jpg',
   'assets/images/rediffusion.jpg',
   'assets/images/films.jpg',
 ];
+  Widget pub = PubliciteWidget();
+
+
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -106,17 +110,27 @@ class _ChanelTvState extends State<ChanelTv> {
                   ]),
             ),
           ),
-          body: ListView(
-            scrollDirection: Axis.vertical,
-            children: imgs.map((e) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () => model.navigateToprogTV(),
-                  child: Image.asset(e,
-                    width: mq.size.width-80,
-                    fit: BoxFit.fitWidth,)
-              ),
-            )).toList(),
+          body: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                pub,
+                Expanded(
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: imgs.map((e) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () => e == 'assets/images/différé.jpg'? model.navigateToLiveTV2() :model.navigateToprogTV(),
+                          child: Image.asset(e,
+                            width: mq.size.width-80,
+                            fit: BoxFit.fitWidth,)
+                      ),
+                    )).toList(),
+                  ),
+                ),
+              ],
+            ),
           )
       ),
     );

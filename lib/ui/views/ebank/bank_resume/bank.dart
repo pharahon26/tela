@@ -4,6 +4,8 @@ import 'package:mobile/models/transactions.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bankViewModel.dart';
 import 'package:mobile/ui/views/ebank/compte/compte.dart';
 import 'package:mobile/ui/views/ebank/epargne/epargne.dart';
+import 'package:mobile/ui/widget/bank_epargne_tab_header.dart';
+import 'package:mobile/ui/widget/bank_profile_tab_header.dart';
 import 'package:stacked/stacked.dart';
 
 class Bank extends StatefulWidget {
@@ -17,21 +19,29 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
+  List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
+  double compteBalance = 0;
+  double epargneBalance = 0;
 
   @override
   void initState() {
     super.initState();
     tabswidget.add(const Compte());
+    tabHeads.add(  BankProfileTabHeader());
     if (widget.hasEpargne) {
       tabswidget.add(const Epargne());
+      tabHeads.add( BankEpargneTabHeader());
     }
     tabController = TabController(length: widget.hasEpargne? 2 : 1, vsync: this);
     tabController.addListener(() {
       setState(() {
 
       });
+    });
+    setState(() {
+
     });
   }
 
@@ -48,126 +58,126 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
     return ViewModelBuilder<BankViewModel>.reactive(
       viewModelBuilder: () => BankViewModel(),
       builder: (context, model, child) => Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
             backgroundColor: Colors.white,
-            centerTitle: true,
-            title: Visibility(
-              visible: model.authService.bankProfile != null,
-              replacement: Text('Tela Finance',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.3,
-                    color: Theme.of(context).colorScheme.primary
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Visibility(
+                visible: model.authService.bankProfile != null,
+                replacement: Text('Tela Finance',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.3,
+                      color: Theme.of(context).colorScheme.primary
+                  ),
+                ),
+                child: Text('Mon espace personnel',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.3,
+                      color: Theme.of(context).colorScheme.primary
+                  ),
                 ),
               ),
-              child: Text('Mon espace personnel',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.3,
-                    color: Theme.of(context).colorScheme.primary
-                ),
+              elevation: 5,
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.primary,),
+                    onPressed: () { Scaffold.of(context).openDrawer(); },
+                    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
               ),
             ),
-            elevation: 5,
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.primary,),
-                  onPressed: () { Scaffold.of(context).openDrawer(); },
-                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-                );
-              },
-            ),
-          ),
-          drawer: Drawer(
-            elevation: 5,
-            child: SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DrawerHeader(child: Center(
-                      child: Image.asset('assets/images/logo.png'),
-                    )),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToAcceuil();
-                        },
-                        child: Text('Acceuil',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToProfile();
-                        },
-                        child: Text('profile',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheLogement();
-                        },
-                        child: Text('Trouver un logement',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheBureau();
-                        },
-                        child: Text('Trouver un Bureau',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                    TextButton(
-                      onPressed: (){
-                        model.navigateToEbank();
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                      ),
-                      child: const Text('Tela Finance',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToTV();
-                        },
-                        child: Text('Tela TV',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                  ]),
-            ),
-          ),
-          body: Scrollbar(
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: mq.size.height*1.3,
-                width: mq.size.width,
+            drawer: Drawer(
+              elevation: 5,
+              child: SafeArea(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    /// infos soldes and accounts
-                     Visibility(
-                       visible: model.authService.bankProfile != null,
-                       child: Container(
-                         color: Colors.white,
-                        padding: EdgeInsets.all(8.0),
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      DrawerHeader(child: Center(
+                        child: Image.asset('assets/images/logo.png'),
+                      )),
+                      TextButton(
+                          onPressed: (){
+                            model.navigateToAcceuil();
+                          },
+                          child: Text('Acceuil',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),)
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            model.navigateToProfile();
+                          },
+                          child: Text('profile',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),)
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            model.navigateToRechercheLogement();
+                          },
+                          child: Text('Trouver un logement',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),)
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            model.navigateToRechercheBureau();
+                          },
+                          child: Text('Trouver un Bureau',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),)
+                      ),
+                      TextButton(
+                        onPressed: (){
+                          model.navigateToEbank();
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                        ),
+                        child: const Text('Tela Finance',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            model.navigateToTV();
+                          },
+                          child: Text('Tela TV',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),)
+                      ),
+                    ]),
+              ),
+            ),
+            body: Scrollbar(
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: mq.size.height*1.3,
+                  width: mq.size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      /// infos soldes and accounts
+                      Visibility(
+                        visible: model.authService.bankProfile != null,
+                        replacement: SizedBox(
+                          height: 50,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -232,9 +242,9 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                               textAlign: TextAlign.center,
                                               maxLines: 2,
                                               style: TextStyle(
-                                                color: Colors.deepOrange,
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w400
+                                                  color: Colors.deepOrange,
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w400
                                               ),),
                                           ),
                                         ],
@@ -247,60 +257,58 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                             /// Solde Disponible
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: mq.size.height/6,
-                                width: mq.size.width,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Solde',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing: 1.2,
-                                                color: Colors.grey
-                                            ),
-                                          ),
-                                        ),
-                                        Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Solde',
                                           style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: Colors.green,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2,
+                                              color: Colors.grey
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Solde disponible',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing: 1.2,
-                                                color: Colors.grey
-                                            ),
-                                          ),
+                                      ),
+                                      Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: Colors.green,
                                         ),
-                                        Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
+                                      ),
+                                    ],
+                                    mainAxisSize: MainAxisSize.min,
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Solde disponible',
                                           style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: Theme.of(context).colorScheme.primary,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2,
+                                              color: Colors.grey
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                      Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: Theme.of(context).colorScheme.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                             Visibility(
@@ -337,105 +345,63 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                             ),
                             TabBar(
                               controller: tabController,
-                              tabs: [
-                                Tab(
-                                  child: Column(
-                                    children: [
-                                      Text('Compte',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: Theme.of(context).colorScheme.primary,
-                                        ),
-                                      ),
-                                      Text('X0F ${model.authService.bankProfile?.balance}',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // model.authService.bankProfile!.hasEpargne? Tab(
-                                //   child: Column(
-                                //     children: [
-                                //       Text('Mon épargne',
-                                //         style: TextStyle(
-                                //           fontSize: 18,
-                                //           fontWeight: FontWeight.w600,
-                                //           letterSpacing: 1.2,
-                                //           color: Theme.of(context).colorScheme.primary,
-                                //         ),
-                                //       ),
-                                //       Text('X0F ${model.authService.bankEpargne?.balance??0}',
-                                //         style: TextStyle(
-                                //           fontSize: 18,
-                                //           fontWeight: FontWeight.w600,
-                                //           letterSpacing: 1.2,
-                                //           color: Colors.green,
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                              ],
+                              tabs: tabHeads,
                             ),
                           ],
                         ),
-                    ),
-                     ),
-                    Visibility(
-                      visible: model.authService.bankProfile != null,
-                      /// auth
-                      replacement: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          TextButton(
-                              onPressed: () => model.navigateToSignIn(),
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.primary,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                              ),
-                              child: const Text('Créer un profile',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),)),
-                          TextButton(
-                              onPressed: () => model.navigateToLogin(),
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.primary,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                              ),
-                              child: const Text('Se connecter',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),)),
-                        ],
-                      ) ,
-                      /// TAB VIEW
-                      child: Container(
-                        height: mq.size.height/2.5,
-                        width: mq.size.width,
-                        child: TabBarView(
-                            controller: tabController,
-                            children: tabswidget),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Visibility(
+                          visible: model.authService.bankProfile != null,
+                          /// auth
+                          replacement: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              TextButton(
+                                  onPressed: () => model.navigateToSignIn(),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Theme.of(context).colorScheme.primary,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                  ),
+                                  child: const Text('Créer un profile',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),)),
+                              TextButton(
+                                  onPressed: () => model.navigateToLogin(),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Theme.of(context).colorScheme.primary,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                  ),
+                                  child: const Text('Se connecter',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),)),
+                            ],
+                          ) ,
+                          /// TAB VIEW
+                          child: Container(
+                            height: mq.size.height/2.5,
+                            width: mq.size.width,
+                            child: TabBarView(
+                                controller: tabController,
+                                children: tabswidget),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-      ),
+            )
+        )
+      ,
     );
   }
 }

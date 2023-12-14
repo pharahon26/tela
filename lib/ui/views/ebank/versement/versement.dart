@@ -141,8 +141,8 @@ class _VersementState extends State<Versement> {
                   ),
                 ),
                 Spacer(),
-                /// depot
-                TextButton(onPressed: () => {},
+                /// epargner
+                TextButton(onPressed: () async => await model.authService.postVersementToEpargne(amount: model.montant, profile: model.authService.bankProfile!).whenComplete(() => model.navigateToBank()),
                   style: TextButton.styleFrom(
                     elevation: 8,
                     minimumSize: Size(mq.size.width*0.7, 30),

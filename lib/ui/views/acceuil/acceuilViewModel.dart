@@ -2,6 +2,8 @@ import 'package:intl/intl.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/services/auth_service.dart';
+import 'package:mobile/services/telaSharedPrefs.dart';
+import 'package:mobile/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -9,17 +11,21 @@ class AcceuilViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
   AuthService _authService = locator<AuthService>();
+  // TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
+  TVService _tvService = locator<TVService>();
   DialogService _dialogService = locator<DialogService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   AcceuilViewModel(){
     // _authService.deletePass();
+    // _telaSharedPrefs.deleteAbonnement();
     _authService.saveCommune();
     _authService.saveAbonnementType();
     _authService.savePassType();
     _authService.getPassSaved();
     _authService.getAbonnementSaved();
+    _tvService.getPublicites();
     var format = DateFormat.yMd();
     var dateString = format.format(DateTime.now());
     print(dateString);

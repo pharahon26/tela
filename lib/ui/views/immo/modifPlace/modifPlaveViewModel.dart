@@ -54,7 +54,7 @@ class ModifPlaceViewModel extends BaseViewModel{
   List<Commune> communes = [];
   List<DropdownMenuItem<Commune>> dropDownItems = [];
 
-  List<File?> images = [];
+  List<String?> images = [];
   File? img;
   Future<List<DropdownMenuItem<Commune>> > cc() async {
     if (communes.isEmpty) {
@@ -104,6 +104,12 @@ class ModifPlaceViewModel extends BaseViewModel{
     for(int i = 0; i<10; i++) {
       images.add(null);
     }
+    for(int i = 0; i<place.images.length; i++) {
+      images[i] = place.images[i];
+    }
+    print('IMAGE *********************');
+    print(place.images);
+    print(images);
   }
 
 
@@ -137,7 +143,7 @@ class ModifPlaceViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasGardien: hasGardien,
     );
-    TelaPlace? telaPlace = await _placeService.modifPlace(place: plac, images: images);
+    TelaPlace? telaPlace = await _placeService.modifPlace(place: plac);
     if (telaPlace != null) {
       _authService.placeAdded(telaPlace);
       _navigationService.navigateToCatalogue();
@@ -157,7 +163,8 @@ class ModifPlaceViewModel extends BaseViewModel{
 
   Future navigateToCameraView(int index) async{
     File? pic = await _navigationService.navigateToCameraView();
-    images[index] = pic;
+    /// update image on server
+    // images[index] = pic;
     notifyListeners();
   }
 
