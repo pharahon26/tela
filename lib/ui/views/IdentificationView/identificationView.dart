@@ -63,34 +63,34 @@ class _IdentificationViewState extends State<IdentificationView>
                             SizedBox(
                               height: 20.0,
                             ),
-
-                            /// photo
-                            Divider(),
-                            const Text('Photo',
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
-                            SizedBox(
-                              height: _mediaQuery.size.width,
-                              width: _mediaQuery.size.width,
-                              child: InkWell(
-                                child: model.photo != null? Image.file(model.photo!,
-                                  fit: BoxFit.contain,
-                                )
-                                    :
-                                const Center(
-                                  child: Icon(Icons.add),
-                                ),
-                                onTap: () async {
-                                  await model.pickPhoto().whenComplete(() {
-                                    setState(() {
-
-                                    });
-                                  });
-                                },
-                              ),
-                            ),
-
+                            //
+                            // /// photo
+                            // Divider(),
+                            // const Text('Photo',
+                            //   style: TextStyle(
+                            //       color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                            // Divider(),
+                            // SizedBox(
+                            //   height: _mediaQuery.size.width,
+                            //   width: _mediaQuery.size.width,
+                            //   child: InkWell(
+                            //     child: model.photo != null? Image.file(model.photo!,
+                            //       fit: BoxFit.contain,
+                            //     )
+                            //         :
+                            //     const Center(
+                            //       child: Icon(Icons.add),
+                            //     ),
+                            //     onTap: () async {
+                            //       await model.pickPhoto().whenComplete(() {
+                            //         setState(() {
+                            //
+                            //         });
+                            //       });
+                            //     },
+                            //   ),
+                            // ),
+                            //
 
 
 

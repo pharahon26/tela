@@ -66,12 +66,15 @@ class _CompteState extends State<Compte> {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: StadiumBorder(),
               ),
-              child: const Text('Créer son compte épargne',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                    color: Colors.white
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: Text('Créer son compte épargne',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                      color: Colors.white
+                  ),
                 ),
               ),
             ),
@@ -81,12 +84,15 @@ class _CompteState extends State<Compte> {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: StadiumBorder(),
               ),
-              child: const Text('Dépot sur le compte épargne',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                    color: Colors.white
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: const Text('Dépot sur le compte épargne',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                      color: Colors.white
+                  ),
                 ),
               ),
             ),
@@ -110,59 +116,77 @@ class _CompteState extends State<Compte> {
               ),
             ),
           ),
-          FutureBuilder<List<TelaEBankTransaction>>(
-              future: model.authService.getMyEbankTransactions(),
-              builder: (context, snapshot) {
-                switch(snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case ConnectionState.waiting:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case ConnectionState.active:
-                    return snapshot.data!.isNotEmpty? ListView(
-                      scrollDirection: Axis.vertical,
-                      children: snapshot.data!.map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                            onTap: () => {},
-                            child: Row(
-                              children: [
-                                Text('test')
-                              ],
-                            )
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FutureBuilder<List<TelaTransaction>>(
+                future: model.authService.getMyEbankTransactions(),
+                builder: (context, snapshot) {
+                  switch(snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case ConnectionState.active:
+                      return snapshot.data!.isNotEmpty? ListView(
+                        scrollDirection: Axis.vertical,
+                        children: snapshot.data!.map((e) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                              onTap: () => {},
+                              child: Row(
+                                children: [
+                                  Text('test')
+                                ],
+                              )
+                          ),
+                        )).toList(),
+                      )
+                          :
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Pas de transactions',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18
+                            ),
+                          ),
                         ),
-                      )).toList(),
-                    )
-                        :
-                    Center(
-                      child: Text('Pas de transactions'),
-                    );
-                  case ConnectionState.done:
-                    return snapshot.data!.isNotEmpty? ListView(
-                      scrollDirection: Axis.vertical,
-                      children: snapshot.data!.map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                            onTap: () => {},
-                            child: Row(
-                              children: [
-                                Text('test')
-                              ],
-                            )
+                      );
+                    case ConnectionState.done:
+                      return snapshot.data!.isNotEmpty? ListView(
+                        scrollDirection: Axis.vertical,
+                        children: snapshot.data!.map((e) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                              onTap: () => {},
+                              child: Row(
+                                children: [
+                                  Text('test')
+                                ],
+                              )
+                          ),
+                        )).toList(),
+                      )
+                          :
+                      Center(
+                        child: Text('Pas de transactions',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18
+                          ),
                         ),
-                      )).toList(),
-                    )
-                        :
-                    Center(
-                      child: Text('Pas de transactions'),
-                    );
-                }
+                      );
+                  }
 
-              }
+                }
+            ),
           ),
         ],
       ),

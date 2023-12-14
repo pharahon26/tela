@@ -47,6 +47,9 @@ class ChannelTvViewModel extends BaseViewModel{
   void navigateToLiveTV(TelaProgrammeTV programmeTV) async{
     await _navigationService.navigateToTv(programmeTV: programmeTV);
   }
+  void navigateToLiveTV2() async{
+    await _navigationService.navigateToTv2(link: 'https://www.telaci.com/assets/videos/exclu_tela.mp4');
+  }
 
 
 }

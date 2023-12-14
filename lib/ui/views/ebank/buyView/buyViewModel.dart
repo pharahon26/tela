@@ -29,7 +29,10 @@ class BuyViewModel extends BaseViewModel{
     return await _transactionService.getTransactionNumber('Abonnement');
   }
   Future pushTransaction(TelaTransaction transaction, AbonnementType abonnement) async {
-    await _transactionService.buyAbonnement(transaction: transaction, abonnement: abonnement, userId: _authService.user!.id).then((value) => navigateToProfile());
+    await _transactionService.buyAbonnement(transaction: transaction, abonnement: abonnement, userId: _authService.user!.id).then((value) {
+      _authService.abonnement = value;
+      navigateToProfile();
+    });
   }
 
 

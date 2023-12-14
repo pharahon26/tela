@@ -14,7 +14,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   String code = '';
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
@@ -128,85 +128,126 @@ class _ProfileState extends State<Profile> {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   /// noms + phone
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('${model.user!.nom} ${model.user!.prenom}',
-                                          textAlign: TextAlign.right,
+
+                                  Row(
+                                    children: [
+                                      ClipOval(
+                                        child: SizedBox(
+                                          width: 60,
+                                          height: 60,
+                                          child: Image.network('${_BASE_URL}${model.user?.photo}'),
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('${model.user!.nom} ${model.user!.prenom}',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(model.user!.phone,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      Visibility(
+                                        visible: !model.user!.isValidated,
+                                        child: TextButton(
+                                          onPressed: () => model.navigateToIdentification(),
+                                          style: TextButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(50)
+                                              )
+                                          ),
+                                          child: const SizedBox(
+                                            height: 45,
+                                            width: 125,
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
+                                                  child: Text('profil Incomplet. Cliquez ici',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Colors.deepOrange,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w400
+                                                    ),),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       Text('${model.user!.nom} ${model.user!.prenom}',
+                                  //         textAlign: TextAlign.right,
+                                  //         style: TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 18.0,
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //       Text(model.user!.phone,
+                                  //         textAlign:TextAlign.left,
+                                  //         style: TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize:18.0,
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  Column(
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.all(2.0),
+                                        child: Text('Solde',
                                           style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Text('XOF ${model.user?.balance.toString()??'0'}',
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Text(model.user!.phone,
-                                          textAlign:TextAlign.left,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize:18.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: !model.user!.isValidated,
-                                    /// solde
-                                    replacement: const Column(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(2.0),
-                                          child: Text('Solde',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(2.0),
-                                          child: Text('000000000',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextButton(
-                                        onPressed: () => model.navigateToIdentification(),
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(50)
-                                          )
-                                        ),
-                                        child: const Column(
-                                          children: [
-                                            Icon(Icons.warning_amber, size: 32, color: Colors.deepOrange,),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 32),
-                                              child: Text('Votre profil n\'est pas complet. Cliquez ici pour le compléter',
-                                                textAlign: TextAlign.center,
-                                                maxLines: 2,
-                                                style: TextStyle(
-                                                  color: Colors.deepOrange,
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),),
-                                            ),
-                                          ],
-                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                   /// Catalogue
                                   Align(
@@ -214,10 +255,93 @@ class _ProfileState extends State<Profile> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                                       child: TextButton(
-                                          onPressed: () => model.navigateToGalery(),
+                                          onPressed: () => model.user!.isSuspended? showDialog(context: context, builder: (buildContext) => Dialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Votre compte est suspendu! \n Assurez vous d\'avoir un abonnement',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 20,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.deepOrange,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton(
+                                                      onPressed: () => Navigator.of(buildContext).pop(),
+                                                      child: Text('Ok',
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                      )
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ))
+                                              :
+                                          model.abonnement != null? model.navigateToGalery()
+                                              :
+                                          showDialog(context: context, builder: (buildContext) => Dialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Votre compte est suspendu! \n Assurez vous d\'avoir un abonnement',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 20,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.deepOrange,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton(
+                                                      onPressed: () => Navigator.of(buildContext).pop(),
+                                                      child: Text('Ok',
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                      )
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ))
+                                          ,
                                           style: TextButton.styleFrom(
                                             alignment: Alignment.centerLeft,
-                                            backgroundColor: Colors.white,
+                                            backgroundColor: model.abonnement != null? Colors.white : Colors.white.withOpacity(0.4),
                                             elevation: 5,
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                                           ),
@@ -362,6 +486,15 @@ class _ProfileState extends State<Profile> {
                                           ],
                                         ),
                                       ),
+                                      Text(' ${model.passVisite != null? 'Cliquez pour voir les maisons déja visitées': ''}' ,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.2,
+                                          color: Colors.grey,
+                                        ),),
                                       const Divider(
                                         color: Colors.black,
                                         thickness: 0.7,
@@ -460,30 +593,33 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               children: [
                                 /// is actif?
-                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('Abonnement Démarcheur',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: model.abonnement != null? Colors.black : Colors.grey,
+                                 Visibility(
+                                   visible: model.abonnement != null,
+                                   child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Abonnement Démarcheur',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 1.2,
+                                            color: model.abonnement != null? Colors.black : Colors.grey,
+                                          ),
                                         ),
-                                      ),
-                                      Text(model.abonnement != null? 'Actif' : 'inactif',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.2,
-                                          color: model.abonnement != null? Colors.deepOrange : Colors.grey  ,
+                                        Text(model.abonnement != null? 'Actif' : 'inactif',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 1.2,
+                                            color: model.abonnement != null? Colors.deepOrange : Colors.grey  ,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                      ],
+                                    ),
                                 ),
+                                 ),
                                 Visibility(
                                   visible: model.abonnement != null,
                                   child: const Divider(
@@ -881,7 +1017,7 @@ class _ProfileState extends State<Profile> {
                                       children: [
                                         Text('${model.user!.nom} ${model.user!.prenom}',
                                           textAlign: TextAlign.right,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
@@ -889,7 +1025,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         Text(model.user!.phone,
                                           textAlign:TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize:18.0,
                                             fontWeight: FontWeight.bold,
@@ -960,7 +1096,7 @@ class _ProfileState extends State<Profile> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                                       child: TextButton(
-                                          onPressed: () => model.navigateToGalery(),
+                                          onPressed: () =>  model.navigateToGalery(),
                                           style: TextButton.styleFrom(
                                               alignment: Alignment.centerLeft,
                                               backgroundColor: Colors.white,

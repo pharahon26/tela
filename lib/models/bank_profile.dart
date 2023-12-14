@@ -18,9 +18,7 @@ class TelaBankProfile{
 
   // the cash object related to the user will be hold here for the moment
   DateTime? creationDate;
-  int? userId = 0;
   int userIdentityId = 0;
-  User? user;
   UserIdentity? userIdentity;
 
 
@@ -37,15 +35,12 @@ class TelaBankProfile{
     this.isDemarcheur = false,
     this.isStaff = false,
     this.isSuspended = false,
-    this.userId,
-    this.user,
     this.userIdentity,
     this.creationDate,
   });
 
   static TelaBankProfile fromJson(Map<String, dynamic> json){
     TelaBankProfile u = TelaBankProfile(
-      userId: json["user_id"],
       nom: json["nom"],
       prenom: json["prenom"],
       phone: json["phone"],
@@ -85,7 +80,7 @@ class TelaBankProfile{
 
   @override
   String toString() {
-    return 'TelaBankProfile{id: $id, mail: $mail, phone: $phone, balance: $balance, isStaff: $isStaff, isDemarcheur: $isDemarcheur, isSuspended: $isSuspended, isValidated: $isValidated, hasEpargne: $hasEpargne, creationDate: $creationDate, userId: $userId, userIdentityId: $userIdentityId}';
+    return 'TelaBankProfile{id: $id, mail: $mail, phone: $phone, balance: $balance, isStaff: $isStaff, isDemarcheur: $isDemarcheur, isSuspended: $isSuspended, isValidated: $isValidated, hasEpargne: $hasEpargne, creationDate: $creationDate, userIdentityId: $userIdentityId}';
   }
 }
 

@@ -17,7 +17,7 @@ class ModifPlace extends StatefulWidget {
 
 class _ModifPlaceState extends State<ModifPlace> {
 
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
   bool isBureau = false;
 
   int type = 1;
@@ -134,10 +134,10 @@ class _ModifPlaceState extends State<ModifPlace> {
                           aspectRatio: 9/16,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: model.place.images.length,
+                            itemCount: model.images.length,
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
-                                child: model.images[index] != null? Image.network('$_BASE_URL/${model.place.images[index]}',
+                                child: model.images[index] != null? Image.network('$_BASE_URL${model.images[index]}',
                                   fit: BoxFit.contain,
                                 )
                                     :

@@ -6,7 +6,7 @@ class PlaceCard extends StatelessWidget {
   final TelaPlace place;
   late final String type;
   final String image;
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
     place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
   }
@@ -18,22 +18,16 @@ class PlaceCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Card(
-          color: Theme.of(context).colorScheme.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25)
-          ),
+          // color: Theme.of(context).colorScheme.primary,
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(25)
+          // ),
           elevation: 5,
-          child: Container(
-            width: mq.size.width/0.9,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Color(0xFF5cdee5), Color(0xFF0451b0)])
-            ),
+          child: SizedBox(
+            width: mq.size.width+0.9,
+            height: mq.size.width*0.9,
             child: Image.network('$_BASE_URL$image',
-              width: mq.size.width-80,
-              fit: BoxFit.fitWidth,),
+              fit: BoxFit.contain,),
             ),
         ),
         Padding(

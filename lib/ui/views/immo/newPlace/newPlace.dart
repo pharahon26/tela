@@ -114,10 +114,16 @@ class _NewPlaceState extends State<NewPlace> {
                                   SizedBox(
                                     height: mq.size.width*0.8,
                                     width: mq.size.width*0.8,
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Center(
-                                        child: Icon(Icons.add),
+                                        child: index !=0? Icon(Icons.add) : Text('Facade de la maison',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),

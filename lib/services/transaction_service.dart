@@ -6,6 +6,7 @@ import 'package:http/io_client.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
+import 'package:mobile/models/bank_profile.dart';
 import 'package:mobile/models/transactions.dart';
 import 'package:mobile/services/telaSharedPrefs.dart';
 
@@ -13,7 +14,7 @@ import 'package:rxdart/rxdart.dart';
 
 class TransactionService{
   /// URLS
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _ABONNEMENT_CREATE_URL = "api/abonnements/buy_abonement";
   static const String _PASS_CREATE_URL = "api/pass-visite/buy_pass_visite";
   static const String _PASS_VISITE_PROLONGE_URL = "api/pass-visite/prolonge_pass_visite";
@@ -94,15 +95,20 @@ class TransactionService{
   }
 
   /// push retrait
-  Future<TelaTransaction?> postRetrait({required TelaTransaction transaction}) async {
+  Future<TelaTransaction?> postRetrait({required amount, required bool fromEpargne, required TelaBankProfile profile}) async {
     var client = _newClient();
+    late TelaTransaction transaction;
     try{
-      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+      print('${Uri.parse(_BASE_URL+_BANK_RETRAIT_URL)} push retrait');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_RETRAIT_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(transaction.toJson()),
+        body: jsonEncode({
+          'phone' : profile.phone,
+          'amount': amount,
+          'from_epargne': fromEpargne,
+        }),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -110,7 +116,8 @@ class TransactionService{
         final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
-        TelaTransaction transac = TelaTransaction.fromJson(json);
+        TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
+        transaction = transac;
         print(transac.toString());
 
       }  else {
@@ -128,11 +135,11 @@ class TransactionService{
   }
 
   /// push depot
-  Future<TelaTransaction?> postDepot({required TelaTransaction transaction}) async {
+  Future<TelaTransaction?> postDepot({required TelaTransaction transaction, required bool fromEpargne, required TelaBankProfile profile}) async {
     var client = _newClient();
     try{
-      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+      print('${Uri.parse(_BASE_URL+_BANK_DEPOT_URL)} push Dépot : $transaction');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_DEPOT_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -162,15 +169,19 @@ class TransactionService{
   }
 
   /// push epargne
-  Future<TelaTransaction?> postVersementToEpargne({required TelaTransaction transaction}) async {
+  Future<TelaTransaction?> postVersementToEpargne({required amount, required TelaBankProfile profile}) async {
     var client = _newClient();
+    late TelaTransaction transaction ;
     try{
-      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+      print('${Uri.parse(_BASE_URL+_BANK_EPARGNE_URL)} versement epargne');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_EPARGNE_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(transaction.toJson()),
+        body: jsonEncode({
+          'montant' : amount,
+          'phone' : profile.phone,
+        }),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -178,9 +189,9 @@ class TransactionService{
         final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
-        TelaTransaction transac = TelaTransaction.fromJson(json);
+        TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
         print(transac.toString());
-
+        transaction = transac;
       }  else {
         print('ERROR reponse status code not 200');
       }
@@ -196,15 +207,19 @@ class TransactionService{
   }
 
   /// push epargne inverse
-  Future<TelaTransaction?> postVersementFromEpargne({required TelaTransaction transaction}) async {
+  Future<TelaTransaction?> postVersementFromEpargne({required amount, required TelaBankProfile profile}) async {
     var client = _newClient();
+    late TelaTransaction transaction ;
     try{
-      print('${Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL)} push transaction : $transaction');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_TRANSACTION_CREATE_URL),
+      print('${Uri.parse(_BASE_URL+_BANK_EPARGNE_INVERSE_URL)} push epargne reverse : ');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_EPARGNE_INVERSE_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(transaction.toJson()),
+        body: jsonEncode({
+          'montant' : amount,
+          'phone' : profile.phone,
+        }),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -212,7 +227,8 @@ class TransactionService{
         final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
-        TelaTransaction transac = TelaTransaction.fromJson(json);
+        TelaTransaction transac = TelaTransaction.fromJson(json["transaction"]);
+        transaction = transac;
         print(transac.toString());
 
       }  else {
@@ -353,7 +369,6 @@ class TransactionService{
     }
     return passVisite;
   }
-
 
   Future<PassVisite?> renewPassVisite({required PassVisite passVisit,required PassType pass, required TelaTransaction transaction}) async {
     var client = _newClient();

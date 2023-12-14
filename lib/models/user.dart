@@ -10,6 +10,7 @@ class User {
   String nom;
   String mail;
   String phone;
+  String photo;
   double balance = 0;
   bool isStaff = false;
   bool isSuspended = false;
@@ -25,6 +26,7 @@ class User {
   User({
     required this.nom,
     required this.prenom,
+    required this.photo,
     this.mail = '',
     this.phone = '',
     this.balance = 0,
@@ -41,6 +43,7 @@ class User {
       prenom: json["prenoms"],
       mail: json["email"]??'',
       phone: json["phone"],
+      photo: json["photo_profil"],
       balance: double.parse(json["balance"].toString()),
       isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
@@ -58,6 +61,7 @@ class User {
       prenom: json["prenom"],
       mail: json["mail"]??'',
       phone: json["phone"].toString(),
+      photo: json["photo"],
       balance: double.parse(json["balance"]),
       isValidated: bool.parse(json["isValidated"]),
       isSuspended: bool.parse(json["isSuspended"]),
@@ -76,6 +80,7 @@ class User {
       "prenom": prenom,
       "mail": mail,
       "phone": phone,
+      "photo": photo,
       "balance": balance,
       "creationDate": creationDate,
       "isSuspended": isSuspended?1:0,
@@ -213,82 +218,3 @@ class UserIdentity {
   }
 }
 
-
-/// Ebanking Profil
-class EBankUser {
-  /// a class that will hold the user data need the names and the balance first.
-  /// the balance is not mandatory*/
-
-  // Variables
-  int id = 0 ;
-  int identityId = 0 ;
-  double balance = 0;
-  double epargne = 0;
-  double pending = 0;
-  bool isSuspended = false;
-  bool isValidated = false;
-
-  // the cash object related to the user will be hold here for the moment
-  DateTime creationDate = DateTime.now();
-
-
-  // Constructor
-  EBankUser({
-    required this.identityId,
-    this.balance = 0,
-    this.epargne = 0,
-    this.pending = 0,
-    this.isValidated = false,
-    this.isSuspended = false,
-  });
-
-  static EBankUser fromJson(Map<String, dynamic> json){
-
-    print('before *********');
-    EBankUser u = EBankUser(
-      identityId: json["information_identity_id"],
-      balance: double.parse(json["balance"].toString()),
-      epargne: double.parse(json["epargne"].toString()),
-      pending: double.parse(json["pending"].toString()),
-      isValidated: json["is_validated"]==1,
-      isSuspended: json["is_suspended"]==1,
-    );
-    u.id = json["id"];
-
-    print('before id');
-    u.creationDate = DateTime.parse(json["created_at"]??'2023-10-10');
-    return u;
-  }
-  static EBankUser fromString(Map<String, dynamic> json){
-    EBankUser u = EBankUser(
-      identityId: json["identityId"],
-      balance: double.parse(json["balance"].toString()),
-      epargne: double.parse(json["epargne"].toString()),
-      pending: double.parse(json["pending"].toString()),
-      isValidated: json["isValidated"]==1,
-      isSuspended: json["isSuspended"]==1,
-    );
-    u.id = int.parse(json["id"]);
-    u.creationDate = DateTime.parse(json["creationDate"]);
-    return u;
-  }
-
-  // map for database
-  Map<String, dynamic> toJson(){
-    return {
-      "id": id,
-      "information_identity_id": identityId,
-      "balance": balance,
-      "epargne": epargne,
-      "pending": pending,
-      "creationDate": creationDate,
-      "isSuspended": isSuspended?1:0,
-      "is_validated": isValidated?1:0,
-    };
-  }
-
-  @override
-  String toString() {
-    return 'id: $id, identityId: $identityId, balance: $balance, epargne: $epargne, pending: $pending, isSuspended: $isSuspended, isValidated: $isValidated, creationDate: $creationDate';
-  }
-}

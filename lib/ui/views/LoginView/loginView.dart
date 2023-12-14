@@ -21,6 +21,7 @@ class _LoginViewState extends State<LoginView>
 
   final _formKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
@@ -159,49 +160,57 @@ class _LoginViewState extends State<LoginView>
             child: ElevatedButton(
               onPressed: () {
 
-                if (_formKey.currentState!.validate()) {
+                if (_formKey.currentState!.validate() && !loading) {
+                  setState(() {
+                    loading = true;
+                  });
                   model.login()
                       .then((us) => model.navigateToProfile())
-                      .catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                          child: Text(error.toString(),
-                            textAlign: TextAlign.center,
-                            maxLines: 20,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.1
+                      .catchError((error, trace)  {
+                        setState(() {
+                          loading = false;
+                        });
+                    showDialog(context: context, builder: (buildContext) => Dialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                            child: Text(error.toString(),
+                              textAlign: TextAlign.center,
+                              maxLines: 20,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.1
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextButton(
-                              onPressed: () => Navigator.of(buildContext).pop(),
-                              child: Text('Ok',
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600
-                                ),
-                              )
-                          ),
-                        )
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextButton(
+                                onPressed: () => Navigator.of(buildContext).pop(),
+                                child: Text('Ok',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                )
+                            ),
+                          )
 
-                      ],
-                    ),
+                        ],
+                      ),
 
-                  )));
+                    ));
+                  });
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -209,15 +218,19 @@ class _LoginViewState extends State<LoginView>
                   fixedSize: Size(_mediaQuery.size.width - 20, 40),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 80.0),
-                child: Text(
-                  'Connexion',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                child: Visibility(
+                  visible: !loading,
+                  replacement: const CircularProgressIndicator(color: Colors.white,),
+                  child: const Text(
+                     'Connexion',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

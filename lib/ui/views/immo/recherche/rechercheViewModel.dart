@@ -12,7 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 class RechercheViewModel extends BaseViewModel{
 
   NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
+  AuthService authService = locator<AuthService>();
   PlaceService _placeService = locator<PlaceService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
@@ -26,7 +26,7 @@ class RechercheViewModel extends BaseViewModel{
   late Commune commune;
 
 
-  Stream<bool> get isAuth => _authService.isConnected;
+  Stream<bool> get isAuth => authService.isConnected;
   bool isMaisonBasse = false;
   bool isAppart = false;
   bool isDuplex = false;
@@ -47,12 +47,12 @@ class RechercheViewModel extends BaseViewModel{
 
   List<Commune> communes = [];
   List<DropdownMenuItem<Commune>> dropDownItems = [];
-  PassVisite? get passVisite => _authService.passVisite;
+  PassVisite? get passVisite => authService.passVisite;
 
 
   Future<List<DropdownMenuItem<Commune>> > cc() async {
     if (communes.isEmpty) {
-      communes = _authService.communes;
+      communes = authService.communes;
       commune = communes.first;
       for (Commune element in communes) {
         dropDownItems.add(DropdownMenuItem(value: element,
@@ -72,9 +72,9 @@ class RechercheViewModel extends BaseViewModel{
   }
 
   RechercheViewModel(){
-    communes = _authService.communes;
+    communes = authService.communes;
     commune = communes.first;
-    PassVisite? passVisite =_authService.passVisite;
+    PassVisite? passVisite =authService.passVisite;
     if (passVisite != null) {
       havePass = true;
     }
@@ -137,7 +137,7 @@ class RechercheViewModel extends BaseViewModel{
   }
 
   void navigateToEbank() async{
-    await _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
+    await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.profile);
@@ -158,7 +158,7 @@ class RechercheViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.acceuil);
   }
   Future chechPass(String code) async{
-    await _authService.verifCodeVisite(code: code);
+    await authService.verifCodeVisite(code: code);
   }
 
 

@@ -5,13 +5,18 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:mobile/models/programetv.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:video_player/video_player.dart';
 
 class TVService{
   /// URLS
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com";
+  static const String _PUB_URL2 = "https://office.telaci.com/public/programmes_tv/liens_pub/";
   static const String _TV_URL = "telaapi/tv_program";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
+  List<String> publicites =[];
+  List<VideoPlayerController> pubVideoControllers = [];
+  List<VideoPlayerController> reportagesVideoControllers = [];
 
   TVService();
 
@@ -55,6 +60,40 @@ class TVService{
       client.close();
     }
     return programes;
+  }
+
+  /// GET Publicitées links
+  Future<List<String>> getPublicites() async {
+    var client = _newClient();
+    try{
+      print('${Uri.parse(_PUB_URL2)} get programs');
+      http.Response response = await client.get(Uri.parse('$_PUB_URL2'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+        for(var prog in json){
+          publicites.add(prog['link']);
+          print(prog);
+        }
+      }  else {
+        print('ERROR reponse status code not 200');
+      }
+
+    }
+    catch(e){
+      print('publicite api service pub error** $e');
+    }
+    finally{
+      client.close();
+    }
+    return publicites;
   }
 
   List<TelaProgrammeTV> progTest(){

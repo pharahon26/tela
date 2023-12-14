@@ -22,7 +22,7 @@ class _VisiteState extends State<Visite> {
   // ];
 
 
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -90,39 +90,41 @@ class _VisiteState extends State<Visite> {
                   Divider(),
                    Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipOval(
-                          child: SizedBox(
-                              width: 60,
-                              height: 60,
-                              child: Image.asset('assets/images/logo_2.png',
-                                width: 50,
-                                fit: BoxFit.fitWidth,
-                              ),
-                          ),
-                        ),
-                        const Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('Simon N\'Da',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('07 89 54 48 22',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         ClipOval(
+                           child: SizedBox(
+                             width: 60,
+                             height: 60,
+                             child: Image.network('$_BASE_URL${widget.place.demarcheur!.photo}',
+                               width: 50,
+                               fit: BoxFit.fitWidth,
+                             ),
+                           ),
+                         ),
+                         Column(
+                           children: [
+                             Padding(
+                               padding: EdgeInsets.all(8.0),
+                               child: Text('${widget.place.demarcheur?.nom ?? ''} ${widget.place.demarcheur?.prenom ?? ''}',
+                                 maxLines: 2,
+                                 overflow: TextOverflow.ellipsis,
+                                 textAlign: TextAlign.left,
+                                 style: const TextStyle(
+                                     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                             ),
+                             Padding(
+                               padding: EdgeInsets.all(8.0),
+                               child: Text(widget.place.demarcheur?.phone??'',
+                                 textAlign: TextAlign.left,
+                                 style: const TextStyle(
+                                     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                             ),
+                           ],
+                         ),
+                       ],
+                     ),
                   ),
                   Divider(),
 
