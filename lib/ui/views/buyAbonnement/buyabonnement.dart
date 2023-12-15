@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 class BuyAbonnement extends StatefulWidget {
 
 
-  BuyAbonnement({super.key});
+  const BuyAbonnement({super.key});
 
   @override
   State<BuyAbonnement> createState() => _BuyAbonnementState();
@@ -34,7 +34,7 @@ class _BuyAbonnementState extends State<BuyAbonnement> {
             elevation: 5,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -68,7 +68,7 @@ class _BuyAbonnementState extends State<BuyAbonnement> {
                               onTap: () => model.navigateToBuyView(e),
                               child: Container(
                                 height: mq.size.height/4,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     gradient: LinearGradient(
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
@@ -80,16 +80,16 @@ class _BuyAbonnementState extends State<BuyAbonnement> {
                                   children: [
                                     Text('${e.price} FCFA',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2
                                       ),
                                     ),
-                                    Text('${e.title}',
+                                    Text(e.title,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 36,
                                           fontWeight: FontWeight.w600,
@@ -98,7 +98,7 @@ class _BuyAbonnementState extends State<BuyAbonnement> {
                                     ),
                                     Text('Recevez ${e.pourcentage}% sur chaque visite',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,

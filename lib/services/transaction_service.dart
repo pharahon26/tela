@@ -8,9 +8,9 @@ import 'package:tela/models/abonnement.dart';
 import 'package:tela/models/abonnementType.dart';
 import 'package:tela/models/bank_profile.dart';
 import 'package:tela/models/transactions.dart';
+import 'package:tela/models/user.dart';
 import 'package:tela/services/telaSharedPrefs.dart';
 
-import 'package:rxdart/rxdart.dart';
 
 class TransactionService{
   /// URLS
@@ -34,7 +34,7 @@ class TransactionService{
   Abonnement? _abonnementTV;
   Abonnement? _abonnementPro;
   String _token = '';
-  bool _isConnected = false;
+  final bool _isConnected = false;
 
 
   String get token => _token;
@@ -46,7 +46,7 @@ class TransactionService{
   Abonnement? get abonnementDemarcheur => _abonnementPro;
   Abonnement? get abonnementTV => _abonnementTV;
   Abonnement? get abonnement => _abonnement;
-  TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
+  final TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
 
 
   TransactionService();
@@ -95,7 +95,7 @@ class TransactionService{
   }
 
   /// push retrait
-  Future<TelaTransaction?> postRetrait({required amount, required bool fromEpargne, required TelaBankProfile profile}) async {
+  Future<TelaTransaction?> postRetrait({required amount, required frais, required TelaBankProfile profile}) async {
     var client = _newClient();
     late TelaTransaction transaction;
     try{
@@ -107,7 +107,7 @@ class TransactionService{
         body: jsonEncode({
           'phone' : profile.phone,
           'amount': amount,
-          'from_epargne': fromEpargne,
+          'frais': frais,
         }),
       );
       print('Response status: ${response.statusCode}');
@@ -135,15 +135,20 @@ class TransactionService{
   }
 
   /// push depot
-  Future<TelaTransaction?> postDepot({required TelaTransaction transaction, required bool fromEpargne, required TelaBankProfile profile}) async {
+  Future<TelaTransaction?> postDepot({required TelaTransaction transaction, required TelaBankProfile profile}) async {
     var client = _newClient();
+    Map<String, dynamic> js = profile.toJson();
+    Map<String, dynamic> t = transaction.toJson();
+    t.remove('id');
+    js.addAll(t);
+
     try{
       print('${Uri.parse(_BASE_URL+_BANK_DEPOT_URL)} push Dépot : $transaction');
       http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_DEPOT_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(transaction.toJson()),
+        body: jsonEncode(js),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -288,19 +293,23 @@ class TransactionService{
   }
 
   /// push abonnement from Ebank
-  Future<Abonnement?> buyAbonnementFromEbank({required AbonnementType abonnement, required TelaTransaction transaction, required int userId}) async {
+  Future<Abonnement?> buyAbonnementFromEbank({required AbonnementType abonnement, required TelaBankProfile profile, required User user}) async {
     var client = _newClient();
-    Map<String, dynamic> js = transaction.toJson();
-    js.addAll(abonnement.toJson2());
-    js['user_id'] = userId;
+
     Abonnement? abonnem;
     try{
-      print('${Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL)} push abonnement : $js');
-      http.Response response = await client.post(Uri.parse(_BASE_URL+_ABONNEMENT_CREATE_URL),
+      print('${Uri.parse(_BASE_URL+_BANK_BUY_ABONNEMENT_URL)} push abonnement ');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_BUY_ABONNEMENT_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(js),
+        body: jsonEncode({
+          'amount': abonnement.price,
+          'type_abonnement_id': abonnement.id,
+          'user_id': user.id,
+          'type': abonnement.type,
+          'phone': profile.phone,
+        }),
       );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');

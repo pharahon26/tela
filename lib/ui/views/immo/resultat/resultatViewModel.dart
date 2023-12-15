@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
 import 'package:tela/models/abonnement.dart';
@@ -9,9 +8,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 class ResultatViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   PassVisite? get passVisite => _authService.passVisite;

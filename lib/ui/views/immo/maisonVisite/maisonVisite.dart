@@ -15,7 +15,7 @@ class MaisonVisite extends StatefulWidget {
 class _MaisonVisiteState extends State<MaisonVisite> {
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<MaisonVisiteViewModel>.reactive(
       viewModelBuilder: () => MaisonVisiteViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -45,7 +45,7 @@ class _MaisonVisiteState extends State<MaisonVisite> {
                     child: CircularProgressIndicator(),
                   );
                 case ConnectionState.active:
-                return ListView(
+                return snapshot.data!.isNotEmpty? ListView(
                   scrollDirection: Axis.vertical,
                   children: snapshot.data!.map((e) => Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -54,9 +54,11 @@ class _MaisonVisiteState extends State<MaisonVisite> {
                         child: PlaceCard(place: e, image:  (e.images.first)??'')
                     ),
                   )).toList(),
+                ) : const Center(
+                  child: Text('Pas de maison Visitées avec ce pass'),
                 );
                 case ConnectionState.done:
-                  return ListView(
+                  return snapshot.data!.isNotEmpty? ListView(
                 scrollDirection: Axis.vertical,
                 children: snapshot.data!.map((e) => Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -65,7 +67,9 @@ class _MaisonVisiteState extends State<MaisonVisite> {
                       child: PlaceCard(place: e, image: (e.images.first)??'')
                   ),
                 )).toList(),
-              );
+              ) : const Center(
+                    child: Text('Pas de maison Visitées avec ce pass'),
+                  );
               }
 
             }

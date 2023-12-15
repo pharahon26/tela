@@ -41,17 +41,17 @@ TELA
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<cguFinanceViewModel>.reactive(
       viewModelBuilder: () => cguFinanceViewModel(),
       builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('CGU', style: TextStyle(color: Colors.white)),
+            title: const Text('CGU', style: TextStyle(color: Colors.white)),
             centerTitle: true,
             backgroundColor: Theme.of(context).colorScheme.primary,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -59,8 +59,8 @@ TELA
           ),
         backgroundColor: Colors.white,
           body: SizedBox(
-            height: _mediaQuery.size.height,
-            width: _mediaQuery.size.width,
+            height: mediaQuery.size.height,
+            width: mediaQuery.size.width,
             child: Container(
               child: SingleChildScrollView(
                 child: Padding(

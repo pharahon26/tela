@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
@@ -13,10 +12,10 @@ import 'package:stacked_services/stacked_services.dart';
 
 class ModifPlaceViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
-  PlaceService _placeService = locator<PlaceService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
+  final PlaceService _placeService = locator<PlaceService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   TelaPlace place;

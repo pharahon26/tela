@@ -11,16 +11,16 @@ class BankProfileTabHeader extends StatelessWidget {
     return Tab(
       child: Column(
         children: [
-          Text('Compte',
+          Text( _authService.user != null?'prochain versement' :'Courant',
             style: TextStyle(
-              fontSize: 18,
+              fontSize:_authService.user != null? 12 : 18,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          Text('X0F ${_authService.bankProfile?.balance??0}',
-            style: TextStyle(
+          Text('X0F ${_authService.user != null? _authService.user?.balance??0 : _authService.bankProfile?.balance??0}',
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,

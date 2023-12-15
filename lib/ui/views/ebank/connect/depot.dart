@@ -30,17 +30,17 @@ class _DepotState extends State<Depot> {
             elevation: 5,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
           ),
-          body: SingleChildScrollView(
+          body: const SingleChildScrollView(
             child: Scrollbar(
               child: Column(
                 children: [
                   /// SOLDE DISPO
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
                       children: [

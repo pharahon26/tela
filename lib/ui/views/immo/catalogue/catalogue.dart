@@ -15,7 +15,7 @@ class Catalogue extends StatefulWidget {
 class _CatalogueState extends State<Catalogue> {
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<CatalogueViewModel>.reactive(
       viewModelBuilder: () => CatalogueViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -62,7 +62,7 @@ class _CatalogueState extends State<Catalogue> {
                         child: PlaceCard(place: e, image: e.images[0])
                     ),
                   )).toList(),
-                ) : Center(
+                ) : const Center(
                   child: Text('Pas de maisons dans votres catalogue pour le momnent',
                     style: TextStyle(
                       color: Colors.black,
@@ -72,16 +72,24 @@ class _CatalogueState extends State<Catalogue> {
                   ),
                 );
                 case ConnectionState.done:
-                  return ListView(
-                scrollDirection: Axis.vertical,
-                children: snapshot.data!.map((e) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                      onTap: () => model.navigateToMyVisite(e),
-                      child: PlaceCard(place: e, image: e.images[0])
-                  ),
-                )).toList(),
-              );
+                  return snapshot.data!.isNotEmpty? ListView(
+                    scrollDirection: Axis.vertical,
+                    children: snapshot.data!.map((e) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                          onTap: () => model.navigateToMyVisite(e),
+                          child: PlaceCard(place: e, image: e.images[0])
+                      ),
+                    )).toList(),
+                  ) : const Center(
+                    child: Text('Pas de maisons dans votres catalogue pour le momnent',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500
+                      ),
+                    ),
+                  );
               }
 
             }
@@ -93,11 +101,11 @@ class _CatalogueState extends State<Catalogue> {
             style: ElevatedButton.styleFrom(
               alignment: Alignment.center,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                fixedSize: Size(_mediaQuery.size.width-8, 40),
+                fixedSize: Size(mediaQuery.size.width-8, 40),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 80.0),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 80.0),
               child: Text(
                 'Ajouter',
                 textAlign: TextAlign.start,

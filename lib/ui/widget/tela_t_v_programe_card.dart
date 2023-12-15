@@ -17,7 +17,7 @@ class TelaTVProgrameCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8.0),
         height: mq.size.height/3,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -30,7 +30,7 @@ class TelaTVProgrameCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(programmeTV.type,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.1,
@@ -42,7 +42,7 @@ class TelaTVProgrameCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(programmeTV.description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.2,

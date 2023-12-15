@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/ebank/versement/versementViewModel.dart';
+import 'package:tela/ui/views/ebank/versement_ret/versementRetViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-class Versement extends StatefulWidget {
-  const Versement({super.key});
+class VersementRet extends StatefulWidget {
+  const VersementRet({super.key});
 
   @override
-  State<Versement> createState() => _VersementState();
+  State<VersementRet> createState() => _VersementRetState();
 }
 
-class _VersementState extends State<Versement> {
+class _VersementRetState extends State<VersementRet> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
-    return ViewModelBuilder<VersementViewModel>.reactive(
-      viewModelBuilder: () => VersementViewModel(),
+    return ViewModelBuilder<VersementRetViewModel>.reactive(
+      viewModelBuilder: () => VersementRetViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: Text('Epargner',
+          title: Text('Retirer',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w600,
@@ -59,7 +59,7 @@ class _VersementState extends State<Versement> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('X0F ${model.authService.bankProfile?.balance??0}',
+                        child: Text('X0F ${model.authService.bankEpargne?.balance??0}',
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
@@ -86,7 +86,7 @@ class _VersementState extends State<Versement> {
                         Icons.attach_money,
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      labelText: 'Montant a épargner',
+                      labelText: 'Montant à envoyer sur le compte courant',
                       labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                       enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
                       focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
@@ -116,7 +116,7 @@ class _VersementState extends State<Versement> {
                   child: Column(
                     children: [
                       Container(
-                        child: Text('Nouveau solde',
+                        child: Text('Nouveau solde épargne',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -127,7 +127,7 @@ class _VersementState extends State<Versement> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('X0F ${(model.authService.bankProfile?.balance??0) + model.montant}',
+                        child: Text('X0F ${(model.authService.bankEpargne?.balance??0) - model.montant}',
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,

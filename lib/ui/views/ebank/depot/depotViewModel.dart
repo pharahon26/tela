@@ -1,5 +1,6 @@
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
+import 'package:tela/models/transactions.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:tela/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
@@ -7,11 +8,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 class DepotViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
   AuthService authService = locator<AuthService>();
-  TransactionService _transactionService = locator<TransactionService>();
+  final TransactionService _transactionService = locator<TransactionService>();
 
   double montant = 0;
 
@@ -22,8 +23,17 @@ class DepotViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.acceuil);
   }
 
+  Future depot(TelaTransaction transaction) async{
+    await _transactionService.postDepot(transaction: transaction, profile: authService.bankProfile!);
+  }
+
   void navigateToBank() async{
     await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
+  }
+
+
+  Future<String> getTransactioNumber() async {
+    return await _transactionService.getTransactionNumber('Depot');
   }
 
 }

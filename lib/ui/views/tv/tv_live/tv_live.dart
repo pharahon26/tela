@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/tv2/tv2ViewModel.dart';
+import 'package:tela/ui/views/tv/tv_live/tvLiveViewModel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Tv2 extends StatefulWidget {
+class TvLive extends StatefulWidget {
   final String link;
-  const Tv2({super.key, required this.link});
+  const TvLive({super.key, required this.link});
 
   @override
-  State<Tv2> createState() => _Tv2State();
+  State<TvLive> createState() => _TvLiveState();
 }
 
-class _Tv2State extends State<Tv2> {
+class _TvLiveState extends State<TvLive> {
 
-  late WebViewController controller;
   late VideoPlayerController videoController;
 
   @override
@@ -25,7 +24,6 @@ class _Tv2State extends State<Tv2> {
 
     videoController.setLooping(true);
     videoController.initialize().then((_) {
-      videoController.seekTo(Duration(minutes: time.minute, seconds: time.second));
       setState(() {});
     });
       videoController.addListener(() {
@@ -38,10 +36,10 @@ class _Tv2State extends State<Tv2> {
   @override
   Widget build(BuildContext context) {
 
-    return ViewModelBuilder<Tv2ViewModel>.reactive(
-      viewModelBuilder: () => Tv2ViewModel(),
+    return ViewModelBuilder<TvLiveViewModel>.reactive(
+      viewModelBuilder: () => TvLiveViewModel(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.white,
           body: Center(
             child: AspectRatio(
               aspectRatio: videoController.value.aspectRatio,
@@ -70,9 +68,7 @@ class _Tv2State extends State<Tv2> {
   @override
   void dispose() {
     super.dispose();
-    if(videoController != null){
-      videoController.dispose();
+    videoController.dispose();
     }
-  }
 
 }

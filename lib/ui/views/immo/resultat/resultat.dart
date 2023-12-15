@@ -47,7 +47,7 @@ class _ResultatState extends State<Resultat> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                          Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
                           child: Visibility(
                             visible: !model.passVisite!.isExpired,
                             replacement: TextButton(onPressed: () =>

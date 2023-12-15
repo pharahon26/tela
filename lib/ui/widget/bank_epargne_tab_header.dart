@@ -20,7 +20,7 @@ class BankEpargneTabHeader extends StatelessWidget {
             ),
           ),
           Text('X0F ${_authService.bankEpargne?.balance??0}',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,

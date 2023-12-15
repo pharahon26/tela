@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 // home widget
 class EbankLoginView extends StatefulWidget {
 
-  EbankLoginView();
+  const EbankLoginView({super.key});
 
   @override
   _EbankLoginViewState createState() => _EbankLoginViewState();
@@ -23,7 +23,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
   bool isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<EbankLoginViewModel>.reactive(
         viewModelBuilder: () => EbankLoginViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -43,7 +43,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(8.0),
-              height: _mediaQuery.size.height - 50,
+              height: mediaQuery.size.height - 50,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
@@ -55,10 +55,10 @@ class _EbankLoginViewState extends State<EbankLoginView>
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 40.0,
                         ),
-                        Container(
+                        SizedBox(
                           height: 120.0,
                           width: 120.0,
                           child: Image.asset(
@@ -66,7 +66,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
                             fit: BoxFit.contain,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
 
@@ -76,7 +76,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
                           child: TextFormField(
                             initialValue: model.phone,
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(
@@ -109,7 +109,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
                             autofocus: true,
                             keyboardType:  TextInputType.visiblePassword,
                             obscureText: !isPasswordVisible,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black
                             ),
                             decoration: InputDecoration(
@@ -155,7 +155,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
 
@@ -171,7 +171,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                           child: Text(error.toString(),
                             textAlign: TextAlign.center,
                             maxLines: 20,
@@ -206,7 +206,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  fixedSize: Size(_mediaQuery.size.width - 20, 40),
+                  fixedSize: Size(mediaQuery.size.width - 20, 40),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
               ),
               child: const Padding(
@@ -226,8 +226,4 @@ class _EbankLoginViewState extends State<EbankLoginView>
         ));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

@@ -5,7 +5,7 @@ import 'package:tela/ui/views/immo/newPlace/newPlaveViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class NewPlace extends StatefulWidget {
-  NewPlace({super.key});
+  const NewPlace({super.key});
 
   @override
   State<NewPlace> createState() => _NewPlaceState();
@@ -58,11 +58,11 @@ class _NewPlaceState extends State<NewPlace> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Divider(),
+                        const Divider(),
                         const Text('Type de maison',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
                         /// is bureau
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -93,11 +93,11 @@ class _NewPlaceState extends State<NewPlace> {
                           ),
                         ),
 
-                        Divider(),
+                        const Divider(),
                         const Text('Photos',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
                         SizedBox(
                           height: mq.size.width,
                           child: AspectRatio(
@@ -115,9 +115,9 @@ class _NewPlaceState extends State<NewPlace> {
                                     height: mq.size.width*0.8,
                                     width: mq.size.width*0.8,
                                     child: Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Center(
-                                        child: index !=0? Icon(Icons.add) : Text('Facade de la maison',
+                                        child: index !=0? const Icon(Icons.add) : const Text('Facade de la maison',
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
@@ -144,11 +144,11 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
 
 
-                        Divider(),
+                        const Divider(),
                         const Text('Status',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
 
                         /// Occuupé?
                         CheckboxListTile(
@@ -167,18 +167,18 @@ class _NewPlaceState extends State<NewPlace> {
                             activeColor: Theme.of(context).colorScheme.primary
                         ),
 
-                        Divider(),
+                        const Divider(),
                         const Text('Prix',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
                         /// Prix
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
                             initialValue: '0',
                             keyboardType: TextInputType.number,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(
@@ -210,11 +210,11 @@ class _NewPlaceState extends State<NewPlace> {
 
 
 
-                        Divider(),
+                        const Divider(),
                         const Text('Commune',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
                         /// Commune
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -242,11 +242,11 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
 
                         ///TYPE
-                        Divider(),
+                        const Divider(),
                         const Text('Caractéristique',
                             style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
 
                         /// IS APPARTEMENT
                         ListTile(
@@ -421,7 +421,7 @@ class _NewPlaceState extends State<NewPlace> {
                             activeColor: Theme.of(context).colorScheme.primary
                         ),
                         /// NOMBRE DE PIECE
-                        Divider(),
+                        const Divider(),
                         const Text('Nombre de pièces',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
@@ -436,7 +436,7 @@ class _NewPlaceState extends State<NewPlace> {
                                 }
                               });
                             },
-                                icon: Icon(Icons.remove)
+                                icon: const Icon(Icons.remove)
                             ),
                             Text('${model.nombreDePieces}',
                               style: TextStyle(
@@ -450,13 +450,13 @@ class _NewPlaceState extends State<NewPlace> {
                                 }
                               });
                             },
-                                icon: Icon(Icons.add)
+                                icon: const Icon(Icons.add)
                             ),
                           ],
                         ),
 
                         /// NOMBRE DE PIECE d'eau
-                        Divider(),
+                        const Divider(),
                         const Text('Nombre de salles d\'eau',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
@@ -471,7 +471,7 @@ class _NewPlaceState extends State<NewPlace> {
                                 }
                               });
                             },
-                                icon: Icon(Icons.remove)
+                                icon: const Icon(Icons.remove)
                             ),
                             Text('${model.nombreDeSalleDeau}',
                               style: TextStyle(
@@ -485,17 +485,17 @@ class _NewPlaceState extends State<NewPlace> {
                                 }
                               });
                             },
-                                icon: Icon(Icons.add)
+                                icon: const Icon(Icons.add)
                             ),
                           ],
                         ),
 
                         ///TYPE
-                        Divider(),
+                        const Divider(),
                         const Text('Commoditées additionnelles',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
                         /// Has Cours avant
                         CheckboxListTile(
                             value: model.hasCoursAvant,
@@ -594,18 +594,18 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
 
                         ///Description
-                        Divider(),
+                        const Divider(),
                         const Text('Description',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                        Divider(),
+                        const Divider(),
 
                         /// description field
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16.0),
                             maxLines: 3,
@@ -631,7 +631,7 @@ class _NewPlaceState extends State<NewPlace> {
                                     borderRadius: BorderRadius.circular(10)),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   color: Colors.black,
                                 )),
                             onChanged: (value) {
@@ -643,7 +643,7 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
 
 
-                        Divider(),
+                        const Divider(),
                         const Text('Information du propriétaire (facultatifs)',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
@@ -652,7 +652,7 @@ class _NewPlaceState extends State<NewPlace> {
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             keyboardType: TextInputType.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(
@@ -676,7 +676,7 @@ class _NewPlaceState extends State<NewPlace> {
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(

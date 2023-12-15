@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
-import 'package:tela/models/user.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:tela/services/telaSharedPrefs.dart';
 import 'package:stacked/stacked.dart';
@@ -11,9 +9,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 class IdentificationViewModel extends BaseViewModel{
 
-  AuthService _authService = locator<AuthService>();
-  NavigationService _navigationService = locator<NavigationService>();
-  TelaSharedPrefs _sharedPrefs = locator<TelaSharedPrefs>();
+  final AuthService _authService = locator<AuthService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final TelaSharedPrefs _sharedPrefs = locator<TelaSharedPrefs>();
   String nom='SEREME';
   String prenom='Habib Seydou Laty';
   String phone='+225 07 00 00 00 00';
@@ -86,8 +84,4 @@ class IdentificationViewModel extends BaseViewModel{
   }
 
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

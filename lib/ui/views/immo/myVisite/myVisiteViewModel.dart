@@ -8,15 +8,15 @@ import 'package:stacked_services/stacked_services.dart';
 
 class VisiteViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  PlaceService _placeService = locator<PlaceService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final PlaceService _placeService = locator<PlaceService>();
   AuthService authService = locator<AuthService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   VisiteViewModel(){
     print('+***********USER PHOTO');
-    print('${authService.user!.photo}');
+    print(authService.user!.photo);
   }
 
   void navigateToProfile() async{

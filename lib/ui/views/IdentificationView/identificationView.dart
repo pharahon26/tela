@@ -8,7 +8,7 @@ import 'package:stacked/stacked.dart';
 // home widget
 class IdentificationView extends StatefulWidget {
 
-  IdentificationView();
+  const IdentificationView({super.key});
 
   @override
   _IdentificationViewState createState() => _IdentificationViewState();
@@ -26,17 +26,17 @@ class _IdentificationViewState extends State<IdentificationView>
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<IdentificationViewModel>.reactive(
         viewModelBuilder: () => IdentificationViewModel(),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
-                title: Text('Identification', style: TextStyle(color: Colors.white)),
+                title: const Text('Identification', style: TextStyle(color: Colors.white)),
                 centerTitle: true,
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 leading: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(Icons.arrow_back_ios_new,
+                  child: const Icon(Icons.arrow_back_ios_new,
                     color: Colors.white,
                   ),
                 ),
@@ -56,11 +56,11 @@ class _IdentificationViewState extends State<IdentificationView>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 20.0,
                             ),
-                            Text('Complétez votre profil pour accéder nos services'),
-                            SizedBox(
+                            const Text('Complétez votre profil pour accéder nos services'),
+                            const SizedBox(
                               height: 20.0,
                             ),
                             //
@@ -95,11 +95,11 @@ class _IdentificationViewState extends State<IdentificationView>
 
 
 
-                            Divider(),
+                            const Divider(),
                             const Text('Informations',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
 
                             /// nom field
                             Padding(
@@ -107,7 +107,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               child: TextFormField(
                                 initialValue: model.nom,
                                 keyboardType: TextInputType.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -133,7 +133,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               child: TextFormField(
                                 initialValue: model.prenom,
                                 keyboardType: TextInputType.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -159,7 +159,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               child: TextFormField(
                                 initialValue: model.phone,
                                 keyboardType: TextInputType.phone,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -193,7 +193,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               child: TextField(
                                 autofocus: false,
                                 keyboardType: TextInputType.phone,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -224,8 +224,8 @@ class _IdentificationViewState extends State<IdentificationView>
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 20.0),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 20.0),
                                     child: Text('Genre'),
                                   ),
                                   Row(
@@ -233,7 +233,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                     children: [
                                       Column(
                                         children: [
-                                          Text('Homme'),
+                                          const Text('Homme'),
                                           Radio<bool>(
                                               value: true,
                                               groupValue: model.isMan,
@@ -247,7 +247,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                       ),
                                       Column(
                                         children: [
-                                          Text('Femme'),
+                                          const Text('Femme'),
                                           Radio<bool>(
                                               value: false,
                                               groupValue: model.isMan,
@@ -293,7 +293,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                           dialogBackgroundColor: Colors.white,
                                         ),
                                         child: ConstrainedBox(
-                                          constraints: BoxConstraints(maxHeight: _mediaQuery.size.height * 0.7),
+                                          constraints: BoxConstraints(maxHeight: mediaQuery.size.height * 0.7),
                                           child: child!,
                                         ),
                                       );
@@ -351,7 +351,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -387,7 +387,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                               label: Row(
                                 children: [
-                                  Text('nationnalité: ',
+                                  const Text('nationnalité: ',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -396,7 +396,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                     ),
                                   ),
                                   Text(model.nationnalite,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: 1.2,
@@ -429,7 +429,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                               label: Row(
                                 children: [
-                                  Text('Pays: ',
+                                  const Text('Pays: ',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -438,7 +438,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                     ),
                                   ),
                                   Text(model.pays,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: 1.2,
@@ -471,7 +471,7 @@ class _IdentificationViewState extends State<IdentificationView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -498,18 +498,18 @@ class _IdentificationViewState extends State<IdentificationView>
                             ),
 
 
-                            Divider(),
+                            const Divider(),
                             const Text('Document d\'identification',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
 
                             /// doc number
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -535,15 +535,15 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                             ),
 
-                            Divider(),
+                            const Divider(),
                             const Text('Document verso',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             /// doc recto
                             SizedBox(
-                              height: _mediaQuery.size.width,
-                              width: _mediaQuery.size.width,
+                              height: mediaQuery.size.width,
+                              width: mediaQuery.size.width,
                               child: InkWell(
                                 child: model.docRecto != null? Image.file(model.docRecto!,
                                   fit: BoxFit.contain,
@@ -572,14 +572,14 @@ class _IdentificationViewState extends State<IdentificationView>
                             ),
 
                             /// doc verso
-                            Divider(),
+                            const Divider(),
                             const Text('Document verso',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             SizedBox(
-                              height: _mediaQuery.size.width,
-                              width: _mediaQuery.size.width,
+                              height: mediaQuery.size.width,
+                              width: mediaQuery.size.width,
                               child: InkWell(
                                 child: model.docVerso != null? Image.file(model.docVerso!,
                                   fit: BoxFit.contain,
@@ -617,7 +617,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                   },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Theme.of(context).colorScheme.primary,
-                                    fixedSize: Size(_mediaQuery.size.width - 20, 40),
+                                    fixedSize: Size(mediaQuery.size.width - 20, 40),
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                                 ),
                                 child: const Padding(
@@ -645,8 +645,4 @@ class _IdentificationViewState extends State<IdentificationView>
             ));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:tela/models/transactions.dart';
 import 'package:tela/ui/views/ebank/bank_resume/bankViewModel.dart';
 import 'package:tela/ui/views/ebank/compte/compte.dart';
 import 'package:tela/ui/views/ebank/epargne/epargne.dart';
@@ -19,7 +18,7 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "http://office.telaci.com/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
   double compteBalance = 0;
@@ -175,7 +174,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                       /// infos soldes and accounts
                       Visibility(
                         visible: model.authService.bankProfile != null,
-                        replacement: SizedBox(
+                        replacement: const SizedBox(
                           height: 50,
                         ),
                         child: Column(
@@ -195,7 +194,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Text('${model.authService.bankProfile?.nom??''} ${model.authService.bankProfile?.prenom??''}',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
@@ -208,7 +207,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Text(model.authService.bankProfile?.phone??'',
                                         style: TextStyle(
                                             fontSize: 14,
@@ -220,7 +219,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                     ),
                                   ],
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Visibility(
                                   visible: !((model.authService.bankProfile?.isValidated)??false),
                                   child: TextButton(
@@ -257,13 +256,14 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                             /// Solde Disponible
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Column(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Text('Solde',
                                           style: TextStyle(
                                               fontSize: 12,
@@ -274,21 +274,20 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
-                                        style: TextStyle(
-                                          fontSize: 18,
+                                        style: const TextStyle(
+                                          fontSize: 24,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2,
                                           color: Colors.green,
                                         ),
                                       ),
                                     ],
-                                    mainAxisSize: MainAxisSize.min,
                                   ),
                                   Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Text('Solde disponible',
                                           style: TextStyle(
                                               fontSize: 12,
@@ -298,9 +297,9 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
+                                      Text('X0F ${ ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) >= 5000? ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) - 5000) : 0 )}',
                                         style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 24,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2,
                                           color: Theme.of(context).colorScheme.primary,
@@ -386,7 +385,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                             ],
                           ) ,
                           /// TAB VIEW
-                          child: Container(
+                          child: SizedBox(
                             height: mq.size.height/2.5,
                             width: mq.size.width,
                             child: TabBarView(

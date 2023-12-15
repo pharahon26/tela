@@ -11,10 +11,10 @@ import 'package:stacked_services/stacked_services.dart';
 
 class RechercheViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
   AuthService authService = locator<AuthService>();
-  PlaceService _placeService = locator<PlaceService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final PlaceService _placeService = locator<PlaceService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   bool havePass = false;

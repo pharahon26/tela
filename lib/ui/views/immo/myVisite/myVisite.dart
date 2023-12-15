@@ -142,17 +142,17 @@ class _MyVisiteState extends State<MyVisite> {
                         FontWeight.w600)),
                   ),
 
-                  Divider(),
+                  const Divider(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                     child: Text('${widget.place.visites.toString()} Visites',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 24, fontWeight:
                         FontWeight.w600)),
                   ),
-                  Divider(),
+                  const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text('Démarcheur',
@@ -161,9 +161,9 @@ class _MyVisiteState extends State<MyVisite> {
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                   ),
 
-                  Divider(),
+                  const Divider(),
                    Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -180,7 +180,7 @@ class _MyVisiteState extends State<MyVisite> {
                         Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text('${widget.place.demarcheur?.nom ?? ''} ${widget.place.demarcheur?.prenom ?? ''}',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -189,7 +189,7 @@ class _MyVisiteState extends State<MyVisite> {
                                     color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(widget.place.demarcheur?.phone??'',
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
@@ -200,10 +200,10 @@ class _MyVisiteState extends State<MyVisite> {
                       ],
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
 
 
-                  Divider(),
+                  const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text('Commune',
@@ -211,7 +211,7 @@ class _MyVisiteState extends State<MyVisite> {
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                   ),
-                  Divider(),
+                  const Divider(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(widget.place.commune!.name,
@@ -221,7 +221,7 @@ class _MyVisiteState extends State<MyVisite> {
                   ),
 
 
-                  Divider(),
+                  const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text('Type',
@@ -229,16 +229,16 @@ class _MyVisiteState extends State<MyVisite> {
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                   ),
-                  Divider(),
+                  const Divider(),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox.shrink(),
+                      const SizedBox.shrink(),
                       Visibility(
                         visible: widget.place.isAppartment,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Appartement',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -248,7 +248,7 @@ class _MyVisiteState extends State<MyVisite> {
                       Visibility(
                         visible: widget.place.isMaisonBasse,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Maison Basse',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -258,7 +258,7 @@ class _MyVisiteState extends State<MyVisite> {
                       Visibility(
                         visible: widget.place.isDuplex,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Duplex',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -268,14 +268,14 @@ class _MyVisiteState extends State<MyVisite> {
                       Visibility(
                         visible: widget.place.isStudio,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Résidence',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(' de ${widget.place.nombrePiece} Pièces',
@@ -283,7 +283,7 @@ class _MyVisiteState extends State<MyVisite> {
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
                       ),
-                      SizedBox.shrink(),
+                      const SizedBox.shrink(),
                     ],
 
                   ),
@@ -291,11 +291,11 @@ class _MyVisiteState extends State<MyVisite> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox.shrink(),
+                      const SizedBox.shrink(),
                       Visibility(
                         visible: widget.place.isHautStanding,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Haut standing sans piscine',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -305,14 +305,14 @@ class _MyVisiteState extends State<MyVisite> {
                       Visibility(
                         visible: widget.place.hasPiscine,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text('Haut standing avec piscine',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('avec ${widget.place.nombreSalleEau} Salles d\'eau',
@@ -320,10 +320,10 @@ class _MyVisiteState extends State<MyVisite> {
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
                       ),
-                      SizedBox.shrink(),
+                      const SizedBox.shrink(),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text('Commoditées additionneles',
@@ -333,11 +333,11 @@ class _MyVisiteState extends State<MyVisite> {
 
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Visibility(
                     visible: widget.place.hasGarage,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Garage',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -347,7 +347,7 @@ class _MyVisiteState extends State<MyVisite> {
                   Visibility(
                     visible: widget.place.hasGardien,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Gardien',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -357,7 +357,7 @@ class _MyVisiteState extends State<MyVisite> {
                   Visibility(
                     visible: widget.place.hasCoursAvant,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Cour avant',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -367,7 +367,7 @@ class _MyVisiteState extends State<MyVisite> {
                   Visibility(
                     visible: widget.place.hasCoursArriere,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Cour arrière',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -377,7 +377,7 @@ class _MyVisiteState extends State<MyVisite> {
                   Visibility(
                     visible: widget.place.hasBalconAvant,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Balcon avant',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -387,7 +387,7 @@ class _MyVisiteState extends State<MyVisite> {
                   Visibility(
                     visible: widget.place.hasBalconArriere,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text('Balcon arrière',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -395,15 +395,15 @@ class _MyVisiteState extends State<MyVisite> {
                       ),
                   ),
 
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Text('Description',
+                  const Divider(),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Description',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                   ),
-                  Divider(),
+                  const Divider(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                     child: Text(widget.place.description,

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
-import 'package:tela/models/abonnement.dart';
 import 'package:tela/models/images.dart';
 import 'package:tela/models/place.dart';
 
@@ -118,7 +117,7 @@ class PlaceService{
     toSend['images'] = img;
 
     try{
-      print('${Uri.parse(_BASE_URL+_PLACE_ADD_URL)} add place : \n ${toSend}');
+      print('${Uri.parse(_BASE_URL+_PLACE_ADD_URL)} add place : \n $toSend');
       http.Response response = await client.post(Uri.parse(_BASE_URL+_PLACE_ADD_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',

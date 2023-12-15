@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 class BuyAbonnementEbank extends StatefulWidget {
 
 
-  BuyAbonnementEbank({super.key});
+  const BuyAbonnementEbank({super.key});
 
   @override
   State<BuyAbonnementEbank> createState() => _BuyAbonnementEbankState();
@@ -34,7 +34,7 @@ class _BuyAbonnementEbankState extends State<BuyAbonnementEbank> {
             elevation: 5,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -65,10 +65,10 @@ class _BuyAbonnementEbankState extends State<BuyAbonnementEbank> {
                             elevation: 8,
                             color: Theme.of(context).colorScheme.primary,
                             child: InkWell(
-                              onTap: () => model.navigateToBuyView(e),
+                              onTap: () => model.buyAbonnement(e),
                               child: Container(
                                 height: mq.size.height/4,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     gradient: LinearGradient(
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
@@ -80,16 +80,16 @@ class _BuyAbonnementEbankState extends State<BuyAbonnementEbank> {
                                   children: [
                                     Text('${e.price} FCFA',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2
                                       ),
                                     ),
-                                    Text('${e.title}',
+                                    Text(e.title,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 36,
                                           fontWeight: FontWeight.w600,
@@ -98,7 +98,7 @@ class _BuyAbonnementEbankState extends State<BuyAbonnementEbank> {
                                     ),
                                     Text('Recevez ${e.pourcentage}% sur chaque visite',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,

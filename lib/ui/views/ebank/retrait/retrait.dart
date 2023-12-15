@@ -10,6 +10,7 @@ class Retrait extends StatefulWidget {
 }
 
 class _RetraitState extends State<Retrait> {
+  bool enCours = false;
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -43,7 +44,7 @@ class _RetraitState extends State<Retrait> {
                 children: [
                   /// SOLDE DISPO
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Padding(
@@ -60,7 +61,7 @@ class _RetraitState extends State<Retrait> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('X0F ${model.authService.bankProfile?.balance??0}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.2,
@@ -71,7 +72,7 @@ class _RetraitState extends State<Retrait> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
                   /// amount field
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -106,13 +107,44 @@ class _RetraitState extends State<Retrait> {
                       },
                       onChanged: (value) {
                         model.montant = double.parse(value);
+                        model.frais = (model.montant/100) * 3;
                       },
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
+                  /// frais
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Text('Frais',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.2,
+                                color: Theme.of(context).colorScheme.primary
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('X0F ${model.frais}',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 30,),
                   /// SOLDE
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Container(
@@ -128,7 +160,7 @@ class _RetraitState extends State<Retrait> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('X0F ${(model.authService.bankProfile?.balance??0) - model.montant}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.2,
@@ -139,16 +171,25 @@ class _RetraitState extends State<Retrait> {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   /// depot
-                  TextButton(onPressed: () => {},
+                  TextButton(onPressed: () {
+                    setState(() {
+                      enCours = true;
+                    });
+                    model.retrait().whenComplete(() {
+                      setState(() {
+                        enCours = false;
+                      });
+                    });
+                  },
                     style: TextButton.styleFrom(
                       elevation: 8,
                       minimumSize: Size(mq.size.width*0.7, 30),
                       backgroundColor: Theme.of(context).colorScheme.primary,
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                     ),
-                    child: const Text('Retrait',
+                    child: enCours? CircularProgressIndicator(color: Colors.white,) : Text('Retrait',
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: 24,

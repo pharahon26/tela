@@ -5,7 +5,7 @@ import 'package:tela/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class CompteViewModel extends BaseViewModel{
+class VersementRetViewModel extends BaseViewModel{
 
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
@@ -13,28 +13,17 @@ class CompteViewModel extends BaseViewModel{
   AuthService authService = locator<AuthService>();
   TransactionService transactionService = locator<TransactionService>();
 
+  double montant = 0;
 
-  CompteViewModel();
+
+  VersementRetViewModel();
 
   void navigateToProfile() async{
-    await _navigationService.navigateToBank(hasEpargne: authService.bankEpargne != null);
-  }
-  void retrait() async{
-    await _navigationService.navigateToRetrait();
-  }
-  void depot() async{
-    await _navigationService.navigateToDepot();
-  }
-  void renewAbonnement() async{
-    await _navigationService.navigateToBuyAbonnementEbank();
-  }
-  void epargner() async{
-    await _navigationService.navigateToVersement();
+    await _navigationService.navigateTo(Routes.acceuil);
   }
 
-  Future createEpargne() async {
-    await authService.createEpargne(phone: authService.bankProfile!.phone);
-
+  void navigateToBank() async{
+    await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
 
 

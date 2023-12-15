@@ -1,6 +1,5 @@
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
-import 'package:tela/models/abonnement.dart';
 import 'package:tela/models/abonnementType.dart';
 import 'package:tela/models/transactions.dart';
 import 'package:tela/models/user.dart';
@@ -11,11 +10,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 class BuyViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
-  TransactionService _transactionService = locator<TransactionService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
+  final TransactionService _transactionService = locator<TransactionService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   User? get user => _authService.user;

@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:tela/models/programetv.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:video_player/video_player.dart';
 
 class TVService{
@@ -15,11 +14,30 @@ class TVService{
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   List<String> publicites =[];
-  List<VideoPlayerController> pubVideoControllers = [];
-  List<VideoPlayerController> reportagesVideoControllers = [];
+  late VideoPlayerController pubVideoController;
+  late VideoPlayerController reportagesVideoController;
+  bool playing = false;
 
   TVService();
 
+
+
+  Future<void> init() async {
+    pubVideoController = VideoPlayerController.networkUrl(Uri.parse("https://www.telaci.com/assets/videos/pub_tela.mp4"));
+    // pubVideoController.seekTo(Duration(minutes: t));
+    pubVideoController.setLooping(true);
+    pubVideoController.setVolume(0);
+
+    pubVideoController.initialize().then((_) {
+    });
+  }
+
+   playPub(){
+      pubVideoController.play();
+  }
+  pausePub(){
+    pubVideoController.pause();
+  }
 
   /// CREATE A NEW HTTP CLIENT FOR CALLS
   http.Client _newClient() {
@@ -67,7 +85,7 @@ class TVService{
     var client = _newClient();
     try{
       print('${Uri.parse(_PUB_URL2)} get programs');
-      http.Response response = await client.get(Uri.parse('$_PUB_URL2'),
+      http.Response response = await client.get(Uri.parse(_PUB_URL2),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

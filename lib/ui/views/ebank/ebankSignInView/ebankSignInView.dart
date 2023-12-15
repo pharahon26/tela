@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tela/ui/views/ebank/ebankSignInView/ebankSignInViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -8,7 +7,7 @@ import 'package:stacked/stacked.dart';
 // home widget
 class EbankSignInView extends StatefulWidget {
 
-  EbankSignInView();
+  const EbankSignInView({super.key});
 
   @override
   _EbankSignInViewState createState() => _EbankSignInViewState();
@@ -26,7 +25,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<EbankSignInViewModel>.reactive(
         viewModelBuilder: () => EbankSignInViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -56,15 +55,15 @@ class _EbankSignInViewState extends State<EbankSignInView>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Divider(),
+                            const Divider(),
                             const Text('Photo',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             /// photo
                             SizedBox(
-                              height: _mediaQuery.size.width,
-                              width: _mediaQuery.size.width,
+                              height: mediaQuery.size.width,
+                              width: mediaQuery.size.width,
                               child: InkWell(
                                 child: model.photo != null? Image.file(model.photo!,
                                   fit: BoxFit.contain,
@@ -84,17 +83,17 @@ class _EbankSignInViewState extends State<EbankSignInView>
                             ),
 
 
-                            Divider(),
+                            const Divider(),
                             const Text('Informations',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             /// nom field
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -124,7 +123,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -155,7 +154,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
                               child: TextFormField(
                                 autofocus: true,
                                 keyboardType: TextInputType.phone,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -192,7 +191,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
                               child: TextFormField(
                                 keyboardType:  TextInputType.visiblePassword,
                                 obscureText: !isPasswordVisible,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black
                                 ),
                                 decoration: InputDecoration(
@@ -236,7 +235,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
                               child: TextFormField(
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: !isPasswordVisible,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -286,7 +285,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextButton(
                                   onPressed: () => model.navigateToCGU(),
-                                  child: Text('cliquez ICI pour consulter nos conditions générales d\'itulisation',
+                                  child: const Text('cliquez ICI pour consulter nos conditions générales d\'itulisation',
                                     maxLines: 2,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -376,7 +375,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: model.isAccepted? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withOpacity(0.6),
-                      fixedSize: Size(_mediaQuery.size.width - 20, 40),
+                      fixedSize: Size(mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),
                   child: const Padding(
@@ -396,8 +395,4 @@ class _EbankSignInViewState extends State<EbankSignInView>
             ));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

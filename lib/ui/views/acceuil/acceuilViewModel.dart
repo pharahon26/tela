@@ -2,19 +2,18 @@ import 'package:intl/intl.dart';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
 import 'package:tela/services/auth_service.dart';
-import 'package:tela/services/telaSharedPrefs.dart';
 import 'package:tela/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class AcceuilViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
   // TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
-  TVService _tvService = locator<TVService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final TVService _tvService = locator<TVService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   AcceuilViewModel(){

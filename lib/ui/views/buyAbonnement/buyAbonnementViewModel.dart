@@ -8,13 +8,13 @@ import 'package:stacked_services/stacked_services.dart';
 
 class BuyAbonnementViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
-  AuthService _authService = locator<AuthService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final AuthService _authService = locator<AuthService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
-  bool _isA = false;
+  final bool _isA = false;
   List<AbonnementType> abonnements = [];
 
   Stream<bool> get isAuth => _authService.isConnected;

@@ -1,6 +1,5 @@
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
-import 'package:tela/models/transactions.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:tela/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
@@ -8,11 +7,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 class BankViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
   AuthService authService = locator<AuthService>();
   TransactionService transactionService = locator<TransactionService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   BankViewModel();

@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tela/models/place.dart';
 import 'package:tela/ui/views/immo/imageNav/imageNavViewModel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -29,7 +27,7 @@ class _ImageNavState extends State<ImageNav> {
 
   void nextPage(){
     if (index < widget.images.length) {
-      _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+      _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
       index++;
     }
   }
@@ -83,7 +81,7 @@ class _ImageNavState extends State<ImageNav> {
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(70),
                               child: Container(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   color: Colors.black.withOpacity(0.3),
                                   child: Icon(Icons.arrow_back_ios_new, size: 32, color: Theme.of(context).colorScheme.primary,)
                               )
@@ -97,7 +95,7 @@ class _ImageNavState extends State<ImageNav> {
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(70),
                               child: Container(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   color: Colors.black.withOpacity(0.3),
                                   child: Icon(Icons.arrow_forward_ios, size: 32, color: Theme.of(context).colorScheme.primary,)
                               )

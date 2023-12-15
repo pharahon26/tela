@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tela/models/commune.dart';
 import 'package:tela/ui/views/immo/recherche/rechercheViewModel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -57,13 +56,13 @@ class _RechercheState extends State<Recherche> {
                         onPressed: (){
                           model.navigateToAcceuil();
                         },
-                        child: Text('Acceuil')
+                        child: const Text('Acceuil')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToProfile();
                         },
-                        child: Text('profile')
+                        child: const Text('profile')
                     ),
                     TextButton(
                         style: TextButton.styleFrom(
@@ -95,13 +94,13 @@ class _RechercheState extends State<Recherche> {
                         onPressed: (){
                           model.navigateToEbank();
                         },
-                        child: Text('Tela Finance')
+                        child: const Text('Tela Finance')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToTV();
                         },
-                        child: Text('Tela TV')
+                        child: const Text('Tela TV')
                     ),
                   ]),
             ),
@@ -143,11 +142,11 @@ class _RechercheState extends State<Recherche> {
                       ),
                     ),
 
-                    Divider(),
+                    const Divider(),
                     const Text('Commune',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                    Divider(),
+                    const Divider(),
                     /// Commune
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -175,11 +174,11 @@ class _RechercheState extends State<Recherche> {
                     ),
 
                     ///TYPE
-                    Divider(),
+                    const Divider(),
                     const Text('Type de Maison',
                         style: TextStyle(
                         color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                    Divider(),
+                    const Divider(),
 
                     /// IS DUPLEX
                     CheckboxListTile(
@@ -311,7 +310,7 @@ class _RechercheState extends State<Recherche> {
                         activeColor: Theme.of(context).colorScheme.primary
                     ),
                     /// NOMBRE DE PIECE
-                    Divider(),
+                    const Divider(),
                     const Text('Nombre de pièces minimun',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
@@ -326,7 +325,7 @@ class _RechercheState extends State<Recherche> {
                             }
                           });
                         },
-                            icon: Icon(Icons.remove)
+                            icon: const Icon(Icons.remove)
                         ),
                         Text('${model.nombreDePieces}',
                           style: TextStyle(
@@ -340,13 +339,13 @@ class _RechercheState extends State<Recherche> {
                             }
                           });
                         },
-                            icon: Icon(Icons.add)
+                            icon: const Icon(Icons.add)
                         ),
                       ],
                     ),
 
                     /// NOMBRE DE PIECE d'eau
-                    Divider(),
+                    const Divider(),
                     const Text('Nombre de sales d\'eau minimun',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
@@ -361,7 +360,7 @@ class _RechercheState extends State<Recherche> {
                             }
                           });
                         },
-                            icon: Icon(Icons.remove)
+                            icon: const Icon(Icons.remove)
                         ),
                         Text('${model.nombreDeSalleDeau}',
                           style: TextStyle(
@@ -375,17 +374,17 @@ class _RechercheState extends State<Recherche> {
                             }
                           });
                         },
-                            icon: Icon(Icons.add)
+                            icon: const Icon(Icons.add)
                         ),
                       ],
                     ),
 
                     ///TYPE
-                    Divider(),
+                    const Divider(),
                     const Text('Commoditées additionnelles',
                       style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                    Divider(),
+                    const Divider(),
                     /// IS Cours avant
                     CheckboxListTile(
                         value: model.hasCoursAvant,
@@ -525,7 +524,7 @@ class _RechercheState extends State<Recherche> {
                                   ),
                                 ),
                                  Padding(
-                                  padding: EdgeInsets.all(24.0),
+                                  padding: const EdgeInsets.all(24.0),
                                   child: SizedBox(
                                     width: mq.size.width*0.7,
                                     child: TextFormField(

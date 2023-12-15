@@ -59,33 +59,15 @@ class _EpargneState extends State<Epargne> {
             //     ),
             //   ],
             // ),
-            TextButton(onPressed: () => model.depot(),
-              style: TextButton.styleFrom(
-                elevation: 8,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                shape: StadiumBorder(),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                child: Text('Dépot',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.2,
-                      color: Colors.white
-                  ),
-                ),
-              ),
-            ),
             TextButton(onPressed: () => model.verserSurCompte(),
               style: TextButton.styleFrom(
                 elevation: 8,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                child: const Text('Dépot vers le compte',
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: Text('Dépot vers le compte',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -116,7 +98,7 @@ class _EpargneState extends State<Epargne> {
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                                 onTap: () => {},
-                                child: Row(
+                                child: const Row(
                                   children: [
                                     Text('test')
                                   ],
@@ -125,9 +107,9 @@ class _EpargneState extends State<Epargne> {
                           )).toList(),
                         )
                             :
-                        Center(
+                        const Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.0),
                             child: Text('Pas de transactions',
                               style: TextStyle(
                                   color: Colors.black,
@@ -144,7 +126,7 @@ class _EpargneState extends State<Epargne> {
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                                 onTap: () => {},
-                                child: Row(
+                                child: const Row(
                                   children: [
                                     Text('test')
                                   ],
@@ -153,7 +135,7 @@ class _EpargneState extends State<Epargne> {
                           )).toList(),
                         )
                             :
-                        Center(
+                        const Center(
                           child: Text('Pas de transactions',
                             style: TextStyle(
                                 color: Colors.black,

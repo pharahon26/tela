@@ -9,7 +9,7 @@ class ModifPlace extends StatefulWidget {
 
   final TelaPlace place;
 
-  ModifPlace({super.key, required this.place});
+  const ModifPlace({super.key, required this.place});
 
   @override
   State<ModifPlace> createState() => _ModifPlaceState();
@@ -88,11 +88,11 @@ class _ModifPlaceState extends State<ModifPlace> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Divider(),
+                      const Divider(),
                       const Text('Type de maison',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
                       /// is bureau
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -123,11 +123,11 @@ class _ModifPlaceState extends State<ModifPlace> {
                         ),
                       ),
 
-                      Divider(),
+                      const Divider(),
                       const Text('Photos',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
                       SizedBox(
                         height: mq.size.width,
                         child: AspectRatio(
@@ -165,12 +165,12 @@ class _ModifPlaceState extends State<ModifPlace> {
                       ),
 
 
-                      Divider(),
+                      const Divider(),
 
                       const Text('Status',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
 
                       /// Occuupé?
                       CheckboxListTile(
@@ -190,18 +190,18 @@ class _ModifPlaceState extends State<ModifPlace> {
                       ),
 
 
-                      Divider(),
+                      const Divider(),
                       const Text('Prix',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
                       /// Prix
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           initialValue: widget.place.price.toString(),
                           keyboardType: TextInputType.number,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
@@ -231,11 +231,11 @@ class _ModifPlaceState extends State<ModifPlace> {
                         ),
                       ),
 
-                      Divider(),
+                      const Divider(),
                       const Text('Commune',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
                       /// Commune
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -263,11 +263,11 @@ class _ModifPlaceState extends State<ModifPlace> {
                       ),
 
                       ///TYPE
-                      Divider(),
+                      const Divider(),
                       const Text('Caractéristique',
                           style: TextStyle(
                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
 
                       /// IS APPARTEMENT
                       ListTile(
@@ -442,7 +442,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                           activeColor: Theme.of(context).colorScheme.primary
                       ),
                       /// NOMBRE DE PIECE
-                      Divider(),
+                      const Divider(),
                       const Text('Nombre de pièces',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
@@ -457,7 +457,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                               }
                             });
                           },
-                              icon: Icon(Icons.remove)
+                              icon: const Icon(Icons.remove)
                           ),
                           Text('${model.nombreDePieces}',
                             style: TextStyle(
@@ -471,13 +471,13 @@ class _ModifPlaceState extends State<ModifPlace> {
                               }
                             });
                           },
-                              icon: Icon(Icons.add)
+                              icon: const Icon(Icons.add)
                           ),
                         ],
                       ),
 
                       /// NOMBRE DE PIECE d'eau
-                      Divider(),
+                      const Divider(),
                       const Text('Nombre de salles d\'eau',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
@@ -492,7 +492,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                               }
                             });
                           },
-                              icon: Icon(Icons.remove)
+                              icon: const Icon(Icons.remove)
                           ),
                           Text('${model.nombreDeSalleDeau}',
                             style: TextStyle(
@@ -506,17 +506,17 @@ class _ModifPlaceState extends State<ModifPlace> {
                               }
                             });
                           },
-                              icon: Icon(Icons.add)
+                              icon: const Icon(Icons.add)
                           ),
                         ],
                       ),
 
                       ///TYPE
-                      Divider(),
+                      const Divider(),
                       const Text('Commoditées additionnelles',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
                       /// Has Cours avant
                       CheckboxListTile(
                           value: model.hasCoursAvant,
@@ -615,11 +615,11 @@ class _ModifPlaceState extends State<ModifPlace> {
                       ),
 
                       ///Description
-                      Divider(),
+                      const Divider(),
                       const Text('Description',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                      Divider(),
+                      const Divider(),
 
                       /// description field
                       Padding(
@@ -653,7 +653,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                                   borderRadius: BorderRadius.circular(10)),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 color: Colors.black,
                               )),
                           onChanged: (value) {
@@ -665,7 +665,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                       ),
 
 
-                      Divider(),
+                      const Divider(),
                       const Text('Information du propriétaire (facultatifs)',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
@@ -674,7 +674,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           keyboardType: TextInputType.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
@@ -698,7 +698,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           keyboardType: TextInputType.phone,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
@@ -728,7 +728,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                           onPressed: () {
 
                             if (_formKey.currentState!.validate()) {
-                              model.modifPlace();
+                              // model.modifPlace();
                             }
                             },
                           style: TextButton.styleFrom(

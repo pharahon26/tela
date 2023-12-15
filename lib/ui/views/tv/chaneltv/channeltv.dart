@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:tela/services/tv_service.dart';
 import 'package:tela/ui/views/tv/chaneltv/chaneltvViewModel.dart';
 import 'package:tela/ui/views/tv/pubWidget/publicite.dart';
-import 'package:tela/ui/widget/tela_t_v_programe_card.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../../app/app.locator.dart';
 
 class ChanelTv extends StatefulWidget {
   const ChanelTv({super.key});
@@ -21,9 +21,17 @@ class _ChanelTvState extends State<ChanelTv> {
   'assets/images/rediffusion.jpg',
   'assets/images/films.jpg',
 ];
-  Widget pub = PubliciteWidget();
+  Widget pub = const PubliciteWidget();
 
+  final TVService _tvService = locator<TVService>();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _tvService.playing;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,31 +75,31 @@ class _ChanelTvState extends State<ChanelTv> {
                         onPressed: (){
                           model.navigateToAcceuil();
                         },
-                        child: Text('Acceuil')
+                        child: const Text('Acceuil')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToProfile();
                         },
-                        child: Text('profile')
+                        child: const Text('profile')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToRechercheLogement();
                         },
-                        child: Text('Trouver un logement')
+                        child: const Text('Trouver un logement')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToRechercheBureau();
                         },
-                        child: Text('Trouver un Bureau')
+                        child: const Text('Trouver un Bureau')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToEbank();
                         },
-                        child: Text('Tela Finance')
+                        child: const Text('Tela Finance')
                     ),
                     TextButton(
                         onPressed: (){
@@ -101,7 +109,7 @@ class _ChanelTvState extends State<ChanelTv> {
                           backgroundColor: Colors.deepOrange,
 
                         ),
-                        child: Text('Tela TV',
+                        child: const Text('Tela TV',
                           style: TextStyle(
                             color: Colors.white
                           ),
@@ -121,7 +129,7 @@ class _ChanelTvState extends State<ChanelTv> {
                     children: imgs.map((e) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: () => e == 'assets/images/différé.jpg'? model.navigateToLiveTV2() :model.navigateToprogTV(),
+                        onTap: () => (e == 'assets/images/sport.jpg')? model.navigateToLiveTVSport() :( e == 'assets/images/live.jpg')? model.navigateToLive() :model.navigateToLiveTV(),
                           child: Image.asset(e,
                             width: mq.size.width-80,
                             fit: BoxFit.fitWidth,)
@@ -134,5 +142,10 @@ class _ChanelTvState extends State<ChanelTv> {
           )
       ),
     );
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _tvService.pausePub();
   }
 }

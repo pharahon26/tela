@@ -110,7 +110,7 @@ class TelaBankEpargne{
     TelaBankEpargne u = TelaBankEpargne(
       eBankId: json["ebank_profil_id"],
       balance: double.parse(json["balance"].toString()),
-      amountFrezze: double.parse(json["amount_freeze"].toString()),
+      amountFrezze: double.parse((json["amount_freeze"]??0).toString()),
       eBankProfile: json["ebank_profil"],
       debutEpargne: DateTime.parse(json["debut_epargne"]),
       finEpargne: DateTime.parse(json["fin_epargne"]),

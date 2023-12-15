@@ -7,11 +7,9 @@ import 'package:tela/ui/views/camera/cameraViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 
-/**
- * Created by Laty 26 PHARAHON entertainment on 15/09/2021.
- */
+/// Created by Laty 26 PHARAHON entertainment on 15/09/2021.
 class CameraView extends StatefulWidget {
-  const CameraView() : super();
+  const CameraView({super.key});
 
   @override
   _CameraViewState createState() => _CameraViewState();
@@ -19,7 +17,7 @@ class CameraView extends StatefulWidget {
 
 class _CameraViewState extends State<CameraView> {
 
-  TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
+  final TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
 
 
   late CameraController _cameraController;
@@ -101,14 +99,14 @@ class _CameraViewState extends State<CameraView> {
               ),
               Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         IconButton(
                           onPressed: () => setState(() {
                             _flash = !_flash;
@@ -133,9 +131,9 @@ class _CameraViewState extends State<CameraView> {
 
                                 });
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                   content: Text('Pas de seconde camera trouvé'),
-                                  duration: const Duration(seconds: 2),
+                                  duration: Duration(seconds: 2),
                                 ));
                               }
                             },

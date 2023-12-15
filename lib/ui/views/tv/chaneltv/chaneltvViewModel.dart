@@ -8,11 +8,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 class ChannelTvViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  TVService _tvService = locator<TVService>();
-  AuthService _authService = locator<AuthService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final TVService _tvService = locator<TVService>();
+  final AuthService _authService = locator<AuthService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
   List<TelaProgrammeTV> program = [];
   ChannelTvViewModel(){
@@ -20,35 +20,49 @@ class ChannelTvViewModel extends BaseViewModel{
   }
 
   void navigateToEbank() async{
+    _tvService.pausePub();
     await _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
   }
   void navigateToProfile() async{
+    _tvService.pausePub();
     await _navigationService.navigateTo(Routes.profile);
   }
   void navigateToTV() async{
+    _tvService.pausePub();
     await _navigationService.navigateTo(Routes.chanelTv);
   }
   void navigateToprogTV() async{
+    _tvService.pausePub();
     await _navigationService.navigateTo(Routes.programmeTv);
   }
 
   void navigateToRechercheBureau() async{
+    _tvService.pausePub();
     await _navigationService.navigateToRecherche(isBureau: true);
   }
   void navigateToRechercheLogement() async{
+    _tvService.pausePub();
     await _navigationService.navigateToRecherche(isBureau: false);
   }
   void navigateToGalery() async{
+    _tvService.pausePub();
     await _navigationService.navigateTo(Routes.catalogue);
   }
   void navigateToAcceuil() async{
+    _tvService.pausePub();
     await _navigationService.navigateTo(Routes.acceuil);
   }
-  void navigateToLiveTV(TelaProgrammeTV programmeTV) async{
-    await _navigationService.navigateToTv(programmeTV: programmeTV);
+  void navigateToLiveTV() async{
+    _tvService.pausePub();
+    await _navigationService.navigateToBientot();
   }
-  void navigateToLiveTV2() async{
-    await _navigationService.navigateToTv2(link: 'https://www.telaci.com/assets/videos/exclu_tela.mp4');
+  void navigateToLiveTVSport() async{
+    _tvService.pausePub();
+    await _navigationService.navigateToTvSport(link: 'https://www.telaci.com/assets/videos/exclu_tela.mp4');
+  }
+  void navigateToLive() async{
+    _tvService.pausePub();
+    await _navigationService.navigateToTvSport(link: 'https://www.telaci.com/assets/videos/annonces/1million.mp4');
   }
 
 

@@ -8,13 +8,13 @@ import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   AuthService authService = locator<AuthService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
-  bool _isA = false;
+  final bool _isA = false;
 
 
   Stream<bool> get isAuth => authService.isConnected;

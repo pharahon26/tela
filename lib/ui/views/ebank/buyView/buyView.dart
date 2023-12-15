@@ -1,15 +1,15 @@
+import 'package:cinetpay/cinetpay.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tela/models/abonnement.dart';
 import 'package:tela/models/abonnementType.dart';
 import 'package:tela/models/transactions.dart';
 import 'package:tela/ui/views/ebank/buyView/buyViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-import 'dart:async';
 import 'dart:math';
 
-import 'package:cinetpay/cinetpay.dart';
-import 'package:get/get.dart';
 
 
 class BuyView extends StatefulWidget {
@@ -29,10 +29,11 @@ class _BuyViewState extends State<BuyView> {
   bool show = false;
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mq =MediaQuery.of(context);
     return ViewModelBuilder<BuyViewModel>.reactive(
       viewModelBuilder: () => BuyViewModel(),
       builder: (context, model, child) => Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
@@ -47,7 +48,7 @@ class _BuyViewState extends State<BuyView> {
             elevation: 5,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -77,116 +78,103 @@ class _BuyViewState extends State<BuyView> {
                                 show ? Text(message!) : Container(),
                                 show ? const SizedBox(height: 50.0) : Container(),
                                 Text('${widget.abonement.title} ${widget.abonement.type} : ${widget.abonement.price} FCFA',
-                                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 40.0),
                                 ElevatedButton(
+                                  style: TextButton.styleFrom(
+                                    elevation: 8,
+                                    minimumSize: Size(mq.size.width*0.7, 30),
+                                    backgroundColor: Theme.of(context).colorScheme.primary,
+                                    shape: const StadiumBorder(),
+                                  ),
                                   child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay'),
                                   onPressed: () async {
 
-                                    final String transactionId = Random()
-                                        .nextInt(100000000)
-                                        .toString(); // Mettre en place un endpoint à contacter côté serveur pour générer des ID unique dans votre BD
+
+                                    // print('Payement..................................');
+                                    // /// send abonnement
+                                    // TelaTransaction transaction = TelaTransaction(
+                                    //   id: 0,
+                                    //   type: widget.abonement.type,
+                                    //   paymentWay: 'Orange',
+                                    //   transactionNumber: snapshot.data!,
+                                    //   operationId: 'ggggg',
+                                    //   amount: widget.abonement.price.toDouble(),
+                                    //   date: DateTime.now(),
+                                    // );
+
+
+                                    // await model.pushTransaction(transaction, widget.abonement);
+                                    await Get.to(CinetPayCheckout(
+                                      title: 'Payment Tela',
+                                      titleStyle: const TextStyle(
+                                          fontSize: 20, fontWeight: FontWeight.bold),
+                                      titleBackgroundColor: Theme.of(context).colorScheme.primary,
+                                      configData: <String, dynamic>{
+                                        'apikey': '412126359654bb6ed651509.14435556',
+                                        'site_id': int.parse("5865665"),
+                                      },
+                                      paymentData: <String, dynamic>{
+                                        'transaction_id': snapshot.data!,
+                                        'amount': widget.abonement.price,
+                                        'currency': 'XOF',
+                                        'channels': 'ALL',
+                                        'description': 'Payment Abonnement ${model.user!.phone}',
+                                      },
+                                      waitResponse: (data) async {
+                                        if (mounted) {
+                                          response = data;
+                                          /// send abonnement
+
+                                          if (data['status'] == 'ACCEPTED') {
+                                            /// create transaction
+                                            TelaTransaction _transaction = TelaTransaction(
+                                                id: 0,
+                                                type: widget.abonement.type,
+                                                paymentWay: data['payment_method ']??'Orange',
+                                                transactionNumber: snapshot.data!,
+                                                operationId: data['operator_id']??'',
+                                                amount: double.parse(data['amount']??widget.abonement.price),
+                                                date: data['date']??'2023-10-26'
+                                            );
+
+                                            await model.pushTransaction(_transaction, widget.abonement);
 
 
 
-                                    print('Payement..................................');
-                                    /// send abonnement
-                                    TelaTransaction _transaction = TelaTransaction(
-                                      id: 0,
-                                      type: widget.abonement.type,
-                                      paymentWay: 'Orange',
-                                      transactionNumber: snapshot.data!,
-                                      operationId: 'ggggg',
-                                      amount: widget.abonement.price.toDouble(),
-                                      date: DateTime.now(),
-                                    );
+                                            /// save transaction to server and pop out after dialog
 
-
-                                    await model.pushTransaction(_transaction, widget.abonement);
-                                    // await Get.to(CinetPayCheckout(
-                                    //   title: 'Payment Tela',
-                                    //   titleStyle: const TextStyle(
-                                    //       fontSize: 20, fontWeight: FontWeight.bold),
-                                    //   titleBackgroundColor: Theme.of(context).colorScheme.primary,
-                                    //   configData: <String, dynamic>{
-                                    //     'apikey': '412126359654bb6ed651509.14435556',
-                                    //     'site_id': int.parse("5865665"),
-                                    //   },
-                                    //   paymentData: <String, dynamic>{
-                                    //     'transaction_id': transactionId,
-                                    //     'amount': widget.abonement.price,
-                                    //     'currency': 'XOF',
-                                    //     'channels': 'ALL',
-                                    //     'description': 'Payment test',
-                                    //     'customer_name': model.user!.nom,
-                                    //     'customer_surname':  model.user!.prenom,
-                                    //     'customer_phone_number': model.user!.phone,
-                                    //   },
-                                    //   waitResponse: (data) async {
-                                    //     if (mounted) {
-                                    //       print('Payement..................................');
-                                    //       response = data;
-                                    //       /// send abonnement
-                                    //       TelaTransaction _transaction = TelaTransaction(
-                                    //           id: 0,
-                                    //           type: widget.abonement.type,
-                                    //           paymentWay: data['payment_method ']??'Orange',
-                                    //           transactionNumber: transactionId,
-                                    //           operationId: data['operator_id']??'',
-                                    //           amount: double.parse(data['amount']??widget.abonement.price),
-                                    //           date: data['date']??'2023-10-26'
-                                    //       );
-                                    //
-                                    //       Abonnement ab = Abonnement(
-                                    //           id: 0,
-                                    //           type: widget.abonement.type,
-                                    //           userId: model.user!.id,
-                                    //           transactionId: int.parse(transactionId),
-                                    //           abonnementTypeID: widget.abonement.id,
-                                    //           start: DateTime.now(),
-                                    //           end: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
-                                    //           abonnementType: widget.abonement
-                                    //       );
-                                    //
-                                    //       await model.pushTransaction(_transaction, ab);
-                                    //
-                                    //       if (data['status'] == 'ACCEPTED') {
-                                    //         /// create transaction
-                                    //
-                                    //
-                                    //         /// save transaction to server and pop out after dialog
-                                    //
-                                    //       }
-                                    //       setState(() {
-                                    //         print(response);
-                                    //         icon = data['status'] == 'ACCEPTED'
-                                    //             ? Icons.check_circle
-                                    //             : Icons.mood_bad_rounded;
-                                    //         color = data['status'] == 'ACCEPTED'
-                                    //             ? Colors.green
-                                    //             : Colors.redAccent;
-                                    //         show = true;
-                                    //         Get.back();
-                                    //       });
-                                    //     }
-                                    //   },
-                                    //   onError: (data) {
-                                    //     if (mounted) {
-                                    //       print('Error Payement');
-                                    //       setState(() {
-                                    //         response = data;
-                                    //         message = response!['description'];
-                                    //         print(response);
-                                    //         icon = Icons.warning_rounded;
-                                    //         color = Colors.yellowAccent;
-                                    //         show = true;
-                                    //         Get.back();
-                                    //       });
-                                    //     }
-                                    //   },
-                                    // ));
+                                          }
+                                          setState(() {
+                                            print(response);
+                                            icon = data['status'] == 'ACCEPTED'
+                                                ? Icons.check_circle
+                                                : Icons.mood_bad_rounded;
+                                            color = data['status'] == 'ACCEPTED'
+                                                ? Colors.green
+                                                : Colors.redAccent;
+                                            show = true;
+                                            Get.back();
+                                          });
+                                        }
+                                      },
+                                      onError: (data) {
+                                        if (mounted) {
+                                          print('Error Payement');
+                                          setState(() {
+                                            response = data;
+                                            message = response!['description'];
+                                            print(response);
+                                            icon = Icons.warning_rounded;
+                                            color = Colors.yellowAccent;
+                                            show = true;
+                                            Get.back();
+                                          });
+                                        }
+                                      },
+                                    ));
                                   },
                                 )
                               ],
@@ -194,133 +182,120 @@ class _BuyViewState extends State<BuyView> {
                           ],
                         ));
                     case ConnectionState.done:
-                    return Center(
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                show ? Icon(icon, color: color, size: 150) : Container(),
-                                show ? Text(message!) : Container(),
-                                show ? const SizedBox(height: 50.0) : Container(),
-                                Text('${widget.abonement.title} ${widget.abonement.type} : ${widget.abonement.price} FCFA',
-                                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 40.0),
-                                ElevatedButton(
-                                  child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay'),
-                                  onPressed: () async {
-
-                                    final String transactionId = Random()
-                                        .nextInt(100000000)
-                                        .toString(); // Mettre en place un endpoint à contacter côté serveur pour générer des ID unique dans votre BD
-
-
-
-                                    print('Payement..................................');
-                                    /// send abonnement
-                                    TelaTransaction _transaction = TelaTransaction(
-                                      id: 0,
-                                      type: widget.abonement.type,
-                                      paymentWay: 'Orange',
-                                      transactionNumber: transactionId,
-                                      operationId: 'ggggg',
-                                      amount: widget.abonement.price.toDouble(),
-                                      date: DateTime.now(),
-                                    );
+                      return Center(
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  show ? Icon(icon, color: color, size: 150) : Container(),
+                                  show ? Text(message!) : Container(),
+                                  show ? const SizedBox(height: 50.0) : Container(),
+                                  Text('${widget.abonement.title} ${widget.abonement.type} : ${widget.abonement.price} FCFA',
+                                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 40.0),
+                                  ElevatedButton(
+                                    style: TextButton.styleFrom(
+                                      elevation: 8,
+                                      minimumSize: Size(mq.size.width*0.7, 30),
+                                      backgroundColor: Theme.of(context).colorScheme.primary,
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay'),
+                                    onPressed: () async {
 
 
-                                    await model.pushTransaction(_transaction, widget.abonement);
-                                    // await Get.to(CinetPayCheckout(
-                                    //   title: 'Payment Tela',
-                                    //   titleStyle: const TextStyle(
-                                    //       fontSize: 20, fontWeight: FontWeight.bold),
-                                    //   titleBackgroundColor: Theme.of(context).colorScheme.primary,
-                                    //   configData: <String, dynamic>{
-                                    //     'apikey': '412126359654bb6ed651509.14435556',
-                                    //     'site_id': int.parse("5865665"),
-                                    //   },
-                                    //   paymentData: <String, dynamic>{
-                                    //     'transaction_id': transactionId,
-                                    //     'amount': widget.abonement.price,
-                                    //     'currency': 'XOF',
-                                    //     'channels': 'ALL',
-                                    //     'description': 'Payment test',
-                                    //     'customer_name': model.user!.nom,
-                                    //     'customer_surname':  model.user!.prenom,
-                                    //     'customer_phone_number': model.user!.phone,
-                                    //   },
-                                    //   waitResponse: (data) async {
-                                    //     if (mounted) {
-                                    //       print('Payement..................................');
-                                    //       response = data;
-                                    //       /// send abonnement
-                                    //       TelaTransaction _transaction = TelaTransaction(
-                                    //           id: 0,
-                                    //           type: widget.abonement.type,
-                                    //           paymentWay: data['payment_method ']??'Orange',
-                                    //           transactionNumber: transactionId,
-                                    //           operationId: data['operator_id']??'',
-                                    //           amount: double.parse(data['amount']??widget.abonement.price),
-                                    //           date: data['date']??'2023-10-26'
-                                    //       );
-                                    //
-                                    //       Abonnement ab = Abonnement(
-                                    //           id: 0,
-                                    //           type: widget.abonement.type,
-                                    //           userId: model.user!.id,
-                                    //           transactionId: int.parse(transactionId),
-                                    //           abonnementTypeID: widget.abonement.id,
-                                    //           start: DateTime.now(),
-                                    //           end: DateUtils.addMonthsToMonthDate(DateTime.now(), 1),
-                                    //           abonnementType: widget.abonement
-                                    //       );
-                                    //
-                                    //       await model.pushTransaction(_transaction, ab);
-                                    //
-                                    //       if (data['status'] == 'ACCEPTED') {
-                                    //         /// create transaction
-                                    //
-                                    //
-                                    //         /// save transaction to server and pop out after dialog
-                                    //
-                                    //       }
-                                    //       setState(() {
-                                    //         print(response);
-                                    //         icon = data['status'] == 'ACCEPTED'
-                                    //             ? Icons.check_circle
-                                    //             : Icons.mood_bad_rounded;
-                                    //         color = data['status'] == 'ACCEPTED'
-                                    //             ? Colors.green
-                                    //             : Colors.redAccent;
-                                    //         show = true;
-                                    //         Get.back();
-                                    //       });
-                                    //     }
-                                    //   },
-                                    //   onError: (data) {
-                                    //     if (mounted) {
-                                    //       print('Error Payement');
-                                    //       setState(() {
-                                    //         response = data;
-                                    //         message = response!['description'];
-                                    //         print(response);
-                                    //         icon = Icons.warning_rounded;
-                                    //         color = Colors.yellowAccent;
-                                    //         show = true;
-                                    //         Get.back();
-                                    //       });
-                                    //     }
-                                    //   },
-                                    // ));
-                                  },
-                                )
-                              ],
-                            ),
-                          ],
-                        ));
+                                      // print('Payement..................................');
+                                      // /// send abonnement
+                                      // TelaTransaction transaction = TelaTransaction(
+                                      //   id: 0,
+                                      //   type: widget.abonement.type,
+                                      //   paymentWay: 'Orange',
+                                      //   transactionNumber: snapshot.data!,
+                                      //   operationId: 'ggggg',
+                                      //   amount: widget.abonement.price.toDouble(),
+                                      //   date: DateTime.now(),
+                                      // );
+
+
+                                      // await model.pushTransaction(transaction, widget.abonement);
+                                      await Get.to(CinetPayCheckout(
+                                        title: 'Payment Tela',
+                                        titleStyle: const TextStyle(
+                                            fontSize: 20, fontWeight: FontWeight.bold),
+                                        titleBackgroundColor: Theme.of(context).colorScheme.primary,
+                                        configData: <String, dynamic>{
+                                          'apikey': '412126359654bb6ed651509.14435556',
+                                          'site_id': int.parse("5865665"),
+                                        },
+                                        paymentData: <String, dynamic>{
+                                          'transaction_id': snapshot.data!,
+                                          'amount': widget.abonement.price,
+                                          'currency': 'XOF',
+                                          'channels': 'ALL',
+                                          'description': 'Payment Abonnement ${model.user!.phone}',
+                                        },
+                                        waitResponse: (data) async {
+                                          if (mounted) {
+                                            response = data;
+                                            /// send abonnement
+
+                                            if (data['status'] == 'ACCEPTED') {
+                                              /// create transaction
+                                              TelaTransaction _transaction = TelaTransaction(
+                                                  id: 0,
+                                                  type: widget.abonement.type,
+                                                  paymentWay: data['payment_method ']??'Orange',
+                                                  transactionNumber: snapshot.data!,
+                                                  operationId: data['operator_id']??'',
+                                                  amount: double.parse(data['amount']??widget.abonement.price),
+                                                  date: data['date']??'2023-10-26'
+                                              );
+
+                                              await model.pushTransaction(_transaction, widget.abonement);
+
+
+
+                                              /// save transaction to server and pop out after dialog
+
+                                            }
+                                            setState(() {
+                                              print(response);
+                                              icon = data['status'] == 'ACCEPTED'
+                                                  ? Icons.check_circle
+                                                  : Icons.mood_bad_rounded;
+                                              color = data['status'] == 'ACCEPTED'
+                                                  ? Colors.green
+                                                  : Colors.redAccent;
+                                              show = true;
+                                              Get.back();
+                                            });
+                                          }
+                                        },
+                                        onError: (data) {
+                                          if (mounted) {
+                                            print('Error Payement');
+                                            setState(() {
+                                              response = data;
+                                              message = response!['description'];
+                                              print(response);
+                                              icon = Icons.warning_rounded;
+                                              color = Colors.yellowAccent;
+                                              show = true;
+                                              Get.back();
+                                            });
+                                          }
+                                        },
+                                      ));
+                                    },
+                                  )
+                                ],
+                              ),
+                            ],
+                          ));
                   }
 
                 }

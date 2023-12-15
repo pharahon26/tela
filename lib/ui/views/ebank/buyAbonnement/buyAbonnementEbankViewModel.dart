@@ -5,16 +5,17 @@ import 'package:tela/models/user.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tela/services/transaction_service.dart';
 
 class BuyAbonnementEbankViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
-  AuthService _authService = locator<AuthService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final AuthService _authService = locator<AuthService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final TransactionService _transactionService = locator<TransactionService>();
 
-  bool _isA = false;
+  final bool _isA = false;
   List<AbonnementType> abonnements = [];
 
   Stream<bool> get isAuth => _authService.isConnected;
@@ -24,35 +25,8 @@ class BuyAbonnementEbankViewModel extends BaseViewModel{
     abonnements = _authService.abonnementType;
   }
 
-  void navigateToEbank() async{
-    await _navigationService.navigateTo(Routes.bank);
-  }
-  void navigateToProfile() async{
-    await _navigationService.navigateTo(Routes.profile);
-  }
-  void navigateToTV() async{
-    await _navigationService.navigateTo(Routes.chanelTv);
-  }
-  void navigateToRechercheBureau() async{
-    await _navigationService.navigateToRecherche(isBureau: true);
-  }
-  void navigateToRechercheLogement() async{
-    await _navigationService.navigateToRecherche(isBureau: false);
-  }
-  void navigateToGalery() async{
-    await _navigationService.navigateTo(Routes.catalogue);
-  }
-  void navigateToAcceuil() async{
-    await _navigationService.navigateTo(Routes.acceuil);
-  }
-  void navigateToSignIn() async{
-    await _navigationService.navigateTo(Routes.signInView);
-  }
-  void navigateToLogIn() async{
-    await _navigationService.navigateTo(Routes.loginView);
-  }
-  void navigateToBuyView( AbonnementType abonnement) async{
-    await _navigationService.navigateToBuyView(abonement: abonnement);
+  Future buyAbonnement( AbonnementType abonnement) async{
+    await _transactionService.buyAbonnementFromEbank(abonnement: abonnement, profile: _authService.bankProfile!, user: _authService.user!);
   }
 
   void navigateToCGUFinance() async{

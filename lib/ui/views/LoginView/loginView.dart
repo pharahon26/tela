@@ -6,7 +6,7 @@ import 'loginViewModel.dart';
 // home widget
 class LoginView extends StatefulWidget {
 
-  LoginView();
+  const LoginView({super.key});
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -24,17 +24,17 @@ class _LoginViewState extends State<LoginView>
   bool loading = false;
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Connexion', style: TextStyle(color: Colors.white)),
+            title: const Text('Connexion', style: TextStyle(color: Colors.white)),
             centerTitle: true,
             backgroundColor: Theme.of(context).colorScheme.primary,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -44,7 +44,7 @@ class _LoginViewState extends State<LoginView>
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(8.0),
-              height: _mediaQuery.size.height - 50,
+              height: mediaQuery.size.height - 50,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
@@ -56,10 +56,10 @@ class _LoginViewState extends State<LoginView>
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 40.0,
                         ),
-                        Container(
+                        SizedBox(
                           height: 120.0,
                           width: 120.0,
                           child: Image.asset(
@@ -67,7 +67,7 @@ class _LoginViewState extends State<LoginView>
                             fit: BoxFit.contain,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
 
@@ -77,7 +77,7 @@ class _LoginViewState extends State<LoginView>
                           child: TextFormField(
                             initialValue: model.phone,
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                             ),
                             decoration: InputDecoration(
@@ -110,7 +110,7 @@ class _LoginViewState extends State<LoginView>
                             autofocus: true,
                             keyboardType:  TextInputType.visiblePassword,
                             obscureText: !isPasswordVisible,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black
                             ),
                             decoration: InputDecoration(
@@ -156,7 +156,7 @@ class _LoginViewState extends State<LoginView>
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
 
@@ -179,7 +179,7 @@ class _LoginViewState extends State<LoginView>
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                            padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                             child: Text(error.toString(),
                               textAlign: TextAlign.center,
                               maxLines: 20,
@@ -215,7 +215,7 @@ class _LoginViewState extends State<LoginView>
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  fixedSize: Size(_mediaQuery.size.width - 20, 40),
+                  fixedSize: Size(mediaQuery.size.width - 20, 40),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
               ),
               child: Padding(
@@ -239,8 +239,4 @@ class _LoginViewState extends State<LoginView>
         ));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

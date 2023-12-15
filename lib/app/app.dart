@@ -1,5 +1,4 @@
 
-import 'package:tela/services/TelaNotification.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:tela/services/place_service.dart';
 import 'package:tela/services/telaSharedPrefs.dart';
@@ -25,6 +24,7 @@ import 'package:tela/ui/views/ebank/ebankSignInView/ebankSignInView.dart';
 import 'package:tela/ui/views/ebank/renewVisitePass/renewPassView.dart';
 import 'package:tela/ui/views/ebank/retrait/retrait.dart';
 import 'package:tela/ui/views/ebank/versement/versement.dart';
+import 'package:tela/ui/views/ebank/versement_ret/versement_ret.dart';
 import 'package:tela/ui/views/immo/catalogue/catalogue.dart';
 import 'package:tela/ui/views/immo/imageNav/imgeNav.dart';
 import 'package:tela/ui/views/immo/maisonVisite/maisonVisite.dart';
@@ -35,12 +35,14 @@ import 'package:tela/ui/views/immo/recherche/recherche.dart';
 import 'package:tela/ui/views/immo/resultat/resultat.dart';
 import 'package:tela/ui/views/immo/visite/visite.dart';
 import 'package:tela/ui/views/profile/profile.dart';
+import 'package:tela/ui/views/tv/bientot.dart';
 import 'package:tela/ui/views/tv/chaneltv/channeltv.dart';
 import 'package:tela/ui/views/tv/programmetv/programmetv.dart';
 import 'package:tela/ui/views/tv/tv/tv.dart';
-import 'package:tela/ui/views/tv2/tv2.dart';
+import 'package:tela/ui/views/tv/tv_live/tv_live.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tela/ui/views/tv_sport/tv_sport.dart';
 
 
 
@@ -62,6 +64,7 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: Depot),
       MaterialRoute(page: Retrait),
       MaterialRoute(page: Versement),
+      MaterialRoute(page: VersementRet),
       MaterialRoute(page: Catalogue),
       MaterialRoute(page: MyVisite),
       MaterialRoute(page: NewPlace),
@@ -74,8 +77,10 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: ImageNav),
       MaterialRoute(page: ProgrammeTv),
       MaterialRoute(page: ChanelTv),
+      MaterialRoute(page: Bientot),
       MaterialRoute(page: Tv),
-      MaterialRoute(page: Tv2),
+      MaterialRoute(page: TvSport),
+      MaterialRoute(page: TvLive),
       MaterialRoute(page: BuyView),
       MaterialRoute(page: BuyVisitePass),
       MaterialRoute(page: BuyPassView),
@@ -84,11 +89,11 @@ import 'package:stacked_services/stacked_services.dart';
     ],
     dependencies: [
       InitializableSingleton(classType: TelaSharedPrefs),
+      InitializableSingleton(classType: TVService),
       // InitializableSingleton(classType: TelaNotification),
       Singleton(classType: AuthService),
       Singleton(classType: PlaceService),
       Singleton(classType: TransactionService),
-      Singleton(classType: TVService),
       LazySingleton(classType: NavigationService),
       LazySingleton(classType: DialogService),
       LazySingleton(classType: BottomSheetService),

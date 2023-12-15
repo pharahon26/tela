@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tela/ui/views/SignInView/signInViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -8,7 +7,7 @@ import 'package:stacked/stacked.dart';
 // home widget
 class SignInView extends StatefulWidget {
 
-  SignInView();
+  const SignInView({super.key});
 
   @override
   _SignInViewState createState() => _SignInViewState();
@@ -28,17 +27,17 @@ class _SignInViewState extends State<SignInView>
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return ViewModelBuilder<SignInViewModel>.reactive(
         viewModelBuilder: () => SignInViewModel(),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
-                title: Text('Inscription', style: TextStyle(color: Colors.white)),
+                title: const Text('Inscription', style: TextStyle(color: Colors.white)),
                 centerTitle: true,
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 leading: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(Icons.arrow_back_ios_new,
+                  child: const Icon(Icons.arrow_back_ios_new,
                     color: Colors.white,
                   ),
                 ),
@@ -58,15 +57,15 @@ class _SignInViewState extends State<SignInView>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Divider(),
+                            const Divider(),
                             const Text('Photo',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             /// photo
                             SizedBox(
-                              height: _mediaQuery.size.width,
-                              width: _mediaQuery.size.width,
+                              height: mediaQuery.size.width,
+                              width: mediaQuery.size.width,
                               child: InkWell(
                                 child: model.photo != null? Image.file(model.photo!,
                                   fit: BoxFit.contain,
@@ -86,17 +85,17 @@ class _SignInViewState extends State<SignInView>
                             ),
 
 
-                            Divider(),
+                            const Divider(),
                             const Text('Informations',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             /// nom field
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -126,7 +125,7 @@ class _SignInViewState extends State<SignInView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 keyboardType: TextInputType.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -157,7 +156,7 @@ class _SignInViewState extends State<SignInView>
                               child: TextFormField(
                                 autofocus: true,
                                 keyboardType: TextInputType.phone,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -194,7 +193,7 @@ class _SignInViewState extends State<SignInView>
                               child: TextFormField(
                                 keyboardType:  TextInputType.visiblePassword,
                                 obscureText: !isPasswordVisible,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black
                                 ),
                                 decoration: InputDecoration(
@@ -238,7 +237,7 @@ class _SignInViewState extends State<SignInView>
                               child: TextFormField(
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: !isPasswordVisible2,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
@@ -288,7 +287,7 @@ class _SignInViewState extends State<SignInView>
                               padding: const EdgeInsets.all(8.0),
                               child: TextButton(
                                   onPressed: () => model.navigateToCGU(),
-                                  child: Text('cliquez ICI pour consulter nos conditions générales d\'itulisation',
+                                  child: const Text('cliquez ICI pour consulter nos conditions générales d\'itulisation',
                                     maxLines: 2,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -345,7 +344,7 @@ class _SignInViewState extends State<SignInView>
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                                       child: Text(error.toString(),
                                         textAlign: TextAlign.center,
                                         maxLines: 20,
@@ -424,11 +423,11 @@ class _SignInViewState extends State<SignInView>
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: model.isAccepted? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.primary.withOpacity(0.6),
-                      fixedSize: Size(_mediaQuery.size.width - 20, 40),
+                      fixedSize: Size(mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 80.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 80.0),
                     child: Visibility(
                       visible: !loading,
                       replacement: const CircularProgressIndicator(color: Colors.white,),
@@ -448,8 +447,4 @@ class _SignInViewState extends State<SignInView>
             ));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

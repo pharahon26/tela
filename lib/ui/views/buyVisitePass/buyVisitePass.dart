@@ -8,7 +8,7 @@ class BuyVisitePass extends StatefulWidget {
   final bool isVisite;
   final bool isRenew;
 
-  BuyVisitePass({super.key, required this.isVisite, this.isRenew = false});
+  const BuyVisitePass({super.key, required this.isVisite, this.isRenew = false});
 
   @override
   State<BuyVisitePass> createState() => _BuyVisitePassState();
@@ -36,7 +36,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
             elevation: 5,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back_ios_new,
+              child: const Icon(Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -67,7 +67,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                               onTap: () => widget.isRenew? model.navigateToRenewView(e) : model.navigateToBuyView(e),
                               child: Container(
                                 height: mq.size.height/4,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     gradient: LinearGradient(
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
@@ -79,7 +79,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                                   children: [
                                     Text('${e.price} FCFA',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,
@@ -90,7 +90,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                                       visible: e.isVisite,
                                       child: Text('Pour Consulter ${e.numberOfVisites} logements',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 24,
                                             fontWeight: FontWeight.w600,
@@ -102,7 +102,7 @@ class _BuyVisitePassState extends State<BuyVisitePass> {
                                       visible: !e.isVisite,
                                       child: Text('Pass ${e.isVisite? 'Visite' : 'TV'}',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600,

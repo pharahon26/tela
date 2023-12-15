@@ -9,9 +9,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 class LoginViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  AuthService _authService = locator<AuthService>();
-  TelaSharedPrefs _sharedPrefs = locator<TelaSharedPrefs>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
+  final TelaSharedPrefs _sharedPrefs = locator<TelaSharedPrefs>();
   String phone='';
   String password='';
 
@@ -19,7 +19,7 @@ class LoginViewModel extends BaseViewModel{
   LoginViewModel(){
     getPhone();
     _authService.getAbonnementSaved();
-    print('***** Phone ${phone} ****');
+    print('***** Phone $phone ****');
   }
 
   Future login() async {
@@ -36,7 +36,7 @@ class LoginViewModel extends BaseViewModel{
 
   void getPhone() async {
     phone = _sharedPrefs.getPhoneNumber()??'';
-    print('***** Phone ${phone} ****');
+    print('***** Phone $phone ****');
     notifyListeners();
   }
 
@@ -46,8 +46,4 @@ class LoginViewModel extends BaseViewModel{
 
   // void fakeLogin(){C
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

@@ -6,9 +6,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 class EpargneViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
   AuthService authService = locator<AuthService>();
 
 
@@ -30,7 +30,9 @@ class EpargneViewModel extends BaseViewModel{
     await _navigationService.navigateToVersement();
   }
 
-  verserSurCompte() {}
+  verserSurCompte() {
+    _navigationService.navigateToVersementRet();
+  }
 
 
 }

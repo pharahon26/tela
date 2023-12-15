@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tela/models/programetv.dart';
 import 'package:tela/ui/views/tv/tv/tvViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -99,9 +98,7 @@ class _TvState extends State<Tv> {
   @override
   void dispose() {
     super.dispose();
-    if(videoController != null){
-      videoController.dispose();
+    videoController.dispose();
     }
-  }
 
 }

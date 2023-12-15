@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 class ProfileClipper extends CustomClipper<Path>{
   @override

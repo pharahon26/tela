@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:marquee/marquee.dart';
 import 'package:tela/ui/views/acceuil/acceuilViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -70,7 +68,7 @@ class _AcceuilState extends State<Acceuil> {
                     ),
                     elevation: 5,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
@@ -110,7 +108,7 @@ class _AcceuilState extends State<Acceuil> {
                           backgroundColor: Theme.of(context).colorScheme.primary,
 
                         ),
-                        child: Text('Acceuil',
+                        child: const Text('Acceuil',
                           style: TextStyle(
                               color: Colors.white
                           ),)
@@ -119,31 +117,31 @@ class _AcceuilState extends State<Acceuil> {
                         onPressed: (){
                           model.navigateToProfile();
                         },
-                        child: Text('profile')
+                        child: const Text('profile')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToRechercheLogement();
                         },
-                        child: Text('Trouver un logement')
+                        child: const Text('Trouver un logement')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToRechercheBureau();
                         },
-                        child: Text('Trouver un Bureau')
+                        child: const Text('Trouver un Bureau')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToEbank();
                         },
-                        child: Text('Tela Finance')
+                        child: const Text('Tela Finance')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToTV();
                         },
-                        child: Text('Tela TV')
+                        child: const Text('Tela TV')
                     ),
                   ]),
             ),
@@ -162,7 +160,7 @@ class _AcceuilState extends State<Acceuil> {
                       height: 30,
                       child: Marquee(
                         text:'TELA, la meilleure plateforme de recherche de logements et de bureaux en Côte D\'Ivoire',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 1.2,

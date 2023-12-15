@@ -11,6 +11,9 @@ class Compte extends StatefulWidget {
 }
 
 class _CompteState extends State<Compte> {
+
+
+  bool ep = false;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CompteViewModel>.reactive(
@@ -24,10 +27,10 @@ class _CompteState extends State<Compte> {
                 style: TextButton.styleFrom(
                   elevation: 8,
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
                   child: Text('Retrait',
                     style: TextStyle(
                         fontSize: 16,
@@ -42,10 +45,10 @@ class _CompteState extends State<Compte> {
                 style: TextButton.styleFrom(
                   elevation: 8,
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
                   child: Text('Dépot',
                     style: TextStyle(
                         fontSize: 16,
@@ -60,15 +63,25 @@ class _CompteState extends State<Compte> {
           ),
           Visibility(
             visible: model.authService.bankProfile?.hasEpargne??false,
-            replacement: TextButton(onPressed: () => model.createEpargne(),
+            replacement: TextButton(onPressed: () {
+              setState(() {
+                ep = true;
+              });
+              model.createEpargne().then((value) {
+                setState(() {
+                  ep = false;
+                });
+                model.navigateToProfile();
+              });
+            },
               style: TextButton.styleFrom(
                 elevation: 8,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                child: Text('Créer son compte épargne',
+                child: ep? CircularProgressIndicator(color: Colors.white,) : Text('Créer son compte épargne',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -82,11 +95,11 @@ class _CompteState extends State<Compte> {
               style: TextButton.styleFrom(
                 elevation: 8,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                child: const Text('Dépot sur le compte épargne',
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: Text('Dépot sur le compte épargne',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -98,14 +111,14 @@ class _CompteState extends State<Compte> {
             ),
           ),
           Visibility(
-            visible: model.authService.bankProfile?.isDemarcheur??false,
+            visible: model.authService.user != null,
             child: TextButton(onPressed: () => model.renewAbonnement(),
               style: TextButton.styleFrom(
                 elevation: 8,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
-              child: Text('Payer mon Abonnement par Tela',
+              child: const Text('Payer mon Abonnement par Tela',
                 maxLines: 2,
                 style: TextStyle(
                     fontSize: 14,
@@ -137,7 +150,7 @@ class _CompteState extends State<Compte> {
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                               onTap: () => {},
-                              child: Row(
+                              child: const Row(
                                 children: [
                                   Text('test')
                                 ],
@@ -146,9 +159,9 @@ class _CompteState extends State<Compte> {
                         )).toList(),
                       )
                           :
-                      Center(
+                      const Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Text('Pas de transactions',
                             style: TextStyle(
                               color: Colors.black,
@@ -165,7 +178,7 @@ class _CompteState extends State<Compte> {
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                               onTap: () => {},
-                              child: Row(
+                              child: const Row(
                                 children: [
                                   Text('test')
                                 ],
@@ -174,7 +187,7 @@ class _CompteState extends State<Compte> {
                         )).toList(),
                       )
                           :
-                      Center(
+                      const Center(
                         child: Text('Pas de transactions',
                           style: TextStyle(
                               color: Colors.black,

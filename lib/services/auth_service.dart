@@ -1,11 +1,8 @@
 
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart' as http_parser;
 import 'package:http/io_client.dart';
-import 'package:mime/mime.dart';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/models/abonnement.dart';
 import 'package:tela/models/abonnementType.dart';
@@ -16,7 +13,6 @@ import 'package:tela/models/transactions.dart';
 import 'package:tela/models/user.dart';
 import 'package:tela/services/telaSharedPrefs.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 class AuthService{
   /// URLS
@@ -50,20 +46,20 @@ class AuthService{
   Abonnement? _abonnement;
   PassTV? _passTV;
   PassVisite? _passVisite;
-  String _token = '';
+  final String _token = '';
   bool _isConnected = false;
 
   List<Commune> communes = [];
   List<AbonnementType> abonnementType = [];
   List<PassType> passType = [];
-  List<Abonnement> _abonnements = [];
-  List<PassVisite> _passVisites = [];
+  final List<Abonnement> _abonnements = [];
+  final List<PassVisite> _passVisites = [];
   List<TelaPlace> _myPlaces = [];
-  List<TelaTransaction> _myBankTransactions = [];
+  final List<TelaTransaction> _myBankTransactions = [];
   List<TelaTransaction> _myBankEbankTransactions = [];
-  List<TelaTransaction> _myEpargneTransactions = [];
+  final List<TelaTransaction> _myEpargneTransactions = [];
   List<TelaTransaction> _myBankEpargneTransactions = [];
-  List<PassTV> _passTvs = [];
+  final List<PassTV> _passTvs = [];
   final BehaviorSubject<bool> _isConnectedSubject = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isConnected => _isConnectedSubject.stream.asBroadcastStream();
 
@@ -80,7 +76,7 @@ class AuthService{
   }
 
   List<TelaPlace> get myPlaces => _myPlaces;
-  TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
+  final TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
 
   File? _imagetemp;
 

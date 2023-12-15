@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:tela/models/programetv.dart';
 import 'package:tela/ui/views/tv/pubWidget/publiciteViewModel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class PubliciteWidget extends StatefulWidget {
   const PubliciteWidget({super.key});
@@ -14,7 +11,7 @@ class PubliciteWidget extends StatefulWidget {
 }
 
 class _PubliciteWidgetState extends State<PubliciteWidget> {
-  bool muted = false;
+  bool muted = true;
 
   @override
   void initState() {
@@ -35,7 +32,7 @@ class _PubliciteWidgetState extends State<PubliciteWidget> {
           child: AspectRatio(
             aspectRatio: 16/8,
             child: Stack(children: [
-              VideoPlayer(model.videoController, key: UniqueKey(),),
+              VideoPlayer(model.tvService.pubVideoController, key: UniqueKey(),),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
@@ -53,7 +50,7 @@ class _PubliciteWidgetState extends State<PubliciteWidget> {
                     child: InkWell(
                       onTap: () {
                         muted = !muted;
-                        muted? model.videoController.setVolume(0):model.videoController.setVolume(50);
+                        muted? model.tvService.pubVideoController.setVolume(0):model.tvService.pubVideoController.setVolume(50);
                         setState(() {
 
                         });

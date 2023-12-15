@@ -7,13 +7,14 @@ import 'package:stacked_services/stacked_services.dart';
 
 class RetraitViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  DialogService _dialogService = locator<DialogService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
   AuthService authService = locator<AuthService>();
-  TransactionService _transactionService = locator<TransactionService>();
+  final TransactionService _transactionService = locator<TransactionService>();
 
   double montant = 0;
+  double frais = 0;
   RetraitViewModel();
 
   void navigateToProfile() async{
@@ -22,8 +23,8 @@ class RetraitViewModel extends BaseViewModel{
   void navigateToBank() async{
     await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
-  void retrait() async{
-    await _transactionService.postRetrait(amount: montant, profile: authService.bankProfile!, fromEpargne: false);
+  Future retrait() async{
+    await _transactionService.postRetrait(amount: montant, profile: authService.bankProfile!, frais: frais);
     navigateToBank();
   }
 

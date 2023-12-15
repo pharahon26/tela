@@ -7,10 +7,10 @@ import 'package:stacked_services/stacked_services.dart';
 
 class MaisonVisiteViewModel extends BaseViewModel{
 
-  NavigationService _navigationService = locator<NavigationService>();
-  DialogService _dialogService = locator<DialogService>();
-  AuthService _authService = locator<AuthService>();
-  SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final AuthService _authService = locator<AuthService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
 
   Future<List<TelaPlace>> get getMyPlaces => _authService.getMaisonsVisite();

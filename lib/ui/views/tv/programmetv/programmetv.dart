@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tela/ui/views/tv/programmetv/programmetvViewModel.dart';
 import 'package:tela/ui/widget/tela_t_v_programe_card.dart';
 import 'package:stacked/stacked.dart';
@@ -53,31 +52,31 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
                         onPressed: (){
                           model.navigateToAcceuil();
                         },
-                        child: Text('Acceuil')
+                        child: const Text('Acceuil')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToProfile();
                         },
-                        child: Text('profile')
+                        child: const Text('profile')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToRechercheLogement();
                         },
-                        child: Text('Trouver un logement')
+                        child: const Text('Trouver un logement')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToRechercheBureau();
                         },
-                        child: Text('Trouver un Bureau')
+                        child: const Text('Trouver un Bureau')
                     ),
                     TextButton(
                         onPressed: (){
                           model.navigateToEbank();
                         },
-                        child: Text('Tela Finance')
+                        child: const Text('Tela Finance')
                     ),
                     TextButton(
                         onPressed: (){
@@ -87,7 +86,7 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
                           backgroundColor: Colors.deepOrange,
 
                         ),
-                        child: Text('Tela TV',
+                        child: const Text('Tela TV',
                           style: TextStyle(
                             color: Colors.white
                           ),

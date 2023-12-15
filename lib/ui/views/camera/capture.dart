@@ -1,19 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tela/ui/views/camera/cameraViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-/**
- * Created by Laty 26 PHARAHON entertainment on 13/09/2021.
- */
+/// Created by Laty 26 PHARAHON entertainment on 13/09/2021.
 class CaptureView extends StatefulWidget {
 
   final File image;
   
   
-  const CaptureView({required this.image}) : super();
+  const CaptureView({super.key, required this.image});
   
 
   @override
@@ -33,10 +30,10 @@ class _CaptureViewState extends State<CaptureView> with SingleTickerProviderStat
               fit: BoxFit.contain,
             ),
           ),
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -49,9 +46,9 @@ class _CaptureViewState extends State<CaptureView> with SingleTickerProviderStat
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(70),
                             child: Container(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 color: Colors.black.withOpacity(0.3),
-                                child: Icon(Icons.close, size: 32, color: Colors.red,)
+                                child: const Icon(Icons.close, size: 32, color: Colors.red,)
                             )
                         ),
                       ),
@@ -63,7 +60,7 @@ class _CaptureViewState extends State<CaptureView> with SingleTickerProviderStat
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(70),
                             child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               color: Colors.black.withOpacity(0.3),
                                 child: Icon(Icons.check, size: 32, color: Theme.of(context).colorScheme.primary,)
                             )

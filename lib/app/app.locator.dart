@@ -33,10 +33,13 @@ Future<void> setupLocator({
   await telaSharedPrefs.init();
   locator.registerSingleton(telaSharedPrefs);
 
+  final tVService = TVService();
+  await tVService.init();
+  locator.registerSingleton(tVService);
+
   locator.registerSingleton(AuthService());
   locator.registerSingleton(PlaceService());
   locator.registerSingleton(TransactionService());
-  locator.registerSingleton(TVService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());

@@ -18,6 +18,7 @@ class TelaSharedPrefs implements InitializableDependency{
   late SharedPreferences prefs ;
 
   late final List<CameraDescription> cameras;
+  @override
   Future<void> init() async{
     prefs = await SharedPreferences.getInstance();
     cameras = await availableCameras();
@@ -63,8 +64,8 @@ class TelaSharedPrefs implements InitializableDependency{
       List<String> sti = element.split(', ');
       Map<String, dynamic> json= {};
       for(String key_item in sti){
-        List<String> key_items = key_item.split(': ');
-        json[key_items[0]] = key_items[1];
+        List<String> keyItems = key_item.split(': ');
+        json[keyItems[0]] = keyItems[1];
       }
 
       Abonnement ab = Abonnement.fromJson(json);
@@ -135,8 +136,8 @@ class TelaSharedPrefs implements InitializableDependency{
       List<String> sti = element.split(', ');
       Map<String, dynamic> json= {};
       for(String key_item in sti){
-        List<String> key_items = key_item.split(': ');
-        json[key_items[0]] = key_items[1];
+        List<String> keyItems = key_item.split(': ');
+        json[keyItems[0]] = keyItems[1];
       }
 
       Commune commune = Commune.fromJson(json);
@@ -164,8 +165,8 @@ class TelaSharedPrefs implements InitializableDependency{
       List<String> sti = item.split(', ');
       Map<String, dynamic> json= {};
       for(String key_item in sti){
-        List<String> key_items = key_item.split(': ');
-        json[key_items[0]] = key_items[1];
+        List<String> keyItems = key_item.split(': ');
+        json[keyItems[0]] = keyItems[1];
       }
       pass = PassVisite.fromString(json);
     }
@@ -188,8 +189,8 @@ class TelaSharedPrefs implements InitializableDependency{
         List<String> sti = item.split(', ');
         Map<String, dynamic> json= {};
         for(String key_item in sti){
-          List<String> key_items = key_item.split(': ');
-          json[key_items[0]] = key_items[1];
+          List<String> keyItems = key_item.split(': ');
+          json[keyItems[0]] = keyItems[1];
         }
         abonnement = Abonnement.fromString(json);
       }
@@ -219,8 +220,8 @@ class TelaSharedPrefs implements InitializableDependency{
       List<String> sti = item.split(', ');
       Map<String, dynamic> json= {};
       for(String key_item in sti){
-        List<String> key_items = key_item.split(': ');
-        json[key_items[0]] = key_items[1];
+        List<String> keyItems = key_item.split(': ');
+        json[keyItems[0]] = keyItems[1];
       }
       identity = UserIdentity.fromString(json);
     }
