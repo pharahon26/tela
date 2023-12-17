@@ -16,17 +16,18 @@ class BuyAbonnementEbankViewModel extends BaseViewModel{
   final TransactionService _transactionService = locator<TransactionService>();
 
   final bool _isA = false;
+  final bool fromEpargne;
   List<AbonnementType> abonnements = [];
 
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  BuyAbonnementEbankViewModel(){
+  BuyAbonnementEbankViewModel(this.fromEpargne){
     abonnements = _authService.abonnementType;
   }
 
   Future buyAbonnement( AbonnementType abonnement) async{
-    await _transactionService.buyAbonnementFromEbank(abonnement: abonnement, profile: _authService.bankProfile!, user: _authService.user!);
+    await _transactionService.buyAbonnementFromEbank(abonnement: abonnement, profile: _authService.bankProfile!, user: _authService.user!, fromEpargne: fromEpargne);
   }
 
   void navigateToCGUFinance() async{

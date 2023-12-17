@@ -16,17 +16,17 @@ class CompteViewModel extends BaseViewModel{
 
   CompteViewModel();
 
-  void navigateToProfile() async{
+  void navigateToBank() async{
     await _navigationService.navigateToBank(hasEpargne: authService.bankEpargne != null);
   }
   void retrait() async{
-    await _navigationService.navigateToRetrait();
+    await _navigationService.navigateToRetrait(fromEpargne: false);
   }
   void depot() async{
     await _navigationService.navigateToDepot();
   }
   void renewAbonnement() async{
-    await _navigationService.navigateToBuyAbonnementEbank();
+    await _navigationService.navigateToBuyAbonnementEbank(fromEpargne: false);
   }
   void epargner() async{
     await _navigationService.navigateToVersement();

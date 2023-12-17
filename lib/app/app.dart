@@ -34,6 +34,9 @@ import 'package:tela/ui/views/immo/newPlace/newPlace.dart';
 import 'package:tela/ui/views/immo/recherche/recherche.dart';
 import 'package:tela/ui/views/immo/resultat/resultat.dart';
 import 'package:tela/ui/views/immo/visite/visite.dart';
+import 'package:tela/ui/views/passwordChangeView/passwordChangeView.dart';
+import 'package:tela/ui/views/passwordChangeView/passwordChangeViewModel.dart';
+import 'package:tela/ui/views/photoChangeView/photoChangeView.dart';
 import 'package:tela/ui/views/profile/profile.dart';
 import 'package:tela/ui/views/tv/bientot.dart';
 import 'package:tela/ui/views/tv/chaneltv/channeltv.dart';
@@ -55,6 +58,8 @@ import 'package:tela/ui/views/tv_sport/tv_sport.dart';
       MaterialRoute(page: CameraView),
       MaterialRoute(page: CaptureView),
       MaterialRoute(page: Profile),
+      MaterialRoute(page: PasswordChangeView),
+      MaterialRoute(page: PhotoChangeView),
       MaterialRoute(page: SignInView),
       MaterialRoute(page: IdentificationView),
       MaterialRoute(page: LoginView),

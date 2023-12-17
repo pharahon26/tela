@@ -18,13 +18,13 @@ class EpargneViewModel extends BaseViewModel{
     await _navigationService.navigateTo(Routes.acceuil);
   }
   void retrait() async{
-    await _navigationService.navigateToRetrait();
+    await _navigationService.navigateToRetrait(fromEpargne: true);
   }
   void depot() async{
     await _navigationService.navigateToDepot();
   }
   void renewAbonnement() async{
-    await _navigationService.navigateToBuyAbonnementEbank();
+    await _navigationService.navigateToBuyAbonnementEbank(fromEpargne: true);
   }
   void epargnerReverse() async{
     await _navigationService.navigateToVersement();

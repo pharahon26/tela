@@ -74,6 +74,12 @@ class ProfileViewModel extends BaseViewModel{
   void navigateToProlongeVisitePass() async{
     await _navigationService.navigateToBuyVisitePass(isVisite: true, isRenew: true);
   }
+  void navigateTochangePhoto() async{
+    await _navigationService.navigateToPhotoChangeView(fromBank: false);
+  }
+  changeMDP(){
+    _navigationService.navigateToPasswordChangeView(fromBank: false);
+  }
   void chechPass(String code) async{
     PassVisite? p =  await authService.verifCodeVisite(code: code);
     if (p != null) {
@@ -83,6 +89,12 @@ class ProfileViewModel extends BaseViewModel{
       print(p);
       notifyListeners();
     }
+  }
+
+
+  deconnection() {
+    authService.logout();
+    navigateToAcceuil();
   }
 
 

@@ -15,7 +15,23 @@ class RetraitViewModel extends BaseViewModel{
 
   double montant = 0;
   double frais = 0;
-  RetraitViewModel();
+
+  double balance = 0;
+  final bool fromEpargne;
+  bool insuffisant = false;
+
+  RetraitViewModel( this.fromEpargne){
+    if (fromEpargne) {
+      balance = authService.bankEpargne?.balance??0;
+
+    }  else{
+      if ((authService.bankProfile?.balance??0) >= 5000) {
+        balance = authService.bankProfile?.balance??0 - 5000;
+      }  else {
+        insuffisant = true;
+      }
+    }
+  }
 
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.acceuil);
@@ -24,7 +40,7 @@ class RetraitViewModel extends BaseViewModel{
     await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
   Future retrait() async{
-    await _transactionService.postRetrait(amount: montant, profile: authService.bankProfile!, frais: frais);
+    await _transactionService.postRetrait(amount: montant, profile: authService.bankProfile!, frais: frais, fromEpargne: fromEpargne);
     navigateToBank();
   }
 

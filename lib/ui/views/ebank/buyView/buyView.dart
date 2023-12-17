@@ -89,7 +89,12 @@ class _BuyViewState extends State<BuyView> {
                                     backgroundColor: Theme.of(context).colorScheme.primary,
                                     shape: const StadiumBorder(),
                                   ),
-                                  child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay'),
+                                  child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600
+                                      )),
                                   onPressed: () async {
 
 
@@ -204,7 +209,12 @@ class _BuyViewState extends State<BuyView> {
                                       backgroundColor: Theme.of(context).colorScheme.primary,
                                       shape: const StadiumBorder(),
                                     ),
-                                    child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay'),
+                                    child: Text('Payer ${widget.abonement.price} FCFA avec CinetPay',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600
+                                        )),
                                     onPressed: () async {
 
 

@@ -13,7 +13,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   String code = '';
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
 
   @override
   Widget build(BuildContext context) {
@@ -131,10 +131,15 @@ class _ProfileState extends State<Profile> {
                                   Row(
                                     children: [
                                       ClipOval(
-                                        child: SizedBox(
-                                          width: 60,
-                                          height: 60,
-                                          child: Image.network('$_BASE_URL${model.user?.photo}'),
+                                        child: InkWell(
+                                          onTap: () => model.navigateTochangePhoto(),
+                                          child: SizedBox(
+                                            width: 60,
+                                            height: 60,
+                                            child: Image.network('$_BASE_URL${model.user?.photo}',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       Column(
@@ -167,22 +172,56 @@ class _ProfileState extends State<Profile> {
                                         ],
                                       ),
                                       const Spacer(),
-                                      Visibility(
-                                        visible: !model.user!.isValidated,
-                                        child: TextButton(
-                                          onPressed: () => model.navigateToIdentification(),
-                                          style: TextButton.styleFrom(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(50)
-                                              )
+                                      Column(
+                                        children: [
+                                          TextButton(onPressed: () => model.deconnection(),
+                                            style: TextButton.styleFrom(
+                                              // backgroundColor: Theme.of(context).colorScheme.primary,
+                                              shape: const StadiumBorder(),
+                                            ),
+                                            child: const Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                                              child: Text('Déconnexion',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Colors.orange
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          child: const SizedBox(
-                                            height: 45,
-                                            width: 125,
-                                            child: Column(
-                                              children: [
-                                                Padding(
+                                          Visibility(
+                                            visible: !model.user!.isComplete,
+                                            replacement: TextButton(onPressed: () => model.changeMDP(),
+                                              style: TextButton.styleFrom(
+                                                // backgroundColor: Theme.of(context).colorScheme.primary,
+                                                shape: const StadiumBorder(),
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                                                child: Text('Mot de passe',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600,
+                                                      letterSpacing: 1.2,
+                                                      color: Colors.orange
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            child: TextButton(
+                                              onPressed: () => model.navigateToIdentification(),
+                                              style: TextButton.styleFrom(
+                                                  backgroundColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(50)
+                                                  )
+                                              ),
+                                              child: const SizedBox(
+                                                height: 45,
+                                                width: 125,
+                                                child: Padding(
                                                   padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
                                                   child: Text('profil Incomplet. Cliquez ici',
                                                     textAlign: TextAlign.center,
@@ -193,10 +232,10 @@ class _ProfileState extends State<Profile> {
                                                         fontWeight: FontWeight.w400
                                                     ),),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -1022,10 +1061,15 @@ class _ProfileState extends State<Profile> {
                                   Row(
                                     children: [
                                       ClipOval(
-                                        child: SizedBox(
-                                          width: 60,
-                                          height: 60,
-                                          child: Image.network('$_BASE_URL${model.user?.photo}'),
+                                        child: InkWell(
+                                          onTap: () => model.navigateTochangePhoto(),
+                                          child: SizedBox(
+                                            width: 60,
+                                            height: 60,
+                                            child: Image.network('$_BASE_URL${model.user?.photo}',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       Column(
@@ -1058,22 +1102,56 @@ class _ProfileState extends State<Profile> {
                                         ],
                                       ),
                                       const Spacer(),
-                                      Visibility(
-                                        visible: !model.user!.isValidated,
-                                        child: TextButton(
-                                          onPressed: () => model.navigateToIdentification(),
-                                          style: TextButton.styleFrom(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(50)
-                                              )
+                                      Column(
+                                        children: [
+                                          TextButton(onPressed: () => model.deconnection(),
+                                            style: TextButton.styleFrom(
+                                              // backgroundColor: Theme.of(context).colorScheme.primary,
+                                              shape: const StadiumBorder(),
+                                            ),
+                                            child: const Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                                              child: Text('Déconnexion',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Colors.orange
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          child: const SizedBox(
-                                            height: 45,
-                                            width: 125,
-                                            child: Column(
-                                              children: [
-                                                Padding(
+                                          Visibility(
+                                            visible: !model.user!.isComplete,
+                                            replacement: TextButton(onPressed: () => model.changeMDP(),
+                                              style: TextButton.styleFrom(
+                                                // backgroundColor: Theme.of(context).colorScheme.primary,
+                                                shape: const StadiumBorder(),
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                                                child: Text('Changer le mot de passe',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                      letterSpacing: 1.2,
+                                                      color: Colors.orange
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            child: TextButton(
+                                              onPressed: () => model.navigateToIdentification(),
+                                              style: TextButton.styleFrom(
+                                                  backgroundColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(50)
+                                                  )
+                                              ),
+                                              child: const SizedBox(
+                                                height: 45,
+                                                width: 125,
+                                                child: Padding(
                                                   padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
                                                   child: Text('profil Incomplet. Cliquez ici',
                                                     textAlign: TextAlign.center,
@@ -1084,10 +1162,10 @@ class _ProfileState extends State<Profile> {
                                                         fontWeight: FontWeight.w400
                                                     ),),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ],
                                   ),

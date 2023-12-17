@@ -6,7 +6,8 @@ import 'package:stacked/stacked.dart';
 class BuyAbonnementEbank extends StatefulWidget {
 
 
-  const BuyAbonnementEbank({super.key});
+  const BuyAbonnementEbank({super.key, required this.fromEpargne});
+  final bool fromEpargne;
 
   @override
   State<BuyAbonnementEbank> createState() => _BuyAbonnementEbankState();
@@ -17,7 +18,7 @@ class _BuyAbonnementEbankState extends State<BuyAbonnementEbank> {
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
     return ViewModelBuilder<BuyAbonnementEbankViewModel>.reactive(
-      viewModelBuilder: () => BuyAbonnementEbankViewModel(),
+      viewModelBuilder: () => BuyAbonnementEbankViewModel(widget.fromEpargne),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(

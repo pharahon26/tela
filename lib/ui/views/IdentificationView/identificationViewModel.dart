@@ -26,7 +26,6 @@ class IdentificationViewModel extends BaseViewModel{
   File? docVerso;
   bool isMan =false;
   bool isAccepted =false;
-  File? photo;
 
 
   IdentificationViewModel(){
@@ -50,20 +49,19 @@ class IdentificationViewModel extends BaseViewModel{
       pays: pays,
       villeResi: villeResidence,
       documentNumber: docNumber,
-      photo: photo!.path??'',
       docRecto: docRecto!.path??'',
       docVerso: docVerso!.path??'',
     );
     _sharedPrefs.savePhoneNumber(phone);
-    _navigationService.popRepeated(1);
+    _navigationService.navigateToProfile();
   }
 
 
-  Future pickPhoto() async{
-    File? pic = await _navigationService.navigateToCameraView();
-    photo = pic;
-    notifyListeners();
-  }
+  // Future pickPhoto() async{
+  //   File? pic = await _navigationService.navigateToCameraView();
+  //   photo = pic;
+  //   notifyListeners();
+  // }
 
   void navigateToCGU() async{
     await _navigationService.navigateTo(Routes.conditionGeneralDUtilisationS);

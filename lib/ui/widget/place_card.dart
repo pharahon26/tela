@@ -5,7 +5,7 @@ class PlaceCard extends StatelessWidget {
   final TelaPlace place;
   late final String type;
   final String image;
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
   PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
     place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
   }

@@ -199,19 +199,22 @@ seront tenus au préalable informé.""";
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(title,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: mediaQuery.size.width * 0.7),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(title,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ),
                             IconButton(
                                 onPressed: () => setState(() {
-                                  lapp_vu != lapp_vu;
+                                  lapp_vu = !lapp_vu;
                                 }),
                                 icon: Icon(lapp_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                                   size: 24,
@@ -232,27 +235,30 @@ seront tenus au préalable informé.""";
                           ),
                         ),
                       ),
-                      /// lapp
+                      /// cgu
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(title,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: mediaQuery.size.width * 0.7),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(cgu,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ),
                             IconButton(
                                 onPressed: () => setState(() {
-                                  lapp_vu != lapp_vu;
+                                  cgu_vu = !cgu_vu;
                                 }),
-                                icon: Icon(lapp_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                icon: Icon(cgu_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                                   size: 24,
                                 )
                             ),
@@ -260,14 +266,800 @@ seront tenus au préalable informé.""";
                         ),
                       ),
                       Visibility(
-                        visible: lapp_vu,
+                        visible: cgu_vu,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(lapp_body,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,),
+                          child: Column(
+                            children: [
+                              /// immo
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(maxWidth: mediaQuery.size.width * 0.7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () => setState(() {
+                                          immo_vu = !immo_vu;
+                                        }),
+                                        icon: Icon(immo_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                          size: 24,
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: immo_vu,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      // ar1
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar1_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar1,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar2_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar2,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar3_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar3,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar4_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar4,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar5_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar5,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar6_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar6,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar7_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar7,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar8_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar8,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar9_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar9,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar10_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar10,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar11_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(immo_ar11,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              /// fin
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(maxWidth: mediaQuery.size.width * 0.7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () => setState(() {
+                                          fin_vu = !fin_vu;
+                                        }),
+                                        icon: Icon(fin_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                          size: 24,
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: fin_vu,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      // ar1
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar1_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar1,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar3
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar2_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar2,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar3_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar3,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar4
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar4_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar4,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar5
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar5_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar5,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar6
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar6_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar6,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar7
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar7_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar7,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar8
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar8_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar8,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                      // ar9
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar9_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar9,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                      // ar10
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar10_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar10,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                      // a11
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar11_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(fin_ar11,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              /// tv
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(maxWidth: mediaQuery.size.width * 0.7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () => setState(() {
+                                          tv_vu = !tv_vu;
+                                        }),
+                                        icon: Icon(tv_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                          size: 24,
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: tv_vu,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      // ar1
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar1_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar1,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar2_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar2,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar3
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar3_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar3,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar4
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar4_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar4,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar5
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar5_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(tv_ar5,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              /// exceptions
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(maxWidth: mediaQuery.size.width * 0.7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () => setState(() {
+                                          ex_vu = !ex_vu;
+                                        }),
+                                        icon: Icon(ex_vu? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                          size: 24,
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: ex_vu,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      // ar1
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar1_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar1,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar2_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar2,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar1
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar3_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar3,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      // ar2
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar4_t,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(ex_ar4,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                            ],
                           ),
                         ),
                       ),

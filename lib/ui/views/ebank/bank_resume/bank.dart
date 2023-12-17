@@ -18,7 +18,7 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
   List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
   double compteBalance = 0;
@@ -184,10 +184,13 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                             Row(
                               children: [
                                 ClipOval(
-                                  child: SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}'),
+                                  child: InkWell(
+                                    onTap: () => model.changeMDP(),
+                                    child: SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}'),
+                                    ),
                                   ),
                                 ),
                                 Column(
@@ -220,36 +223,58 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                   ],
                                 ),
                                 const Spacer(),
-                                Visibility(
-                                  visible: !((model.authService.bankProfile?.isValidated)??false),
-                                  child: TextButton(
-                                    onPressed: () => model.navigateToIdentification(),
-                                    style: TextButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50)
-                                        )
-                                    ),
-                                    child: SizedBox(
-                                      height: 70,
-                                      width: mq.size.width /3,
-                                      child: const Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
-                                            child: Text('profil Incomplet. Cliquez ici',
-                                              textAlign: TextAlign.center,
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                  color: Colors.deepOrange,
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.w400
-                                              ),),
+                                Column(
+                                  children: [
+                                    TextButton(onPressed: () => model.deconnection(),
+                                      style: TextButton.styleFrom(
+                                        // backgroundColor: Theme.of(context).colorScheme.primary,
+                                        shape: const StadiumBorder(),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                                        child: Text('Déconnexion',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2,
+                                              color: Colors.deepOrange
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Visibility(
+                                      visible: !((model.authService.bankProfile?.isValidated)??false),
+                                      child: TextButton(
+                                        onPressed: () => model.navigateToIdentification(),
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(50)
+                                            )
+                                        ),
+                                        child: SizedBox(
+                                          height: 40,
+                                          width: mq.size.width /3,
+                                          child: const Column(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
+                                                child: Text('profil Incomplet. Cliquez ici',
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 14.0,
+                                                      fontWeight: FontWeight.w400
+                                                  ),),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                  ],
                                 ),
                               ],
                             ),
@@ -264,7 +289,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                     children: [
                                       const Padding(
                                         padding: EdgeInsets.all(8.0),
-                                        child: Text('Solde',
+                                        child: Text('Solde total',
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
@@ -288,7 +313,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                     children: [
                                       const Padding(
                                         padding: EdgeInsets.all(8.0),
-                                        child: Text('Solde disponible',
+                                        child: Text('Solde total disponible',
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
@@ -302,7 +327,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2,
-                                          color: Theme.of(context).colorScheme.primary,
+                                          color: Colors.green,
                                         ),
                                       ),
                                     ],

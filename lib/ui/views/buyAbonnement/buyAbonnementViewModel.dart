@@ -56,6 +56,6 @@ class BuyAbonnementViewModel extends BaseViewModel{
   }
 
   void navigateToCGUFinance() async{
-    await _navigationService.navigateTo(Routes.conditionGeneralDUtilisationSFinance);
+    await _navigationService.navigateTo(Routes.conditionGeneralDUtilisationS);
   }
 }

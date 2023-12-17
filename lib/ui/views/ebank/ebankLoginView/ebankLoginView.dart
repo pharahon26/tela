@@ -161,7 +161,6 @@ class _EbankLoginViewState extends State<EbankLoginView>
 
                 if (_formKey.currentState!.validate()) {
                   model.login()
-                      .then((us) => model.navigateToProfile())
                       .catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(

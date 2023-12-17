@@ -21,7 +21,7 @@ class _IdentificationViewState extends State<IdentificationView>
     super.initState();
   }
 
-  bool isPasswordVisible = false;
+  bool loading = false;
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -612,7 +612,56 @@ class _IdentificationViewState extends State<IdentificationView>
                                 onPressed: ()  {
 
                                   if (_formKey.currentState!.validate()) {
-                                    model.identify();
+                                    setState(() {
+                                      loading = true;
+                                    });
+                                    model.identify()
+                                        .catchError((error, trace)  {
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                      showDialog(context: context, builder: (buildContext) => Dialog(
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30)
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                              child: Text(error.toString(),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 20,
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.1
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: TextButton(
+                                                  onPressed: () => Navigator.of(buildContext).pop(),
+                                                  child: Text('Ok',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            )
+
+                                          ],
+                                        ),
+
+                                      )
+                                      );
+                                    });
                                   }
                                   },
                                 style: ElevatedButton.styleFrom(
@@ -620,18 +669,22 @@ class _IdentificationViewState extends State<IdentificationView>
                                     fixedSize: Size(mediaQuery.size.width - 20, 40),
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    'Je confirme mes informations personnelles',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                                  child: Visibility(
+                                    visible: !loading,
+                                    replacement: const CircularProgressIndicator(color: Colors.white,),
+                                    child: Text(
+                                      'Je confirme mes informations personnelles',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ) ,
                               ),
                             ),
 

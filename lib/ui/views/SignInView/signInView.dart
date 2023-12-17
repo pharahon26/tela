@@ -330,6 +330,9 @@ class _SignInViewState extends State<SignInView>
 
                     if (_formKey.currentState!.validate() && !loading) {
                       model.isAccepted?{
+                        setState(() {
+                        loading = true;
+                        }),
                         model.signIn()
                           .catchError((error, trace)  {
                               setState(() {

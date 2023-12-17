@@ -26,7 +26,7 @@ class EbankLoginViewModel extends BaseViewModel{
     TelaBankProfile? u = await _authService.loginEBank(
         phone: phone,
         password: password)
-        .whenComplete(() {
+        .then((val) {
           _sharedPrefs.savePhoneNumber(phone);
           _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
         })

@@ -12,7 +12,7 @@ class User {
   String phone;
   String photo;
   double balance = 0;
-  bool isStaff = false;
+  bool isComplete = false;
   bool isSuspended = false;
   bool isValidated = false;
   // String token = '';
@@ -31,7 +31,7 @@ class User {
     this.phone = '',
     this.balance = 0,
     this.isValidated = false,
-    this.isStaff = false,
+    this.isComplete = false,
     this.isSuspended = false,
   });
 
@@ -47,7 +47,7 @@ class User {
       balance: double.parse(json["balance"].toString()),
       isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
-      isStaff: json["is_staff"]==1,
+      isComplete: json["is_completed"]==1,
     );
     u.id = json["id"];
 
@@ -65,7 +65,7 @@ class User {
       balance: double.parse(json["balance"]),
       isValidated: bool.parse(json["isValidated"]),
       isSuspended: bool.parse(json["isSuspended"]),
-      isStaff: bool.parse(json["isStaff"]),
+      isComplete: bool.parse(json["isStaff"]),
     );
     u.id = int.parse(json["id"]);
     u.creationDate = DateTime.parse(json["creationDate"]);
@@ -85,13 +85,13 @@ class User {
       "creationDate": creationDate,
       "isSuspended": isSuspended?1:0,
       "is_validated": isValidated?1:0,
-      "isStaff":isStaff?1:0,
+      "isStaff":isComplete?1:0,
     };
   }
 
   @override
   String toString() {
-    return 'User{id: $id, prenom: $prenom, nom: $nom, mail: $mail, phone: $phone, balance: $balance, isStaff: $isStaff, isSuspended: $isSuspended, isValidated: $isValidated, creationDate: $creationDate}';
+    return 'User{id: $id, prenom: $prenom, nom: $nom, mail: $mail, phone: $phone, balance: $balance, isStaff: $isComplete, isSuspended: $isSuspended, isValidated: $isValidated, creationDate: $creationDate}';
   }
 }
 
