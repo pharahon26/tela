@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
 import 'package:tela/models/bank_profile.dart';
+import 'package:tela/models/user.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:tela/services/telaSharedPrefs.dart';
 import 'package:stacked/stacked.dart';
@@ -26,10 +27,10 @@ class EbankSignInViewModel extends BaseViewModel{
 
 
   Future<TelaBankProfile?> signIn() async {
-    TelaBankProfile? u = await _authService.signInEBank(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, photo: photo?.path??'');
+    User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, photo: photo?.path??'');
     _sharedPrefs.savePhoneNumber(phone);
     _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
-    return u;
+    return _authService.bankProfile;
   }
   Future pickPhoto() async{
     File? pic = await _navigationService.navigateToCameraView();

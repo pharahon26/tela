@@ -29,6 +29,9 @@ class TransactionService{
   static const String _BANK_TRANSACTIONS_URL = "api/ebanking-profil/ebank_transactions";
   static const String _BANK_EPARGNE_TRANSACTIONS_URL = "api/ebanking-profil/epargne_transactions";
 
+
+
+
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   Abonnement? _abonnement;
   Abonnement? _abonnementTV;

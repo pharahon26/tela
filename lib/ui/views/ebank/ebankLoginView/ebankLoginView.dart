@@ -21,6 +21,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
 
   final _formKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -159,7 +160,10 @@ class _EbankLoginViewState extends State<EbankLoginView>
             child: ElevatedButton(
               onPressed: () {
 
-                if (_formKey.currentState!.validate()) {
+                if (_formKey.currentState!.validate() && !loading) {
+                  setState(() {
+                    loading = true;
+                  });
                   model.login()
                       .catchError((error, trace)  => showDialog(context: context, builder: (buildContext) => Dialog(
                     backgroundColor: Colors.white,
@@ -185,7 +189,13 @@ class _EbankLoginViewState extends State<EbankLoginView>
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextButton(
-                              onPressed: () => Navigator.of(buildContext).pop(),
+                              onPressed: ()
+                              {
+                                setState(() {
+                                  loading = false;
+                                });
+                                Navigator.of(buildContext).pop();
+                                              },
                               child: Text('Ok',
                                 maxLines: 2,
                                 style: TextStyle(
@@ -208,15 +218,19 @@ class _EbankLoginViewState extends State<EbankLoginView>
                   fixedSize: Size(mediaQuery.size.width - 20, 40),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 80.0),
-                child: Text(
-                  'Connexion',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                child: Visibility(
+                  visible: !loading,
+                  replacement: const CircularProgressIndicator(color: Colors.white,),
+                  child: const Text(
+                    'Connexion',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

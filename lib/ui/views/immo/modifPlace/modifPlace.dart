@@ -17,7 +17,7 @@ class ModifPlace extends StatefulWidget {
 
 class _ModifPlaceState extends State<ModifPlace> {
 
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://10.0.2.2:8000/";
   bool isBureau = false;
 
   int type = 1;
@@ -25,6 +25,7 @@ class _ModifPlaceState extends State<ModifPlace> {
   List<String> imgLink = [];
   List<File> img = [];
 
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -131,33 +132,39 @@ class _ModifPlaceState extends State<ModifPlace> {
                       SizedBox(
                         height: mq.size.width,
                         child: AspectRatio(
-                          aspectRatio: 9/16,
+                          aspectRatio: 1,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: model.images.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return InkWell(
-                                child: model.images[index] != null? Image.network('$_BASE_URL${model.images[index]}',
-                                  fit: BoxFit.contain,
-                                )
-                                    :
-                                const AspectRatio(
-                                  aspectRatio: 9/16,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Icon(Icons.add),
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  child: model.images[index] != ''? model.images[index] == model.images_base[index] ? Image.network('$_BASE_URL${model.images[index]}',
+                                    fit: BoxFit.contain,
+                                  )
+                                      :Image.file(model.imagesFiles[index]!,
+                                    fit: BoxFit.fitWidth,
+                                  )
+                                      :
+                                  const AspectRatio(
+                                    aspectRatio: 9/16,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: Icon(Icons.add),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                onTap: () async {
+                                  onTap: () async {
 
-                                  await model.navigateToCameraView(index).whenComplete(() {
-                                    setState(() {
+                                    await model.navigateToCameraView(index).whenComplete(() {
+                                      setState(() {
 
+                                      });
                                     });
-                                  });
-                                },
+                                  },
+                                ),
                               );
                             },
                           ),
@@ -728,7 +735,59 @@ class _ModifPlaceState extends State<ModifPlace> {
                           onPressed: () {
 
                             if (_formKey.currentState!.validate()) {
-                              // model.modifPlace();
+
+
+                              setState(() {
+                                loading = true;
+                              });
+                              model.modifPlace()
+                                  .then((us) => model.navigateToCatalogue())
+                                  .catchError((error, trace)  {
+                                setState(() {
+                                  loading = false;
+                                });
+                                showDialog(context: context, builder: (buildContext) => Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                        child: Text(error.toString(),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 20,
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.1
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextButton(
+                                            onPressed: () => Navigator.of(buildContext).pop(),
+                                            child: Text('Ok',
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  color: Theme.of(context).colorScheme.primary,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600
+                                              ),
+                                            )
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+
+                                ));
+                              });
+
                             }
                             },
                           style: TextButton.styleFrom(
@@ -739,13 +798,17 @@ class _ModifPlaceState extends State<ModifPlace> {
                             backgroundColor: Theme.of(context).colorScheme.primary,
                             elevation: 8,
                           ),
-                          child: const Text('Enregister',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.2
+                          child:  Visibility(
+                            visible: !loading,
+                            replacement: const CircularProgressIndicator(color: Colors.white,),
+                            child: Text('Enregister',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.2
+                              ),
                             ),
                           ),
                         ),

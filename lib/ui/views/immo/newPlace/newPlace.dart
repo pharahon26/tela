@@ -14,6 +14,8 @@ class NewPlace extends StatefulWidget {
 class _NewPlaceState extends State<NewPlace> {
   bool isBureau = false;
 
+  bool loading = false;
+
   int type = 1;
   String code = '';
 
@@ -101,42 +103,45 @@ class _NewPlaceState extends State<NewPlace> {
                         SizedBox(
                           height: mq.size.width,
                           child: AspectRatio(
-                            aspectRatio: 9/16,
+                            aspectRatio: 1,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: model.images.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return InkWell(
-                                  child: model.images[index] != null? Image.file(model.images[index]!,
-                                    fit: BoxFit.contain,
-                                  )
-                                      :
-                                  SizedBox(
-                                    height: mq.size.width*0.8,
-                                    width: mq.size.width*0.8,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Center(
-                                        child: index !=0? const Icon(Icons.add) : const Text('Facade de la maison',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    child: model.images[index] != null? Image.file(model.images[index]!,
+                                      fit: BoxFit.contain,
+                                    )
+                                        :
+                                    SizedBox(
+                                      height: mq.size.width*0.8,
+                                      width: mq.size.width*0.8,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: index !=0? const Icon(Icons.add) : const Text('Facade de la maison',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  onTap: () async {
-                                    model.navigateToCameraView(index).whenComplete(() => setState((){
+                                    onTap: () async {
+                                      model.navigateToCameraView(index).whenComplete(() => setState((){
 
-                                    }));
-                                    // await model.pickImage(index).whenComplete(() {
-                                    //   setState(() {
-                                    //
-                                    //   });
-                                    // });
-                                  },
+                                      }));
+                                      // await model.pickImage(index).whenComplete(() {
+                                      //   setState(() {
+                                      //
+                                      //   });
+                                      // });
+                                    },
+                                  ),
                                 );
                               },
                             ),
@@ -706,6 +711,57 @@ class _NewPlaceState extends State<NewPlace> {
                             onPressed: () {
 
                               if (_formKey.currentState!.validate()) {
+
+                                setState(() {
+                                  loading = true;
+                                });
+                                model.addPlace()
+                                    .then((us) => model.navigateToCatalogue())
+                                    .catchError((error, trace)  {
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                  showDialog(context: context, builder: (buildContext) => Dialog(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                          child: Text(error.toString(),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 20,
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.1
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: TextButton(
+                                              onPressed: () => Navigator.of(buildContext).pop(),
+                                              child: Text('Ok',
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    color: Theme.of(context).colorScheme.primary,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600
+                                                ),
+                                              )
+                                          ),
+                                        )
+
+                                      ],
+                                    ),
+
+                                  ));
+                                });
                                 model.addPlace();
                               }
                               },
@@ -717,13 +773,17 @@ class _NewPlaceState extends State<NewPlace> {
                               backgroundColor: Theme.of(context).colorScheme.primary,
                               elevation: 8,
                             ),
-                            child: const Text('Enregister',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.2
+                            child: Visibility(
+                              visible: !loading,
+                              replacement: const CircularProgressIndicator(color: Colors.white,),
+                              child: Text('Enregister',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.2
+                                ),
                               ),
                             ),
                           ),

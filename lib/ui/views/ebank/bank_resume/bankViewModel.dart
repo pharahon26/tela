@@ -59,10 +59,10 @@ class BankViewModel extends BaseViewModel{
     await _navigationService.navigateToEbankLoginView();
   }
   void navigateTochangePhoto() async{
-    await _navigationService.navigateToPhotoChangeView(fromBank: true);
+    await _navigationService.navigateToPhotoChangeView(fromBank: false);
   }
   changeMDP(){
-    _navigationService.navigateToPasswordChangeView(fromBank: true);
+    _navigationService.navigateToPasswordChangeView(fromBank: false);
   }
 
   deconnection() {

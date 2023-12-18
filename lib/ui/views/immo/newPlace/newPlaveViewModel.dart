@@ -84,7 +84,7 @@ class NewPlaceViewModel extends BaseViewModel{
   }
 
 
-  void addPlace() async{
+  Future addPlace() async{
     TelaPlace place = TelaPlace(
         id: 0,
         proprioName: nomProprio,

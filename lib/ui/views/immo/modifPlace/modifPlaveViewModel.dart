@@ -54,6 +54,8 @@ class ModifPlaceViewModel extends BaseViewModel{
   List<DropdownMenuItem<Commune>> dropDownItems = [];
 
   List<String?> images = [];
+  List<String?> images_base = [];
+  List<File?> imagesFiles = [];
   File? img;
   Future<List<DropdownMenuItem<Commune>> > cc() async {
     if (communes.isEmpty) {
@@ -82,6 +84,7 @@ class ModifPlaceViewModel extends BaseViewModel{
 
     isHautStanding = place.isHautStanding;
     isHautStandingPicine = place.hasPiscine;
+    prix = place.price.toString();
 
     hasCoursAvant = place.hasCoursAvant;
     hasCoursArriere = place.hasCoursArriere;
@@ -101,10 +104,13 @@ class ModifPlaceViewModel extends BaseViewModel{
     commune = communes.firstWhere((element) => element.id == place.communeId);
 
     for(int i = 0; i<10; i++) {
-      images.add(null);
+      images.add('');
+      images_base.add('');
+      imagesFiles.add(null);
     }
     for(int i = 0; i<place.images.length; i++) {
       images[i] = place.images[i];
+      images_base[i] = place.images[i];
     }
     print('IMAGE *********************');
     print(place.images);
@@ -112,7 +118,7 @@ class ModifPlaceViewModel extends BaseViewModel{
   }
 
 
-  void modifPlace() async{
+  Future modifPlace() async{
     TelaPlace plac = TelaPlace(
         id: place.id,
         proprioName: nomProprio,
@@ -142,7 +148,7 @@ class ModifPlaceViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasGardien: hasGardien,
     );
-    TelaPlace? telaPlace = await _placeService.modifPlace(place: plac);
+    TelaPlace? telaPlace = await _placeService.modifPlace(place: plac, imgc: getImageChanged());
     if (telaPlace != null) {
       _authService.placeAdded(telaPlace);
       _navigationService.navigateToCatalogue();
@@ -163,9 +169,22 @@ class ModifPlaceViewModel extends BaseViewModel{
   Future navigateToCameraView(int index) async{
     File? pic = await _navigationService.navigateToCameraView();
     /// update image on server
-    // images[index] = pic;
+    imagesFiles[index] = pic;
+    images[index] = pic?.path??'';
     notifyListeners();
   }
 
+  Map<String, File> getImageChanged(){
+    Map<String, File> changes = {};
+    for (int i = 0; i<10; i++) {
+      if (images[i]?.isNotEmpty??false) {
+        if (images[i] != images_base[i]) {
+          changes[(images_base[i]??'')] = imagesFiles[i]!;
+        }
+
+      }
+    }
+    return changes;
+  }
 
 }

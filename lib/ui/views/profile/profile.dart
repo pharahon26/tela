@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    // MediaQueryData mq =MediaQuery.of(context);
+    MediaQueryData mq =MediaQuery.of(context);
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -33,6 +33,14 @@ class _ProfileState extends State<Profile> {
                   color: Colors.white
               ),
             ),
+            actions: [
+              InkWell(onTap: () => model.changeMDP(),
+                child:  Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                  child: Icon(Icons.key, size: 24, color: Colors.white,),
+                ),
+              )
+            ],
             elevation: 5,
             leading: Builder(
               builder: (BuildContext context) {
@@ -128,116 +136,102 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   /// noms + phone
 
-                                  Row(
-                                    children: [
-                                      ClipOval(
-                                        child: InkWell(
-                                          onTap: () => model.navigateTochangePhoto(),
-                                          child: SizedBox(
-                                            width: 60,
-                                            height: 60,
-                                            child: Image.network('$_BASE_URL${model.user?.photo}',
-                                              fit: BoxFit.contain,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        ClipOval(
+                                          child: InkWell(
+                                            onTap: () => model.navigateTochangePhoto(),
+                                            child: SizedBox(
+                                              width: 60,
+                                              height: 60,
+                                              child: Image.network('$_BASE_URL${model.user?.photo}',
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text('${model.user!.nom} ${model.user!.prenom}',
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('${model.user!.nom} ${model.user!.prenom}',
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w600,
                                                   letterSpacing: 1.2,
                                                   color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(model.user!.phone,
-                                              style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 1.2,
-                                                  color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const Spacer(),
-                                      Column(
-                                        children: [
-                                          TextButton(onPressed: () => model.deconnection(),
-                                            style: TextButton.styleFrom(
-                                              // backgroundColor: Theme.of(context).colorScheme.primary,
-                                              shape: const StadiumBorder(),
-                                            ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                                              child: Text('Déconnexion',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    letterSpacing: 1.2,
-                                                    color: Colors.orange
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          Visibility(
-                                            visible: !model.user!.isComplete,
-                                            replacement: TextButton(onPressed: () => model.changeMDP(),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text(model.user!.phone,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            TextButton(onPressed: () => model.deconnection(),
                                               style: TextButton.styleFrom(
-                                                // backgroundColor: Theme.of(context).colorScheme.primary,
+                                                backgroundColor: Colors.white,
                                                 shape: const StadiumBorder(),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                                                child: Text('Mot de passe',
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                                                child: Text('Déconnexion',
                                                   style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600,
-                                                      letterSpacing: 1.2,
-                                                      color: Colors.orange
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Theme.of(context).colorScheme.primary,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                            child: TextButton(
-                                              onPressed: () => model.navigateToIdentification(),
-                                              style: TextButton.styleFrom(
-                                                  backgroundColor: Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(50)
-                                                  )
-                                              ),
-                                              child: const SizedBox(
-                                                height: 45,
-                                                width: 125,
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
-                                                  child: Text('profil Incomplet. Cliquez ici',
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                        color: Colors.deepOrange,
-                                                        fontSize: 14.0,
-                                                        fontWeight: FontWeight.w400
-                                                    ),),
+                                            Visibility(
+                                              visible: !model.user!.isComplete,
+                                              child: TextButton(
+                                                onPressed: () => model.navigateToIdentification(),
+                                                style: TextButton.styleFrom(
+                                                    backgroundColor: Colors.white,
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50)
+                                                    )
+                                                ),
+                                                child: const SizedBox(
+                                                  height: 45,
+                                                  width: 125,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
+                                                    child: Text('profil Incomplet. Cliquez ici',
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                          color: Colors.deepOrange,
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeight.w400
+                                                      ),),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   // Padding(
                                   //   padding: const EdgeInsets.all(8.0),
@@ -263,30 +257,30 @@ class _ProfileState extends State<Profile> {
                                   //     ],
                                   //   ),
                                   // ),
-                                  Column(
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(2.0),
-                                        child: Text('Solde',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Text('XOF ${model.user?.balance.toString()??'0'}',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  // Column(
+                                  //   children: [
+                                  //     const Padding(
+                                  //       padding: EdgeInsets.all(2.0),
+                                  //       child: Text('Solde',
+                                  //         style: TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 14.0,
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: const EdgeInsets.all(2.0),
+                                  //       child: Text('XOF ${model.user?.balance.toString()??'0'}',
+                                  //         style: const TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 18.0,
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   /// Catalogue
                                   Align(
                                     alignment: Alignment.center,
@@ -378,18 +372,18 @@ class _ProfileState extends State<Profile> {
                                           ))
                                           ,
                                           style: TextButton.styleFrom(
-                                            alignment: Alignment.centerLeft,
-                                            backgroundColor: model.abonnement != null? Colors.white : Colors.white.withOpacity(0.4),
-                                            elevation: 5,
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                              alignment: Alignment.centerLeft,
+                                              backgroundColor: model.abonnement != null? Colors.white : Colors.white.withOpacity(0.4),
+                                              elevation: 5,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 4),
                                             child: Text('Mon Catalogue',style: TextStyle(
-                                                color: Theme.of(context).colorScheme.primary,
-                                                fontSize:18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              color: Theme.of(context).colorScheme.primary,
+                                              fontSize:18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                             ),
                                           )
                                       ),
@@ -631,9 +625,9 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               children: [
                                 /// is actif?
-                                 Visibility(
-                                   visible: model.abonnement != null,
-                                   child: Padding(
+                                Visibility(
+                                  visible: model.abonnement != null,
+                                  child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -656,8 +650,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ],
                                     ),
+                                  ),
                                 ),
-                                 ),
                                 Visibility(
                                   visible: model.abonnement != null,
                                   child: const Divider(
@@ -1058,116 +1052,102 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   /// noms + phone
 
-                                  Row(
-                                    children: [
-                                      ClipOval(
-                                        child: InkWell(
-                                          onTap: () => model.navigateTochangePhoto(),
-                                          child: SizedBox(
-                                            width: 60,
-                                            height: 60,
-                                            child: Image.network('$_BASE_URL${model.user?.photo}',
-                                              fit: BoxFit.contain,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        ClipOval(
+                                          child: InkWell(
+                                            onTap: () => model.navigateTochangePhoto(),
+                                            child: SizedBox(
+                                              width: 60,
+                                              height: 60,
+                                              child: Image.network('$_BASE_URL${model.user?.photo}',
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text('${model.user!.nom} ${model.user!.prenom}',
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing: 1.2,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(model.user!.phone,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing: 1.2,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const Spacer(),
-                                      Column(
-                                        children: [
-                                          TextButton(onPressed: () => model.deconnection(),
-                                            style: TextButton.styleFrom(
-                                              // backgroundColor: Theme.of(context).colorScheme.primary,
-                                              shape: const StadiumBorder(),
-                                            ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                                              child: Text('Déconnexion',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    letterSpacing: 1.2,
-                                                    color: Colors.orange
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('${model.user!.nom} ${model.user!.prenom}',
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          Visibility(
-                                            visible: !model.user!.isComplete,
-                                            replacement: TextButton(onPressed: () => model.changeMDP(),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text(model.user!.phone,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            TextButton(onPressed: () => model.deconnection(),
                                               style: TextButton.styleFrom(
-                                                // backgroundColor: Theme.of(context).colorScheme.primary,
+                                                backgroundColor: Colors.white,
                                                 shape: const StadiumBorder(),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                                                child: Text('Changer le mot de passe',
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                                                child: Text('Déconnexion',
                                                   style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w600,
-                                                      letterSpacing: 1.2,
-                                                      color: Colors.orange
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Theme.of(context).colorScheme.primary,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                            child: TextButton(
-                                              onPressed: () => model.navigateToIdentification(),
-                                              style: TextButton.styleFrom(
-                                                  backgroundColor: Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(50)
-                                                  )
-                                              ),
-                                              child: const SizedBox(
-                                                height: 45,
-                                                width: 125,
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
-                                                  child: Text('profil Incomplet. Cliquez ici',
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                        color: Colors.deepOrange,
-                                                        fontSize: 14.0,
-                                                        fontWeight: FontWeight.w400
-                                                    ),),
+                                            Visibility(
+                                              visible: !model.user!.isComplete,
+                                              child: TextButton(
+                                                onPressed: () => model.navigateToIdentification(),
+                                                style: TextButton.styleFrom(
+                                                    backgroundColor: Colors.white,
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50)
+                                                    )
+                                                ),
+                                                child: const SizedBox(
+                                                  height: 45,
+                                                  width: 125,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
+                                                    child: Text('profil Incomplet. Cliquez ici',
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                          color: Colors.deepOrange,
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeight.w400
+                                                      ),),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   // Padding(
                                   //   padding: const EdgeInsets.all(8.0),
@@ -1193,30 +1173,30 @@ class _ProfileState extends State<Profile> {
                                   //     ],
                                   //   ),
                                   // ),
-                                  Column(
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(2.0),
-                                        child: Text('Solde',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Text('XOF ${model.user?.balance.toString()??'0'}',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  // Column(
+                                  //   children: [
+                                  //     const Padding(
+                                  //       padding: EdgeInsets.all(2.0),
+                                  //       child: Text('Solde',
+                                  //         style: TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 14.0,
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: const EdgeInsets.all(2.0),
+                                  //       child: Text('XOF ${model.user?.balance.toString()??'0'}',
+                                  //         style: const TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 18.0,
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   /// Catalogue
                                   Align(
                                     alignment: Alignment.center,

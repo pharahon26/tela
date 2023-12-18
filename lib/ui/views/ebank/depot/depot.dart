@@ -73,7 +73,7 @@ class _DepotState extends State<Depot> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${model.authService.bankProfile?.balance??0}',
+                            child: Text('X0F ${model.authService.bankEpargne?.balance??0}',
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
@@ -141,7 +141,7 @@ class _DepotState extends State<Depot> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${(model.authService.bankProfile?.balance??0) - model.montant}',
+                            child: Text('X0F ${(model.authService.bankEpargne?.balance??0) + model.montant}',
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,

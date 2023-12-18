@@ -20,9 +20,9 @@ class BankEpargneTabHeader extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: const Text( '(Compte épargne)',
+          const Padding(
+            padding: EdgeInsets.all(4.0),
+            child: Text( '(Compte épargne)',
               style: TextStyle(
                   fontSize: 10 ,
                   fontWeight: FontWeight.w600,

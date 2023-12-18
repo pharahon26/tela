@@ -148,20 +148,24 @@ class PlaceService{
   }
 
   /// modif place
-  Future<TelaPlace?> modifPlace({required TelaPlace place}) async {
+  Future<TelaPlace?> modifPlace({required TelaPlace place, required Map<String, File> imgc}) async {
     var client = _newClient();
     TelaPlace? pl;
     Map<String, dynamic> toSend = place.toJson();
 
-    // for(int i = 0; i<10; i++){
-    //   if (images[i] != null) {
-    //     String photoImg64 = base64Encode(images[i]!.readAsBytesSync());
-    //     toSend['picture$i'] = photoImg64;
-    //   }
-    // }
-
+    Map<String, String> img = {};
+    int i =1 ;
+    imgc.forEach((key, value) {
+      String photoImg64 = base64Encode(value.readAsBytesSync());
+      if (key == '') {
+        key = i.toString();
+      }
+      img[key] = photoImg64;
+      i++;
+    });
+    toSend['image_change'] = img;
     try{
-      print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace')} modif place : \n ${place.toJson()}');
+      print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace')} modif place : \n ${toSend}');
       http.Response response = await client.post(Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace'),
         headers: <String, String>{
           'Content-Type': 'application/json',

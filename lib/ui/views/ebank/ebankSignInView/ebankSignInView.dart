@@ -21,6 +21,7 @@ class _EbankSignInViewState extends State<EbankSignInView>
   }
 
   bool isPasswordVisible = false;
+  bool loading = false;
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -326,9 +327,58 @@ class _EbankSignInViewState extends State<EbankSignInView>
                 child: ElevatedButton(
                   onPressed: () async {
 
-                    if (_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate() && !loading) {
+                      setState(() {
+                        loading = true;
+                      });
                       model.isAccepted?
                       await model.signIn()
+                          .catchError((error, trace)  {
+                        setState(() {
+                          loading = false;
+                        });
+                        showDialog(context: context, builder: (buildContext) => Dialog(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                child: Text(error.toString(),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 20,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.1
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextButton(
+                                    onPressed: () => Navigator.of(buildContext).pop(),
+                                    child: Text('Ok',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          color: Theme.of(context).colorScheme.primary,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600
+                                      ),
+                                    )
+                                ),
+                              )
+
+                            ],
+                          ),
+
+                        )
+                        );
+                      })
                           :
                       showDialog(context: context, builder: (buildContext) => Dialog(
                         backgroundColor: Colors.white,
@@ -353,7 +403,12 @@ class _EbankSignInViewState extends State<EbankSignInView>
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextButton(
-                                  onPressed: () => Navigator.pop(buildContext),
+                                  onPressed: () {
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                    Navigator.pop(buildContext);
+                                    },
                                   child: Text('Retour',
                                     maxLines: 2,
                                     style: TextStyle(
@@ -378,15 +433,19 @@ class _EbankSignInViewState extends State<EbankSignInView>
                       fixedSize: Size(mediaQuery.size.width - 20, 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 80.0),
-                    child: Text(
-                      'Créer le profil',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+                    child: Visibility(
+                      visible: !loading,
+                      replacement: const CircularProgressIndicator(color: Colors.white,),
+                      child: const Text(
+                        'Créer le profil',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

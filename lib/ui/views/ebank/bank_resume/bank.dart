@@ -23,6 +23,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
   List<Widget> tabswidget = [];
   double compteBalance = 0;
   double epargneBalance = 0;
+  bool isVir = true;
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
     tabController = TabController(length: widget.hasEpargne? 2 : 1, vsync: this);
     tabController.addListener(() {
       setState(() {
-
+        isVir = tabController.index == 1;
       });
     });
     setState(() {
@@ -46,7 +47,6 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     tabController.dispose();
   }
@@ -65,7 +65,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                 visible: model.authService.bankProfile != null,
                 replacement: Text('Tela Finance',
                   style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.3,
                       color: Theme.of(context).colorScheme.primary
@@ -75,13 +75,21 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.3,
                       color: Theme.of(context).colorScheme.primary
                   ),
                 ),
               ),
+              actions: [
+                InkWell(onTap: () => model.changeMDP(),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                    child: Icon(Icons.key, size: 24, color: Theme.of(context).colorScheme.primary,),
+                  ),
+                )
+              ],
               elevation: 5,
               leading: Builder(
                 builder: (BuildContext context) {
@@ -174,8 +182,39 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                       /// infos soldes and accounts
                       Visibility(
                         visible: model.authService.bankProfile != null,
-                        replacement: const SizedBox(
-                          height: 50,
+                        replacement: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 40.0,
+                              ),
+                              SizedBox(
+                                height: 120.0,
+                                width: 120.0,
+                                child: Image.asset(
+                                  'assets/images/logo_2.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              Container(
+                                height: mq.size.height/3,
+                                alignment: Alignment.center,
+                                child: Text('Connectez vous pour accéder à votre espace personnel',
+                                  textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontSize: 24,
+                                      letterSpacing: 1.3,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -185,7 +224,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                               children: [
                                 ClipOval(
                                   child: InkWell(
-                                    onTap: () => model.changeMDP(),
+                                    onTap: () => model.navigateTochangePhoto(),
                                     child: SizedBox(
                                       width: 60,
                                       height: 60,
@@ -243,7 +282,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: !((model.authService.bankProfile?.isValidated)??false),
+                                      visible: !model.authService.user!.isComplete,
                                       child: TextButton(
                                         onPressed: () => model.navigateToIdentification(),
                                         style: TextButton.styleFrom(
@@ -259,7 +298,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
-                                                child: Text('profil Incomplet. Cliquez ici',
+                                                child: Text('profil incomplet. Cliquez ici',
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
                                                   style: TextStyle(
@@ -323,7 +362,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       Text('X0F ${ ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) >= 5000? ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) - 5000) : 0 )}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,
                                           letterSpacing: 1.2,
@@ -379,34 +418,47 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                         child: Visibility(
                           visible: model.authService.bankProfile != null,
                           /// auth
-                          replacement: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          replacement: Column(
                             children: [
-                              TextButton(
-                                  onPressed: () => model.navigateToSignIn(),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).colorScheme.primary,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                                  ),
-                                  child: const Text('Créer un profile',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),)),
-                              TextButton(
-                                  onPressed: () => model.navigateToLogin(),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).colorScheme.primary,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                                  ),
-                                  child: const Text('Se connecter',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),)),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(maxWidth: mq.size.width*0.7),
+                                child: TextButton(
+                                    onPressed: () => model.navigateToLogin(),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Theme.of(context).colorScheme.primary,
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                                      child: const Text('Se connecter',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),),
+                                    )),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(maxWidth: mq.size.width*0.7),
+                                child: TextButton(
+                                    onPressed: () => model.navigateToSignIn(),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Theme.of(context).colorScheme.primary,
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                                      child: const Text('Créer un profile',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),),
+                                    )),
+                              ),
                             ],
                           ) ,
                           /// TAB VIEW

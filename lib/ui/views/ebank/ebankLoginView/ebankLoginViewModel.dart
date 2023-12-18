@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:tela/app/app.locator.dart';
 import 'package:tela/app/app.router.dart';
 import 'package:tela/models/bank_profile.dart';
+import 'package:tela/models/user.dart';
 import 'package:tela/services/auth_service.dart';
 import 'package:tela/services/telaSharedPrefs.dart';
 import 'package:stacked/stacked.dart';
@@ -23,7 +24,7 @@ class EbankLoginViewModel extends BaseViewModel{
   }
 
   Future login() async {
-    TelaBankProfile? u = await _authService.loginEBank(
+    User? u = await _authService.login(
         phone: phone,
         password: password)
         .then((val) {
