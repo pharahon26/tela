@@ -1,7 +1,7 @@
-import 'package:tela/app/app.locator.dart';
+import 'package:mobile/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:tela/services/tv_service.dart';
+import 'package:mobile/services/tv_service.dart';
 
 class TvSportViewModel extends BaseViewModel{
 

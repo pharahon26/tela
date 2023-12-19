@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/ebank/versement_ret/versementRetViewModel.dart';
+import 'package:mobile/ui/views/ebank/versement_ret/versementRetViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class VersementRet extends StatefulWidget {

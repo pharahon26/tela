@@ -1,10 +1,10 @@
 import 'package:cinetpay/cinetpay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tela/models/abonnement.dart';
-import 'package:tela/models/abonnementType.dart';
-import 'package:tela/models/transactions.dart';
-import 'package:tela/ui/views/ebank/buyView/buyViewModel.dart';
+import 'package:mobile/models/abonnement.dart';
+import 'package:mobile/models/abonnementType.dart';
+import 'package:mobile/models/transactions.dart';
+import 'package:mobile/ui/views/ebank/buyView/buyViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 import 'dart:math';
@@ -26,6 +26,7 @@ class _BuyViewState extends State<BuyView> {
   IconData? icon;
   String? message;
   bool show = false;
+  TelaTransaction? transaction;
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -97,35 +98,32 @@ class _BuyViewState extends State<BuyView> {
                                         /// send abonnement
 
                                         if (data['status'] == 'ACCEPTED') {
+                                          setState(() {
+                                            print(response);
+                                            icon = data['status'] == 'ACCEPTED'
+                                                ? Icons.check_circle
+                                                : Icons.mood_bad_rounded;
+                                            color = data['status'] == 'ACCEPTED'
+                                                ? Colors.green
+                                                : Colors.redAccent;
+                                            show = true;
+                                          });
                                           /// create transaction
-                                          TelaTransaction _transaction = TelaTransaction(
+                                          transaction = TelaTransaction(
                                               id: 0,
                                               type: widget.abonement.type,
                                               paymentWay: data['payment_method ']??'Orange',
                                               transactionNumber: snapshot.data!,
                                               operationId: data['operator_id']??'',
                                               amount: double.parse(data['amount']??widget.abonement.price),
-                                              date: data['date']??'2023-10-26'
+                                              date: DateTime.tryParse(data['payment_date'])??DateTime.now()
                                           );
-
-                                          await model.pushTransaction(_transaction, widget.abonement);
-
+                                          Get.back();
 
 
                                           /// save transaction to server and pop out after dialog
 
                                         }
-                                        setState(() {
-                                          print(response);
-                                          icon = data['status'] == 'ACCEPTED'
-                                              ? Icons.check_circle
-                                              : Icons.mood_bad_rounded;
-                                          color = data['status'] == 'ACCEPTED'
-                                              ? Colors.green
-                                              : Colors.redAccent;
-                                          show = true;
-                                          Get.back();
-                                        });
                                       }
                                     },
                                     onError: (data) {
@@ -142,7 +140,136 @@ class _BuyViewState extends State<BuyView> {
                                         });
                                       }
                                     },
-                                  ));
+                                  ))?.then((value) async{
+                                    if(transaction != null){
+                                      await model.pushTransaction(transaction!, widget.abonement)
+                                          .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30)
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                              child: Text('Votre abonnement a bien été effectué',
+                                                textAlign: TextAlign.center,
+                                                maxLines: 20,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.1
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: TextButton(
+                                                  onPressed: () =>  model.navigateToProfile(),
+                                                  child: Text('Ok',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            )
+
+                                          ],
+                                        ),
+
+                                      ))
+                                      )
+                                          .catchError((error, trace)  {
+                                        showDialog(context: context, builder: (buildContext) => Dialog(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(30)
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                child: Text(error.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 20,
+                                                  style: const TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w600,
+                                                      letterSpacing: 1.1
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: TextButton(
+                                                    onPressed: () => Navigator.of(buildContext).pop(),
+                                                    child: Text('Ok',
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                          color: Theme.of(context).colorScheme.primary,
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.w600
+                                                      ),
+                                                    )
+                                                ),
+                                              )
+
+                                            ],
+                                          ),
+
+                                        )
+                                        );
+                                      });
+                                    }else{
+                                      showDialog(context: context, builder: (buildContext) => Dialog(
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30)
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                              child: Text('Erreur innatendu!',
+                                                textAlign: TextAlign.center,
+                                                maxLines: 5,
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.1
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: TextButton(
+                                                  onPressed: () =>  model.navigateToProfile(),
+                                                  child: Text('Ok',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            )
+
+                                          ],
+                                        ),
+
+                                      ));
+                                    }
+                                  });
                                 },
                                 style: TextButton.styleFrom(
                                   elevation: 8,

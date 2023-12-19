@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tela/models/abonnementType.dart';
-import 'package:tela/models/transactions.dart';
-import 'package:tela/ui/views/ebank/buyPassView/buyPassViewModel.dart';
+import 'package:mobile/models/abonnementType.dart';
+import 'package:mobile/models/transactions.dart';
+import 'package:mobile/ui/views/ebank/buyPassView/buyPassViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 
@@ -24,6 +24,7 @@ class _BuyPassViewState extends State<BuyPassView> {
   IconData? icon;
   String? message;
   bool show = false;
+  TelaTransaction? transaction;
   @override
     Widget build(BuildContext context) {
       MediaQueryData mq =MediaQuery.of(context);
@@ -120,76 +121,31 @@ class _BuyPassViewState extends State<BuyPassView> {
                                           if (mounted) {
                                             print('Payement..................................');
                                             response = data;
+                                            // setState(() {
+                                            //   print(response);
+                                            //   icon = data['status'] == 'ACCEPTED'
+                                            //       ? Icons.check_circle
+                                            //       : Icons.mood_bad_rounded;
+                                            //   color = data['status'] == 'ACCEPTED'
+                                            //       ? Colors.green
+                                            //       : Colors.redAccent;
+                                            //   show = true;
+                                            // });
                                             /// send abonnement
-                                            TelaTransaction transaction = TelaTransaction(
-                                                id: 0,
-                                                type: widget.pass.isVisite? 'PassVisite' : 'passTv',
-                                                paymentWay: data['payment_method ']??'CinetPay',
-                                                transactionNumber: snapshot.data!,
-                                                operationId: data['operator_id']??'',
-                                                amount: double.parse(data['amount']??widget.pass.price),
-                                                date: data['payment_date']??DateTime.now()
-                                            );
-
-                                            await model.pushTransaction(transaction, widget.pass)
-                                                .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(30)
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                    child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
-                                                      textAlign: TextAlign.center,
-                                                      maxLines: 20,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.w600,
-                                                          letterSpacing: 1.1
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: TextButton(
-                                                        onPressed: () =>  model.navigateToProfile(),
-                                                        child: Text('Ok',
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                              color: Theme.of(context).colorScheme.primary,
-                                                              fontSize: 18,
-                                                              fontWeight: FontWeight.w600
-                                                          ),
-                                                        )
-                                                    ),
-                                                  )
-
-                                                ],
-                                              ),
-
-                                            ))
-                                            );
-
-                                            if (data['status'] == 'ACCEPTED') {
-                                              /// create transaction
-                                              await model.pushTransaction(transaction, widget.pass);
+                                            if (data['status'] == 'ACCEPTED'){
+                                              transaction = TelaTransaction(
+                                                  id: 0,
+                                                  type: widget.pass.isVisite? 'PassVisite' : 'passTv',
+                                                  paymentWay: data['payment_method ']??'CinetPay',
+                                                  transactionNumber: snapshot.data!,
+                                                  operationId: data['operator_id']??'',
+                                                  amount: double.parse(data['amount']??widget.pass.price),
+                                                  date: DateTime.tryParse(data['payment_date'])??DateTime.now()
+                                              );
+                                              Get.back();
 
                                             }
-                                            setState(() {
-                                              print(response);
-                                              icon = data['status'] == 'ACCEPTED'
-                                                  ? Icons.check_circle
-                                                  : Icons.mood_bad_rounded;
-                                              color = data['status'] == 'ACCEPTED'
-                                                  ? Colors.green
-                                                  : Colors.redAccent;
-                                              show = true;
-                                              Get.back();
-                                            });
+
                                           }
                                         },
                                         onError: (data) {
@@ -206,7 +162,162 @@ class _BuyPassViewState extends State<BuyPassView> {
                                             });
                                           }
                                         },
-                                      ));
+                                      ))?.then((value) async{
+                                        if(transaction != null){
+                                          await model.pushTransaction(transaction!, widget.pass)
+                                              .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Notez bien lz code ci-dessous! \nUne fois perdu il ne peut être récupéré.',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 5,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Le code de votre pass est:',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 20,
+                                                    style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.deepOrange,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton(
+                                                      onPressed: () =>  model.navigateToProfile(),
+                                                      child: Text('Ok',
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                      )
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ))
+                                          )
+                                              .catchError((error, trace)  {
+                                            showDialog(context: context, builder: (buildContext) => Dialog(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                    child: Text(error.toString(),
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 20,
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 1.1
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: TextButton(
+                                                        onPressed: () => Navigator.of(buildContext).pop(),
+                                                        child: Text('Ok',
+                                                          maxLines: 2,
+                                                          style: TextStyle(
+                                                              color: Theme.of(context).colorScheme.primary,
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.w600
+                                                          ),
+                                                        )
+                                                    ),
+                                                  )
+
+                                                ],
+                                              ),
+
+                                            )
+                                            );
+                                          });
+                                        }else{
+                                          showDialog(context: context, builder: (buildContext) => Dialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Erreur innatendu!',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 5,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton(
+                                                      onPressed: () =>  model.navigateToProfile(),
+                                                      child: Text('Ok',
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                      )
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ));
+                                        }
+                                      });
                                     },
                                   )
                                 ],
@@ -270,76 +381,31 @@ class _BuyPassViewState extends State<BuyPassView> {
                                           if (mounted) {
                                             print('Payement..................................');
                                             response = data;
+                                            // setState(() {
+                                            //   print(response);
+                                            //   icon = data['status'] == 'ACCEPTED'
+                                            //       ? Icons.check_circle
+                                            //       : Icons.mood_bad_rounded;
+                                            //   color = data['status'] == 'ACCEPTED'
+                                            //       ? Colors.green
+                                            //       : Colors.redAccent;
+                                            //   show = true;
+                                            // });
                                             /// send abonnement
-                                            TelaTransaction transaction = TelaTransaction(
-                                                id: 0,
-                                                type: widget.pass.isVisite? 'PassVisite' : 'passTv',
-                                                paymentWay: data['payment_method ']??'CinetPay',
-                                                transactionNumber: snapshot.data!,
-                                                operationId: data['operator_id']??'',
-                                                amount: double.parse(data['amount']??widget.pass.price),
-                                                date: data['payment_date']??DateTime.now()
-                                            );
-
-                                            await model.pushTransaction(transaction, widget.pass)
-                                                .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(30)
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                    child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
-                                                      textAlign: TextAlign.center,
-                                                      maxLines: 20,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.w600,
-                                                          letterSpacing: 1.1
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: TextButton(
-                                                        onPressed: () =>  model.navigateToProfile(),
-                                                        child: Text('Ok',
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                              color: Theme.of(context).colorScheme.primary,
-                                                              fontSize: 18,
-                                                              fontWeight: FontWeight.w600
-                                                          ),
-                                                        )
-                                                    ),
-                                                  )
-
-                                                ],
-                                              ),
-
-                                            ))
-                                            );
-
-                                            if (data['status'] == 'ACCEPTED') {
-                                              /// create transaction
-                                              await model.pushTransaction(transaction, widget.pass);
+                                            if (data['status'] == 'ACCEPTED'){
+                                              transaction = TelaTransaction(
+                                                  id: 0,
+                                                  type: widget.pass.isVisite? 'PassVisite' : 'passTv',
+                                                  paymentWay: data['payment_method ']??'CinetPay',
+                                                  transactionNumber: snapshot.data!,
+                                                  operationId: data['operator_id']??'',
+                                                  amount: double.parse(data['amount']??widget.pass.price),
+                                                  date: DateTime.tryParse(data['payment_date'])??DateTime.now()
+                                              );
+                                              Get.back();
 
                                             }
-                                            setState(() {
-                                              print(response);
-                                              icon = data['status'] == 'ACCEPTED'
-                                                  ? Icons.check_circle
-                                                  : Icons.mood_bad_rounded;
-                                              color = data['status'] == 'ACCEPTED'
-                                                  ? Colors.green
-                                                  : Colors.redAccent;
-                                              show = true;
-                                              Get.back();
-                                            });
+
                                           }
                                         },
                                         onError: (data) {
@@ -356,7 +422,162 @@ class _BuyPassViewState extends State<BuyPassView> {
                                             });
                                           }
                                         },
-                                      ));
+                                      ))?.then((value) async{
+                                        if(transaction != null){
+                                          await model.pushTransaction(transaction!, widget.pass)
+                                              .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Notez bien lz code ci-dessous! \nUne fois perdu il ne peut être récupéré.',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 5,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Le code de votre pass est:',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 20,
+                                                    style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.deepOrange,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton(
+                                                      onPressed: () =>  model.navigateToProfile(),
+                                                      child: Text('Ok',
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                      )
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ))
+                                          )
+                                              .catchError((error, trace)  {
+                                            showDialog(context: context, builder: (buildContext) => Dialog(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                    child: Text(error.toString(),
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 20,
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 1.1
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: TextButton(
+                                                        onPressed: () => Navigator.of(buildContext).pop(),
+                                                        child: Text('Ok',
+                                                          maxLines: 2,
+                                                          style: TextStyle(
+                                                              color: Theme.of(context).colorScheme.primary,
+                                                              fontSize: 18,
+                                                              fontWeight: FontWeight.w600
+                                                          ),
+                                                        )
+                                                    ),
+                                                  )
+
+                                                ],
+                                              ),
+
+                                            )
+                                            );
+                                          });
+                                        }else{
+                                          showDialog(context: context, builder: (buildContext) => Dialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                                  child: Text('Erreur innatendu!',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 5,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w600,
+                                                        letterSpacing: 1.1
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: TextButton(
+                                                      onPressed: () =>  model.navigateToProfile(),
+                                                      child: Text('Ok',
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                            fontSize: 18,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                      )
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ));
+                                        }
+                                      });
                                     },
                                   )
                                 ],

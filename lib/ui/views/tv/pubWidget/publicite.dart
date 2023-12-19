@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/tv/pubWidget/publiciteViewModel.dart';
+import 'package:mobile/ui/views/tv/pubWidget/publiciteViewModel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
 

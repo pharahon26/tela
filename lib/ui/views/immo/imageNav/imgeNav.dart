@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/immo/imageNav/imageNavViewModel.dart';
+import 'package:mobile/ui/views/immo/imageNav/imageNavViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class ImageNav extends StatefulWidget {
@@ -66,6 +66,11 @@ class _ImageNavState extends State<ImageNav> {
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
                   children: widget.images.map((e) => Image.network('$_BASE_URL$e',
+                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) =>  (loadingProgress == null)? child: Center(child: CircularProgressIndicator()),
+                    errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                      width: 50,
+                      fit: BoxFit.fitWidth,
+                    ),
                     fit: BoxFit.contain,
                   )).toList(),
                 ),

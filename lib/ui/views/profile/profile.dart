@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/profile/profileViewModel.dart';
-import 'package:tela/ui/widget/profilCliper.dart';
+import 'package:mobile/ui/views/profile/profileViewModel.dart';
+import 'package:mobile/ui/widget/profilCliper.dart';
 import 'package:stacked/stacked.dart';
 
 class Profile extends StatefulWidget {
@@ -17,7 +17,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mq =MediaQuery.of(context);
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -150,6 +149,11 @@ class _ProfileState extends State<Profile> {
                                               width: 60,
                                               height: 60,
                                               child: Image.network('$_BASE_URL${model.user?.photo}',
+                                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                                errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                                                  width: 50,
+                                                  fit: BoxFit.fitWidth,
+                                                ),
                                                 fit: BoxFit.contain,
                                               ),
                                             ),
@@ -1066,6 +1070,11 @@ class _ProfileState extends State<Profile> {
                                               width: 60,
                                               height: 60,
                                               child: Image.network('$_BASE_URL${model.user?.photo}',
+                                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                                errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                                                  width: 50,
+                                                  fit: BoxFit.fitWidth,
+                                                ),
                                                 fit: BoxFit.contain,
                                               ),
                                             ),

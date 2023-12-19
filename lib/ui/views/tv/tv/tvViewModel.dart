@@ -1,4 +1,4 @@
-import 'package:tela/app/app.locator.dart';
+import 'package:mobile/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

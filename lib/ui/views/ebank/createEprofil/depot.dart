@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/ebank/depot/depotViewModel.dart';
+import 'package:mobile/ui/views/ebank/depot/depotViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Depot extends StatefulWidget {

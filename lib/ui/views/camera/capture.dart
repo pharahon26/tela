@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/camera/cameraViewModel.dart';
+import 'package:mobile/ui/views/camera/cameraViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 /// Created by Laty 26 PHARAHON entertainment on 13/09/2021.

@@ -1,8 +1,8 @@
 import 'package:cinetpay/cinetpay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tela/models/transactions.dart';
-import 'package:tela/ui/views/ebank/depot/depotViewModel.dart';
+import 'package:mobile/models/transactions.dart';
+import 'package:mobile/ui/views/ebank/depot/depotViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Depot extends StatefulWidget {
@@ -20,6 +20,7 @@ class _DepotState extends State<Depot> {
   String? message;
   bool show = false;
   bool progress = false;
+  TelaTransaction? transaction;
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -174,10 +175,18 @@ class _DepotState extends State<Depot> {
                         },
                         waitResponse: (data) async {
                           if (mounted) {
-                            print('Payement..................................');
-                            print(data);
                             response = data;
                             /// send abonnement
+                            setState(() {
+                              print(response);
+                              icon = data['status'] == 'ACCEPTED'
+                                  ? Icons.check_circle
+                                  : Icons.mood_bad_rounded;
+                              color = data['status'] == 'ACCEPTED'
+                                  ? Colors.green
+                                  : Colors.redAccent;
+                              show = true;
+                            });
 
 
                             if (data['status'] == 'ACCEPTED') {
@@ -185,7 +194,7 @@ class _DepotState extends State<Depot> {
                                 progress = true;
                               });
                               /// create transaction
-                              TelaTransaction transaction = TelaTransaction(
+                              transaction = TelaTransaction(
                                   id: 0,
                                   type: 'Depot',
                                   paymentWay: data['payment_method']??'CinetPay',
@@ -194,104 +203,9 @@ class _DepotState extends State<Depot> {
                                   amount: double.parse(data['amount']??model.montant),
                                   date: DateTime.tryParse(data['payment_date'])??DateTime.now()
                               );
-                              await model.depot(transaction)
-                                  .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                     Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                      child: Text('Votre Dépot de la somme de ${model.montant} a bien été effectué',
-                                        textAlign: TextAlign.center,
-                                        maxLines: 20,
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.1
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextButton(
-                                          onPressed: () =>  model.navigateToBank(),
-                                          child: Text('Ok',
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                color: Theme.of(context).colorScheme.primary,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600
-                                            ),
-                                          )
-                                      ),
-                                    )
-
-                                  ],
-                                ),
-
-                              ))
-                              )
-                                  .catchError((error, trace)  {
-                                showDialog(context: context, builder: (buildContext) => Dialog(
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30)
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                        child: Text(error.toString(),
-                                          textAlign: TextAlign.center,
-                                          maxLines: 20,
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.1
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextButton(
-                                            onPressed: () => Navigator.of(buildContext).pop(),
-                                            child: Text('Ok',
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                  color: Theme.of(context).colorScheme.primary,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600
-                                              ),
-                                            )
-                                        ),
-                                      )
-
-                                    ],
-                                  ),
-
-                                )
-                                );
-                              });
+                              Get.back();
 
                             }
-                            // setState(() {
-                            //   print(response);
-                            //   icon = data['status'] == 'ACCEPTED'
-                            //       ? Icons.check_circle
-                            //       : Icons.mood_bad_rounded;
-                            //   color = data['status'] == 'ACCEPTED'
-                            //       ? Colors.green
-                            //       : Colors.redAccent;
-                            //   show = true;
-                            //   Get.back();
-                            // });
                           }
                         },
                         onError: (data) {
@@ -308,7 +222,136 @@ class _DepotState extends State<Depot> {
                             });
                           }
                         },
-                      ));
+                      ))?.then((value) async{
+                        if(transaction != null){
+                          await model.depot(transaction!)
+                              .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                  child: Text('Votre Dépot de la somme de ${model.montant} a bien été effectué',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 20,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.1
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                      onPressed: () =>  model.navigateToBank(),
+                                      child: Text('Ok',
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            color: Theme.of(context).colorScheme.primary,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      )
+                                  ),
+                                )
+
+                              ],
+                            ),
+
+                          ))
+                          )
+                              .catchError((error, trace)  {
+                            showDialog(context: context, builder: (buildContext) => Dialog(
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                    child: Text(error.toString(),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 20,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.1
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextButton(
+                                        onPressed: () => Navigator.of(buildContext).pop(),
+                                        child: Text('Ok',
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                              color: Theme.of(context).colorScheme.primary,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600
+                                          ),
+                                        )
+                                    ),
+                                  )
+
+                                ],
+                              ),
+
+                            )
+                            );
+                          });
+                        }else{
+                          showDialog(context: context, builder: (buildContext) => Dialog(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                  child: Text('Erreur innatendu!',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 5,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.1
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                      onPressed: () =>  model.navigateToProfile(),
+                                      child: Text('Ok',
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            color: Theme.of(context).colorScheme.primary,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      )
+                                  ),
+                                )
+
+                              ],
+                            ),
+
+                          ));
+                        }
+                      });
                     },
                       style: TextButton.styleFrom(
                         elevation: 8,

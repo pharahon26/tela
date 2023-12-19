@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/ebank/retrait/retraitViewModel.dart';
+import 'package:mobile/ui/views/ebank/retrait/retraitViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Retrait extends StatefulWidget {
@@ -228,7 +228,8 @@ class _RetraitState extends State<Retrait> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                child: Text('Effectuer un retrait de ${model.montant}?',
+                                // child: Text('Effectuer un retrait de ${model.montant}?',
+                                child: Text('Les retraits seront actifs Bientôt ne manquez pas nos mises à jour',
                                   textAlign: TextAlign.center,
                                   maxLines: 20,
                                   style: const TextStyle(
@@ -260,14 +261,15 @@ class _RetraitState extends State<Retrait> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextButton(
                                         onPressed: () {
-                                          setState(() {
-                                            enCours = true;
-                                          });
-                                          model.retrait().whenComplete(() {
-                                            setState(() {
-                                              enCours = false;
-                                            });
-                                          });
+                                          Navigator.of(buildContext).pop();
+                                          // setState(() {
+                                          //   enCours = true;
+                                          // });
+                                          // model.retrait().whenComplete(() {
+                                          //   setState(() {
+                                          //     enCours = false;
+                                          //   });
+                                          // });
                                         },
                                         child: Text('Oui',
                                           maxLines: 2,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tela/app/app.locator.dart';
-import 'package:tela/models/transactions.dart';
-import 'package:tela/services/auth_service.dart';
-import 'package:tela/ui/views/ebank/compte/compteViewModel.dart';
+import 'package:mobile/app/app.locator.dart';
+import 'package:mobile/models/transactions.dart';
+import 'package:mobile/services/auth_service.dart';
+import 'package:mobile/ui/views/ebank/compte/compteViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Compte extends StatefulWidget {

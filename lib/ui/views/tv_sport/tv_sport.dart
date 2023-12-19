@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tela/services/tv_service.dart';
-import 'package:tela/ui/views/tv_sport/tvSportViewModel.dart';
+import 'package:mobile/services/tv_service.dart';
+import 'package:mobile/ui/views/tv_sport/tvSportViewModel.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tela/ui/views/tv_sport/tvSportViewModel.dart';
+import 'package:mobile/ui/views/tv_sport/tvSportViewModel.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

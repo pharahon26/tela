@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tela/models/place.dart';
+import 'package:mobile/models/place.dart';
 
 class PlaceCard extends StatelessWidget {
   final TelaPlace place;
@@ -26,7 +26,12 @@ class PlaceCard extends StatelessWidget {
             width: mq.size.width+0.9,
             height: mq.size.width*0.9,
             child: Image.network('$_BASE_URL$image',
-              fit: BoxFit.contain,),
+              loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: Center(child: CircularProgressIndicator()),
+              errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                width: 50,
+                fit: BoxFit.fitWidth,
+              ),
+              fit: BoxFit.fill,),
             ),
         ),
         Padding(

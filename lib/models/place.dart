@@ -1,5 +1,5 @@
-import 'package:tela/models/commune.dart';
-import 'package:tela/models/user.dart';
+import 'package:mobile/models/commune.dart';
+import 'package:mobile/models/user.dart';
 
 class TelaPlace{
   int id = 0;
@@ -72,8 +72,8 @@ class TelaPlace{
       proprioName: json["proprio_name"]??'',
       proprioTelephone: json["proprio_telephone"]??'',
       description: json["description"],
-      latitude: double.parse(json["latitude"].toString()),
-      longitude: double.parse(json["longitude"].toString()),
+      latitude: double.parse((json["latitude"]??'0').toString()),
+      longitude: double.parse((json["longitude"]??'0').toString()),
       price: double.parse(json["price"].toString()),
       visites: json["passvisites_count"]??0,
       communeId: json["commune_id"],

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
-import 'package:tela/models/images.dart';
-import 'package:tela/models/place.dart';
+import 'package:mobile/models/images.dart';
+import 'package:mobile/models/place.dart';
 
 class PlaceService{
   /// URLS

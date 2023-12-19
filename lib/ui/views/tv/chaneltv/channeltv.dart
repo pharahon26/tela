@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tela/services/tv_service.dart';
-import 'package:tela/ui/views/tv/chaneltv/chaneltvViewModel.dart';
-import 'package:tela/ui/views/tv/pubWidget/publicite.dart';
+import 'package:mobile/services/tv_service.dart';
+import 'package:mobile/ui/views/tv/chaneltv/chaneltvViewModel.dart';
+import 'package:mobile/ui/views/tv/pubWidget/publicite.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../../app/app.locator.dart';
@@ -30,7 +30,7 @@ class _ChanelTvState extends State<ChanelTv> {
     // TODO: implement initState
     super.initState();
 
-    _tvService.playing;
+    _tvService.playPub();
   }
 
   @override
@@ -129,7 +129,15 @@ class _ChanelTvState extends State<ChanelTv> {
                     children: imgs.map((e) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: () => (e == 'assets/images/sport.jpg')? model.navigateToLiveTVSport() :( e == 'assets/images/live.jpg')? model.navigateToLive() :model.navigateToLiveTV(),
+                        onTap: () {
+                          _tvService.pausePub();
+                          (e == 'assets/images/sport.jpg')
+                              ? model.navigateToLiveTVSport()
+                              :
+                          (e == 'assets/images/live.jpg')
+                              ? model.navigateToLive()
+                              : model.navigateToLiveTV();
+                                      },
                           child: Image.asset(e,
                             width: mq.size.width-80,
                             fit: BoxFit.fitWidth,)

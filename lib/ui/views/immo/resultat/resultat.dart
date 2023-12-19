@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tela/models/place.dart';
-import 'package:tela/ui/views/immo/resultat/resultatViewModel.dart';
-import 'package:tela/ui/widget/place_card.dart';
+import 'package:mobile/models/place.dart';
+import 'package:mobile/ui/views/immo/resultat/resultatViewModel.dart';
+import 'package:mobile/ui/widget/place_card.dart';
 import 'package:stacked/stacked.dart';
 
 class Resultat extends StatefulWidget {

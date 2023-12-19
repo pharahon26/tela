@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/passwordChangeView/passwordChangeViewModel.dart';
+import 'package:mobile/ui/views/passwordChangeView/passwordChangeViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 

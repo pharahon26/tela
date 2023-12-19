@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:tela/ui/views/buyAbonnement/buyAbonnementViewModel.dart';
+import 'package:mobile/ui/views/buyAbonnement/buyAbonnementViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class BuyAbonnement extends StatefulWidget {

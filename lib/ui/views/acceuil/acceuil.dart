@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:tela/ui/views/acceuil/acceuilViewModel.dart';
+import 'package:mobile/ui/views/acceuil/acceuilViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class Acceuil extends StatefulWidget {

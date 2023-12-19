@@ -1,7 +1,7 @@
-import 'package:tela/app/app.locator.dart';
-import 'package:tela/app/app.router.dart';
-import 'package:tela/services/auth_service.dart';
-import 'package:tela/services/transaction_service.dart';
+import 'package:mobile/app/app.locator.dart';
+import 'package:mobile/app/app.router.dart';
+import 'package:mobile/services/auth_service.dart';
+import 'package:mobile/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

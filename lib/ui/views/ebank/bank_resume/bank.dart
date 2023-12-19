@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:tela/ui/views/ebank/bank_resume/bankViewModel.dart';
-import 'package:tela/ui/views/ebank/compte/compte.dart';
-import 'package:tela/ui/views/ebank/epargne/epargne.dart';
-import 'package:tela/ui/widget/bank_epargne_tab_header.dart';
-import 'package:tela/ui/widget/bank_profile_tab_header.dart';
+import 'package:mobile/ui/views/ebank/bank_resume/bankViewModel.dart';
+import 'package:mobile/ui/views/ebank/compte/compte.dart';
+import 'package:mobile/ui/views/ebank/epargne/epargne.dart';
+import 'package:mobile/ui/widget/bank_epargne_tab_header.dart';
+import 'package:mobile/ui/widget/bank_profile_tab_header.dart';
 import 'package:stacked/stacked.dart';
 
 class Bank extends StatefulWidget {
@@ -233,7 +233,14 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                       child: SizedBox(
                                         width: 60,
                                         height: 60,
-                                        child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}'),
+                                        child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}',
+                                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: Center(child: CircularProgressIndicator()),
+                                          errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                                            width: 50,
+                                            fit: BoxFit.fitWidth,
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tela/models/place.dart';
-import 'package:tela/ui/views/immo/myVisite/myVisiteViewModel.dart';
+import 'package:mobile/models/place.dart';
+import 'package:mobile/ui/views/immo/myVisite/myVisiteViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class MyVisite extends StatefulWidget {
@@ -125,6 +125,11 @@ class _MyVisiteState extends State<MyVisite> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.network('$_BASE_URL${widget.place.images[index]}',
+                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                          errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                            width: 50,
+                            fit: BoxFit.fitWidth,
+                          ),
                           width: mq.size.width-80,
                           fit: BoxFit.fitWidth,),
                       ),
@@ -172,6 +177,11 @@ class _MyVisiteState extends State<MyVisite> {
                               width: 60,
                               height: 60,
                               child: Image.network('$_BASE_URL${model.authService.user!.photo}',
+                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                                  width: 50,
+                                  fit: BoxFit.fitWidth,
+                                ),
                                 width: 50,
                                 fit: BoxFit.fitWidth,
                               ),

@@ -1,4 +1,4 @@
-package com.bspro.tela
+package com.bspro.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

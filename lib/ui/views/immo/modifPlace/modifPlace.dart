@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tela/models/place.dart';
-import 'package:tela/ui/views/immo/modifPlace/modifPlaveViewModel.dart';
+import 'package:mobile/models/place.dart';
+import 'package:mobile/ui/views/immo/modifPlace/modifPlaveViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class ModifPlace extends StatefulWidget {
@@ -141,6 +141,11 @@ class _ModifPlaceState extends State<ModifPlace> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: InkWell(
                                   child: model.images[index] != ''? model.images[index] == model.images_base[index] ? Image.network('$_BASE_URL${model.images[index]}',
+                                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                    errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                                      width: 50,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                                     fit: BoxFit.contain,
                                   )
                                       :Image.file(model.imagesFiles[index]!,
