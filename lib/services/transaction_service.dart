@@ -14,7 +14,7 @@ import 'package:tela/services/telaSharedPrefs.dart';
 
 class TransactionService{
   /// URLS
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _ABONNEMENT_CREATE_URL = "api/abonnements/buy_abonement";
   static const String _PASS_CREATE_URL = "api/pass-visite/buy_pass_visite";
   static const String _PASS_VISITE_PROLONGE_URL = "api/pass-visite/prolonge_pass_visite";
@@ -312,6 +312,7 @@ class TransactionService{
           'user_id': user.id,
           'type': abonnement.type,
           'phone': profile.phone,
+          'from_epargne': fromEpargne,
         }),
       );
       print('Response status: ${response.statusCode}');
@@ -331,9 +332,6 @@ class TransactionService{
         print('ERROR reponse status code not 200');
       }
 
-    }
-    catch(e){
-      print('transaction api service buy abonnemet error** $e');
     }
     finally{
       client.close();

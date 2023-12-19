@@ -175,21 +175,24 @@ class _DepotState extends State<Depot> {
                         waitResponse: (data) async {
                           if (mounted) {
                             print('Payement..................................');
+                            print(data);
                             response = data;
                             /// send abonnement
 
 
                             if (data['status'] == 'ACCEPTED') {
-                              progress = true;
+                              setState(() {
+                                progress = true;
+                              });
                               /// create transaction
                               TelaTransaction transaction = TelaTransaction(
                                   id: 0,
                                   type: 'Depot',
-                                  paymentWay: data['payment_method ']??'CinetPay',
+                                  paymentWay: data['payment_method']??'CinetPay',
                                   transactionNumber: snapshot.data!,
                                   operationId: data['operator_id']??'',
                                   amount: double.parse(data['amount']??model.montant),
-                                  date: DateTime.tryParse(data['date'])??DateTime.now()
+                                  date: DateTime.tryParse(data['payment_date'])??DateTime.now()
                               );
                               await model.depot(transaction)
                                   .then((value) => showDialog(context: context, builder: (buildContext) => Dialog(
@@ -216,7 +219,7 @@ class _DepotState extends State<Depot> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: TextButton(
-                                          onPressed: () =>  model.navigateToProfile(),
+                                          onPressed: () =>  model.navigateToBank(),
                                           child: Text('Ok',
                                             maxLines: 2,
                                             style: TextStyle(
@@ -232,20 +235,63 @@ class _DepotState extends State<Depot> {
                                 ),
 
                               ))
-                              );
+                              )
+                                  .catchError((error, trace)  {
+                                showDialog(context: context, builder: (buildContext) => Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                        child: Text(error.toString(),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 20,
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.1
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextButton(
+                                            onPressed: () => Navigator.of(buildContext).pop(),
+                                            child: Text('Ok',
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  color: Theme.of(context).colorScheme.primary,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600
+                                              ),
+                                            )
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+
+                                )
+                                );
+                              });
 
                             }
-                            setState(() {
-                              print(response);
-                              icon = data['status'] == 'ACCEPTED'
-                                  ? Icons.check_circle
-                                  : Icons.mood_bad_rounded;
-                              color = data['status'] == 'ACCEPTED'
-                                  ? Colors.green
-                                  : Colors.redAccent;
-                              show = true;
-                              Get.back();
-                            });
+                            // setState(() {
+                            //   print(response);
+                            //   icon = data['status'] == 'ACCEPTED'
+                            //       ? Icons.check_circle
+                            //       : Icons.mood_bad_rounded;
+                            //   color = data['status'] == 'ACCEPTED'
+                            //       ? Colors.green
+                            //       : Colors.redAccent;
+                            //   show = true;
+                            //   Get.back();
+                            // });
                           }
                         },
                         onError: (data) {

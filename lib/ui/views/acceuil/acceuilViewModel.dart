@@ -10,7 +10,6 @@ class AcceuilViewModel extends BaseViewModel{
 
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
-  // TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
   final TVService _tvService = locator<TVService>();
   final DialogService _dialogService = locator<DialogService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
@@ -18,7 +17,6 @@ class AcceuilViewModel extends BaseViewModel{
 
   AcceuilViewModel(){
     // _authService.deletePass();
-    // _telaSharedPrefs.deleteAbonnement();
     _authService.saveCommune();
     _authService.saveAbonnementType();
     _authService.savePassType();

@@ -33,7 +33,8 @@ class BuyPassViewModel extends BaseViewModel{
     return await _transactionService.getTransactionNumber(passType.isVisite? 'Visite' : 'TV');
   }
   Future<PassVisite?> pushTransaction(TelaTransaction transaction, PassType passType) async {
-    return await _transactionService.buyPassVisite(transaction: transaction, pass: passType);
+    return await _transactionService.buyPassVisite(transaction: transaction, pass: passType).then((value)
+    {navigateToProfile();});
   }
 
 

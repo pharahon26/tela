@@ -18,7 +18,7 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
   double compteBalance = 0;
@@ -83,10 +83,13 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                 ),
               ),
               actions: [
-                InkWell(onTap: () => model.changeMDP(),
-                  child:  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
-                    child: Icon(Icons.key, size: 24, color: Theme.of(context).colorScheme.primary,),
+                Visibility(
+                  visible: model.authService.bankProfile != null,
+                  child: InkWell(onTap: () => model.changeMDP(),
+                    child:  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                      child: Icon(Icons.key, size: 24, color: Theme.of(context).colorScheme.primary,),
+                    ),
                   ),
                 )
               ],
@@ -173,7 +176,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
             body: Scrollbar(
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: mq.size.height*1.3,
+                  height: mq.size.height+1.1,
                   width: mq.size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -220,102 +223,105 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             /// nom
-                            Row(
-                              children: [
-                                ClipOval(
-                                  child: InkWell(
-                                    onTap: () => model.navigateTochangePhoto(),
-                                    child: SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}'),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  ClipOval(
+                                    child: InkWell(
+                                      onTap: () => model.navigateTochangePhoto(),
+                                      child: SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}'),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('${model.authService.bankProfile?.nom??''} ${model.authService.bankProfile?.prenom??''}',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: Theme.of(context).colorScheme.primary
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(model.authService.bankProfile?.phone??'',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 1.2,
-                                            color: Theme.of(context).colorScheme.primary
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Column(
-                                  children: [
-                                    TextButton(onPressed: () => model.deconnection(),
-                                      style: TextButton.styleFrom(
-                                        // backgroundColor: Theme.of(context).colorScheme.primary,
-                                        shape: const StadiumBorder(),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                                        child: Text('Déconnexion',
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('${model.authService.bankProfile?.nom??''} ${model.authService.bankProfile?.prenom??''}',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                               letterSpacing: 1.2,
-                                              color: Colors.deepOrange
+                                              color: Theme.of(context).colorScheme.primary
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Visibility(
-                                      visible: !model.authService.user!.isComplete,
-                                      child: TextButton(
-                                        onPressed: () => model.navigateToIdentification(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(model.authService.bankProfile?.phone??'',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.2,
+                                              color: Theme.of(context).colorScheme.primary
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  Column(
+                                    children: [
+                                      TextButton(onPressed: () => model.deconnection(),
                                         style: TextButton.styleFrom(
-                                            backgroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(50)
-                                            )
+                                          // backgroundColor: Theme.of(context).colorScheme.primary,
+                                          shape: const StadiumBorder(),
                                         ),
-                                        child: SizedBox(
-                                          height: 40,
-                                          width: mq.size.width /3,
-                                          child: const Column(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
-                                                child: Text('profil incomplet. Cliquez ici',
-                                                  textAlign: TextAlign.center,
-                                                  maxLines: 2,
-                                                  style: TextStyle(
-                                                      color: Colors.deepOrange,
-                                                      fontSize: 14.0,
-                                                      fontWeight: FontWeight.w400
-                                                  ),),
-                                              ),
-                                            ],
+                                        child: const Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                                          child: Text('Déconnexion',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.2,
+                                                color: Colors.deepOrange
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      Visibility(
+                                        visible: !(model.authService.user?.isComplete??true),
+                                        child: TextButton(
+                                          onPressed: () => model.navigateToIdentification(),
+                                          style: TextButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(50)
+                                              )
+                                          ),
+                                          child: SizedBox(
+                                            height: 40,
+                                            width: mq.size.width /3,
+                                            child: const Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
+                                                  child: Text('profil incomplet. Cliquez ici',
+                                                    textAlign: TextAlign.center,
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Colors.deepOrange,
+                                                        fontSize: 14.0,
+                                                        fontWeight: FontWeight.w400
+                                                    ),),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
 
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                             /// Solde Disponible
                             Padding(

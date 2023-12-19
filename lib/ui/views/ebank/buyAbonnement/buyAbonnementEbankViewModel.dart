@@ -27,7 +27,8 @@ class BuyAbonnementEbankViewModel extends BaseViewModel{
   }
 
   Future buyAbonnement( AbonnementType abonnement) async{
-    await _transactionService.buyAbonnementFromEbank(abonnement: abonnement, profile: _authService.bankProfile!, user: _authService.user!, fromEpargne: fromEpargne);
+    await _authService.buyAbonnementFromEbank(abonnement: abonnement, profile: _authService.bankProfile!, user: _authService.user!, fromEpargne: fromEpargne);
+    _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
   }
 
   void navigateToCGUFinance() async{

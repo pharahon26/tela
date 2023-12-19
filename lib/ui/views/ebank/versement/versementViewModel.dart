@@ -14,9 +14,18 @@ class VersementViewModel extends BaseViewModel{
   TransactionService transactionService = locator<TransactionService>();
 
   double montant = 0;
+  double balance = 0;
+  bool insuffisant = false;
 
 
-  VersementViewModel();
+  VersementViewModel(){
+    if ((authService.bankProfile?.balance??0) -5000 > 0) {
+      balance = (authService.bankProfile?.balance??0) -5000;
+    }  else {
+      insuffisant = true;
+    }
+
+  }
 
   void navigateToProfile() async{
     await _navigationService.navigateTo(Routes.acceuil);

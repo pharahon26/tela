@@ -100,22 +100,8 @@ class _BuyPassViewState extends State<BuyPassView> {
                                     onPressed: () async {
                                       ///  call get transaction id
 
-                                      print('Payement..................................');
-                                      /// send abonnement
-                                      // TelaTransaction transaction = TelaTransaction(
-                                      //   id: 0,
-                                      //   type: widget.pass.isVisite? 'PassVisite' : 'passTv',
-                                      //   paymentWay: 'Orange',
-                                      //   transactionNumber: snapshot.data!,
-                                      //   operationId: 'ggggg',
-                                      //   amount:double.parse( widget.pass.price),
-                                      //   date: DateTime.now(),
-                                      // );
-                                      /// send to serveur transaction scheme and pass type por creation
-
-                                      // await model.pushTransaction(transaction, widget.pass);
                                       await Get.to(CinetPayCheckout(
-                                        title: 'Payment Tela',
+                                        title: 'Payment Pass Tela',
                                         titleStyle: const TextStyle(
                                             fontSize: 20, fontWeight: FontWeight.bold),
                                         titleBackgroundColor: Theme.of(context).colorScheme.primary,
@@ -128,10 +114,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                           'amount': widget.pass.price,
                                           'currency': 'XOF',
                                           'channels': 'ALL',
-                                          'description': 'Payment test',
-                                          'customer_name': model.user!.prenom,
-                                          'customer_surname':  model.user!.nom,
-                                          'customer_phone_number': model.user!.phone,
+                                          'description': 'Payment pass ${widget.pass.name} ',
                                         },
                                         waitResponse: (data) async {
                                           if (mounted) {
@@ -145,7 +128,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                                 transactionNumber: snapshot.data!,
                                                 operationId: data['operator_id']??'',
                                                 amount: double.parse(data['amount']??widget.pass.price),
-                                                date: data['date']??DateTime.now()
+                                                date: data['payment_date']??DateTime.now()
                                             );
 
                                             await model.pushTransaction(transaction, widget.pass)
@@ -229,7 +212,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                 ],
                               ),
                             ],
-                          ));;
+                          ));
                     case ConnectionState.done:
                       return Center(
                           child: ListView(
@@ -267,22 +250,8 @@ class _BuyPassViewState extends State<BuyPassView> {
                                     onPressed: () async {
                                       ///  call get transaction id
 
-                                      print('Payement..................................');
-                                      /// send abonnement
-                                      // TelaTransaction transaction = TelaTransaction(
-                                      //   id: 0,
-                                      //   type: widget.pass.isVisite? 'PassVisite' : 'passTv',
-                                      //   paymentWay: 'Orange',
-                                      //   transactionNumber: snapshot.data!,
-                                      //   operationId: 'ggggg',
-                                      //   amount:double.parse( widget.pass.price),
-                                      //   date: DateTime.now(),
-                                      // );
-                                      /// send to serveur transaction scheme and pass type por creation
-
-                                      // await model.pushTransaction(transaction, widget.pass);
                                       await Get.to(CinetPayCheckout(
-                                        title: 'Payment Tela',
+                                        title: 'Payment Pass Tela',
                                         titleStyle: const TextStyle(
                                             fontSize: 20, fontWeight: FontWeight.bold),
                                         titleBackgroundColor: Theme.of(context).colorScheme.primary,
@@ -295,10 +264,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                           'amount': widget.pass.price,
                                           'currency': 'XOF',
                                           'channels': 'ALL',
-                                          'description': 'Payment test',
-                                          'customer_name': model.user!.prenom,
-                                          'customer_surname':  model.user!.nom,
-                                          'customer_phone_number': model.user!.phone,
+                                          'description': 'Payment pass ${widget.pass.name} ',
                                         },
                                         waitResponse: (data) async {
                                           if (mounted) {
@@ -312,7 +278,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                                 transactionNumber: snapshot.data!,
                                                 operationId: data['operator_id']??'',
                                                 amount: double.parse(data['amount']??widget.pass.price),
-                                                date: data['date']??DateTime.now()
+                                                date: data['payment_date']??DateTime.now()
                                             );
 
                                             await model.pushTransaction(transaction, widget.pass)
@@ -396,7 +362,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                 ],
                               ),
                             ],
-                          ));;
+                          ));
                   }
 
                 }

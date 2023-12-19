@@ -33,7 +33,7 @@ class RenewPassViewModel extends BaseViewModel{
     return await _transactionService.getTransactionNumber(passType.isVisite? 'Visite' : 'TV');
   }
   Future<PassVisite?> pushTransaction(TelaTransaction transaction, PassType passType, PassVisite passVisite) async {
-    return await _transactionService.renewPassVisite(transaction: transaction, pass: passType, passVisit: passVisite);
+    return await _transactionService.renewPassVisite(transaction: transaction, pass: passType, passVisit: passVisite).then((value) {navigateToProfile();});
   }
 
 

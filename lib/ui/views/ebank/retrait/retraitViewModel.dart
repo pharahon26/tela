@@ -22,7 +22,11 @@ class RetraitViewModel extends BaseViewModel{
 
   RetraitViewModel( this.fromEpargne){
     if (fromEpargne) {
-      balance = authService.bankEpargne?.balance??0;
+      if ((authService.bankEpargne?.balance??0) > 0) {
+        balance = authService.bankEpargne?.balance??0;
+      }  else {
+        insuffisant = true;
+      }
 
     }  else{
       if ((authService.bankProfile?.balance??0) >= 5000) {

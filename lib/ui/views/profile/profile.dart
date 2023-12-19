@@ -13,7 +13,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   String code = '';
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,13 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             actions: [
-              InkWell(onTap: () => model.changeMDP(),
-                child:  Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
-                  child: Icon(Icons.key, size: 24, color: Colors.white,),
+              Visibility(
+                visible: model.authService.user != null,
+                child: InkWell(onTap: () => model.changeMDP(),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                    child: Icon(Icons.key, size: 24, color: Colors.white,),
+                  ),
                 ),
               )
             ],

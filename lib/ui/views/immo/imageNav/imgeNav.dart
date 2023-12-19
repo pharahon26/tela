@@ -17,7 +17,7 @@ class _ImageNavState extends State<ImageNav> {
   late PageController _pageController;
   int index = 0;
 
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   @override
   void initState() {
     _pageController = PageController(initialPage: widget.startIndex);

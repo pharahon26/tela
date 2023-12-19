@@ -16,7 +16,7 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthService{
   /// URLS
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _BASE_URL_final = "http://office.telaci.com/";
   static const String _SIGN_UP_URL = "api/users/create";
   static const String _SIGN_UP_BANK_URL = "api/ebanking-profil/create";
@@ -32,6 +32,7 @@ class AuthService{
   static const String _PASS_VISITE_VERIF_URL = "api/pass-visite/verif";
   static const String _PASS_VISITE_DECRMENT_URL = "api/pass-visite/one_visite";
   static const String _PASS_VISITE_MAISON_URL = "api/pass-visite/get_pass_visite";
+  static const String _BANK_BUY_ABONNEMENT_URL = "api/ebanking-profil/buy_abonement_ebank";
   static const String _PLACE_URL = "api/places";
   static const String _BANK_EPARGNE_URL = "api/ebanking-profil/epargner";
   static const String _BANK_EPARGNE_INVERSE_URL = "api/ebanking-profil/epargne_inverse";
@@ -39,6 +40,8 @@ class AuthService{
   static const String _BANK_TRANSACTIONS_URL = "api/ebanking-profil/ebank_transactions";
   static const String _BANK_EPARGNE_TRANSACTIONS_URL = "api/ebanking-profil/epargne_transactions";
   static const String _BANK_EPARGNE_CREATION_URL = "api/ebanking-profil/create_epargne";
+  static const String _BANK_DEPOT_URL = "api/ebanking-profil/depot";
+  static const String _BANK_RETRAIT_URL = "api/ebanking-profil/retrait";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   User? _user;
@@ -255,103 +258,6 @@ class AuthService{
     _isConnected = false;
     _isConnectedSubject.sink.add(_isConnected);
   }
-
-
-  /// Identifcation
-  // Future<void> identification({
-  //   required String nom,
-  //   required String prenom,
-  //   required String telephone,
-  //   required String phone2,
-  //   required int id,
-  //   required String birthDate,
-  //   required String birthPlace,
-  //   required String genre,
-  //   required String nation,
-  //   required String pays,
-  //   required String villeResi,
-  //   required String documentNumber,
-  //   required String photo,
-  //   required String docRecto,
-  //   required String docVerso,
-  // }) async {
-  //   var client = _newClient();
-  //   try{
-  //
-  //
-  //     File img = File(photo);
-  //     File rec = File(docRecto);
-  //     File ver = File(docVerso);
-  //
-  //     final photoMimeTypeData = lookupMimeType(img.path, headerBytes: [0xFF, 0xD8])?.split('/');
-  //     final rectoMimeTypeData = lookupMimeType(rec.path, headerBytes: [0xFF, 0xD8])?.split('/');
-  //     final versooMimeTypeData = lookupMimeType(ver.path, headerBytes: [0xFF, 0xD8])?.split('/');
-  //
-  //     // String photoImg64 = base64Encode(img.readAsBytesSync());
-  //     // String rectoImg64 = base64Encode(rec.readAsBytesSync());
-  //     // String versoImg64 = base64Encode(ver.readAsBytesSync());
-  //
-  //     print('${Uri.parse(_BASE_URL+_IDENTIFICATION_URL)} identification : $nom $prenom $telephone ');
-  //
-  //     var request = http.MultipartRequest('POST', Uri.parse(_BASE_URL+_IDENTIFICATION_URL));
-  //     request.headers.addAll({
-  //       'Content-Type': 'multipart/form-data',
-  //       'Accept': 'application/json',
-  //       // 'Authorization': token,
-  //     });
-  //     request.fields['name'] = '$nom $prenom';
-  //     request.fields['id'] = id.toString();
-  //     request.fields['phone1'] = telephone;
-  //     request.fields['phone2'] = phone2;
-  //     request.fields['lieu_naissance'] = birthPlace;
-  //     request.fields['date_naissance'] = birthDate;
-  //     request.fields['genre'] = genre;
-  //     request.fields['nationalite'] = birthDate;
-  //     request.fields['pays'] = pays;
-  //     request.fields['domicile'] = villeResi;
-  //     request.fields['document_number'] = documentNumber;
-  //
-  //
-  //     request.files.add(
-  //         await http.MultipartFile.fromPath('photo',
-  //             img.path,
-  //             contentType: http_parser.MediaType(photoMimeTypeData![0], photoMimeTypeData[1])
-  //         ));
-  //     request.files.add(
-  //         await http.MultipartFile.fromPath('cni_recto',
-  //             rec.path,
-  //             contentType: http_parser.MediaType(rectoMimeTypeData![0], rectoMimeTypeData[1])
-  //         ));
-  //     request.files.add(
-  //         await http.MultipartFile.fromPath('cni_verso',
-  //             ver.path,
-  //             contentType: http_parser.MediaType(versooMimeTypeData![0], versooMimeTypeData[1])
-  //         ));
-  //
-  //     request.send().then((response) async {
-  //       if (response.statusCode == 200) print("Uploaded!");
-  //       final respStr = await response.stream.bytesToString();
-  //
-  //       print('Response status: ${response.statusCode}');
-  //       print('Response body: ${respStr}');
-  //       final json = jsonDecode(respStr);
-  //
-  //       if (response.statusCode == 200) {
-  //         print(json.toString());
-  //         // _token = 'Bearer ' + json["token"]["access_token"];
-  //       }  else {
-  //         if (response.statusCode == 404) {
-  //           throw json;
-  //
-  //         }
-  //       }
-  //     });
-  //
-  //   }
-  //   finally{
-  //     client.close();
-  //   }
-  // }
 
   /// Identifcation
   Future<void> identification({
@@ -622,7 +528,7 @@ class AuthService{
         print(_bankProfile.toString());
 
         print(json["epargne"]);
-        if ((json["epargne"] as Map<String, dynamic>).isNotEmpty) {
+        if (json["epargne"] != null) {
           _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
           print(_bankEpargne.toString());
         }
@@ -631,7 +537,7 @@ class AuthService{
           _telaSharedPrefs.saveName(user!.nom);
           _telaSharedPrefs.saveFirstName( user!.prenom);
           print(json["abonnement"]);
-          if((json["abonnement"] as List<dynamic>).isEmpty){
+          if(json["abonnement"] != null){
             Abonnement? abonnement = _telaSharedPrefs.getAbonnement();
             if (abonnement != null) {
               print(abonnement);
@@ -645,6 +551,7 @@ class AuthService{
             }
           } else {
             _abonnement = Abonnement.fromJson(json["abonnement"][0]);
+            _telaSharedPrefs.saveAbonnement(_abonnement!);
             for(var ab in json["abonnement"]){
               Abonnement abonnement = Abonnement.fromJson(ab);
               _abonnements.add(abonnement);
@@ -880,13 +787,12 @@ class AuthService{
         _bankEpargne = TelaBankEpargne.fromJson(json['epargne']);
         print(transac.toString());
         transaction = transac;
-      }  else {
-        print('ERROR reponse status code not 200');
+      }  else if (response.statusCode == 401) {
+        throw response.body;
+      }  else  {
+        throw 'Erreur';
       }
 
-    }
-    catch(e){
-      print('auth api service login error** $e');
     }
     finally{
       client.close();
@@ -935,6 +841,111 @@ class AuthService{
     }
     return transaction;
   }
+
+
+  /// push abonnement from Ebank
+  Future<Abonnement?> buyAbonnementFromEbank({required AbonnementType abonnement, required TelaBankProfile profile, required User user, required bool fromEpargne}) async {
+    var client = _newClient();
+
+    Abonnement? abonnem;
+    try{
+      print('${Uri.parse(_BASE_URL+_BANK_BUY_ABONNEMENT_URL)} push abonnement ');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_BUY_ABONNEMENT_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'amount': abonnement.price,
+          'type_abonnement_id': abonnement.id,
+          'user_id': user.id,
+          'type': abonnement.type,
+          'phone': profile.phone,
+          'from_epargne': fromEpargne,
+        }),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        Abonnement abon = Abonnement.fromJson(json['abonnement']);
+        // TelaTransaction transac = TelaTransaction.fromJson(json['transaction']);
+        _telaSharedPrefs.saveAbonnement(abon);
+        _bankProfile = TelaBankProfile.fromJson(json["profil"]);
+        print(json["profil"]);
+        print(_bankProfile.toString());
+
+        print(json["epargne"]);
+        if ((json["epargne"] as Map<String, dynamic>).isNotEmpty) {
+          _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
+          print(_bankEpargne.toString());
+        }
+        // print(transac.toString());
+        print(abon.toString());
+        abonnem = abon;
+
+      }  else if (response.statusCode == 401) {
+        throw json;
+      }  else {
+        throw 'erreur';
+      }
+
+    }
+    finally{
+      client.close();
+    }
+    return abonnem;
+  }
+
+
+  /// push depot
+  Future<TelaTransaction?> postDepot({required TelaTransaction transaction, required TelaBankProfile profile}) async {
+    var client = _newClient();
+    Map<String, dynamic> js = profile.toJson();
+    Map<String, dynamic> t = transaction.toJson();
+    t.remove('id');
+    js.addAll(t);
+
+    try{
+      print('${Uri.parse(_BASE_URL+_BANK_DEPOT_URL)} push Dépot : $transaction');
+      http.Response response = await client.post(Uri.parse(_BASE_URL+_BANK_DEPOT_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(js),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+        // _token = 'Bearer '+ json["token"]["access_token"];
+        TelaTransaction transac = TelaTransaction.fromJson(json);
+        print(transac.toString());
+        _bankProfile = TelaBankProfile.fromJson(json["profil"]);
+        print(json["profil"]);
+        print(_bankProfile.toString());
+
+        print(json["epargne"]);
+        if ((json["epargne"] as Map<String, dynamic>).isNotEmpty) {
+          _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
+          print(_bankEpargne.toString());
+        }
+
+      }   else if (response.statusCode == 401) {
+        throw json;
+      }  else {
+        throw 'erreur';
+      }
+
+    }
+    finally{
+      client.close();
+    }
+    return transaction;
+  }
+
 
 
 
@@ -1190,7 +1201,7 @@ class AuthService{
 
   void savePassType() async{
     passType = await getPassTypes();
-    await _telaSharedPrefs.saveAbonnementType(abonnementType);
+    await _telaSharedPrefs.savePassType(passType);
   }
 
   void getPassSaved() async {

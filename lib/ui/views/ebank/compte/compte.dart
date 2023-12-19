@@ -50,7 +50,7 @@ class _CompteState extends State<Compte> {
                     ),
                   ),
                 ),
-                Text('X0F ${balance()}',
+                Text('X0F ${_authService.bankProfile?.balance??0}',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -244,7 +244,48 @@ class _CompteState extends State<Compte> {
             visible: model.authService.user != null,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(onPressed: () => model.renewAbonnement(),
+              child: TextButton(onPressed: () => ((model.authService.bankProfile?.balance??0) > 5000) && (_authService.abonnement != null) ?
+              model.renewAbonnement()
+                  :
+              showDialog(context: context, builder: (buildContext) => Dialog(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                     Padding(
+                      padding: EdgeInsets.all(24.0),
+                      child: Text(_authService.abonnement != null? 'Vos fonds sont insuffisants' : 'Vous avez déja un abonnement en cours',
+                        maxLines: 3,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                          onPressed: () => Navigator.pop(buildContext),
+                          child: Text('Retour',
+                            maxLines: 2,
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600
+                            ),
+                          )
+                      ),
+                    )
+
+                  ],
+                ),
+
+              )),
                 style: TextButton.styleFrom(
                   elevation: 8,
                   backgroundColor: Theme.of(context).colorScheme.primary,

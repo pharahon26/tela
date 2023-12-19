@@ -22,7 +22,7 @@ class _VisiteState extends State<Visite> {
   // ];
 
 
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);

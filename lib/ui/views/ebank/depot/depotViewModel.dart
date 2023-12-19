@@ -20,11 +20,11 @@ class DepotViewModel extends BaseViewModel{
   DepotViewModel();
 
   void navigateToProfile() async{
-    await _navigationService.navigateTo(Routes.acceuil);
+    await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
   }
 
   Future depot(TelaTransaction transaction) async{
-    await _transactionService.postDepot(transaction: transaction, profile: authService.bankProfile!);
+    await authService.postDepot(transaction: transaction, profile: authService.bankProfile!);
   }
 
   void navigateToBank() async{

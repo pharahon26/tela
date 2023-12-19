@@ -13,7 +13,7 @@ class MyVisite extends StatefulWidget {
 
 class _MyVisiteState extends State<MyVisite> {
 
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {

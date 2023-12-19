@@ -8,7 +8,7 @@ import 'package:tela/models/place.dart';
 
 class PlaceService{
   /// URLS
-  static const String _BASE_URL = "http://10.0.2.2:8000/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _PLACE_URL = "api/places";
   static const String _PLACE_ADD_URL = "api/places/create";
   static const String _PLACE_MODIF_URL = "api/places/";
