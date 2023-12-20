@@ -112,7 +112,8 @@ class _BuyPassViewState extends State<BuyPassView> {
                                         },
                                         paymentData: <String, dynamic>{
                                           'transaction_id': snapshot.data!,
-                                          'amount': widget.pass.price,
+                                          'amount': 100,
+                                          // 'amount': widget.pass.price,
                                           'currency': 'XOF',
                                           'channels': 'ALL',
                                           'description': 'Payment pass ${widget.pass.name} ',
@@ -372,7 +373,8 @@ class _BuyPassViewState extends State<BuyPassView> {
                                         },
                                         paymentData: <String, dynamic>{
                                           'transaction_id': snapshot.data!,
-                                          'amount': widget.pass.price,
+                                          'amount': 100,
+                                          // 'amount': widget.pass.price,
                                           'currency': 'XOF',
                                           'channels': 'ALL',
                                           'description': 'Payment pass ${widget.pass.name} ',

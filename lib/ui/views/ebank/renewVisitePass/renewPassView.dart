@@ -164,7 +164,7 @@ class _RenewPassViewState extends State<RenewPassView> {
                                               children: [
                                                 const Padding(
                                                   padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                  child: Text('Notez bien lz code ci-dessous! \nUne fois perdu il ne peut être récupéré.',
+                                                  child: Text('Notez bien le code ci-dessous! \nUne fois perdu il ne peut être récupéré.',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 5,
                                                     style: TextStyle(
@@ -190,11 +190,11 @@ class _RenewPassViewState extends State<RenewPassView> {
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                  child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
+                                                  child: Text(value != null? ' ${value.code}' : 'erreur innatendue',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 20,
                                                     style: const TextStyle(
-                                                        fontSize: 18,
+                                                        fontSize: 24,
                                                         color: Colors.deepOrange,
                                                         fontWeight: FontWeight.w600,
                                                         letterSpacing: 1.1
@@ -368,7 +368,7 @@ class _RenewPassViewState extends State<RenewPassView> {
                                               children: [
                                                 const Padding(
                                                   padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                  child: Text('Notez bien lz code ci-dessous! \nUne fois perdu il ne peut être récupéré.',
+                                                  child: Text('Notez bien le code ci-dessous! \nUne fois perdu il ne peut être récupéré.',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 5,
                                                     style: TextStyle(
@@ -394,11 +394,11 @@ class _RenewPassViewState extends State<RenewPassView> {
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                  child: Text(value != null? 'Pass : ${value.code}' : 'erreur innatendue',
+                                                  child: Text(value != null? ' ${value.code}' : 'erreur innatendue',
                                                     textAlign: TextAlign.center,
                                                     maxLines: 20,
                                                     style: const TextStyle(
-                                                        fontSize: 18,
+                                                        fontSize: 24,
                                                         color: Colors.deepOrange,
                                                         fontWeight: FontWeight.w600,
                                                         letterSpacing: 1.1

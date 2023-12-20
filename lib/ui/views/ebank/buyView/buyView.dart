@@ -153,7 +153,7 @@ class _BuyViewState extends State<BuyView> {
                                           children: [
                                             Padding(
                                               padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                              child: Text('Votre abonnement a bien été effectué',
+                                              child: Text('Votre réabonnement ${widget.abonement.title} a bien été effectué',
                                                 textAlign: TextAlign.center,
                                                 maxLines: 20,
                                                 style: TextStyle(

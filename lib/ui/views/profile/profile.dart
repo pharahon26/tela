@@ -501,6 +501,66 @@ class _ProfileState extends State<Profile> {
                                       model.navigateToMaisonVisite();
                                     }
                                   },
+                                  onLongPress: () => showDialog(context: context, builder: (buildContext) => Dialog(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                          child: Text('Voulez vous oublier ce pass? \n (Votre code vous permet d\'y avoir accès plus tard.)',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.1
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              TextButton(
+                                                  onPressed: () => Navigator.of(context).pop(),
+                                                  child: const Text('Annuler',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Colors.deepOrange,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    model.authService.deletePass();
+                                                    setState(() {
+                                                      Navigator.of(context).pop();
+                                                    });
+                                                  },
+                                                  child: Text('Supprimer',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            ],
+                                          ),
+                                        )
+
+                                      ],
+                                    ),
+
+                                  )),
                                   child: Column(
                                     children: [
                                       Padding(
@@ -894,6 +954,66 @@ class _ProfileState extends State<Profile> {
                                         model.navigateToMaisonVisite();
                                       }
                                     },
+                                    onLongPress: () => showDialog(context: context, builder: (buildContext) => Dialog(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                          child: Text('Voulez vous oublier ce pass? \n (Votre code vous permet d\'y avoir accès plus tard.)',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.1
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              TextButton(
+                                                  onPressed: () => Navigator.of(context).pop(),
+                                                  child: const Text('Annuler',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Colors.deepOrange,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    model.authService.deletePass();
+                                                    setState(() {
+                                                      Navigator.of(context).pop();
+                                                    });
+                                                  },
+                                                  child: Text('Supprimer',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            ],
+                                          ),
+                                        )
+
+                                      ],
+                                    ),
+
+                                  )),
                                     child: Column(
                                       children: [
                                         Padding(
@@ -1422,6 +1542,66 @@ class _ProfileState extends State<Profile> {
                                       model.navigateToMaisonVisite();
                                     }
                                   },
+                                  onLongPress: () => showDialog(context: context, builder: (buildContext) => Dialog(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                          child: Text('Voulez vous oublier ce pass? \n (Votre code vous permet d\'y avoir accès plus tard.)',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.1
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              TextButton(
+                                                  onPressed: () => Navigator.of(context).pop(),
+                                                  child: const Text('Annuler',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Colors.deepOrange,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    model.authService.deletePass();
+                                                    setState(() {
+                                                      Navigator.of(context).pop();
+                                                    });
+                                                  },
+                                                  child: Text('Supprimer',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            ],
+                                          ),
+                                        )
+
+                                      ],
+                                    ),
+
+                                  )),
                                   child: Column(
                                     children: [
                                       Padding(
@@ -1815,6 +1995,66 @@ class _ProfileState extends State<Profile> {
                                       model.navigateToMaisonVisite();
                                     }
                                   },
+                                  onLongPress: () => showDialog(context: context, builder: (buildContext) => Dialog(
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                          child: Text('Voulez vous oublier ce pass? \n (Votre code vous permet d\'y avoir accès plus tard.)',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                letterSpacing: 1.1
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              TextButton(
+                                                  onPressed: () => Navigator.of(context).pop(),
+                                                  child: const Text('Annuler',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Colors.deepOrange,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    model.authService.deletePass();
+                                                    setState(() {
+                                                      Navigator.of(context).pop();
+                                                    });
+                                                  },
+                                                  child: Text('Supprimer',
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                  )
+                                              ),
+                                            ],
+                                          ),
+                                        )
+
+                                      ],
+                                    ),
+
+                                  )),
                                   child: Column(
                                     children: [
                                       Padding(

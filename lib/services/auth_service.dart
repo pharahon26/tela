@@ -74,6 +74,11 @@ class AuthService{
   TelaBankProfile? get bankProfile => _bankProfile;
   TelaBankEpargne? get bankEpargne => _bankEpargne;
   PassVisite? get passVisite => _passVisite;
+
+  set passVisite(PassVisite? value) {
+    _passVisite = value;
+  }
+
   PassTV? get passTV => _passTV;
   Abonnement? get abonnement => _abonnement;
   set abonnement(Abonnement? value) {
