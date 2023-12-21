@@ -94,6 +94,9 @@ class RechercheViewModel extends BaseViewModel{
       isStudio: isStudio,
       isMaisonBasse: isMaisonBasse,
       isHautStanding: isHautStanding,
+      isChambre: isChambre,
+      isHautStandingPiscine: isHautStanding,
+      isResidence: isResidence,
       isDuplex: isDuplex,
       isAppartment: isAppart,
       hasPiscine: hasPiscine,
@@ -101,6 +104,8 @@ class RechercheViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasCoursAvant: hasCoursAvant,
       hasCoursArriere: hasCoursArriere,
+      hasBalconArriere: hasBalconArriere,
+      hasBalconAvant: hasBalconAvant,
     );
     List<TelaPlace> pp = [];
     for(var pl in plac){

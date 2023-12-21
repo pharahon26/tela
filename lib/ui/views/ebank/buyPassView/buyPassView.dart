@@ -81,17 +81,6 @@ class _BuyPassViewState extends State<BuyPassView> {
                                   ),
                                   const SizedBox(height: 40.0),
                                   ElevatedButton(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('Payer avec CinetPay',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600
-                                        ),
-                                      ),
-                                    ),
                                     style: TextButton.styleFrom(
                                       elevation: 8,
                                       minimumSize: Size(mq.size.width*0.7, 30),
@@ -112,8 +101,7 @@ class _BuyPassViewState extends State<BuyPassView> {
                                         },
                                         paymentData: <String, dynamic>{
                                           'transaction_id': snapshot.data!,
-                                          'amount': 100,
-                                          // 'amount': widget.pass.price,
+                                          'amount': widget.pass.price,
                                           'currency': 'XOF',
                                           'channels': 'ALL',
                                           'description': 'Payment pass ${widget.pass.name} ',
@@ -320,6 +308,17 @@ class _BuyPassViewState extends State<BuyPassView> {
                                         }
                                       });
                                     },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text('Payer avec CinetPay',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
@@ -342,17 +341,6 @@ class _BuyPassViewState extends State<BuyPassView> {
                                   ),
                                   const SizedBox(height: 40.0),
                                   ElevatedButton(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('Payer avec CinetPay',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600
-                                        ),
-                                      ),
-                                    ),
                                     style: TextButton.styleFrom(
                                       elevation: 8,
                                       minimumSize: Size(mq.size.width*0.7, 30),
@@ -373,7 +361,6 @@ class _BuyPassViewState extends State<BuyPassView> {
                                         },
                                         paymentData: <String, dynamic>{
                                           'transaction_id': snapshot.data!,
-                                          'amount': 100,
                                           // 'amount': widget.pass.price,
                                           'currency': 'XOF',
                                           'channels': 'ALL',
@@ -581,6 +568,17 @@ class _BuyPassViewState extends State<BuyPassView> {
                                         }
                                       });
                                     },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text('Payer avec CinetPay',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),

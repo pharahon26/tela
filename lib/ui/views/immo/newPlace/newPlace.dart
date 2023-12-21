@@ -776,7 +776,7 @@ class _NewPlaceState extends State<NewPlace> {
                             child: Visibility(
                               visible: !loading,
                               replacement: const CircularProgressIndicator(color: Colors.white,),
-                              child: Text('Enregister',
+                              child: const Text('Enregister',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,

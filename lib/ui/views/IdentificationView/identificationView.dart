@@ -674,7 +674,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                   child: Visibility(
                                     visible: !loading,
                                     replacement: const CircularProgressIndicator(color: Colors.white,),
-                                    child: Text(
+                                    child: const Text(
                                       'Je confirme mes informations personnelles',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(

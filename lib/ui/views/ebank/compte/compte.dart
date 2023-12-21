@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/app.locator.dart';
-import 'package:mobile/models/transactions.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/ui/views/ebank/compte/compteViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -139,12 +138,12 @@ class _CompteState extends State<Compte> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                         child: Text('En confirmant vous validez la création de votre compte épargne voulez vous continuer,?',
                           textAlign: TextAlign.center,
                           maxLines: 20,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 14,
                               color: Colors.deepOrange,
                               fontWeight: FontWeight.w600,
@@ -159,7 +158,7 @@ class _CompteState extends State<Compte> {
                             padding: const EdgeInsets.all(8.0),
                             child: TextButton(
                                 onPressed: () => Navigator.of(buildContext).pop(),
-                                child: Text('Non',
+                                child: const Text('Non',
                                   maxLines: 2,
                                   style: TextStyle(
                                       color: Colors.deepOrange,
@@ -209,8 +208,8 @@ class _CompteState extends State<Compte> {
                   shape: const StadiumBorder(),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
-                  child: ep? CircularProgressIndicator(color: Colors.white,) : Text('Créer son compte épargne',
+                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                  child: ep? const CircularProgressIndicator(color: Colors.white,) : const Text('Créer son compte épargne',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -244,7 +243,7 @@ class _CompteState extends State<Compte> {
             visible: model.authService.user != null,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(onPressed: () => ((model.authService.bankProfile?.balance??0) > 5000) && (_authService.abonnement != null) ?
+              child: TextButton(onPressed: () => ((model.authService.bankProfile?.balance??0) > 5000) && (_authService.abonnement == null) ?
               model.renewAbonnement()
                   :
               showDialog(context: context, builder: (buildContext) => Dialog(
@@ -256,11 +255,11 @@ class _CompteState extends State<Compte> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                      Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Text(_authService.abonnement != null? 'Vos fonds sont insuffisants' : 'Vous avez déja un abonnement en cours',
                         maxLines: 3,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.deepOrange,
                             fontSize: 14,
                             fontWeight: FontWeight.w600
@@ -291,9 +290,9 @@ class _CompteState extends State<Compte> {
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   shape: const StadiumBorder(),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Text('Reabonnement',
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Reabonnement',
                     maxLines: 2,
                     style: TextStyle(
                         fontSize: 16,

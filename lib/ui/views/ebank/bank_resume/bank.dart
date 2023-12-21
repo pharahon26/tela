@@ -18,7 +18,7 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
   List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
   double compteBalance = 0;
@@ -234,7 +234,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                         width: 60,
                                         height: 60,
                                         child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}',
-                                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: Center(child: CircularProgressIndicator()),
+                                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: const Center(child: CircularProgressIndicator()),
                                           errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                             width: 50,
                                             fit: BoxFit.fitWidth,
@@ -387,38 +387,6 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                 ],
                               ),
                             ),
-                            Visibility(
-                              visible: !((model.authService.bankProfile?.hasEpargne)??false),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: mq.size.width*0.9,
-                                  height: 30,
-                                  child: InkWell(
-                                    onTap: () => model.navigateToCGUFinance(),
-                                    child: Marquee(
-                                      text:'Epargnez pendant 06 mois sans débiter votre compte "Epargne" et gagner le double du montant épargné le 07 ème mois*! Cliquez ici pour en savoir plus',
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w700,
-                                          letterSpacing: 1.2,
-                                          color: Theme.of(context).colorScheme.primary
-                                      ),
-                                      scrollAxis: Axis.horizontal,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      blankSpace: 200.0,
-                                      velocity: 40.0,
-                                      pauseAfterRound: const Duration(seconds: 4),
-                                      startPadding: 10.0,
-                                      accelerationDuration: const Duration(seconds: 10),
-                                      accelerationCurve: Curves.linear,
-                                      decelerationDuration: const Duration(milliseconds: 500),
-                                      decelerationCurve: Curves.easeOut,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
                             TabBar(
                               controller: tabController,
                               tabs: tabHeads,
@@ -441,9 +409,9 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                         backgroundColor: Theme.of(context).colorScheme.primary,
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                                      child: const Text('Se connecter',
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                                      child: Text('Se connecter',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18.0,
@@ -462,9 +430,9 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                         backgroundColor: Theme.of(context).colorScheme.primary,
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                                      child: const Text('Créer un profile',
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                                      child: Text('Créer un profile',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18.0,

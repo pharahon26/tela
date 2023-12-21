@@ -13,7 +13,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   String code = '';
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class _ProfileState extends State<Profile> {
               Visibility(
                 visible: model.authService.user != null,
                 child: InkWell(onTap: () => model.changeMDP(),
-                  child:  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                  child:  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
                     child: Icon(Icons.key, size: 24, color: Colors.white,),
                   ),
                 ),
@@ -149,7 +149,7 @@ class _ProfileState extends State<Profile> {
                                               width: 60,
                                               height: 60,
                                               child: Image.network('$_BASE_URL${model.user?.photo}',
-                                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                                                 errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                                   width: 50,
                                                   fit: BoxFit.fitWidth,
@@ -197,7 +197,7 @@ class _ProfileState extends State<Profile> {
                                                 shape: const StadiumBorder(),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                                                padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
                                                 child: Text('Déconnexion',
                                                   style: TextStyle(
                                                     fontSize: 12,
@@ -1190,7 +1190,7 @@ class _ProfileState extends State<Profile> {
                                               width: 60,
                                               height: 60,
                                               child: Image.network('$_BASE_URL${model.user?.photo}',
-                                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                                                 errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                                   width: 50,
                                                   fit: BoxFit.fitWidth,
@@ -1238,7 +1238,7 @@ class _ProfileState extends State<Profile> {
                                                 shape: const StadiumBorder(),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                                                padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
                                                 child: Text('Déconnexion',
                                                   style: TextStyle(
                                                     fontSize: 12,

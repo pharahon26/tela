@@ -68,8 +68,8 @@ class _RetraitState extends State<Retrait> {
                     Visibility(
                       visible: model.insuffisant,
                         child:
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Text('Votre solde est insuffisant pour éffectuer un retrait',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -226,13 +226,13 @@ class _RetraitState extends State<Retrait> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                                 // child: Text('Effectuer un retrait de ${model.montant}?',
                                 child: Text('Les retraits seront actifs Bientôt ne manquez pas nos mises à jour',
                                   textAlign: TextAlign.center,
                                   maxLines: 20,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600,
@@ -247,7 +247,7 @@ class _RetraitState extends State<Retrait> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextButton(
                                         onPressed: () => Navigator.of(buildContext).pop(),
-                                        child: Text('Non',
+                                        child: const Text('Non',
                                           maxLines: 2,
                                           style: TextStyle(
                                               color: Colors.deepOrange,
@@ -300,7 +300,7 @@ class _RetraitState extends State<Retrait> {
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         shape: const StadiumBorder(),
                       ),
-                      child: enCours? CircularProgressIndicator(color: Colors.white,) : Text('Retrait',
+                      child: enCours? const CircularProgressIndicator(color: Colors.white,) : const Text('Retrait',
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 24,

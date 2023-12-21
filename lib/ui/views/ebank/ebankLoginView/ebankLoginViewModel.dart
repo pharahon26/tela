@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
-import 'package:mobile/models/bank_profile.dart';
 import 'package:mobile/models/user.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/services/telaSharedPrefs.dart';
@@ -30,6 +29,7 @@ class EbankLoginViewModel extends BaseViewModel{
         .then((val) {
           _sharedPrefs.savePhoneNumber(phone);
           _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
+          return null;
         })
     ;
     return u;

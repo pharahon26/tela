@@ -22,7 +22,7 @@ class _VisiteState extends State<Visite> {
   // ];
 
 
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -62,7 +62,7 @@ class _VisiteState extends State<Visite> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.network('$_BASE_URL${widget.place.images[index]}',
-                            loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Container( padding: EdgeInsets.all(8), child: Center(child: CircularProgressIndicator())),
+                            loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Container( padding: const EdgeInsets.all(8), child: const Center(child: CircularProgressIndicator())),
                             errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                               width: 50,
                               fit: BoxFit.fitWidth,
@@ -103,7 +103,7 @@ class _VisiteState extends State<Visite> {
                              width: 60,
                              height: 60,
                              child: Image.network('$_BASE_URL${widget.place.demarcheur!.photo}',
-                               loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                               loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                                errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                  width: 50,
                                  fit: BoxFit.fitWidth,

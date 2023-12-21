@@ -13,7 +13,7 @@ class MyVisite extends StatefulWidget {
 
 class _MyVisiteState extends State<MyVisite> {
 
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +125,7 @@ class _MyVisiteState extends State<MyVisite> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.network('$_BASE_URL${widget.place.images[index]}',
-                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                           errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                             width: 50,
                             fit: BoxFit.fitWidth,
@@ -177,7 +177,7 @@ class _MyVisiteState extends State<MyVisite> {
                               width: 60,
                               height: 60,
                               child: Image.network('$_BASE_URL${model.authService.user!.photo}',
-                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                                 errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                   width: 50,
                                   fit: BoxFit.fitWidth,

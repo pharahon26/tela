@@ -234,11 +234,11 @@ class _DepotState extends State<Depot> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                  padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                                   child: Text('Votre Dépot de la somme de ${model.montant} a bien été effectué',
                                     textAlign: TextAlign.center,
                                     maxLines: 20,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
@@ -372,7 +372,7 @@ class _DepotState extends State<Depot> {
                   ],
                 )
                   :
-              CircularProgressIndicator();
+              const CircularProgressIndicator();
               }
             ),
           ),

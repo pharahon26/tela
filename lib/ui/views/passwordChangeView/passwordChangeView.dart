@@ -59,8 +59,8 @@ class _PasswordChangeViewState extends State<PasswordChangeView>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
+                            const Padding(
+                              padding: EdgeInsets.all(20.0),
                               child: Text('Vous pouvez modifier votre mot de passe ici.',
                                 style: TextStyle(
                                   fontSize: 18,
@@ -70,7 +70,7 @@ class _PasswordChangeViewState extends State<PasswordChangeView>
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
                             const Divider(),
 
@@ -237,12 +237,12 @@ class _PasswordChangeViewState extends State<PasswordChangeView>
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                               child: Text('Êtes vous sur de vouloir remplacer votre mot de passe?',
                                 textAlign: TextAlign.center,
                                 maxLines: 20,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
@@ -257,7 +257,7 @@ class _PasswordChangeViewState extends State<PasswordChangeView>
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextButton(
                                       onPressed: () => Navigator.of(buildContext).pop(),
-                                      child: Text('Non',
+                                      child: const Text('Non',
                                         maxLines: 2,
                                         style: TextStyle(
                                             color: Colors.deepOrange,

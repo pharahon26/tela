@@ -27,9 +27,9 @@ class EbankSignInViewModel extends BaseViewModel{
 
 
   Future<TelaBankProfile?> signIn() async {
-    User? u = await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, photo: photo?.path??'');
+    await _authService.signIn(nom: nom, prenom: prenom, telephone: phone, password: password, mail: birthPlace, photo: photo?.path??'');
     _sharedPrefs.savePhoneNumber(phone);
-    _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
+    _navigationService.navigateToBank(hasEpargne: _authService.bankEpargne != null);
     return _authService.bankProfile;
   }
   Future pickPhoto() async{

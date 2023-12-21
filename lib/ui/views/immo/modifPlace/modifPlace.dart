@@ -17,7 +17,7 @@ class ModifPlace extends StatefulWidget {
 
 class _ModifPlaceState extends State<ModifPlace> {
 
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
   bool isBureau = false;
 
   int type = 1;
@@ -141,7 +141,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: InkWell(
                                   child: model.images[index] != ''? model.images[index] == model.images_base[index] ? Image.network('$_BASE_URL${model.images[index]}',
-                                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                                     errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                       width: 50,
                                       fit: BoxFit.fitWidth,
@@ -806,7 +806,7 @@ class _ModifPlaceState extends State<ModifPlace> {
                           child:  Visibility(
                             visible: !loading,
                             replacement: const CircularProgressIndicator(color: Colors.white,),
-                            child: Text('Enregister',
+                            child: const Text('Enregister',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white,

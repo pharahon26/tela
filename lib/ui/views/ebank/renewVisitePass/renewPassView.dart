@@ -90,7 +90,7 @@ class _RenewPassViewState extends State<RenewPassView> {
                                       backgroundColor: Theme.of(context).colorScheme.primary,
                                       shape: const StadiumBorder(),
                                     ),
-                                    child: Text('Payer avec CinetPay',
+                                    child: const Text('Payer avec CinetPay',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 24,
@@ -294,7 +294,7 @@ class _RenewPassViewState extends State<RenewPassView> {
                                       backgroundColor: Theme.of(context).colorScheme.primary,
                                       shape: const StadiumBorder(),
                                     ),
-                                    child: Text('Payer avec CinetPay',
+                                    child: const Text('Payer avec CinetPay',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 24,

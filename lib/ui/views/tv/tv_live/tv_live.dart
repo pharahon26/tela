@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/ui/views/tv/tv_live/tvLiveViewModel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class TvLive extends StatefulWidget {
   final String link;

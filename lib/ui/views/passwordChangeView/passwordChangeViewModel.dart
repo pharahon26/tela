@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/models/user.dart';

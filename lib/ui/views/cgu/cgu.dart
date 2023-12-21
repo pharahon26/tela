@@ -187,7 +187,7 @@ seront tenus au préalable informé.""";
                         padding: const EdgeInsets.all(8.0),
                         child: Text(title,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 24,
                               fontWeight: FontWeight.w600),
@@ -205,7 +205,7 @@ seront tenus au préalable informé.""";
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(title,
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
@@ -229,7 +229,7 @@ seront tenus au préalable informé.""";
                           padding: const EdgeInsets.all(8.0),
                           child: Text(lapp_body,
                             textAlign: TextAlign.left,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,),
                           ),
@@ -247,7 +247,7 @@ seront tenus au préalable informé.""";
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(cgu,
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
@@ -283,7 +283,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w600),
@@ -312,7 +312,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar1_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -322,7 +322,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar1,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -332,7 +332,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar2_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -342,7 +342,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar2,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -352,7 +352,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar3_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -362,7 +362,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar3,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -372,7 +372,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar4_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -382,7 +382,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar4,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -392,7 +392,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar5_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -402,7 +402,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar5,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -412,7 +412,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar6_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -422,7 +422,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar6,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -432,7 +432,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar7_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -442,7 +442,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar7,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -452,7 +452,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar8_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -462,7 +462,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar8,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -472,7 +472,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar9_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -482,7 +482,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar9,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -492,7 +492,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar10_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -502,7 +502,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar10,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -512,7 +512,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar11_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -522,7 +522,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(immo_ar11,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -544,7 +544,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w600),
@@ -573,7 +573,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar1_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -583,7 +583,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar1,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -593,7 +593,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar2_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -603,7 +603,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar2,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -613,7 +613,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar3_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -623,7 +623,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar3,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -633,7 +633,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar4_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -643,7 +643,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar4,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -653,7 +653,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar5_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -663,7 +663,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar5,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -673,7 +673,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar6_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -683,7 +683,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar6,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -693,7 +693,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar7_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -703,7 +703,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar7,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -713,7 +713,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar8_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -723,7 +723,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar8,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -734,7 +734,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar9_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -744,7 +744,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar9,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -755,7 +755,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar10_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -765,7 +765,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar10,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -776,7 +776,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar11_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -786,7 +786,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(fin_ar11,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -808,7 +808,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w600),
@@ -837,7 +837,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar1_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -847,7 +847,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar1,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -857,7 +857,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar2_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -867,7 +867,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar2,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -877,7 +877,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar3_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -887,7 +887,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar3,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -897,7 +897,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar4_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -907,7 +907,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar4,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -917,7 +917,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar5_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -927,7 +927,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(tv_ar5,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -949,7 +949,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w600),
@@ -978,7 +978,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar1_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -988,7 +988,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar1,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -998,7 +998,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar2_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -1008,7 +1008,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar2,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -1018,7 +1018,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar3_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -1028,7 +1028,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar3,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),
@@ -1038,7 +1038,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar4_t,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.black,
                                             fontSize: 14,),
@@ -1048,7 +1048,7 @@ seront tenus au préalable informé.""";
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(ex_ar4,
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,),
                                         ),

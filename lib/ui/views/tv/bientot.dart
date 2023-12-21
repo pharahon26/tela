@@ -21,7 +21,7 @@ class Bientot extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        child: Center(
+        child: const Center(
           child: Text('Bientôt disponible',
             style: TextStyle(
               color: Colors.orange,

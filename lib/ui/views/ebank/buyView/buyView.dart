@@ -1,13 +1,11 @@
 import 'package:cinetpay/cinetpay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile/models/abonnement.dart';
 import 'package:mobile/models/abonnementType.dart';
 import 'package:mobile/models/transactions.dart';
 import 'package:mobile/ui/views/ebank/buyView/buyViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-import 'dart:math';
 
 
 
@@ -99,7 +97,6 @@ class _BuyViewState extends State<BuyView> {
 
                                         if (data['status'] == 'ACCEPTED') {
                                           setState(() {
-                                            print(response);
                                             icon = data['status'] == 'ACCEPTED'
                                                 ? Icons.check_circle
                                                 : Icons.mood_bad_rounded;
@@ -128,11 +125,9 @@ class _BuyViewState extends State<BuyView> {
                                     },
                                     onError: (data) {
                                       if (mounted) {
-                                        print('Error Payement');
                                         setState(() {
                                           response = data;
                                           message = response!['description'];
-                                          print(response);
                                           icon = Icons.warning_rounded;
                                           color = Colors.yellowAccent;
                                           show = true;
@@ -152,11 +147,11 @@ class _BuyViewState extends State<BuyView> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                                              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                                               child: Text('Votre réabonnement ${widget.abonement.title} a bien été effectué',
                                                 textAlign: TextAlign.center,
                                                 maxLines: 20,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.w600,
@@ -277,7 +272,7 @@ class _BuyViewState extends State<BuyView> {
                                   backgroundColor: Theme.of(context).colorScheme.primary,
                                   shape: const StadiumBorder(),
                                 ),
-                                child: Text('Payer avec CinetPay',
+                                child: const Text('Payer avec CinetPay',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24,
@@ -288,7 +283,7 @@ class _BuyViewState extends State<BuyView> {
                           ),
                         ],
                       ))
-                      :CircularProgressIndicator();
+                      :const CircularProgressIndicator();
 
 
                   // switch(snapshot.connectionState) {

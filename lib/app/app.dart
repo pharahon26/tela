@@ -35,7 +35,6 @@ import 'package:mobile/ui/views/immo/recherche/recherche.dart';
 import 'package:mobile/ui/views/immo/resultat/resultat.dart';
 import 'package:mobile/ui/views/immo/visite/visite.dart';
 import 'package:mobile/ui/views/passwordChangeView/passwordChangeView.dart';
-import 'package:mobile/ui/views/passwordChangeView/passwordChangeViewModel.dart';
 import 'package:mobile/ui/views/photoChangeView/photoChangeView.dart';
 import 'package:mobile/ui/views/profile/profile.dart';
 import 'package:mobile/ui/views/tv/bientot.dart';

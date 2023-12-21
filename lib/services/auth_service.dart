@@ -16,8 +16,8 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthService{
   /// URLS
-  static const String _BASE_URL = "http://office.telaci.com/";
-  static const String _BASE_URL_final = "http://office.telaci.com/";
+  static const String _BASE_URL = "https://office.telaci.com/";
+  static const String _BASE_URL_final = "https://office.telaci.com/";
   static const String _SIGN_UP_URL = "api/users/create";
   static const String _SIGN_UP_BANK_URL = "api/ebanking-profil/create";
   static const String _LOGIN_BANK_URL = "api/ebanking-profil/login";
@@ -154,6 +154,9 @@ class AuthService{
           // _token = 'Bearer ' + json["token"]["access_token"];
           _user = User.fromJson(json['profil']);
           _bankProfile = TelaBankProfile.fromJson(json['ebank']);
+          if (json["epargne"] != null) {
+            _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
+          }
           print(_user);
 
           if(user != null){
@@ -517,22 +520,12 @@ class AuthService{
           'password': password,
         }),
       );
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print(json);
-        print('-----------');
-        print('TEST');
-        print('------------');
         // _token = 'Bearer '+ json["token"]["access_token"];
         _user = User.fromJson(json["user"]);
-        print(_user.toString());
         _bankProfile = TelaBankProfile.fromJson(json["ebank"]);
-        print(json["ebank"]);
-        print(_bankProfile.toString());
 
-        print(json["epargne"]);
         if (json["epargne"] != null) {
           _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
           print(_bankEpargne.toString());
@@ -889,9 +882,12 @@ class AuthService{
         print(_bankProfile.toString());
 
         print(json["epargne"]);
-        if ((json["epargne"] as Map<String, dynamic>).isNotEmpty) {
+        if (json["epargne"] != null) {
           _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
           print(_bankEpargne.toString());
+        }
+        if (json["abonnement"] != null) {
+          _abonnement = Abonnement.fromJson(json["abonnement"]);
         }
         // print(transac.toString());
         print(abon.toString());
@@ -933,14 +929,14 @@ class AuthService{
         final json = jsonDecode(response.body);
         print(json);
         // _token = 'Bearer '+ json["token"]["access_token"];
-        TelaTransaction transac = TelaTransaction.fromJson(json);
+        TelaTransaction transac = TelaTransaction.fromJson(json["transaction"]);
         print(transac.toString());
         _bankProfile = TelaBankProfile.fromJson(json["profil"]);
         print(json["profil"]);
         print(_bankProfile.toString());
 
         print(json["epargne"]);
-        if ((json["epargne"] as Map<String, dynamic>).isNotEmpty) {
+        if (json["epargne"]!= null) {
           _bankEpargne = TelaBankEpargne.fromJson(json["epargne"]);
           print(_bankEpargne.toString());
         }

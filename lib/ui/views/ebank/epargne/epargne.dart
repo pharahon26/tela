@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/app.locator.dart';
-import 'package:mobile/models/transactions.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/ui/views/ebank/epargne/epargneViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -49,7 +48,7 @@ class _EpargneState extends State<Epargne> {
                     ),
                   ),
                   Text('X0F ${ _authService.bankEpargne?.balance??0}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.2,
@@ -65,10 +64,10 @@ class _EpargneState extends State<Epargne> {
                 style: TextButton.styleFrom(
                   elevation: 8,
                   backgroundColor: Colors.deepOrange,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
                   child: Text('Retrait',
                     style: TextStyle(
                         fontSize: 16,
@@ -86,10 +85,10 @@ class _EpargneState extends State<Epargne> {
                 style: TextButton.styleFrom(
                   elevation: 8,
                   backgroundColor: Colors.green,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32),
                   child: Text('Dépot',
                     style: TextStyle(
                         fontSize: 16,
@@ -105,7 +104,7 @@ class _EpargneState extends State<Epargne> {
               visible: model.authService.user != null,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextButton(onPressed: () => ((model.authService.bankEpargne?.balance??0) > 0) && (_authService.abonnement != null) ?
+                child: TextButton(onPressed: () => ((model.authService.bankEpargne?.balance??0) > 0) && (_authService.abonnement == null) ?
                 model.renewAbonnement()
                     :
                 showDialog(context: context, builder: (buildContext) => Dialog(
@@ -117,11 +116,11 @@ class _EpargneState extends State<Epargne> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(24.0),
+                        padding: const EdgeInsets.all(24.0),
                         child: Text(_authService.abonnement != null? 'Vos fonds sont insuffisants' : 'Vous avez déja un abonnement en cours',
                           maxLines: 3,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.deepOrange,
                               fontSize: 14,
                               fontWeight: FontWeight.w600
@@ -152,9 +151,9 @@ class _EpargneState extends State<Epargne> {
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     shape: const StadiumBorder(),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Text('Reabonnement',
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Reabonnement',
                       maxLines: 2,
                       style: TextStyle(
                           fontSize: 16,

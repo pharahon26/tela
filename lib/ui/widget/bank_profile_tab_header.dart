@@ -32,9 +32,9 @@ class BankProfileTabHeader extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: const Text( '(Compte courant)',
+          const Padding(
+            padding: EdgeInsets.all(4.0),
+            child: Text( '(Compte courant)',
               style: TextStyle(
                 fontSize: 10 ,
                 fontWeight: FontWeight.w600,

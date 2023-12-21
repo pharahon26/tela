@@ -219,7 +219,7 @@ class _EbankLoginViewState extends State<EbankLoginView>
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 80.0),
+                padding: const EdgeInsets.symmetric(horizontal: 80.0),
                 child: Visibility(
                   visible: !loading,
                   replacement: const CircularProgressIndicator(color: Colors.white,),

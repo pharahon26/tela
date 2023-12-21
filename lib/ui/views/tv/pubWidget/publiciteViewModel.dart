@@ -1,10 +1,8 @@
-import 'dart:math';
 
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:video_player/video_player.dart';
 
 class PubliciteViewModel extends BaseViewModel{
 
@@ -36,11 +34,6 @@ class PubliciteViewModel extends BaseViewModel{
   //
   // }
 
-  @override
-  void dispose() {
-    super.dispose();
-    // videoController.dispose();
-  }
 
   // void initControllers() async {
   //   List<String> urls = await _tvService.getPublicites();

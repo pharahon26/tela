@@ -8,11 +8,11 @@ import 'package:mobile/models/place.dart';
 
 class PlaceService{
   /// URLS
-  static const String _BASE_URL = "http://office.telaci.com/";
+  static const String _BASE_URL = "https://office.telaci.com/";
   static const String _PLACE_URL = "api/places";
   static const String _PLACE_ADD_URL = "api/places/create";
   static const String _PLACE_MODIF_URL = "api/places/";
-  static const String _SEARCH_LOGEMENT_URL = "api/places/searchplace";
+  static const String   _SEARCH_LOGEMENT_URL = "api/places/searchplace";
   static const String _IMAGE_URL = "api/images";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
@@ -45,6 +45,8 @@ class PlaceService{
     bool? isAppartment,
     bool? hasCoursArriere,
     bool? hasCoursAvant,
+    bool? hasBalconArriere,
+    bool? hasBalconAvant,
     bool? hasGarage,
     bool? hasGardien,
     bool? hasPiscine,
@@ -65,15 +67,19 @@ class PlaceService{
           "max_price": maxPrice,
           "is_bureau": isBureau,
           "is_Appartment": isAppartment,
-          "is_duplex": isDuplex,
-          "is_haut_standing": isHautStanding,
+          "is_DUPLEX": isDuplex,
           "is_MAISON_BASSE": isMaisonBasse,
-          "is_studio": isStudio,
-          "has_cours_arriere": hasCoursAvant,
-          "has_cours_avant": hasCoursAvant,
-          "has_garage": hasGarage,
-          "has_gardien": hasGardien,
-          "has_piscine": hasPiscine,
+          "is_Studio": isStudio,
+          "is_Chambre": isChambre,
+          "is_Residence": isResidence,
+          "is_HAUT_STANDING": isHautStanding,
+          "has_COUR_ARRIERE": hasCoursAvant,
+          "has_COUR_AVANT": hasCoursAvant,
+          "has_balcon_arriere": hasBalconArriere,
+          "has_balcon_avant": hasBalconAvant,
+          "has_GARAGE": hasGarage,
+          "has_GARDIEN": hasGardien,
+          "has_PISCINE": hasPiscine,
         }),
       );
       print('Response status: ${response.statusCode}');
@@ -165,7 +171,7 @@ class PlaceService{
     });
     toSend['image_change'] = img;
     try{
-      print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace')} modif place : \n ${toSend}');
+      print('${Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace')} modif place : \n $toSend');
       http.Response response = await client.post(Uri.parse('$_BASE_URL$_PLACE_MODIF_URL${place.id}/updateplace'),
         headers: <String, String>{
           'Content-Type': 'application/json',

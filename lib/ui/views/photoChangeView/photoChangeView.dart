@@ -25,7 +25,7 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
   bool isPasswordVisible1 = false;
   bool isPasswordVisible2 = false;
   bool loading = false;
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
 
 
   final _formKey = GlobalKey<FormState>();
@@ -61,8 +61,8 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
+                            const Padding(
+                              padding: EdgeInsets.all(20.0),
                               child: Text('Vous pouvez modifier votre photo.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -73,16 +73,16 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 40,
                             ),
 
                             /// photo
-                            Divider(),
+                            const Divider(),
                             const Text('Photo',
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                            Divider(),
+                            const Divider(),
                             SizedBox(
                               height: mediaQuery.size.width,
                               width: mediaQuery.size.width,
@@ -92,7 +92,7 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
                                 )
                                     :
                                 Image.network('$_BASE_URL${model.authService.user?.photo}',
-                                  loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  Center(child: CircularProgressIndicator()),
+                                  loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
                                   errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                                     width: 50,
                                     fit: BoxFit.fitWidth,
@@ -132,12 +132,12 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
                               child: Text('Êtes vous sur de vouloir remplacer votre photo de profil?',
                                 textAlign: TextAlign.center,
                                 maxLines: 20,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
@@ -152,7 +152,7 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextButton(
                                       onPressed: () => Navigator.of(buildContext).pop(),
-                                      child: Text('Non',
+                                      child: const Text('Non',
                                         maxLines: 2,
                                         style: TextStyle(
                                             color: Colors.deepOrange,

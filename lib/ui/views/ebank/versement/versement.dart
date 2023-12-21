@@ -51,8 +51,8 @@ class _VersementState extends State<Versement> {
                   Visibility(
                     visible: model.insuffisant,
                     child:
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text('Votre solde est insuffisant pour épargner',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -228,7 +228,7 @@ class _VersementState extends State<Versement> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextButton(
                                       onPressed: () => Navigator.of(buildContext).pop(),
-                                      child: Text('Non',
+                                      child: const Text('Non',
                                         maxLines: 2,
                                         style: TextStyle(
                                             color: Colors.deepOrange,
@@ -329,7 +329,7 @@ class _VersementState extends State<Versement> {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       shape: const StadiumBorder(),
                     ),
-                    child:  enCours? CircularProgressIndicator(color: Colors.white,) : const Text('Epargner',
+                    child:  enCours? const CircularProgressIndicator(color: Colors.white,) : const Text('Epargner',
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: 24,

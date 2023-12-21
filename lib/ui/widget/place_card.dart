@@ -5,7 +5,7 @@ class PlaceCard extends StatelessWidget {
   final TelaPlace place;
   late final String type;
   final String image;
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
   PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
     place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
   }
@@ -26,7 +26,7 @@ class PlaceCard extends StatelessWidget {
             width: mq.size.width+0.9,
             height: mq.size.width*0.9,
             child: Image.network('$_BASE_URL$image',
-              loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: Center(child: CircularProgressIndicator()),
+              loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: const Center(child: CircularProgressIndicator()),
               errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                 width: 50,
                 fit: BoxFit.fitWidth,

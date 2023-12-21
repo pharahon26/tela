@@ -17,7 +17,7 @@ class _ImageNavState extends State<ImageNav> {
   late PageController _pageController;
   int index = 0;
 
-  static const String _BASE_URL = "http://office.telaci.com/public/";
+  static const String _BASE_URL = "https://office.telaci.com/public/";
   @override
   void initState() {
     _pageController = PageController(initialPage: widget.startIndex);
@@ -66,7 +66,7 @@ class _ImageNavState extends State<ImageNav> {
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
                   children: widget.images.map((e) => Image.network('$_BASE_URL$e',
-                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) =>  (loadingProgress == null)? child: Center(child: CircularProgressIndicator()),
+                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) =>  (loadingProgress == null)? child: const Center(child: CircularProgressIndicator()),
                     errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
                       width: 50,
                       fit: BoxFit.fitWidth,
