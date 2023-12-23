@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/ui/views/ebank/compte/compteViewModel.dart';
@@ -49,7 +51,7 @@ class _CompteState extends State<Compte> {
                     ),
                   ),
                 ),
-                Text('X0F ${_authService.bankProfile?.balance??0}',
+                Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(_authService.bankProfile?.balance??0),
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -243,48 +245,97 @@ class _CompteState extends State<Compte> {
             visible: model.authService.user != null,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(onPressed: () => ((model.authService.bankProfile?.balance??0) > 5000) && (_authService.abonnement == null) ?
-              model.renewAbonnement()
-                  :
-              showDialog(context: context, builder: (buildContext) => Dialog(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                     Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Text(_authService.abonnement != null? 'Vos fonds sont insuffisants' : 'Vous avez déja un abonnement en cours',
-                        maxLines: 3,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: Colors.deepOrange,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600
-                        ),
+              child: TextButton(onPressed: () {
+
+
+                if (_authService.abonnement == null) {
+
+                  if (((model.authService.bankProfile?.balance ?? 0) > 5000)) {
+                    model.renewAbonnement();
+                  } else {
+                    showDialog(context: context, builder: (buildContext) => Dialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)
                       ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Text( 'Vos fonds sont insuffisants pour procéder à la transaction!',
+                              maxLines: 3,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Colors.deepOrange,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextButton(
+                                onPressed: () => Navigator.pop(buildContext),
+                                child: Text('Retour',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                )
+                            ),
+                          )
+
+                        ],
+                      ),
+
+                    ));
+                  }
+
+                }  else{
+                  showDialog(context: context, builder: (buildContext) => Dialog(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextButton(
-                          onPressed: () => Navigator.pop(buildContext),
-                          child: Text('Retour',
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Text('Vous avez déja un abonnement en cours',
+                            maxLines: 3,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: Colors.deepOrange,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600
                             ),
-                          )
-                      ),
-                    )
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextButton(
+                              onPressed: () => Navigator.pop(buildContext),
+                              child: Text('Retour',
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600
+                                ),
+                              )
+                          ),
+                        )
 
-                  ],
-                ),
+                      ],
+                    ),
 
-              )),
+                  ));
+                }
+                },
                 style: TextButton.styleFrom(
                   elevation: 8,
                   backgroundColor: Theme.of(context).colorScheme.primary,

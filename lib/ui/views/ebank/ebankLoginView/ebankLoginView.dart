@@ -45,6 +45,10 @@ class _EbankLoginViewState extends State<EbankLoginView>
             child: Container(
               padding: const EdgeInsets.all(8.0),
               height: mediaQuery.size.height - 50,
+              decoration: const BoxDecoration(
+                image: DecorationImage(image: AssetImage('assets/images/fond_fin.jpg'),
+                    fit: BoxFit.fill
+                ),),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,

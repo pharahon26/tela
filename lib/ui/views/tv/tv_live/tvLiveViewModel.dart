@@ -12,13 +12,15 @@ class TvLiveViewModel extends BaseViewModel{
 
 
   TvLiveViewModel(){
-    tvService.pausePub();
+    tvService.pause();
+    tvService.playLive();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    tvService.pause();
     tvService.playPub();
 
   }

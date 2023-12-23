@@ -38,8 +38,8 @@ class _PubliciteWidgetState extends State<PubliciteWidget> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: SizedBox(
-                      height: 30,
-                        width: 30,
+                      height: 50,
+                        width: 50,
                         child: Image.asset('assets/images/pub.png',)),
                   ),
                 ),

@@ -16,8 +16,8 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthService{
   /// URLS
-  static const String _BASE_URL = "https://office.telaci.com/";
-  static const String _BASE_URL_final = "https://office.telaci.com/";
+  static const String _BASE_URL = "http://office.telaci.com/";
+  static const String _BASE_URL_final = "http://office.telaci.com/";
   static const String _SIGN_UP_URL = "api/users/create";
   static const String _SIGN_UP_BANK_URL = "api/ebanking-profil/create";
   static const String _LOGIN_BANK_URL = "api/ebanking-profil/login";

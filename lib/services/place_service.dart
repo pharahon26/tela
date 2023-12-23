@@ -8,7 +8,7 @@ import 'package:mobile/models/place.dart';
 
 class PlaceService{
   /// URLS
-  static const String _BASE_URL = "https://office.telaci.com/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _PLACE_URL = "api/places";
   static const String _PLACE_ADD_URL = "api/places/create";
   static const String _PLACE_MODIF_URL = "api/places/";
@@ -65,21 +65,21 @@ class PlaceService{
           "nombre_salle_eau": nombreSalleEau,
           "min_price": minPrice,
           "max_price": maxPrice,
-          "is_bureau": isBureau,
-          "is_Appartment": isAppartment,
-          "is_DUPLEX": isDuplex,
-          "is_MAISON_BASSE": isMaisonBasse,
-          "is_Studio": isStudio,
-          "is_Chambre": isChambre,
-          "is_Residence": isResidence,
-          "is_HAUT_STANDING": isHautStanding,
-          "has_COUR_ARRIERE": hasCoursAvant,
-          "has_COUR_AVANT": hasCoursAvant,
-          "has_balcon_arriere": hasBalconArriere,
-          "has_balcon_avant": hasBalconAvant,
-          "has_GARAGE": hasGarage,
-          "has_GARDIEN": hasGardien,
-          "has_PISCINE": hasPiscine,
+          "is_Bureau": (isBureau??false)?1:0,
+          "is_Appartment": (isAppartment??false)?1:0,
+          "is_DUPLEX": (isDuplex??false)?1:0,
+          "is_MAISON_BASSE": (isMaisonBasse??false)?1:0,
+          "is_Studio": (isStudio??false)?1:0,
+          "is_Chambre": (isChambre??false)?1:0,
+          "is_Residence": (isResidence??false)?1:0,
+          "is_HAUT_STANDING": (isHautStanding??false)?1:0,
+          "has_COUR_ARRIERE": (hasCoursAvant??false)?1:0,
+          "has_COUR_AVANT": (hasCoursAvant??false)?1:0,
+          "has_balcon_arriere": (hasBalconArriere??false)?1:0,
+          "has_balcon_avant": (hasBalconAvant??false)?1:0,
+          "has_GARAGE": (hasGarage??false)?1:0,
+          "has_GARDIEN": (hasGardien??false)?1:0,
+          "has_PISCINE": (hasPiscine??false)?1:0,
         }),
       );
       print('Response status: ${response.statusCode}');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/models/place.dart';
 import 'package:mobile/ui/views/immo/myVisite/myVisiteViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -13,7 +14,7 @@ class MyVisite extends StatefulWidget {
 
 class _MyVisiteState extends State<MyVisite> {
 
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +140,11 @@ class _MyVisiteState extends State<MyVisite> {
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                    child: Text('${widget.place.price.toString()} FCFA',
+                    child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 32, fontWeight:
-                        FontWeight.w600)),
+                            fontSize: 32, fontWeight: FontWeight.w600)),
                   ),
 
                   const Divider(),

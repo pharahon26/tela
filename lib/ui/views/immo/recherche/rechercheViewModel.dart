@@ -23,12 +23,12 @@ class RechercheViewModel extends BaseViewModel{
 
 
   bool isBureau = false;
-  late Commune commune;
+  Commune? commune;
 
 
   Stream<bool> get isAuth => authService.isConnected;
   bool isMaisonBasse = false;
-  bool isAppart = false;
+  bool isAppart = true;
   bool isDuplex = false;
   bool isResidence = false;
   bool isStudio = false;
@@ -73,7 +73,6 @@ class RechercheViewModel extends BaseViewModel{
 
   RechercheViewModel(){
     communes = authService.communes;
-    commune = communes.first;
     PassVisite? passVisite =authService.passVisite;
     if (passVisite != null) {
       havePass = true;
@@ -85,7 +84,7 @@ class RechercheViewModel extends BaseViewModel{
   Future search() async {
 
     List<TelaPlace> plac = await _placeService.searchLogement(
-      communeId: commune.id,
+      communeId: commune!.id,
       nombrePiece: nombreDePieces,
       nombreSalleEau: nombreDeSalleDeau,
       minPrice: null,

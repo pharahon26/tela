@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/ui/views/ebank/versement/versementViewModel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -42,8 +43,13 @@ class _VersementState extends State<Versement> {
           ),
         ),
         body: SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
             height: mq.size.height*0.8,
+            decoration: const BoxDecoration(
+                image: DecorationImage(image: AssetImage('assets/images/fond_fin.jpg'),
+                    fit: BoxFit.fill
+                )
+            ),
             child: Form(
               key: _formKey,
               child: Column(
@@ -82,7 +88,7 @@ class _VersementState extends State<Versement> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('X0F ${model.balance}',
+                          child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.balance),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
@@ -153,7 +159,7 @@ class _VersementState extends State<Versement> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('X0F ${model.balance - model.montant}',
+                          child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.balance - model.montant),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
@@ -183,7 +189,7 @@ class _VersementState extends State<Versement> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('X0F ${(model.authService.bankEpargne?.balance??0) + model.montant}',
+                          child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format((model.authService.bankEpargne?.balance??0) + model.montant),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/models/place.dart';
 import 'package:mobile/ui/views/immo/visite/visiteViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -22,7 +23,7 @@ class _VisiteState extends State<Visite> {
   // ];
 
 
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   @override
   Widget build(BuildContext context) {
     MediaQueryData mq =MediaQuery.of(context);
@@ -76,7 +77,7 @@ class _VisiteState extends State<Visite> {
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                    child: Text('${widget.place.price.toString()} FCFA',
+                    child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
@@ -356,10 +357,12 @@ class _VisiteState extends State<Visite> {
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
                     child: Text(widget.place.description,
                         textAlign: TextAlign.center,
+
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 16, fontWeight:
-                        FontWeight.w600)),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                        )),
                   ),
 
                 ],

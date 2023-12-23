@@ -4,8 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'package:video_player/video_player.dart';
 
 class TvLive extends StatefulWidget {
-  final String link;
-  const TvLive({super.key, required this.link});
+  const TvLive({super.key,});
 
   @override
   State<TvLive> createState() => _TvLiveState();
@@ -13,22 +12,10 @@ class TvLive extends StatefulWidget {
 
 class _TvLiveState extends State<TvLive> {
 
-  late VideoPlayerController videoController;
 
   @override
   void initState() {
     super.initState();
-      videoController = VideoPlayerController.networkUrl(Uri.parse(widget.link));
-    DateTime time = DateTime.now();
-
-    videoController.setLooping(true);
-    videoController.initialize().then((_) {
-      setState(() {});
-    });
-      videoController.addListener(() {
-        setState(() {});
-      });
-    videoController.play();
 
   }
 
@@ -41,10 +28,10 @@ class _TvLiveState extends State<TvLive> {
         backgroundColor: Colors.white,
           body: Center(
             child: AspectRatio(
-              aspectRatio: videoController.value.aspectRatio,
+              aspectRatio: model.tvService.liveVideoController.value.aspectRatio,
               child: Stack(
                 children: [
-                  VideoPlayer(videoController, key: UniqueKey(),),
+                  VideoPlayer(model.tvService.liveVideoController, key: UniqueKey(),),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Align(
@@ -52,7 +39,7 @@ class _TvLiveState extends State<TvLive> {
                       child: SizedBox(
                           height: 50,
                           width: 50,
-                          child: Image.asset('assets/images/exclu.png',)),
+                          child: Image.asset('assets/images/live.png',)),
                     ),
                   ),
                 ],
@@ -67,7 +54,6 @@ class _TvLiveState extends State<TvLive> {
   @override
   void dispose() {
     super.dispose();
-    videoController.dispose();
     }
 
 }

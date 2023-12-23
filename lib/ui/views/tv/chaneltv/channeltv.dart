@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/services/tv_service.dart';
 import 'package:mobile/ui/views/tv/chaneltv/chaneltvViewModel.dart';
 import 'package:mobile/ui/views/tv/pubWidget/publicite.dart';
+import 'package:mobile/ui/widget/drawerWidget/telaDrawer.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../../app/app.locator.dart';
@@ -17,7 +18,7 @@ class _ChanelTvState extends State<ChanelTv> {
   List<String> imgs = [
   'assets/images/live.jpg',
   'assets/images/sport.jpg',
-    'assets/images/différé.jpg',
+    'assets/images/diféré.jpg',
   'assets/images/rediffusion.jpg',
   'assets/images/films.jpg',
 ];
@@ -62,62 +63,7 @@ class _ChanelTvState extends State<ChanelTv> {
               },
             ),
           ),
-          drawer: Drawer(
-            elevation: 5,
-            child: SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DrawerHeader(child: Center(
-                      child: Image.asset('assets/images/logo.png'),
-                    )),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToAcceuil();
-                        },
-                        child: const Text('Acceuil')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToProfile();
-                        },
-                        child: const Text('profile')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheLogement();
-                        },
-                        child: const Text('Trouver un logement')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheBureau();
-                        },
-                        child: const Text('Trouver un Bureau')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        child: const Text('Tela Finance')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToTV();
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.deepOrange,
-
-                        ),
-                        child: const Text('Tela TV',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
-                        )
-                    ),
-                  ]),
-            ),
-          ),
+          drawer: const TelaDrawer(base: TelaDrawer.TV),
           body: SafeArea(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -130,14 +76,25 @@ class _ChanelTvState extends State<ChanelTv> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () {
-                          _tvService.pausePub();
-                          (e == 'assets/images/sport.jpg')
-                              ? model.navigateToLiveTVSport()
-                              :
-                          (e == 'assets/images/live.jpg')
-                              ? model.navigateToLive()
-                              : model.navigateToLiveTV();
-                                      },
+                          _tvService.pause();
+                          switch(e) {
+                            case 'assets/images/live.jpg':
+                              model.navigateToLiveTV();
+                              break;
+                            case 'assets/images/sport.jpg':
+                              model.navigateToLiveTVSport();
+                              break;
+                            case 'assets/images/rediffusion.jpg':
+                              model.navigateToLiveTVDiffere();
+                              break;
+                            case 'assets/images/diféré.jpg':
+                              model.navigateToLiveTVExclu();
+                              break;
+                            case 'assets/images/films.jpg':
+                              model.navigateToLiveTVFilms();
+                              break;
+                            }
+                          },
                           child: Image.asset(e,
                             width: mq.size.width-80,
                             fit: BoxFit.fitWidth,)
@@ -150,10 +107,5 @@ class _ChanelTvState extends State<ChanelTv> {
           )
       ),
     );
-  }
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _tvService.pausePub();
   }
 }

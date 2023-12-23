@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/ui/views/ebank/retrait/retraitViewModel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -47,8 +48,13 @@ class _RetraitState extends State<Retrait> {
             ),
           ),
           body: SingleChildScrollView(
-            child: SizedBox(
+            child: Container(
               height: mq.size.height*0.8,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage('assets/images/fond_fin.jpg'),
+                      fit: BoxFit.fill
+                  )
+              ),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -99,7 +105,7 @@ class _RetraitState extends State<Retrait> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${ model.balance }',
+                            child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format( model.balance ),
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
@@ -172,7 +178,7 @@ class _RetraitState extends State<Retrait> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${model.frais}',
+                            child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.frais),
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
@@ -202,7 +208,7 @@ class _RetraitState extends State<Retrait> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${model.balance - (model.montant + model.frais)}',
+                            child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.balance - (model.montant + model.frais)),
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,

@@ -121,7 +121,7 @@ class _NewPlaceState extends State<NewPlace> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Center(
-                                          child: index !=0? const Icon(Icons.add) : const Text('Facade de la maison',
+                                          child: index !=0? const Icon(Icons.add, size: 24,) : const Text('Facade de la maison',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,

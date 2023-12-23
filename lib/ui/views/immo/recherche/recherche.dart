@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/ui/views/immo/recherche/rechercheViewModel.dart';
+import 'package:mobile/ui/widget/drawerWidget/telaDrawer.dart';
 import 'package:stacked/stacked.dart';
 
 class Recherche extends StatefulWidget {
@@ -44,68 +45,7 @@ class _RechercheState extends State<Recherche> {
               },
             ),
           ),
-          drawer: Drawer(
-            elevation: 5,
-            child: SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DrawerHeader(child: Center(
-                      child: Image.asset('assets/images/logo.png'),
-                    )),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToAcceuil();
-                        },
-                        child: const Text('Acceuil')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToProfile();
-                        },
-                        child: const Text('profile')
-                    ),
-                    TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
-
-                        ),
-                        onPressed: (){
-                          model.navigateToRechercheLogement();
-                        },
-                        child: Text('Trouver un logement',
-                          style: TextStyle(
-                              color: !widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                    TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: !widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
-
-                        ),
-                        onPressed: (){
-                          model.navigateToRechercheBureau();
-                        },
-                        child: Text('Trouver un Bureau',
-                          style: TextStyle(
-                            color: widget.isBureau? Colors.white : Theme.of(context).colorScheme.primary,
-                          ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        child: const Text('Tela Finance')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToTV();
-                        },
-                        child: const Text('Tela TV')
-                    ),
-                  ]),
-            ),
-          ),
+          drawer: TelaDrawer(base: widget.isBureau? TelaDrawer.BUREAU : TelaDrawer.LOGEMENT),
           body: Form(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -151,26 +91,53 @@ class _RechercheState extends State<Recherche> {
                     /// Commune
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: PopupMenuButton(
-                          color: Colors.white,
-                          onSelected: (commm){
-                            setState(() {
-                              model.commune = commm;
-                            });
-                          },
-                          offset: const Offset(100, 0),
-                          itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
-                            value: commune,
-                            child: Text(commune.name,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      child: Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: PopupMenuButton(
+                            color: Colors.white,
+                            onSelected: (commm){
+                              setState(() {
+                                model.commune = commm;
+                              });
+                            },
+                            offset: const Offset(100, 0),
+                            itemBuilder: (BuildContext context) => model.communes.map((commune) => PopupMenuItem(
+                              value: commune,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                                child: Text(commune.name,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
 
-                            ),
-                          )).toList(),
-                          child: Text(model.commune.name,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary, fontSize: 24, fontWeight: FontWeight.w600),)
+                                ),
+                              ),
+                            )).toList(),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(maxWidth: mq.size.width *0.7),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(model.commune != null? model.commune!.name : 'Sélectionnez une commune',
+                                        maxLines: 2,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                            color: Theme.of(context).colorScheme.primary, fontSize: model.commune != null? 24 : 16, fontWeight: FontWeight.w600),),
+                                    ),
+                                    Icon(Icons.keyboard_arrow_down, size: 24, color: Theme.of(context).colorScheme.primary,)
+                                  ],
+                                ),
+                              ),
+                            )
+                        ),
                       ),
                     ),
 
@@ -181,101 +148,144 @@ class _RechercheState extends State<Recherche> {
                         color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                     const Divider(),
 
-                    /// IS DUPLEX
-                    CheckboxListTile(
-                        value: model.isDuplex,
-                        onChanged: (r) {
-                          setState(() {
-                            model.isDuplex = r!;
-                          });
-                        },
-                        title: Text(
-                          "Duplex",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
+
+                    ListTile(
+                      title: Text("Appartement",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                      leading: Radio(
+                          value: 1,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 1;
+                              model.isAppart = true;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = false;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.black),
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
                     ),
-                    /// IS Maison BASSE
-                    CheckboxListTile(
-                        value: model.isMaisonBasse,
-                        onChanged: (r) {
-                          setState(() {
-                            model.isMaisonBasse = r!;
-                          });
-                        },
-                        title: Text(
-                          "Maison Basse",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
+                    ListTile(
+                      title: Text("Maison basse",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                      leading: Radio(
+                          value: 2,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 2;
+                              model.isAppart = false;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = true;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = false;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.black),
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
                     ),
-                    /// IS APPARTEMENT
-                    CheckboxListTile(
-                        value: model.isAppart,
-                        onChanged: (r) {
-                          setState(() {
-                            model.isAppart = r!;
-                          });
-                        },
-                        title: Text(
-                          "Appartement",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
+                    ListTile(
+                      title: Text("Duplex",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                      leading: Radio(
+                          value: 3,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 3;
+                              model.isAppart = false;
+                              model.isDuplex = true;
+                              model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = false;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.black),
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
                     ),
-                    /// IS Résidence
-                    CheckboxListTile(
-                        value: model.isResidence,
-                        onChanged: (r) {
-                          setState(() {
-                            model.isResidence = r!;
-                          });
-                        },
-                        title: Text(
-                          "Résidence",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
+                    ListTile(
+                      title: Text("Résidence",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                      leading: Radio(
+                          value: 4,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 4;
+                              model.isAppart = false;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = false;
+                              model.isResidence = true;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.black),
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
                     ),
-                    /// IS Studio
-                    CheckboxListTile(
-                        value: model.isStudio,
-                        onChanged: (r) {
-                          setState(() {
-                            model.isStudio = r!;
-                          });
-                        },
-                        title: Text(
-                          "Studio",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
+                    ListTile(
+                      title: Text("Studio",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                      leading: Radio(
+                          value: 5,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 5;
+                              model.isAppart = false;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = false;
+                              model.isStudio = true;
+                              model.isChambre = false;
+                              model.isResidence = false;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.black),
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
                     ),
-                    /// IS Chambre
-                    CheckboxListTile(
-                        value: model.isChambre,
-                        onChanged: (r) {
-                          setState(() {
-                            model.isChambre = r!;
-                          });
-                        },
-                        title: Text(
-                          "Chambre",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                        ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
+                    ListTile(
+                      title: Text("Chambre",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                      leading: Radio(
+                          value: 6,
+                          groupValue: type,
+                          onChanged: (value) {
+                            setState(() {
+                              type = 6;
+                              model.isAppart = false;
+                              model.isDuplex = false;
+                              model.isMaisonBasse = false;
+                              model.isStudio = false;
+                              model.isChambre = true;
+                              model.isResidence = false;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.black),
+                          activeColor: Theme.of(context).colorScheme.primary
+                      ),
                     ),
 
                     /// IS Haut standing avec piscine
@@ -380,238 +390,285 @@ class _RechercheState extends State<Recherche> {
                       ],
                     ),
 
-                    ///TYPE
-                    const Divider(),
-                    const Text('Commoditées additionnelles',
-                      style: TextStyle(
-                          color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
-                    const Divider(),
-                    /// IS Cours avant
-                    CheckboxListTile(
-                        value: model.hasCoursAvant,
-                      onChanged: (r) {
-                        setState(() {
-                          model.hasCoursAvant = r!;
-                        });
-                      },
-                      title: Text(
-                        "Cours Avant",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
-                    ),
-                    /// IS Cours Arriere
-                    CheckboxListTile(
-                        value: model.hasCoursArriere,
-                      onChanged: (r) {
-                        setState(() {
-                          model.hasCoursArriere = r!;
-                        });
-                      },
-                      title: Text(
-                        "Cours Arriere",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
-                    ),
-                    /// IS balcon avant
-                    CheckboxListTile(
-                        value: model.hasBalconAvant,
-                      onChanged: (r) {
-                        setState(() {
-                          model.hasBalconAvant = r!;
-                        });
-                      },
-                      title: Text(
-                        "Balcon Avant",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
-                    ),
-                    /// IS Balcon Arriere
-                    CheckboxListTile(
-                        value: model.hasBalconArriere,
-                      onChanged: (r) {
-                        setState(() {
-                          model.hasBalconArriere = r!;
-                        });
-                      },
-                      title: Text(
-                        "Balcon Arriere",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
-                    ),
-                    /// IS Piscine
+                    // ///TYPE
+                    // const Divider(),
+                    // const Text('Commoditées additionnelles',
+                    //   style: TextStyle(
+                    //       color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                    // const Divider(),
+                    // /// IS Cours avant
                     // CheckboxListTile(
-                    //     value: model.hasPiscine,
+                    //     value: model.hasCoursAvant,
                     //   onChanged: (r) {
                     //     setState(() {
-                    //       model.hasPiscine = r!;
+                    //       model.hasCoursAvant = r!;
                     //     });
                     //   },
                     //   title: Text(
-                    //     "Piscine",
+                    //     "Cours Avant",
                     //     style: TextStyle(
                     //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
                     //   ),
                     //     checkColor: Colors.white,
                     //     activeColor: Theme.of(context).colorScheme.primary
                     // ),
-                    /// IS GARAGE
-                    CheckboxListTile(
-                        value: model.hasGarage,
-                      onChanged: (r) {
-                        setState(() {
-                          model.hasGarage = r!;
-                        });
-                      },
-                      title: Text(
-                        "Garage",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
-                    ),
-                    /// has Gardien
-                    CheckboxListTile(
-                        value: model.hasGardien,
-                      onChanged: (r) {
-                        setState(() {
-                          model.hasGardien = r!;
-                        });
-                      },
-                      title: Text(
-                        "Gardien",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                        checkColor: Colors.white,
-                        activeColor: Theme.of(context).colorScheme.primary
-                    ),
+                    // /// IS Cours Arriere
+                    // CheckboxListTile(
+                    //     value: model.hasCoursArriere,
+                    //   onChanged: (r) {
+                    //     setState(() {
+                    //       model.hasCoursArriere = r!;
+                    //     });
+                    //   },
+                    //   title: Text(
+                    //     "Cours Arriere",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    //   ),
+                    //     checkColor: Colors.white,
+                    //     activeColor: Theme.of(context).colorScheme.primary
+                    // ),
+                    // /// IS balcon avant
+                    // CheckboxListTile(
+                    //     value: model.hasBalconAvant,
+                    //   onChanged: (r) {
+                    //     setState(() {
+                    //       model.hasBalconAvant = r!;
+                    //     });
+                    //   },
+                    //   title: Text(
+                    //     "Balcon Avant",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    //   ),
+                    //     checkColor: Colors.white,
+                    //     activeColor: Theme.of(context).colorScheme.primary
+                    // ),
+                    // /// IS Balcon Arriere
+                    // CheckboxListTile(
+                    //     value: model.hasBalconArriere,
+                    //   onChanged: (r) {
+                    //     setState(() {
+                    //       model.hasBalconArriere = r!;
+                    //     });
+                    //   },
+                    //   title: Text(
+                    //     "Balcon Arriere",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    //   ),
+                    //     checkColor: Colors.white,
+                    //     activeColor: Theme.of(context).colorScheme.primary
+                    // ),
+                    // /// IS Piscine
+                    // // CheckboxListTile(
+                    // //     value: model.hasPiscine,
+                    // //   onChanged: (r) {
+                    // //     setState(() {
+                    // //       model.hasPiscine = r!;
+                    // //     });
+                    // //   },
+                    // //   title: Text(
+                    // //     "Piscine",
+                    // //     style: TextStyle(
+                    // //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    // //   ),
+                    // //     checkColor: Colors.white,
+                    // //     activeColor: Theme.of(context).colorScheme.primary
+                    // // ),
+                    // /// IS GARAGE
+                    // CheckboxListTile(
+                    //     value: model.hasGarage,
+                    //   onChanged: (r) {
+                    //     setState(() {
+                    //       model.hasGarage = r!;
+                    //     });
+                    //   },
+                    //   title: Text(
+                    //     "Garage",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    //   ),
+                    //     checkColor: Colors.white,
+                    //     activeColor: Theme.of(context).colorScheme.primary
+                    // ),
+                    // /// has Gardien
+                    // CheckboxListTile(
+                    //     value: model.hasGardien,
+                    //   onChanged: (r) {
+                    //     setState(() {
+                    //       model.hasGardien = r!;
+                    //     });
+                    //   },
+                    //   title: Text(
+                    //     "Gardien",
+                    //     style: TextStyle(
+                    //         color: Theme.of(context).colorScheme.primary, fontSize: 14, fontWeight: FontWeight.w500),
+                    //   ),
+                    //     checkColor: Colors.white,
+                    //     activeColor: Theme.of(context).colorScheme.primary
+                    // ),
 
                     ///Search
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                          if (model.authService.passVisite != null) {
-                            setState(() {
-                              setState(() {
-                                searching = true;
-                              });
-                            });
-                            model.search().then((value) {
-                              setState(() {
-                                searching = false;
+                            if (model.commune != null) {
 
-                              });
-                            });
-                          }  else{
-                            showDialog(context: context, builder: (buildContext) => Dialog(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
-                                    child: Text('Entrez le code de votre pass visite si dessous pour vérification',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1.1
-                                      ),
-                                    ),
+                              if (model.authService.passVisite != null) {
+                                setState(() {
+                                  setState(() {
+                                    searching = true;
+                                  });
+                                });
+                                model.search().then((value) {
+                                  setState(() {
+                                    searching = false;
+
+                                  });
+                                });
+                              }  else{
+                                showDialog(context: context, builder: (buildContext) => Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(24.0),
-                                    child: SizedBox(
-                                      width: mq.size.width*0.7,
-                                      child: TextFormField(
-                                        autofocus: true,
-                                        maxLength: 8,
-                                        minLines: 1,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                        decoration: InputDecoration(
-                                          icon: Icon(
-                                            Icons.credit_card,
-                                            color: Theme.of(context).colorScheme.primary,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                        child: Text('Entrez le code de votre pass visite si dessous pour vérification',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.1
                                           ),
-                                          suffix: InkWell(
-                                            onTap: () async => await model.chechPass(code).then((v) {
-                                              Navigator.of(buildContext).pop();
-                                            }),
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width/5,
-                                              decoration: BoxDecoration(
-                                                  color: Theme.of(context).colorScheme.primary,
-                                                  borderRadius: BorderRadius.circular(30)
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(24.0),
+                                        child: SizedBox(
+                                          width: mq.size.width*0.7,
+                                          child: TextFormField(
+                                            autofocus: true,
+                                            maxLength: 8,
+                                            minLines: 1,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                            decoration: InputDecoration(
+                                              icon: Icon(
+                                                Icons.credit_card,
+                                                color: Theme.of(context).colorScheme.primary,
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Text('vérifier',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.w600,
-                                                      letterSpacing: 1.1
+                                              suffix: InkWell(
+                                                onTap: () async => await model.chechPass(code).then((v) {
+                                                  Navigator.of(buildContext).pop();
+                                                }),
+                                                child: Container(
+                                                  width: MediaQuery.of(context).size.width/5,
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context).colorScheme.primary,
+                                                      borderRadius: BorderRadius.circular(30)
+                                                  ),
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.all(8.0),
+                                                    child: Text('vérifier',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 1.1
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
+                                              labelText: 'Pass visites',
+                                              labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                                              enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+                                              focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                                              hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                                             ),
+                                            onChanged: (value) {
+                                              code = value;
+                                            },
+                                            // validator: (value) {
+                                            //
+                                            // },
                                           ),
-                                          labelText: 'Pass visites',
-                                          labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                          enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                          focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                          hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
                                         ),
-                                        onChanged: (value) {
-                                          code = value;
-                                        },
-                                        // validator: (value) {
-                                        //
-                                        // },
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextButton(
+                                            onPressed: () => model.navigateToVisiteAbonnement(true),
+                                            child: Text('Acheter un pass',
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  color: Theme.of(context).colorScheme.primary,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600
+                                              ),
+                                            )
+                                        ),
+                                      )
+
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextButton(
-                                        onPressed: () => model.navigateToVisiteAbonnement(true),
-                                        child: Text('Acheter un pass',
-                                          maxLines: 2,
+
+                                ));
+                              }
+                            }else{
+                              showDialog(context: context, builder: (buildContext) => Dialog(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
+                                        child: Text('Vous devez sélectionner la commmune d\'Abidjan dans laquelle vous voullez effectuer la recherche.',
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              color: Theme.of(context).colorScheme.primary,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.1
                                           ),
-                                        )
-                                    ),
-                                  )
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextButton(
+                                            onPressed: () => Navigator.of(buildContext).pop(),
+                                            child: Text('OK',
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  color: Theme.of(context).colorScheme.primary,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600
+                                              ),
+                                            )
+                                        ),
+                                      )
 
-                                ],
-                              ),
+                                    ],
+                                  ),
+                                ),
 
-                            ));
-                          }
+                              ));
+
+                            }
                           },
                         style: TextButton.styleFrom(
                           fixedSize: Size.fromWidth(mq.size.width * 0.6),

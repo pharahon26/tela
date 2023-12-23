@@ -25,7 +25,7 @@ class _PhotoChangeViewState extends State<PhotoChangeView>
   bool isPasswordVisible1 = false;
   bool isPasswordVisible2 = false;
   bool loading = false;
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
 
 
   final _formKey = GlobalKey<FormState>();

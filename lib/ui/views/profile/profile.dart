@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/ui/views/profile/profileViewModel.dart';
+import 'package:mobile/ui/widget/drawerWidget/telaDrawer.dart';
 import 'package:mobile/ui/widget/profilCliper.dart';
 import 'package:stacked/stacked.dart';
 
@@ -13,7 +14,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   String code = '';
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
@@ -54,61 +55,7 @@ class _ProfileState extends State<Profile> {
               },
             ),
           ),
-          drawer: Drawer(
-            elevation: 5,
-            child: SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DrawerHeader(child: Center(
-                      child: Image.asset('assets/images/logo.png'),
-                    )),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToAcceuil();
-                        },
-                        child: const Text('Acceuil')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToProfile();
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-
-                        ),
-                        child: const Text('profile',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheLogement();
-                        },
-                        child: const Text('Trouver un logement')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheBureau();
-                        },
-                        child: const Text('Trouver un Bureau')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        child: const Text('Tela Finance')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToTV();
-                        },
-                        child: const Text('Tela TV')
-                    ),
-                  ]),
-            ),
-          ),
+          drawer: const TelaDrawer(base: TelaDrawer.PROFIL),
           body: SingleChildScrollView(
             child: Scrollbar(
               child: StreamBuilder<bool>(
@@ -162,16 +109,19 @@ class _ProfileState extends State<Profile> {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text('${model.user!.nom} ${model.user!.prenom}',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 1.2,
-                                                  color: Colors.white,
+                                            ConstrainedBox(
+                                              constraints: BoxConstraints(maxWidth: 150),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text('${model.user!.nom} ${model.user!.prenom}',
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -1205,14 +1155,17 @@ class _ProfileState extends State<Profile> {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.all(8.0),
-                                              child: Text('${model.user!.nom} ${model.user!.prenom}',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 1.2,
-                                                  color: Colors.white,
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(maxWidth: 150),
+                                                child: Text('${model.user!.nom} ${model.user!.prenom}',
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ),
                                             ),

@@ -19,50 +19,32 @@ class ChannelTvViewModel extends BaseViewModel{
     program = _tvService.progTest();
   }
 
-  void navigateToEbank() async{
-    _tvService.pausePub();
-    await _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
-  }
-  void navigateToProfile() async{
-    _tvService.pausePub();
-    await _navigationService.navigateTo(Routes.profile);
-  }
-  void navigateToTV() async{
-    _tvService.pausePub();
-    await _navigationService.navigateTo(Routes.chanelTv);
-  }
-  void navigateToprogTV() async{
-    _tvService.pausePub();
-    await _navigationService.navigateTo(Routes.programmeTv);
-  }
-
-  void navigateToRechercheBureau() async{
-    _tvService.pausePub();
-    await _navigationService.navigateToRecherche(isBureau: true);
-  }
-  void navigateToRechercheLogement() async{
-    _tvService.pausePub();
-    await _navigationService.navigateToRecherche(isBureau: false);
-  }
-  void navigateToGalery() async{
-    _tvService.pausePub();
-    await _navigationService.navigateTo(Routes.catalogue);
-  }
-  void navigateToAcceuil() async{
-    _tvService.pausePub();
-    await _navigationService.navigateTo(Routes.acceuil);
-  }
   void navigateToLiveTV() async{
-    _tvService.pausePub();
-    await _navigationService.navigateToBientot();
+    await _tvService.pause();
+    await _navigationService.navigateToTvLive();
   }
   void navigateToLiveTVSport() async{
-    _tvService.pausePub();
-    await _navigationService.navigateToTvSport(link: 'https://www.telaci.com/assets/videos/exclu_tela.mp4');
+    await _tvService.pause();
+    await _navigationService.navigateToTvSport();
   }
-  void navigateToLive() async{
-    _tvService.pausePub();
-    await _navigationService.navigateToTvSport(link: 'https://www.telaci.com/assets/videos/annonces/1million.mp4');
+  void navigateToLiveTVExclu() async{
+    await _tvService.pause();
+    await _navigationService.navigateToTvExclu();
+  }
+  void navigateToLiveTVDiffere() async{
+    await _tvService.pause();
+    await _navigationService.navigateToBientot();
+  }
+  void navigateToLiveTVFilms() async{
+    await _tvService.pause();
+    await _navigationService.navigateToTvFilm();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _tvService.pause();
+
   }
 
 

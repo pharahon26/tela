@@ -9,13 +9,16 @@ import 'package:video_player/video_player.dart';
 class TVService{
   /// URLS
   static const String _BASE_URL = "http://office.telaci.com";
-  static const String _PUB_URL2 = "https://office.telaci.com/public/programmes_tv/liens_pub/";
+  static const String _PUB_URL2 = "http://office.telaci.com/public/programmes_tv/liens_pub/";
   static const String _TV_URL = "telaapi/tv_program";
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   List<String> publicites =[];
   late VideoPlayerController pubVideoController;
-  late VideoPlayerController reportagesVideoController;
+  late VideoPlayerController liveVideoController;
+  late VideoPlayerController sportVideoController;
+  late VideoPlayerController excluVideoController;
+  late VideoPlayerController filmVideoController;
   bool playing = false;
 
   TVService();
@@ -24,19 +27,83 @@ class TVService{
 
   Future<void> init() async {
     pubVideoController = VideoPlayerController.networkUrl(Uri.parse("https://www.telaci.com/assets/videos/pub_tela.mp4"));
+    liveVideoController = VideoPlayerController.networkUrl(Uri.parse("https://www.telaci.com/assets/videos/live_tela.mp4"));
+    sportVideoController = VideoPlayerController.networkUrl(Uri.parse("https://www.telaci.com/assets/videos/sport_tela.mp4"));
+    excluVideoController = VideoPlayerController.networkUrl(Uri.parse("https://www.telaci.com/assets/videos/exclu_tela.mp4"));
+    filmVideoController = VideoPlayerController.networkUrl(Uri.parse("https://www.telaci.com/assets/videos/film_tela.mp4"));
     // pubVideoController.seekTo(Duration(minutes: t));
     pubVideoController.setLooping(true);
+    liveVideoController.setLooping(true);
+    sportVideoController.setLooping(true);
+    filmVideoController.setLooping(true);
+    excluVideoController.setLooping(true);
     pubVideoController.setVolume(0);
 
     pubVideoController.initialize().then((_) {
     });
+    liveVideoController.initialize().then((_) {
+    });
+    sportVideoController.initialize().then((_) {
+    });
+    excluVideoController.initialize().then((_) {
+    });
+    filmVideoController.initialize().then((_) {
+    });
   }
 
-   playPub(){
-      pubVideoController.play();
+   Future playPub()async{
+      await pubVideoController.play();
+      await liveVideoController.pause();
+      await sportVideoController.pause();
+      await filmVideoController.pause();
+      await excluVideoController.pause();
   }
-  pausePub(){
-    pubVideoController.pause();
+   Future playLive()async{
+      await pubVideoController.pause();
+      await liveVideoController.play();
+      await sportVideoController.pause();
+      await filmVideoController.pause();
+      await excluVideoController.pause();
+  }
+   Future playSport()async{
+
+     DateTime time = DateTime.now();
+      await pubVideoController.pause();
+      await liveVideoController.pause();
+      await filmVideoController.pause();
+      await excluVideoController.pause();
+     await sportVideoController.seekTo(Duration(minutes: time.minute, seconds: time.second));
+     await sportVideoController.play();
+  }
+   Future playExclu()async{
+     DateTime time = DateTime.now();
+      await pubVideoController.pause();
+      await liveVideoController.pause();
+      await sportVideoController.pause();
+      await filmVideoController.pause();
+     await excluVideoController.seekTo(Duration(minutes: time.minute, seconds: time.second));
+      await excluVideoController.play();
+  }
+   Future playFilm()async{
+      await pubVideoController.pause();
+      await liveVideoController.pause();
+      await sportVideoController.pause();
+      await excluVideoController.pause();
+      await filmVideoController.play();
+  }
+  Future pause() async{
+    await pubVideoController.pause();
+    await liveVideoController.pause();
+    await sportVideoController.pause();
+    await filmVideoController.pause();
+    await excluVideoController.pause();
+  }
+  void disposeVideoControllers(){
+    pubVideoController.dispose();
+    liveVideoController.dispose();
+    sportVideoController.dispose();
+    excluVideoController.dispose();
+    filmVideoController.dispose();
   }
 
   /// CREATE A NEW HTTP CLIENT FOR CALLS

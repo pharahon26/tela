@@ -14,7 +14,7 @@ import 'package:mobile/services/telaSharedPrefs.dart';
 
 class TransactionService{
   /// URLS
-  static const String _BASE_URL = "https://office.telaci.com/";
+  static const String _BASE_URL = "http://office.telaci.com/";
   static const String _ABONNEMENT_CREATE_URL = "api/abonnements/buy_abonement";
   static const String _PASS_CREATE_URL = "api/pass-visite/buy_pass_visite";
   static const String _PASS_VISITE_PROLONGE_URL = "api/pass-visite/prolonge_pass_visite";

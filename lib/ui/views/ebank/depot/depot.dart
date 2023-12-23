@@ -1,6 +1,7 @@
 import 'package:cinetpay/cinetpay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/models/transactions.dart';
 import 'package:mobile/ui/views/ebank/depot/depotViewModel.dart';
 import 'package:stacked/stacked.dart';
@@ -48,8 +49,13 @@ class _DepotState extends State<Depot> {
           ),
         ),
         body: SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
             height: mq.size.height*0.8,
+            decoration: const BoxDecoration(
+                image: DecorationImage(image: AssetImage('assets/images/fond_fin.jpg'),
+                    fit: BoxFit.fill
+                )
+            ),
             child: FutureBuilder<String>(
               future: model.getTransactioNumber(),
               builder: (context, snapshot) {
@@ -74,7 +80,7 @@ class _DepotState extends State<Depot> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${model.authService.bankEpargne?.balance??0}',
+                            child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.authService.bankEpargne?.balance??0),
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
@@ -142,7 +148,7 @@ class _DepotState extends State<Depot> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('X0F ${(model.authService.bankEpargne?.balance??0) + model.montant}',
+                            child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format((model.authService.bankEpargne?.balance??0) + model.montant),
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
@@ -372,7 +378,7 @@ class _DepotState extends State<Depot> {
                   ],
                 )
                   :
-              const CircularProgressIndicator();
+              Center(child: const CircularProgressIndicator());
               }
             ),
           ),

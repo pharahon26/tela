@@ -41,10 +41,12 @@ import 'package:mobile/ui/views/tv/bientot.dart';
 import 'package:mobile/ui/views/tv/chaneltv/channeltv.dart';
 import 'package:mobile/ui/views/tv/programmetv/programmetv.dart';
 import 'package:mobile/ui/views/tv/tv/tv.dart';
+import 'package:mobile/ui/views/tv/tv_exclu/tv_exclu.dart';
+import 'package:mobile/ui/views/tv/tv_films/tv_films.dart';
 import 'package:mobile/ui/views/tv/tv_live/tv_live.dart';
+import 'package:mobile/ui/views/tv/tv_sport/tv_sport.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:mobile/ui/views/tv_sport/tv_sport.dart';
 
 
 
@@ -83,8 +85,10 @@ import 'package:mobile/ui/views/tv_sport/tv_sport.dart';
       MaterialRoute(page: ChanelTv),
       MaterialRoute(page: Bientot),
       MaterialRoute(page: Tv),
-      MaterialRoute(page: TvSport),
       MaterialRoute(page: TvLive),
+      MaterialRoute(page: TvSport),
+      MaterialRoute(page: TvExclu),
+      MaterialRoute(page: TvFilm),
       MaterialRoute(page: BuyView),
       MaterialRoute(page: BuyVisitePass),
       MaterialRoute(page: BuyPassView),

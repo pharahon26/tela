@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:mobile/ui/views/acceuil/acceuilViewModel.dart';
+import 'package:mobile/ui/widget/drawerWidget/telaDrawer.dart';
 import 'package:stacked/stacked.dart';
 
 class Acceuil extends StatefulWidget {
@@ -14,6 +15,8 @@ class Acceuil extends StatefulWidget {
 class _AcceuilState extends State<Acceuil> {
 
   List<String> imgs = [
+    'assets/images/1000_maisons.jpg',
+    'assets/images/pere_noel.jpg',
     'assets/images/acc5.jpg',
     'assets/images/acc2.jpg',
     'assets/images/acc3.jpg',
@@ -91,61 +94,7 @@ class _AcceuilState extends State<Acceuil> {
               ),
             ],
           ),
-          drawer: Drawer(
-            elevation: 5,
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DrawerHeader(child: Center(
-                      child: Image.asset('assets/images/logo.png'),
-                    )),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToAcceuil();
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-
-                        ),
-                        child: const Text('Acceuil',
-                          style: TextStyle(
-                              color: Colors.white
-                          ),)
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToProfile();
-                        },
-                        child: const Text('profile')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheLogement();
-                        },
-                        child: const Text('Trouver un logement')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToRechercheBureau();
-                        },
-                        child: const Text('Trouver un Bureau')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        child: const Text('Tela Finance')
-                    ),
-                    TextButton(
-                        onPressed: (){
-                          model.navigateToTV();
-                        },
-                        child: const Text('Tela TV')
-                    ),
-                  ]),
-            ),
-          ),
+          drawer: const TelaDrawer(base: TelaDrawer.HOME),
           body: SingleChildScrollView(
             child: SizedBox(
               height: mq.size.height,
@@ -198,7 +147,10 @@ class _AcceuilState extends State<Acceuil> {
                       children: [
                         TextButton(onPressed: () => model.navigateToRechercheLogement(),
                           style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.primary
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)
+                            )
                           ),
                           child: const Text('Trouver un logement',
                             style: TextStyle(
@@ -211,7 +163,10 @@ class _AcceuilState extends State<Acceuil> {
                         ),
                         TextButton(onPressed: () => model.navigateToRechercheBureau(),
                           style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.primary
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)
+                              )
                           ),
                           child: const Text('Trouver un Bureau',
                             style: TextStyle(
@@ -221,12 +176,15 @@ class _AcceuilState extends State<Acceuil> {
                                 color: Colors.white
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                  Image.asset('assets/images/telatv-logo.jpg',
-                    fit: BoxFit.fitWidth,
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: mq.size.width*0.9, maxHeight: mq.size.height*0.15),
+                    child: Image.asset('assets/images/tela_tv_logo.png',
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ],
               ),

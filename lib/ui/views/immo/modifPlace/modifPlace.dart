@@ -17,7 +17,7 @@ class ModifPlace extends StatefulWidget {
 
 class _ModifPlaceState extends State<ModifPlace> {
 
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   bool isBureau = false;
 
   int type = 1;

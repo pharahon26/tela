@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:marquee/marquee.dart';
 import 'package:mobile/ui/views/ebank/bank_resume/bankViewModel.dart';
 import 'package:mobile/ui/views/ebank/compte/compte.dart';
 import 'package:mobile/ui/views/ebank/epargne/epargne.dart';
 import 'package:mobile/ui/widget/bank_epargne_tab_header.dart';
 import 'package:mobile/ui/widget/bank_profile_tab_header.dart';
+import 'package:mobile/ui/widget/drawerWidget/telaDrawer.dart';
 import 'package:stacked/stacked.dart';
 
 class Bank extends StatefulWidget {
@@ -18,7 +20,7 @@ class Bank extends StatefulWidget {
 class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   List<Widget> tabHeads = [];
   List<Widget> tabswidget = [];
   double compteBalance = 0;
@@ -104,80 +106,17 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                 },
               ),
             ),
-            drawer: Drawer(
-              elevation: 5,
-              child: SafeArea(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      DrawerHeader(child: Center(
-                        child: Image.asset('assets/images/logo.png'),
-                      )),
-                      TextButton(
-                          onPressed: (){
-                            model.navigateToAcceuil();
-                          },
-                          child: Text('Acceuil',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),)
-                      ),
-                      TextButton(
-                          onPressed: (){
-                            model.navigateToProfile();
-                          },
-                          child: Text('profile',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),)
-                      ),
-                      TextButton(
-                          onPressed: (){
-                            model.navigateToRechercheLogement();
-                          },
-                          child: Text('Trouver un logement',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),)
-                      ),
-                      TextButton(
-                          onPressed: (){
-                            model.navigateToRechercheBureau();
-                          },
-                          child: Text('Trouver un Bureau',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),)
-                      ),
-                      TextButton(
-                        onPressed: (){
-                          model.navigateToEbank();
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                        ),
-                        child: const Text('Tela Finance',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),),
-                      ),
-                      TextButton(
-                          onPressed: (){
-                            model.navigateToTV();
-                          },
-                          child: Text('Tela TV',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),)
-                      ),
-                    ]),
-              ),
-            ),
+            drawer: const TelaDrawer(base: TelaDrawer.FINANCE,),
             body: Scrollbar(
               child: SingleChildScrollView(
-                child: SizedBox(
+                child: Container(
                   height: mq.size.height+1.1,
                   width: mq.size.width,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(image: AssetImage('assets/images/fond_fin.jpg'),
+                      fit: BoxFit.fill
+                    )
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
@@ -226,54 +165,63 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ClipOval(
-                                    child: InkWell(
-                                      onTap: () => model.navigateTochangePhoto(),
-                                      child: SizedBox(
-                                        width: 60,
-                                        height: 60,
-                                        child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}',
-                                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: const Center(child: CircularProgressIndicator()),
-                                          errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
-                                            width: 50,
-                                            fit: BoxFit.fitWidth,
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text('${model.authService.bankProfile?.nom??''} ${model.authService.bankProfile?.prenom??''}',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.2,
-                                              color: Theme.of(context).colorScheme.primary
+                                      ClipOval(
+                                        child: InkWell(
+                                          onTap: () => model.navigateTochangePhoto(),
+                                          child: SizedBox(
+                                            width: 60,
+                                            height: 60,
+                                            child: Image.network('$_BASE_URL${model.authService.bankProfile?.photo??''}',
+                                              loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child: const Center(child: CircularProgressIndicator()),
+                                              errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
+                                                width: 50,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(model.authService.bankProfile?.phone??'',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.2,
-                                              color: Theme.of(context).colorScheme.primary
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ConstrainedBox(
+                                              constraints: BoxConstraints(maxWidth: mq.size.width*0.35),
+                                              child: Text('${model.authService.bankProfile?.nom??''} ${model.authService.bankProfile?.prenom??''}',
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 1.2,
+                                                    color: Theme.of(context).colorScheme.primary
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(model.authService.bankProfile?.phone??'',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 1.2,
+                                                  color: Theme.of(context).colorScheme.primary
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                  const Spacer(),
                                   Column(
                                     children: [
                                       TextButton(onPressed: () => model.deconnection(),
@@ -350,7 +298,7 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      Text('X0F ${(model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)}',
+                                      Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0)),
                                         style: const TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,
@@ -374,7 +322,8 @@ class _BankState extends State<Bank> with SingleTickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      Text('X0F ${ ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) >= 5000? ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) - 5000) : 0 )}',
+
+                                      Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) >= 5000? ((model.authService.bankProfile?.balance??0) + (model.authService.bankEpargne?.balance??0) - 5000) : 0 )),
                                         style: const TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600,

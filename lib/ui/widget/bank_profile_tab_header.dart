@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/services/auth_service.dart';
 
@@ -43,7 +44,7 @@ class BankProfileTabHeader extends StatelessWidget {
               ),
             ),
           ),
-          Text('X0F ${balance()}',
+          Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(balance()),
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,

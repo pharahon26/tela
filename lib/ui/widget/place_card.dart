@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/models/place.dart';
 
 class PlaceCard extends StatelessWidget {
   final TelaPlace place;
   late final String type;
   final String image;
-  static const String _BASE_URL = "https://office.telaci.com/public/";
+  static const String _BASE_URL = "http://office.telaci.com/public/";
   PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
     place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
   }
@@ -56,7 +57,7 @@ class PlaceCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-          child: Text('Prix: ${place.price.toString()} FCFA',
+          child: Text('Prix: ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(place.price)} ',
               textAlign: TextAlign.left,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,

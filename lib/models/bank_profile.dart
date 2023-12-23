@@ -42,12 +42,12 @@ class TelaBankProfile{
   static TelaBankProfile fromJson(Map<String, dynamic> json){
     TelaBankProfile u = TelaBankProfile(
       nom: json["nom"],
-      prenom: json["prenom"],
+      prenom: json["prenoms"],
       phone: json["phone"],
       photo: json["photo"],
       balance: double.parse(json["balance"].toString()),
       userIdentityId: json["information_identity_id"],
-      mail: json["email"],
+      mail: json["email"]??'',
       isValidated: json["is_validated"]==1,
       isSuspended: json["is_suspended"]==1,
       isStaff: json["is_staff"]==1,
@@ -112,8 +112,8 @@ class TelaBankEpargne{
       balance: double.parse(json["balance"].toString()),
       amountFrezze: double.parse((json["amount_freeze"]??0).toString()),
       eBankProfile: json["ebank_profil"],
-      debutEpargne: DateTime.parse(json["debut_epargne"]),
-      finEpargne: DateTime.parse(json["fin_epargne"]),
+      debutEpargne: DateTime.parse(json["debut_epargne"]??DateTime.now().toString()),
+      finEpargne: DateTime.parse(json["fin_epargne"]??DateTime.now().toString()),
     );
     u.id = json["id"];
     return u;

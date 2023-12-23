@@ -33,7 +33,8 @@ class _ResultatState extends State<Resultat> {
             elevation: 5,
           ),
         backgroundColor: Colors.white,
-          body:  ListView(
+          body: widget.places.isNotEmpty?
+          ListView(
             scrollDirection: Axis.vertical,
             children: widget.places.map((e) => Padding(
               padding: const EdgeInsets.all(8.0),
@@ -120,6 +121,17 @@ class _ResultatState extends State<Resultat> {
               ),
             )).toList(),
           )
+              :
+          Center(child: Text('Aucuns résultats ne correspond à votre recherche!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.1
+            ),
+
+          ),),
       ),
     );
   }
