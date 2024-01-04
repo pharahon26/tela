@@ -82,6 +82,13 @@ class ModifPlaceViewModel extends BaseViewModel{
     communes = _authService.communes;
     commune = communes.first;
 
+    isAppart = place.isAppartment;
+    isMaisonBasse = place.isMaisonBasse;
+    isResidence = place.isResidence;
+    isChambre = place.isChambre;
+    isStudio = place.isStudio;
+    isDuplex = place.isDuplex;
+
     isHautStanding = place.isHautStanding;
     isHautStandingPicine = place.hasPiscine;
     prix = place.price.toString();
@@ -116,7 +123,6 @@ class ModifPlaceViewModel extends BaseViewModel{
     print(place.images);
     print(images);
   }
-
 
   Future modifPlace() async{
     TelaPlace plac = TelaPlace(

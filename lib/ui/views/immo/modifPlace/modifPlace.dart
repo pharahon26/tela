@@ -203,7 +203,7 @@ class _ModifPlaceState extends State<ModifPlace> {
 
 
                       const Divider(),
-                      const Text('Prix',
+                      const Text('Loyer',
                         style: TextStyle(
                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                       const Divider(),
@@ -291,14 +291,14 @@ class _ModifPlaceState extends State<ModifPlace> {
                           value: 1,
                           groupValue: type,
                           onChanged: (value) {
+                            type = 1;
+                            model.isAppart = true;
+                            model.isDuplex = false;
+                            model.isMaisonBasse = false;
+                            model.isStudio = false;
+                            model.isChambre = false;
+                            model.isResidence = false;
                             setState(() {
-                              type = 1;
-                              model.isAppart = true;
-                              model.isDuplex = false;
-                              model.isMaisonBasse = false;
-                              model.isStudio = false;
-                              model.isChambre = false;
-                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -314,14 +314,14 @@ class _ModifPlaceState extends State<ModifPlace> {
                           value: 2,
                           groupValue: type,
                           onChanged: (value) {
+                            type = 2;
+                            model.isAppart = false;
+                            model.isDuplex = false;
+                            model.isMaisonBasse = true;
+                            model.isStudio = false;
+                            model.isChambre = false;
+                            model.isResidence = false;
                             setState(() {
-                              type = 2;
-                              model.isAppart = false;
-                              model.isDuplex = false;
-                              model.isMaisonBasse = true;
-                              model.isStudio = false;
-                              model.isChambre = false;
-                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -337,14 +337,14 @@ class _ModifPlaceState extends State<ModifPlace> {
                           value: 3,
                           groupValue: type,
                           onChanged: (value) {
+                            type = 3;
+                            model.isAppart = false;
+                            model.isDuplex = true;
+                            model.isMaisonBasse = false;
+                            model.isStudio = false;
+                            model.isChambre = false;
+                            model.isResidence = false;
                             setState(() {
-                              type = 3;
-                              model.isAppart = false;
-                              model.isDuplex = true;
-                              model.isMaisonBasse = false;
-                              model.isStudio = false;
-                              model.isChambre = false;
-                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -360,14 +360,14 @@ class _ModifPlaceState extends State<ModifPlace> {
                           value: 4,
                           groupValue: type,
                           onChanged: (value) {
+                            type = 4;
+                            model.isAppart = false;
+                            model.isDuplex = false;
+                            model.isMaisonBasse = false;
+                            model.isStudio = false;
+                            model.isChambre = false;
+                            model.isResidence = true;
                             setState(() {
-                              type = 4;
-                              model.isAppart = false;
-                              model.isDuplex = false;
-                              model.isMaisonBasse = false;
-                              model.isStudio = false;
-                              model.isChambre = false;
-                              model.isResidence = true;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -383,14 +383,14 @@ class _ModifPlaceState extends State<ModifPlace> {
                           value: 5,
                           groupValue: type,
                           onChanged: (value) {
+                            type = 5;
+                            model.isAppart = false;
+                            model.isDuplex = false;
+                            model.isMaisonBasse = false;
+                            model.isStudio = true;
+                            model.isChambre = false;
+                            model.isResidence = false;
                             setState(() {
-                              type = 5;
-                              model.isAppart = false;
-                              model.isDuplex = false;
-                              model.isMaisonBasse = false;
-                              model.isStudio = true;
-                              model.isChambre = false;
-                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -406,14 +406,14 @@ class _ModifPlaceState extends State<ModifPlace> {
                           value: 6,
                           groupValue: type,
                           onChanged: (value) {
+                            type = 6;
+                            model.isAppart = false;
+                            model.isDuplex = false;
+                            model.isMaisonBasse = false;
+                            model.isStudio = false;
+                            model.isChambre = true;
+                            model.isResidence = false;
                             setState(() {
-                              type = 6;
-                              model.isAppart = false;
-                              model.isDuplex = false;
-                              model.isMaisonBasse = false;
-                              model.isStudio = false;
-                              model.isChambre = true;
-                              model.isResidence = false;
                             });
                           },
                             fillColor: MaterialStateProperty.all(Colors.black),
@@ -423,10 +423,10 @@ class _ModifPlaceState extends State<ModifPlace> {
 
                       /// IS Haut standing avec piscine
                       CheckboxListTile(
-                          value: model.isHautStandingPicine,
+                          value: model.hasPiscine,
                         onChanged: (r) {
                           setState(() {
-                            model.isHautStandingPicine = r!;
+                            model.hasPiscine = r!;
                           });
                         },
                         title: Text(

@@ -15,12 +15,11 @@ class Acceuil extends StatefulWidget {
 class _AcceuilState extends State<Acceuil> {
 
   List<String> imgs = [
+    'assets/images/jn.jpg',
     'assets/images/1000_maisons.jpg',
     'assets/images/pere_noel.jpg',
-    'assets/images/acc5.jpg',
     'assets/images/acc2.jpg',
     'assets/images/acc3.jpg',
-    'assets/images/acc6.jpg',
     'assets/images/acc4.jpg',
     'assets/images/acc1.jpg',
   ];

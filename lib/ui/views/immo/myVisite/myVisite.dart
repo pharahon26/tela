@@ -140,7 +140,7 @@ class _MyVisiteState extends State<MyVisite> {
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                    child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price),
+                    child: Text('Loyer : ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price)}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
@@ -285,6 +285,26 @@ class _MyVisiteState extends State<MyVisite> {
                                   color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
                         ),
                       ),
+                      Visibility(
+                        visible: widget.place.isChambre,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Résidence',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget.place.isResidence,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Résidence',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                        ),
+                      ),
                       const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -298,40 +318,32 @@ class _MyVisiteState extends State<MyVisite> {
 
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox.shrink(),
-                      Visibility(
-                        visible: widget.place.isHautStanding,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Haut standing sans piscine',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
-                        ),
-                      ),
-                      Visibility(
-                        visible: widget.place.hasPiscine,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Haut standing avec piscine',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
-                        ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('avec ${widget.place.nombreSalleEau} Salles d\'eau',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
-                      const SizedBox.shrink(),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('avec ${widget.place.nombreSalleEau} Salles d\'eau',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
+                  ),
+                  Visibility(
+                    visible: widget.place.isHautStanding,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Haut standing sans piscine',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.place.hasPiscine,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Haut standing avec piscine',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
+                    ),
                   ),
                   const Divider(),
                   const Padding(

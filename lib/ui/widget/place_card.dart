@@ -8,7 +8,7 @@ class PlaceCard extends StatelessWidget {
   final String image;
   static const String _BASE_URL = "http://office.telaci.com/public/";
   PlaceCard({Key? key, required this.place, required this.image}) : super(key: key){
-    place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio':  type = 'Appartement';
+    place.isDuplex? type = 'Duplex': place.isStudio?  type = 'Studio': place.isChambre?  type = 'Chambre': place.isResidence?  type = 'Résidence': place.isAppartment?  type = 'Appartement': place.isMaisonBasse?  type = 'Maison basse':  type = ' ';
   }
 
   @override
@@ -57,7 +57,7 @@ class PlaceCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-          child: Text('Prix: ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(place.price)} ',
+          child: Text('Loyer: ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(place.price)} ',
               textAlign: TextAlign.left,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,

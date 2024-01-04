@@ -44,6 +44,7 @@ import 'package:mobile/ui/views/tv/tv/tv.dart';
 import 'package:mobile/ui/views/tv/tv_exclu/tv_exclu.dart';
 import 'package:mobile/ui/views/tv/tv_films/tv_films.dart';
 import 'package:mobile/ui/views/tv/tv_live/tv_live.dart';
+import 'package:mobile/ui/views/tv/tv_pub/tv_pub.dart';
 import 'package:mobile/ui/views/tv/tv_sport/tv_sport.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -85,6 +86,7 @@ import 'package:stacked_services/stacked_services.dart';
       MaterialRoute(page: ChanelTv),
       MaterialRoute(page: Bientot),
       MaterialRoute(page: Tv),
+      MaterialRoute(page: TvPub),
       MaterialRoute(page: TvLive),
       MaterialRoute(page: TvSport),
       MaterialRoute(page: TvExclu),

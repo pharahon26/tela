@@ -77,11 +77,11 @@ class _VisiteState extends State<Visite> {
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                    child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price),
+                    child: Text('Loyer : ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price)}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 32, fontWeight:
+                            fontSize: 28, fontWeight:
                         FontWeight.w600)),
                   ),
                   const Divider(),

@@ -40,6 +40,9 @@ class TelaDrawerViewModel extends BaseViewModel{
 
 
 
+  void navigateToPubTV() async{
+    await _navigationService.navigateToTvPub();
+  }
   void navigateToLiveTV() async{
     await _navigationService.navigateToTvLive();
   }

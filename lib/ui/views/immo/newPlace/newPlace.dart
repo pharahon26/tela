@@ -173,7 +173,7 @@ class _NewPlaceState extends State<NewPlace> {
                         ),
 
                         const Divider(),
-                        const Text('Prix',
+                        const Text('Loyer',
                           style: TextStyle(
                               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
                         const Divider(),
@@ -200,10 +200,10 @@ class _NewPlaceState extends State<NewPlace> {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Vous devez entrer Le prix';
+                                return 'Vous devez entrer Le Loyer';
                               }
                               if (value == '0') {
-                                return 'Vous devez entrer un prix supérieur a zero (0)';
+                                return 'Vous devez entrer un Loyer supérieur a zero (0)';
                               }
                               return null;
                             },

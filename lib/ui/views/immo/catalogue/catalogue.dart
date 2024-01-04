@@ -63,11 +63,15 @@ class _CatalogueState extends State<Catalogue> {
                     ),
                   )).toList(),
                 ) : const Center(
-                  child: Text('Pas de maisons dans votres catalogue pour le momnent',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Pas de maisons dans votres catalogue pour le momnent',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500
+                      ),
                     ),
                   ),
                 );
@@ -82,11 +86,15 @@ class _CatalogueState extends State<Catalogue> {
                       ),
                     )).toList(),
                   ) : const Center(
-                    child: Text('Pas de maisons dans votres catalogue pour le momnent',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Pas de maisons dans votres catalogue pour le momnent',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500
+                        ),
                       ),
                     ),
                   );

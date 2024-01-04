@@ -10,6 +10,7 @@ class TelaDrawer extends StatefulWidget {
   static const int BUREAU = 4;
   static const int FINANCE = 5;
   static const int TV = 6;
+  static const int TV_PUB = 60;
   static const int TV_LIVE = 61;
   static const int TV_SPORT = 62;
   static const int TV_EXCLU = 63;
@@ -120,23 +121,21 @@ class _TelaDrawerState extends State<TelaDrawer> {
                   children: [
                     ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: mq.size.width*0.6, minWidth: mq.size.width*0.6),
-                      child: Expanded(
-                        child: TextButton.icon(
-                            onPressed: (){
-                              model.navigateToTV();
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: widget.base == TelaDrawer.TV? Colors.deepOrange : Colors.white,
-                            ),
-                            icon: Image.asset('assets/images/tela_tv_logo.png',
-                              height: 20,
-                              fit: BoxFit.fitWidth,
-                            ),
-                            label: Text('Tela TV',
-                              style: TextStyle(
-                                color: widget.base == TelaDrawer.TV? Colors.white: Theme.of(context).colorScheme.primary,
-                              ),)
-                        ),
+                      child: TextButton.icon(
+                          onPressed: (){
+                            model.navigateToTV();
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: widget.base == TelaDrawer.TV? Colors.deepOrange : Colors.white,
+                          ),
+                          icon: Image.asset('assets/images/tela_tv_logo.png',
+                            height: 20,
+                            fit: BoxFit.fitWidth,
+                          ),
+                          label: Text('Tela TV',
+                            style: TextStyle(
+                              color: widget.base == TelaDrawer.TV? Colors.white: Theme.of(context).colorScheme.primary,
+                            ),)
                       ),
                     ),
                     IconButton(
@@ -157,7 +156,23 @@ class _TelaDrawerState extends State<TelaDrawer> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            const Divider(color: Colors.black,),
+                            /// pub
+                            TextButton.icon(
+                                onPressed: (){
+                                  model.navigateToPubTV();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: widget.base == TelaDrawer.TV_PUB? Colors.deepOrange : Colors.white,
+                                ),
+                                icon: Image.asset('assets/images/pub.png',
+                                  height: 20,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                                label: Text('Tela PUB',
+                                  style: TextStyle(
+                                    color: widget.base == TelaDrawer.TV_PUB? Colors.white: Theme.of(context).colorScheme.primary,
+                                  ),)
+                            ),
                             /// live
                             TextButton.icon(
                                 onPressed: (){

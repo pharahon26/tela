@@ -535,7 +535,7 @@ class AuthService{
           _telaSharedPrefs.saveName(user!.nom);
           _telaSharedPrefs.saveFirstName( user!.prenom);
           print(json["abonnement"]);
-          if(json["abonnement"] != null){
+          if(json["abonnement"] == null){
             Abonnement? abonnement = _telaSharedPrefs.getAbonnement();
             if (abonnement != null) {
               print(abonnement);
@@ -548,11 +548,13 @@ class AuthService{
               _abonnement = null;
             }
           } else {
-            _abonnement = Abonnement.fromJson(json["abonnement"][0]);
-            _telaSharedPrefs.saveAbonnement(_abonnement!);
-            for(var ab in json["abonnement"]){
-              Abonnement abonnement = Abonnement.fromJson(ab);
-              _abonnements.add(abonnement);
+            if((json["abonnement"] as List).isNotEmpty){
+              _abonnement = Abonnement.fromJson(json["abonnement"][0]);
+              _telaSharedPrefs.saveAbonnement(_abonnement!);
+              for(var ab in json["abonnement"]){
+                Abonnement abonnement = Abonnement.fromJson(ab);
+                _abonnements.add(abonnement);
+              }
             }
 
           }
