@@ -1,19 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:mobile/ui/views/immo/imageNav/imageNavViewModel.dart';
 import 'package:stacked/stacked.dart';
 
 class ImageNav extends StatefulWidget {
-  const ImageNav({super.key,this.startIndex = 0, required this.images});
+  const ImageNav({super.key, this.startIndex = 0, required this.images});
   final int startIndex;
-  final List<String> images ;
+  final List<String> images;
 
   @override
   State<ImageNav> createState() => _ImageNavState();
 }
 
 class _ImageNavState extends State<ImageNav> {
-
   late PageController _pageController;
   int index = 0;
 
@@ -25,21 +23,25 @@ class _ImageNavState extends State<ImageNav> {
     super.initState();
   }
 
-  void nextPage(){
+  void nextPage() {
     if (index < widget.images.length) {
-      _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
+      _pageController.nextPage(
+          duration: const Duration(milliseconds: 500), curve: Curves.ease);
       index++;
     }
   }
-  void previousPage(){
+
+  void previousPage() {
     if (index > 0) {
-      _pageController.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
+      _pageController.previousPage(
+          duration: const Duration(milliseconds: 500), curve: Curves.ease);
       index--;
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mq =MediaQuery.of(context);
+    MediaQueryData mq = MediaQuery.of(context);
     return ViewModelBuilder<ImageNavViewModel>.reactive(
       viewModelBuilder: () => ImageNavViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -49,13 +51,14 @@ class _ImageNavState extends State<ImageNav> {
             backgroundColor: Theme.of(context).colorScheme.primary,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: const Icon(Icons.arrow_back_ios_new,
+              child: const Icon(
+                Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
             elevation: 5,
           ),
-        backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           body: SizedBox(
             width: mq.size.width,
             height: mq.size.height,
@@ -65,14 +68,23 @@ class _ImageNavState extends State<ImageNav> {
                 PageView(
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
-                  children: widget.images.map((e) => Image.network('$_BASE_URL$e',
-                    loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) =>  (loadingProgress == null)? child: const Center(child: CircularProgressIndicator()),
-                    errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
-                      width: 50,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    fit: BoxFit.contain,
-                  )).toList(),
+                  children: widget.images
+                      .map((e) => Image.network(
+                            '$_BASE_URL$e',
+                            loadingBuilder: (_, Widget child,
+                                    ImageChunkEvent? loadingProgress) =>
+                                (loadingProgress == null)
+                                    ? child
+                                    : const Center(
+                                        child: CircularProgressIndicator()),
+                            errorBuilder: (_, obj, er) => Image.asset(
+                              'assets/images/logo.png',
+                              width: 50,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            fit: BoxFit.contain,
+                          ))
+                      .toList(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -88,9 +100,12 @@ class _ImageNavState extends State<ImageNav> {
                               child: Container(
                                   padding: const EdgeInsets.all(8),
                                   color: Colors.black.withOpacity(0.3),
-                                  child: Icon(Icons.arrow_back_ios_new, size: 32, color: Theme.of(context).colorScheme.primary,)
-                              )
-                          ),
+                                  child: Icon(
+                                    Icons.arrow_back_ios_new,
+                                    size: 32,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ))),
                         ),
                       ),
                       Padding(
@@ -102,9 +117,12 @@ class _ImageNavState extends State<ImageNav> {
                               child: Container(
                                   padding: const EdgeInsets.all(8),
                                   color: Colors.black.withOpacity(0.3),
-                                  child: Icon(Icons.arrow_forward_ios, size: 32, color: Theme.of(context).colorScheme.primary,)
-                              )
-                          ),
+                                  child: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 32,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ))),
                         ),
                       )
                     ],
@@ -112,9 +130,7 @@ class _ImageNavState extends State<ImageNav> {
                 )
               ],
             ),
-          )
-      ),
+          )),
     );
   }
-
 }

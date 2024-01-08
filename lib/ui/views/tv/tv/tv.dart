@@ -14,7 +14,6 @@ class Tv extends StatefulWidget {
 }
 
 class _TvState extends State<Tv> {
-
   late WebViewController controller;
   late VideoPlayerController videoController;
 
@@ -33,7 +32,7 @@ class _TvState extends State<Tv> {
             onPageStarted: (String url) {},
             onPageFinished: (String url) {},
             onWebResourceError: (WebResourceError error) {
-              print( '**** ERROR **** $error');
+              print('**** ERROR **** $error');
             },
             onNavigationRequest: (NavigationRequest request) {
               // if (request.url.startsWith('https://www.youtube.com/')) {
@@ -44,9 +43,9 @@ class _TvState extends State<Tv> {
           ),
         )
         ..loadRequest(Uri.parse(widget.programmeTV.link));
-
     } else {
-      videoController = VideoPlayerController.networkUrl(Uri.parse(widget.programmeTV.link));
+      videoController =
+          VideoPlayerController.networkUrl(Uri.parse(widget.programmeTV.link));
 
       videoController.addListener(() {
         setState(() {});
@@ -56,7 +55,6 @@ class _TvState extends State<Tv> {
       videoController.initialize().then((_) => setState(() {}));
       videoController.play();
     }
-
   }
 
   @override
@@ -65,32 +63,39 @@ class _TvState extends State<Tv> {
       viewModelBuilder: () => TvViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-          body: SafeArea(
-              child: Center(
-                child: widget.programmeTV.webview?
-                WebViewWidget(controller: controller, key: UniqueKey(),)
-                    :
-                Center(
+        body: SafeArea(
+            child: Center(
+          child: widget.programmeTV.webview
+              ? WebViewWidget(
+                  controller: controller,
+                  key: UniqueKey(),
+                )
+              : Center(
                   child: AspectRatio(
                       aspectRatio: videoController.value.aspectRatio,
-                      child: VideoPlayer(videoController, key: UniqueKey(),)
-                  ),
+                      child: VideoPlayer(
+                        videoController,
+                        key: UniqueKey(),
+                      )),
                 ),
-              )
-          ),
-        floatingActionButton: widget.programmeTV.webview? null : FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          onPressed: () {
-            setState(() {
-              videoController.value.isPlaying
-                  ? videoController.pause()
-                  : videoController.play();
-            });
-          },
-          child: Icon(
-            videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
-        ),
+        )),
+        floatingActionButton: widget.programmeTV.webview
+            ? null
+            : FloatingActionButton(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                onPressed: () {
+                  setState(() {
+                    videoController.value.isPlaying
+                        ? videoController.pause()
+                        : videoController.play();
+                  });
+                },
+                child: Icon(
+                  videoController.value.isPlaying
+                      ? Icons.pause
+                      : Icons.play_arrow,
+                ),
+              ),
       ),
     );
   }
@@ -99,6 +104,5 @@ class _TvState extends State<Tv> {
   void dispose() {
     super.dispose();
     videoController.dispose();
-    }
-
+  }
 }

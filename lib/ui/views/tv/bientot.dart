@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Bientot extends StatelessWidget {
@@ -13,7 +12,8 @@ class Bientot extends StatelessWidget {
         backgroundColor: Colors.orange,
         leading: InkWell(
           onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back_ios_new,
+          child: const Icon(
+            Icons.arrow_back_ios_new,
             color: Colors.white,
           ),
         ),
@@ -22,14 +22,14 @@ class Bientot extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Container(
         child: const Center(
-          child: Text('Bientôt disponible',
+          child: Text(
+            'Bientôt disponible',
             style: TextStyle(
               color: Colors.orange,
               fontSize: 32,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.3,
             ),
-
           ),
         ),
       ),

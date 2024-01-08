@@ -31,241 +31,350 @@ class _TelaDrawerState extends State<TelaDrawer> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   void deactivate() {
     super.deactivate();
   }
+
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mq =MediaQuery.of(context);
+    MediaQueryData mq = MediaQuery.of(context);
     return ViewModelBuilder<TelaDrawerViewModel>.reactive(
       viewModelBuilder: () => TelaDrawerViewModel(),
       builder: (context, model, child) => Drawer(
         elevation: 5,
         child: SafeArea(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                DrawerHeader(child: Center(
-                  child: Image.asset('assets/images/logo.png'),
-                )),
-                TextButton.icon(
-                    onPressed: (){
-                      model.navigateToAcceuil();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: widget.base == TelaDrawer.HOME? Theme.of(context).colorScheme.primary : Colors.white,
-                    ),
-                    icon: Icon(Icons.home_outlined, size: 18, color: widget.base == TelaDrawer.HOME? Colors.white: Theme.of(context).colorScheme.primary,),
-                    label: Text('Acceuil',
-                      style: TextStyle(
-                        color: widget.base == TelaDrawer.HOME? Colors.white: Theme.of(context).colorScheme.primary,
-                      ),)
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            DrawerHeader(
+                child: Center(
+              child: Image.asset('assets/images/logo.png'),
+            )),
+            TextButton.icon(
+                onPressed: () {
+                  model.navigateToAcceuil();
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: widget.base == TelaDrawer.HOME
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.white,
                 ),
-                TextButton.icon(
-                    onPressed: (){
-                      model.navigateToProfile();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: widget.base == TelaDrawer.PROFIL? Theme.of(context).colorScheme.primary : Colors.white,
-                    ),
-                    icon: Icon(Icons.person_2_outlined, size: 18, color: widget.base == TelaDrawer.PROFIL? Colors.white: Theme.of(context).colorScheme.primary,),
-                    label: Text('profile',
-                      style: TextStyle(
-                        color: widget.base == TelaDrawer.PROFIL? Colors.white: Theme.of(context).colorScheme.primary,
-                      ),)
+                icon: Icon(
+                  Icons.home_outlined,
+                  size: 18,
+                  color: widget.base == TelaDrawer.HOME
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
                 ),
-                TextButton.icon(
-                    onPressed: (){
-                      model.navigateToRechercheLogement();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: widget.base == TelaDrawer.LOGEMENT? Theme.of(context).colorScheme.primary : Colors.white,
-                    ),
-                    icon: Icon(Icons.search, size: 18, color: widget.base == TelaDrawer.LOGEMENT? Colors.white: Theme.of(context).colorScheme.primary,),
-                    label: Text('Trouver un logement',
-                      style: TextStyle(
-                        color: widget.base == TelaDrawer.LOGEMENT? Colors.white: Theme.of(context).colorScheme.primary,
-                      ),)
-                ),
-                TextButton.icon(
-                    onPressed: (){
-                      model.navigateToRechercheBureau();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: widget.base == TelaDrawer.BUREAU? Theme.of(context).colorScheme.primary : Colors.white,
-                    ),
-                    icon: Icon(Icons.search, size: 18, color: widget.base == TelaDrawer.BUREAU? Colors.white: Theme.of(context).colorScheme.primary,),
-                    label: Text('Trouver un Bureau',
-                      style: TextStyle(
-                        color: widget.base == TelaDrawer.BUREAU? Colors.white: Theme.of(context).colorScheme.primary,
-                      ),)
-                ),
-                TextButton.icon(
-                  onPressed: (){
-                    model.navigateToEbank();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: widget.base == TelaDrawer.FINANCE? Theme.of(context).colorScheme.primary : Colors.white,
+                label: Text(
+                  'Acceuil',
+                  style: TextStyle(
+                    color: widget.base == TelaDrawer.HOME
+                        ? Colors.white
+                        : Theme.of(context).colorScheme.primary,
                   ),
-                  icon: Icon(Icons.account_balance_wallet_outlined, size: 18, color: widget.base == TelaDrawer.FINANCE? Colors.white: Theme.of(context).colorScheme.primary,),
-                  label: Text('Tela Finance',
-                    style: TextStyle(
-                      color: widget.base == TelaDrawer.FINANCE? Colors.white: Theme.of(context).colorScheme.primary,
-                    ),),
+                )),
+            TextButton.icon(
+                onPressed: () {
+                  model.navigateToProfile();
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: widget.base == TelaDrawer.PROFIL
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.white,
                 ),
-                Row(
-                  children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: mq.size.width*0.6, minWidth: mq.size.width*0.6),
-                      child: TextButton.icon(
-                          onPressed: (){
-                            model.navigateToTV();
-                          },
-                          style: TextButton.styleFrom(
-                            backgroundColor: widget.base == TelaDrawer.TV? Colors.deepOrange : Colors.white,
-                          ),
-                          icon: Image.asset('assets/images/tela_tv_logo.png',
-                            height: 20,
-                            fit: BoxFit.fitWidth,
-                          ),
-                          label: Text('Tela TV',
-                            style: TextStyle(
-                              color: widget.base == TelaDrawer.TV? Colors.white: Theme.of(context).colorScheme.primary,
-                            ),)
+                icon: Icon(
+                  Icons.person_2_outlined,
+                  size: 18,
+                  color: widget.base == TelaDrawer.PROFIL
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
+                ),
+                label: Text(
+                  'profile',
+                  style: TextStyle(
+                    color: widget.base == TelaDrawer.PROFIL
+                        ? Colors.white
+                        : Theme.of(context).colorScheme.primary,
+                  ),
+                )),
+            TextButton.icon(
+                onPressed: () {
+                  model.navigateToRechercheLogement();
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: widget.base == TelaDrawer.LOGEMENT
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.white,
+                ),
+                icon: Icon(
+                  Icons.search,
+                  size: 18,
+                  color: widget.base == TelaDrawer.LOGEMENT
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
+                ),
+                label: Text(
+                  'Trouver un logement',
+                  style: TextStyle(
+                    color: widget.base == TelaDrawer.LOGEMENT
+                        ? Colors.white
+                        : Theme.of(context).colorScheme.primary,
+                  ),
+                )),
+            TextButton.icon(
+                onPressed: () {
+                  model.navigateToRechercheBureau();
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: widget.base == TelaDrawer.BUREAU
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.white,
+                ),
+                icon: Icon(
+                  Icons.search,
+                  size: 18,
+                  color: widget.base == TelaDrawer.BUREAU
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
+                ),
+                label: Text(
+                  'Trouver un Bureau',
+                  style: TextStyle(
+                    color: widget.base == TelaDrawer.BUREAU
+                        ? Colors.white
+                        : Theme.of(context).colorScheme.primary,
+                  ),
+                )),
+            TextButton.icon(
+              onPressed: () {
+                model.navigateToEbank();
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: widget.base == TelaDrawer.FINANCE
+                    ? Theme.of(context).colorScheme.primary
+                    : Colors.white,
+              ),
+              icon: Icon(
+                Icons.account_balance_wallet_outlined,
+                size: 18,
+                color: widget.base == TelaDrawer.FINANCE
+                    ? Colors.white
+                    : Theme.of(context).colorScheme.primary,
+              ),
+              label: Text(
+                'Tela Finance',
+                style: TextStyle(
+                  color: widget.base == TelaDrawer.FINANCE
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxWidth: mq.size.width * 0.6,
+                      minWidth: mq.size.width * 0.6),
+                  child: TextButton.icon(
+                      onPressed: () {
+                        model.navigateToTV();
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: widget.base == TelaDrawer.TV
+                            ? Colors.deepOrange
+                            : Colors.white,
                       ),
-                    ),
-                    IconButton(
-                        color: Colors.deepOrange,
-                        constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
-                        onPressed: () => setState(() {
+                      icon: Image.asset(
+                        'assets/images/tela_tv_logo.png',
+                        height: 20,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      label: Text(
+                        'Tela TV',
+                        style: TextStyle(
+                          color: widget.base == TelaDrawer.TV
+                              ? Colors.white
+                              : Theme.of(context).colorScheme.primary,
+                        ),
+                      )),
+                ),
+                IconButton(
+                    color: Colors.deepOrange,
+                    constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
+                    onPressed: () => setState(() {
                           tvDet = !tvDet;
                         }),
-                        icon: Icon(tvDet? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down))
-                  ],
-                ),
-                Visibility(
-                  visible: tvDet,
-                  child: SizedBox(
-                    height: mq.size.height*0.3,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            /// pub
-                            TextButton.icon(
-                                onPressed: (){
-                                  model.navigateToPubTV();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: widget.base == TelaDrawer.TV_PUB? Colors.deepOrange : Colors.white,
-                                ),
-                                icon: Image.asset('assets/images/pub.png',
-                                  height: 20,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                label: Text('Tela PUB',
-                                  style: TextStyle(
-                                    color: widget.base == TelaDrawer.TV_PUB? Colors.white: Theme.of(context).colorScheme.primary,
-                                  ),)
+                    icon: Icon(tvDet
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down))
+              ],
+            ),
+            Visibility(
+              visible: tvDet,
+              child: SizedBox(
+                height: mq.size.height * 0.3,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        /// pub
+                        TextButton.icon(
+                            onPressed: () {
+                              model.navigateToPubTV();
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: widget.base == TelaDrawer.TV_PUB
+                                  ? Colors.deepOrange
+                                  : Colors.white,
                             ),
-                            /// live
-                            TextButton.icon(
-                                onPressed: (){
-                                  model.navigateToLiveTV();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: widget.base == TelaDrawer.TV_LIVE? Colors.deepOrange : Colors.white,
-                                ),
-                                icon: Image.asset('assets/images/live.png',
-                                  height: 20,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                label: Text('Tela LIVE',
-                                  style: TextStyle(
-                                    color: widget.base == TelaDrawer.TV_LIVE? Colors.white: Theme.of(context).colorScheme.primary,
-                                  ),)
+                            icon: Image.asset(
+                              'assets/images/pub.png',
+                              height: 20,
+                              fit: BoxFit.fitWidth,
                             ),
-                            /// sport
-                            TextButton.icon(
-                                onPressed: (){
-                                  model.navigateToLiveTVSport();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: widget.base == TelaDrawer.TV_SPORT? Colors.deepOrange : Colors.white,
-                                ),
-                                icon: Image.asset('assets/images/sport.png',
-                                  height: 20,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                label: Text('Tela Sport',
-                                  style: TextStyle(
-                                    color: widget.base == TelaDrawer.TV_SPORT? Colors.white: Theme.of(context).colorScheme.primary,
-                                  ),)
+                            label: Text(
+                              'Tela PUB',
+                              style: TextStyle(
+                                color: widget.base == TelaDrawer.TV_PUB
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
+                            )),
+
+                        /// live
+                        TextButton.icon(
+                            onPressed: () {
+                              model.navigateToLiveTV();
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: widget.base == TelaDrawer.TV_LIVE
+                                  ? Colors.deepOrange
+                                  : Colors.white,
                             ),
-                            /// exclu
-                            TextButton.icon(
-                                onPressed: (){
-                                  model.navigateToLiveTVExclu();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: widget.base == TelaDrawer.TV_EXCLU? Colors.deepOrange : Colors.white,
-                                ),
-                                icon: Image.asset('assets/images/exclu.png',
-                                  height: 20,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                label: Text('Tela Exclusivitées',
-                                  style: TextStyle(
-                                    color: widget.base == TelaDrawer.TV_EXCLU? Colors.white: Theme.of(context).colorScheme.primary,
-                                  ),)
+                            icon: Image.asset(
+                              'assets/images/live.png',
+                              height: 20,
+                              fit: BoxFit.fitWidth,
                             ),
-                            /// redif
-                            TextButton.icon(
-                                onPressed: (){
-                                  model.navigateToLiveTVDiffere();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: widget.base == TelaDrawer.TV_LIVE? Colors.deepOrange : Colors.white,
-                                ),
-                                icon: Image.asset('assets/images/differe.png',
-                                  height: 20,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                label: Text('Tela Différé',
-                                  style: TextStyle(
-                                    color: widget.base == TelaDrawer.TV_LIVE? Colors.white: Theme.of(context).colorScheme.primary,
-                                  ),)
+                            label: Text(
+                              'Tela LIVE',
+                              style: TextStyle(
+                                color: widget.base == TelaDrawer.TV_LIVE
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
+                            )),
+
+                        /// sport
+                        TextButton.icon(
+                            onPressed: () {
+                              model.navigateToLiveTVSport();
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  widget.base == TelaDrawer.TV_SPORT
+                                      ? Colors.deepOrange
+                                      : Colors.white,
                             ),
-                            /// films
-                            TextButton.icon(
-                                onPressed: (){
-                                  model.navigateToLiveTVFilms();
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: widget.base == TelaDrawer.TV_FILMS? Colors.deepOrange : Colors.white,
-                                ),
-                                icon: Image.asset('assets/images/film.png',
-                                  height: 20,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                                label: Text('Tela Films & séries',
-                                  style: TextStyle(
-                                    color: widget.base == TelaDrawer.TV_FILMS? Colors.white: Theme.of(context).colorScheme.primary,
-                                  ),)
+                            icon: Image.asset(
+                              'assets/images/sport.png',
+                              height: 20,
+                              fit: BoxFit.fitWidth,
                             ),
-                          ],
-                        ),
-                      ),
+                            label: Text(
+                              'Tela Sport',
+                              style: TextStyle(
+                                color: widget.base == TelaDrawer.TV_SPORT
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
+                            )),
+
+                        /// exclu
+                        TextButton.icon(
+                            onPressed: () {
+                              model.navigateToLiveTVExclu();
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  widget.base == TelaDrawer.TV_EXCLU
+                                      ? Colors.deepOrange
+                                      : Colors.white,
+                            ),
+                            icon: Image.asset(
+                              'assets/images/exclu.png',
+                              height: 20,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            label: Text(
+                              'Tela Exclusivitées',
+                              style: TextStyle(
+                                color: widget.base == TelaDrawer.TV_EXCLU
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
+                            )),
+
+                        /// redif
+                        TextButton.icon(
+                            onPressed: () {
+                              model.navigateToLiveTVDiffere();
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: widget.base == TelaDrawer.TV_LIVE
+                                  ? Colors.deepOrange
+                                  : Colors.white,
+                            ),
+                            icon: Image.asset(
+                              'assets/images/differe.png',
+                              height: 20,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            label: Text(
+                              'Tela Différé',
+                              style: TextStyle(
+                                color: widget.base == TelaDrawer.TV_LIVE
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
+                            )),
+
+                        /// films
+                        TextButton.icon(
+                            onPressed: () {
+                              model.navigateToLiveTVFilms();
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  widget.base == TelaDrawer.TV_FILMS
+                                      ? Colors.deepOrange
+                                      : Colors.white,
+                            ),
+                            icon: Image.asset(
+                              'assets/images/film.png',
+                              height: 20,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            label: Text(
+                              'Tela Films & séries',
+                              style: TextStyle(
+                                color: widget.base == TelaDrawer.TV_FILMS
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
+                            )),
+                      ],
                     ),
                   ),
                 ),
-
-              ]),
+              ),
+            ),
+          ]),
         ),
       ),
     );
@@ -275,5 +384,4 @@ class _TelaDrawerState extends State<TelaDrawer> {
   void dispose() {
     super.dispose();
   }
-
 }

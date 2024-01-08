@@ -13,12 +13,11 @@ class MyVisite extends StatefulWidget {
 }
 
 class _MyVisiteState extends State<MyVisite> {
-
   static const String _BASE_URL = "http://office.telaci.com/public/";
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mq =MediaQuery.of(context);
+    MediaQueryData mq = MediaQuery.of(context);
     print('******${widget.place.images}************');
     return ViewModelBuilder<VisiteViewModel>.reactive(
       viewModelBuilder: () => VisiteViewModel(),
@@ -29,7 +28,8 @@ class _MyVisiteState extends State<MyVisite> {
             backgroundColor: Theme.of(context).colorScheme.primary,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: const Icon(Icons.arrow_back_ios_new,
+              child: const Icon(
+                Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -38,172 +38,213 @@ class _MyVisiteState extends State<MyVisite> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                     onTap: () => model.navigateToModifPlace(widget.place),
-                    child: const Icon(Icons.edit, size: 24, color: Colors.white,)
-                ),
+                    child: const Icon(
+                      Icons.edit,
+                      size: 24,
+                      color: Colors.white,
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                    onTap: () => showDialog(context: context, builder: (buildContext) => Dialog(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
-                            child: Text('Voulez vous vraiment supprimer cette maison de votre catalogue de maison?',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.1
+                    onTap: () => showDialog(
+                        context: context,
+                        builder: (buildContext) => Dialog(
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 12.0, horizontal: 16),
+                                    child: Text(
+                                      'Voulez vous vraiment supprimer cette maison de votre catalogue de maison?',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1.1),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: const Text(
+                                              'Annuler',
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  color: Colors.deepOrange,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                        TextButton(
+                                            onPressed: () =>
+                                                model.deletePlace(widget.place),
+                                            child: Text(
+                                              'Supprimer',
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                    onPressed: () => Navigator.of(context).pop(),
-                                    child: const Text('Annuler',
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          color: Colors.deepOrange,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                    )
-                                ),
-                                TextButton(
-                                    onPressed: () => model.deletePlace(widget.place),
-                                    child: Text('Supprimer',
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.primary,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                    )
-                                ),
-                              ],
-                            ),
-                          )
-
-                        ],
-                      ),
-
+                            )),
+                    child: const Icon(
+                      Icons.delete_outline,
+                      size: 24,
+                      color: Colors.white,
                     )),
-                    child: const Icon(Icons.delete_outline, size: 24, color: Colors.white,)
-                ),
               ),
             ],
             elevation: 5,
           ),
-        backgroundColor: Colors.white,
-          body:  Scrollbar(
+          backgroundColor: Colors.white,
+          body: Scrollbar(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('${widget.place.isBureau? 'Bureau' : 'Logement'} à louer',
+                  Text(
+                      '${widget.place.isBureau ? 'Bureau' : 'Logement'} à louer',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary, fontSize: 32, fontWeight: FontWeight.w600)),
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w600)),
                   SizedBox(
                     width: mq.size.width,
-                    height: mq.size.height*0.6,
+                    height: mq.size.height * 0.6,
                     child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.place.images.length,
-                    itemBuilder: (BuildContext context, int index) => InkWell(
-                      onTap: () =>  model.navigateToImageNav(widget.place.images, index),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.network('$_BASE_URL${widget.place.images[index]}',
-                          loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
-                          errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
-                            width: 50,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.place.images.length,
+                      itemBuilder: (BuildContext context, int index) => InkWell(
+                        onTap: () => model.navigateToImageNav(
+                            widget.place.images, index),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            '$_BASE_URL${widget.place.images[index]}',
+                            loadingBuilder: (_, Widget child,
+                                    ImageChunkEvent? loadingProgress) =>
+                                (loadingProgress == null)
+                                    ? child
+                                    : const Center(
+                                        child: CircularProgressIndicator()),
+                            errorBuilder: (_, obj, er) => Image.asset(
+                              'assets/images/logo.png',
+                              width: 50,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            width: mq.size.width - 80,
                             fit: BoxFit.fitWidth,
                           ),
-                          width: mq.size.width-80,
-                          fit: BoxFit.fitWidth,),
+                        ),
                       ),
                     ),
                   ),
-                  ),
-
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                    child: Text('Loyer : ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price)}',
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8),
+                    child: Text(
+                        'Loyer : ${NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(widget.place.price)}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 32, fontWeight: FontWeight.w600)),
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600)),
                   ),
-
                   const Divider(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8),
                     child: Text('${widget.place.visites.toString()} Visites',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: Colors.black,
-                            fontSize: 24, fontWeight:
-                        FontWeight.w600)),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600)),
                   ),
                   const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Démarcheur',
+                    child: Text(
+                      'Démarcheur',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
-
                   const Divider(),
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ClipOval(
                           child: SizedBox(
-                              width: 60,
-                              height: 60,
-                              child: Image.network('$_BASE_URL${model.authService.user!.photo}',
-                                loadingBuilder: (_, Widget child, ImageChunkEvent? loadingProgress ) => (loadingProgress == null)? child:  const Center(child: CircularProgressIndicator()),
-                                errorBuilder: (_, obj, er) => Image.asset('assets/images/logo.png',
-                                  width: 50,
-                                  fit: BoxFit.fitWidth,
-                                ),
+                            width: 60,
+                            height: 60,
+                            child: Image.network(
+                              '$_BASE_URL${model.authService.user!.photo}',
+                              loadingBuilder: (_, Widget child,
+                                      ImageChunkEvent? loadingProgress) =>
+                                  (loadingProgress == null)
+                                      ? child
+                                      : const Center(
+                                          child: CircularProgressIndicator()),
+                              errorBuilder: (_, obj, er) => Image.asset(
+                                'assets/images/logo.png',
                                 width: 50,
                                 fit: BoxFit.fitWidth,
                               ),
+                              width: 50,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                         Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('${widget.place.demarcheur?.nom ?? ''} ${widget.place.demarcheur?.prenom ?? ''}',
+                              child: Text(
+                                '${widget.place.demarcheur?.nom ?? ''} ${widget.place.demarcheur?.prenom ?? ''}',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
-                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(widget.place.demarcheur?.phone??'',
+                              child: Text(
+                                widget.place.demarcheur?.phone ?? '',
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
-                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ],
                         ),
@@ -211,15 +252,17 @@ class _MyVisiteState extends State<MyVisite> {
                     ),
                   ),
                   const Divider(),
-
-
                   const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Commune',
+                    child: Text(
+                      'Commune',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                   const Divider(),
                   Padding(
@@ -227,20 +270,23 @@ class _MyVisiteState extends State<MyVisite> {
                     child: Text(widget.place.commune!.name,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600)),
                   ),
-
-
                   const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Type',
+                    child: Text(
+                      'Type',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                   const Divider(),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -252,7 +298,9 @@ class _MyVisiteState extends State<MyVisite> {
                           child: Text('Appartement',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                       Visibility(
@@ -262,7 +310,9 @@ class _MyVisiteState extends State<MyVisite> {
                           child: Text('Maison Basse',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                       Visibility(
@@ -272,7 +322,9 @@ class _MyVisiteState extends State<MyVisite> {
                           child: Text('Duplex',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                       Visibility(
@@ -282,7 +334,9 @@ class _MyVisiteState extends State<MyVisite> {
                           child: Text('Résidence',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                       Visibility(
@@ -292,7 +346,9 @@ class _MyVisiteState extends State<MyVisite> {
                           child: Text('Résidence',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                       Visibility(
@@ -302,7 +358,9 @@ class _MyVisiteState extends State<MyVisite> {
                           child: Text('Résidence',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                       const Spacer(),
@@ -311,19 +369,22 @@ class _MyVisiteState extends State<MyVisite> {
                         child: Text(' de ${widget.place.nombrePiece} Pièces',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600)),
                       ),
                       const SizedBox.shrink(),
                     ],
-
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('avec ${widget.place.nombreSalleEau} Salles d\'eau',
+                    child: Text(
+                        'avec ${widget.place.nombreSalleEau} Salles d\'eau',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600)),
                   ),
                   Visibility(
                     visible: widget.place.isHautStanding,
@@ -332,7 +393,9 @@ class _MyVisiteState extends State<MyVisite> {
                       child: Text('Haut standing sans piscine',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
                     ),
                   ),
                   Visibility(
@@ -342,7 +405,9 @@ class _MyVisiteState extends State<MyVisite> {
                       child: Text('Haut standing avec piscine',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,fontSize: 18, fontWeight: FontWeight.w600)),
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
                     ),
                   ),
                   const Divider(),
@@ -351,96 +416,110 @@ class _MyVisiteState extends State<MyVisite> {
                     child: Text('Commoditées additionneles',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600)
-
-                    ),
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600)),
                   ),
                   const Divider(),
                   Visibility(
                     visible: widget.place.hasGarage,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Garage',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Garage',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   ),
                   Visibility(
                     visible: widget.place.hasGardien,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Gardien',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Gardien',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   ),
                   Visibility(
                     visible: widget.place.hasCoursAvant,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Cour avant',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,  fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Cour avant',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   ),
                   Visibility(
                     visible: widget.place.hasCoursArriere,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Cour arrière',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Cour arrière',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   ),
                   Visibility(
                     visible: widget.place.hasBalconAvant,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Balcon avant',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,  fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Balcon avant',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   ),
                   Visibility(
                     visible: widget.place.hasBalconArriere,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Balcon arrière',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600)),
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Balcon arrière',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   ),
-
                   const Divider(),
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Description',
+                    child: Text(
+                      'Description',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                   const Divider(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8),
                     child: Text(widget.place.description,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 16, fontWeight:
-                        FontWeight.w600)),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600)),
                   ),
-
                 ],
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }

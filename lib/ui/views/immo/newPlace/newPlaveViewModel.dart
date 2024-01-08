@@ -10,29 +10,27 @@ import 'package:mobile/services/place_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class NewPlaceViewModel extends BaseViewModel{
-
+class NewPlaceViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
   final PlaceService _placeService = locator<PlaceService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
-
 
   bool havePass = false;
 
   bool isBureau = false;
   late Commune commune;
 
-  String nomProprio='';
-  String phone='';
-  String prix='0';
-  String description='';
+  String nomProprio = '';
+  String phone = '';
+  String prix = '0';
+  String description = '';
 
   Stream<bool> get isAuth => _authService.isConnected;
   bool isMaisonBasse = false;
   bool isAppart = false;
   bool isDuplex = false;
-  bool isStudio= false;
+  bool isStudio = false;
   bool isResidence = false;
   bool isChambre = false;
   bool isHautStanding = false;
@@ -54,56 +52,56 @@ class NewPlaceViewModel extends BaseViewModel{
 
   List<File?> images = [];
   File? img;
-  Future<List<DropdownMenuItem<Commune>> > cc() async {
+  Future<List<DropdownMenuItem<Commune>>> cc() async {
     if (communes.isEmpty) {
       communes = _authService.communes;
       commune = communes.first;
       for (Commune element in communes) {
-        dropDownItems.add(DropdownMenuItem(value: element,
-          child: Text(element.name,
+        dropDownItems.add(DropdownMenuItem(
+          value: element,
+          child: Text(
+            element.name,
             style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                letterSpacing: 1
-            ),
+                letterSpacing: 1),
           ),
         ));
       }
     }
 
-    return dropDownItems ;
+    return dropDownItems;
   }
 
-  NewPlaceViewModel(){
+  NewPlaceViewModel() {
     communes = _authService.communes;
     commune = communes.first;
-    for(int i = 0; i<10; i++) {
+    for (int i = 0; i < 10; i++) {
       images.add(null);
     }
   }
 
-
-  Future addPlace() async{
+  Future addPlace() async {
     TelaPlace place = TelaPlace(
-        id: 0,
-        proprioName: nomProprio,
-        proprioTelephone: phone,
-        description: description,
-        latitude: 0,
-        longitude: 0,
-        price: double.parse(prix),
-        communeId: commune.id,
-        nombrePiece: nombreDePieces,
-        nombreSalleEau: nombreDeSalleDeau,
-        demarcheurId: _authService.user!.id,
+      id: 0,
+      proprioName: nomProprio,
+      proprioTelephone: phone,
+      description: description,
+      latitude: 0,
+      longitude: 0,
+      price: double.parse(prix),
+      communeId: commune.id,
+      nombrePiece: nombreDePieces,
+      nombreSalleEau: nombreDeSalleDeau,
+      demarcheurId: _authService.user!.id,
       isOccupe: isOccupe,
       isAppartment: isAppart,
       isDuplex: isDuplex,
       isBureau: isBureau,
       isStudio: isStudio,
       isMaisonBasse: isMaisonBasse,
-      isChambre : isChambre,
+      isChambre: isChambre,
       isResidence: isResidence,
       isHautStanding: isHautStanding,
       hasPiscine: hasPiscine,
@@ -114,29 +112,30 @@ class NewPlaceViewModel extends BaseViewModel{
       hasGarage: hasGarage,
       hasGardien: hasGardien,
     );
-    TelaPlace? telaPlace = await _placeService.addPlace(place: place, images: images);
+    TelaPlace? telaPlace =
+        await _placeService.addPlace(place: place, images: images);
     if (telaPlace != null) {
       _authService.placeAdded(telaPlace);
       _navigationService.navigateToCatalogue();
     }
     // _snackbarService.showSnackbar(message: 'Test', duration: const Duration(seconds: 10));
   }
-  void navigateToResult(List<TelaPlace> places) async{
+
+  void navigateToResult(List<TelaPlace> places) async {
     await _navigationService.navigateToResultat(places: places);
   }
-  void navigateToCatalogue() async{
+
+  void navigateToCatalogue() async {
     await _navigationService.navigateToCatalogue();
   }
-  void navigateToVisiteAbonnement(bool isVisite) async{
-    await _navigationService.navigateToBuyVisitePass( isVisite: isVisite);
+
+  void navigateToVisiteAbonnement(bool isVisite) async {
+    await _navigationService.navigateToBuyVisitePass(isVisite: isVisite);
   }
 
-
-  Future navigateToCameraView(int index) async{
+  Future navigateToCameraView(int index) async {
     File? pic = await _navigationService.navigateToCameraView();
     images[index] = pic;
     notifyListeners();
   }
-
-
 }

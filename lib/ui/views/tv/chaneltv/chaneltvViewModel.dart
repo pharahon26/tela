@@ -6,8 +6,7 @@ import 'package:mobile/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ChannelTvViewModel extends BaseViewModel{
-
+class ChannelTvViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final TVService _tvService = locator<TVService>();
   final AuthService _authService = locator<AuthService>();
@@ -15,37 +14,39 @@ class ChannelTvViewModel extends BaseViewModel{
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
   List<TelaProgrammeTV> program = [];
-  ChannelTvViewModel(){
+  ChannelTvViewModel() {
     program = _tvService.progTest();
   }
 
-  void navigateToLiveTV() async{
+  void navigateToLiveTV() async {
     await _tvService.pause();
     await _navigationService.navigateToTvLive();
   }
-  void navigateToLiveTVSport() async{
+
+  void navigateToLiveTVSport() async {
     await _tvService.pause();
     await _navigationService.navigateToTvSport();
   }
-  void navigateToLiveTVExclu() async{
+
+  void navigateToLiveTVExclu() async {
     await _tvService.pause();
     await _navigationService.navigateToTvExclu();
   }
-  void navigateToLiveTVDiffere() async{
+
+  void navigateToLiveTVDiffere() async {
     await _tvService.pause();
     await _navigationService.navigateToBientot();
   }
-  void navigateToLiveTVFilms() async{
+
+  void navigateToLiveTVFilms() async {
     await _tvService.pause();
     await _navigationService.navigateToTvFilm();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _tvService.pause();
-
   }
-
-
 }

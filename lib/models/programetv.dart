@@ -1,5 +1,4 @@
-class TelaProgrammeTV{
-
+class TelaProgrammeTV {
   int id = 0;
   String type = '';
   String link = '';
@@ -9,31 +8,30 @@ class TelaProgrammeTV{
   DateTime dateTournage = DateTime.now();
   DateTime dateDiffusion = DateTime.now();
 
-
   TelaProgrammeTV(
       {required this.id,
       required this.type,
       required this.link,
-        this.webview = false,
-        this.facebook = false,
+      this.webview = false,
+      this.facebook = false,
       required this.description,
       required this.dateTournage,
       required this.dateDiffusion});
 
-  static TelaProgrammeTV fromJson(Map<String, dynamic> json){
+  static TelaProgrammeTV fromJson(Map<String, dynamic> json) {
     TelaProgrammeTV u = TelaProgrammeTV(
-      id : json["id"],
+      id: json["id"],
       type: json["type"],
       link: json["link"],
       description: json["description"],
-      dateTournage: DateTime.parse(json["date_tournage"]) ,
+      dateTournage: DateTime.parse(json["date_tournage"]),
       dateDiffusion: DateTime.parse(json["date_diffusion"]),
     );
     return u;
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "type": type,
@@ -43,7 +41,6 @@ class TelaProgrammeTV{
       "date_diffusion": dateDiffusion.toIso8601String(),
     };
   }
-
 
   @override
   String toString() {

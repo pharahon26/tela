@@ -7,8 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mobile/services/transaction_service.dart';
 
-class BuyAbonnementEbankViewModel extends BaseViewModel{
-
+class BuyAbonnementEbankViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   final AuthService _authService = locator<AuthService>();
@@ -22,16 +21,22 @@ class BuyAbonnementEbankViewModel extends BaseViewModel{
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  BuyAbonnementEbankViewModel(this.fromEpargne){
+  BuyAbonnementEbankViewModel(this.fromEpargne) {
     abonnements = _authService.abonnementType;
   }
 
-  Future buyAbonnement( AbonnementType abonnement) async{
-    await _authService.buyAbonnementFromEbank(abonnement: abonnement, profile: _authService.bankProfile!, user: _authService.user!, fromEpargne: fromEpargne);
-    _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
+  Future buyAbonnement(AbonnementType abonnement) async {
+    await _authService.buyAbonnementFromEbank(
+        abonnement: abonnement,
+        profile: _authService.bankProfile!,
+        user: _authService.user!,
+        fromEpargne: fromEpargne);
+    _navigationService.navigateToBank(
+        hasEpargne: _authService.bankProfile?.hasEpargne ?? false);
   }
 
-  void navigateToCGUFinance() async{
-    await _navigationService.navigateTo(Routes.conditionGeneralDUtilisationSFinance);
+  void navigateToCGUFinance() async {
+    await _navigationService
+        .navigateTo(Routes.conditionGeneralDUtilisationSFinance);
   }
 }

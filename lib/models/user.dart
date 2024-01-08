@@ -1,11 +1,10 @@
-
 /// Démarcheur user
 class User {
   /// a class that will hold the user data need the names and the balance first.
   /// the balance is not mandatory*/
 
   // Variables
-  int id = 0 ;
+  int id = 0;
   String prenom;
   String nom;
   String mail;
@@ -21,7 +20,6 @@ class User {
   // the cash object related to the user will be hold here for the moment
   DateTime creationDate = DateTime.now();
 
-
   // Constructor
   User({
     required this.nom,
@@ -35,31 +33,31 @@ class User {
     this.isSuspended = false,
   });
 
-  static User fromJson(Map<String, dynamic> json){
-
+  static User fromJson(Map<String, dynamic> json) {
     print('before *********');
     User u = User(
       nom: json["nom"],
       prenom: json["prenoms"],
-      mail: json["email"]??'',
+      mail: json["email"] ?? '',
       phone: json["phone"],
       photo: json["photo_profil"],
       balance: double.parse(json["balance"].toString()),
-      isValidated: json["is_validated"]==1,
-      isSuspended: json["is_suspended"]==1,
-      isComplete: json["is_completed"]==1,
+      isValidated: json["is_validated"] == 1,
+      isSuspended: json["is_suspended"] == 1,
+      isComplete: json["is_completed"] == 1,
     );
     u.id = json["id"];
 
     print('before id');
-    u.creationDate = DateTime.parse(json["created_at"]??'2023-10-10');
+    u.creationDate = DateTime.parse(json["created_at"] ?? '2023-10-10');
     return u;
   }
-  static User fromString(Map<String, dynamic> json){
+
+  static User fromString(Map<String, dynamic> json) {
     User u = User(
       nom: json["nom"],
       prenom: json["prenom"],
-      mail: json["mail"]??'',
+      mail: json["mail"] ?? '',
       phone: json["phone"].toString(),
       photo: json["photo"],
       balance: double.parse(json["balance"]),
@@ -73,7 +71,7 @@ class User {
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "nom": nom,
@@ -83,9 +81,9 @@ class User {
       "photo": photo,
       "balance": balance,
       "creationDate": creationDate,
-      "isSuspended": isSuspended?1:0,
-      "is_validated": isValidated?1:0,
-      "isStaff":isComplete?1:0,
+      "isSuspended": isSuspended ? 1 : 0,
+      "is_validated": isValidated ? 1 : 0,
+      "isStaff": isComplete ? 1 : 0,
     };
   }
 
@@ -101,7 +99,7 @@ class UserIdentity {
   /// the balance is not mandatory*/
 
   // Variables
-  int id = 0 ;
+  int id = 0;
   int userId;
   String name;
   String birthPlace;
@@ -123,29 +121,26 @@ class UserIdentity {
   // the cash object related to the user will be hold here for the moment
   DateTime birthDay = DateTime.now();
 
-
   UserIdentity({
-      required this.userId,
-      required this.name,
-      required this.birthPlace,
-      required this.nationality,
-      required this.pays,
-      required this.domicile,
-      required this.phone,
-      required this.phone2,
-      required this.photo,
-      required this.docRecto,
-      required this.docVerso,
-      required this.docNumber,
-      required this.birthDay,
-      required this.genre,
-       this.isSuspended = false,
-       this.isValidated = false,
+    required this.userId,
+    required this.name,
+    required this.birthPlace,
+    required this.nationality,
+    required this.pays,
+    required this.domicile,
+    required this.phone,
+    required this.phone2,
+    required this.photo,
+    required this.docRecto,
+    required this.docVerso,
+    required this.docNumber,
+    required this.birthDay,
+    required this.genre,
+    this.isSuspended = false,
+    this.isValidated = false,
   }); // Constructor
 
-
-  static UserIdentity fromJson(Map<String, dynamic> json){
-
+  static UserIdentity fromJson(Map<String, dynamic> json) {
     UserIdentity u = UserIdentity(
       userId: json["user_id"],
       name: json["name"],
@@ -155,20 +150,21 @@ class UserIdentity {
       photo: json["photo"],
       docRecto: json["cni_recto"],
       docVerso: json["cni_verso"],
-      docNumber: json["cni_number"]??'',
+      docNumber: json["cni_number"] ?? '',
       nationality: json["nationalite"],
       pays: json["pays"],
       domicile: json["domicile"],
       birthPlace: json["lieu_naissance"],
       birthDay: DateTime.parse(json["date_naissance"]),
-      isValidated: json["is_validated"]==1,
-      isSuspended: json["is_suspended"]==1,
+      isValidated: json["is_validated"] == 1,
+      isSuspended: json["is_suspended"] == 1,
     );
     u.id = json["id"];
     return u;
   }
+
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "user_id": userId,
@@ -184,11 +180,12 @@ class UserIdentity {
       "domicile": domicile,
       "lieu_naissance": birthPlace,
       "date_naissance": birthDay,
-      "isSuspended": isSuspended?1:0,
-      "is_validated": isValidated?1:0,
+      "isSuspended": isSuspended ? 1 : 0,
+      "is_validated": isValidated ? 1 : 0,
     };
   }
-  static UserIdentity fromString(Map<String, dynamic> json){
+
+  static UserIdentity fromString(Map<String, dynamic> json) {
     UserIdentity u = UserIdentity(
       userId: json["userId"],
       name: json["name"],
@@ -198,23 +195,21 @@ class UserIdentity {
       photo: 'photo',
       docRecto: json["docRecto"],
       docVerso: json["docVerso"],
-      docNumber: json["docNumber"]??'',
+      docNumber: json["docNumber"] ?? '',
       nationality: json["nationality"],
       pays: json["pays"],
       domicile: json["domicile"],
       birthPlace: json["birthPlace"],
       birthDay: DateTime.parse(json["birthDay"]),
-      isValidated: json["isValidated"]==1,
-      isSuspended: json["isSuspended"]==1,
+      isValidated: json["isValidated"] == 1,
+      isSuspended: json["isSuspended"] == 1,
     );
     u.id = int.parse(json["id"]);
     return u;
   }
-
 
   @override
   String toString() {
     return 'id: $id, userId: $userId, name: $name, birthPlace: $birthPlace, nationality: $nationality, pays: $pays, domicile: $domicile, phone: $phone, phone2: $phone2, photo: $photo, docRecto: $docRecto, docVerso: $docVerso, docNumber: $docNumber, genre: $genre, isSuspended: $isSuspended, isValidated: $isValidated, birthDay: $birthDay';
   }
 }
-

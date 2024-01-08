@@ -1,22 +1,20 @@
-
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class PubliciteViewModel extends BaseViewModel{
-
+class PubliciteViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
   final TVService tvService = locator<TVService>();
 
   // late VideoPlayerController videoController;
 
-
-
-  PubliciteViewModel(){
+  PubliciteViewModel() {
     // initController();
-    tvService.pubVideoController.addListener(() {notifyListeners();});
+    tvService.pubVideoController.addListener(() {
+      notifyListeners();
+    });
   }
   //
   // initController() {
@@ -34,7 +32,6 @@ class PubliciteViewModel extends BaseViewModel{
   //
   // }
 
-
   // void initControllers() async {
   //   List<String> urls = await _tvService.getPublicites();
   //   Future.forEach(urls,(element) async {
@@ -43,5 +40,4 @@ class PubliciteViewModel extends BaseViewModel{
   //     videoControllers.add(videoController);
   //   });
   // }
-
 }

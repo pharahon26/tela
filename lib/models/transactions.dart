@@ -1,5 +1,4 @@
-class TelaTransaction{
-
+class TelaTransaction {
   int id = 0;
   String type = '';
   String paymentWay = '';
@@ -7,7 +6,6 @@ class TelaTransaction{
   String operationId = '';
   double amount = 0;
   DateTime date = DateTime.now();
-
 
   TelaTransaction(
       {required this.id,
@@ -18,23 +16,21 @@ class TelaTransaction{
       required this.amount,
       required this.date});
 
-
-
-  static TelaTransaction fromJson(Map<String, dynamic> json){
+  static TelaTransaction fromJson(Map<String, dynamic> json) {
     TelaTransaction u = TelaTransaction(
-      id : json["id"],
+      id: json["id"],
       amount: (json["amount"] as int).toDouble(),
       type: json["transaction_type"],
       transactionNumber: json["transaction_number"],
       date: DateTime.parse(json["date_transaction"]),
-      paymentWay: json["transaction_way"]??'',
+      paymentWay: json["transaction_way"] ?? '',
       operationId: '',
     );
     return u;
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "amount": amount,
       "date_transaction": date.toIso8601String(),
@@ -73,49 +69,44 @@ class TelaTransaction{
 }
 
 /// EBANK TRANSAACTIONS
-class TelaEBankTransaction{
-
+class TelaEBankTransaction {
   int id = 0;
   int transactionId = 0;
   bool isRetrait = false;
   TelaTransaction? transaction;
 
   DateTime date = DateTime.now();
-
 
   TelaEBankTransaction(
       {required this.id,
-        required this.transactionId,
-        required this.isRetrait,
-        this.transaction,
-        required this.date});
+      required this.transactionId,
+      required this.isRetrait,
+      this.transaction,
+      required this.date});
 
-
-
-  static TelaEBankTransaction fromJson(Map<String, dynamic> json){
+  static TelaEBankTransaction fromJson(Map<String, dynamic> json) {
     TelaEBankTransaction u = TelaEBankTransaction(
-      id : json["id"],
-      transactionId : json["transaction_id"],
-      transaction : json["transaction"],
-      isRetrait : json["is_retrait"]==1,
+      id: json["id"],
+      transactionId: json["transaction_id"],
+      transaction: json["transaction"],
+      isRetrait: json["is_retrait"] == 1,
       date: DateTime.parse(json["creation_date"]),
     );
     return u;
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "creation_date": date.toIso8601String(),
       "transaction_id": transactionId,
-      "is_retrait": isRetrait?1:0,
+      "is_retrait": isRetrait ? 1 : 0,
     };
   }
-
 }
-class TelaEpargneTransaction{
 
+class TelaEpargneTransaction {
   int id = 0;
   int transactionId = 0;
   bool isRetrait = false;
@@ -123,35 +114,31 @@ class TelaEpargneTransaction{
 
   DateTime date = DateTime.now();
 
-
   TelaEpargneTransaction(
       {required this.id,
-        required this.transactionId,
-        required this.isRetrait,
-        this.transaction,
-        required this.date});
+      required this.transactionId,
+      required this.isRetrait,
+      this.transaction,
+      required this.date});
 
-
-
-  static TelaEpargneTransaction fromJson(Map<String, dynamic> json){
+  static TelaEpargneTransaction fromJson(Map<String, dynamic> json) {
     TelaEpargneTransaction u = TelaEpargneTransaction(
-      id : json["id"],
-      transactionId : json["transaction_id"],
-      transaction : json["transaction"],
-      isRetrait : json["is_retrait"]==1,
+      id: json["id"],
+      transactionId: json["transaction_id"],
+      transaction: json["transaction"],
+      isRetrait: json["is_retrait"] == 1,
       date: DateTime.parse(json["creation_date"]),
     );
     return u;
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "creation_date": date.toIso8601String(),
       "transaction_id": transactionId,
-      "is_retrait": isRetrait?1:0,
+      "is_retrait": isRetrait ? 1 : 0,
     };
   }
-
 }

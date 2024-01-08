@@ -6,8 +6,7 @@ import 'package:mobile/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class BuyVisitePassViewModel extends BaseViewModel{
-
+class BuyVisitePassViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   final AuthService _authService = locator<AuthService>();
@@ -22,42 +21,54 @@ class BuyVisitePassViewModel extends BaseViewModel{
   Stream<bool> get isAuth => _authService.isConnected;
   User? get user => _authService.user;
 
-  BuyVisitePassViewModel({required this.isVisite, required this.isRenew}){
-    passes = _authService.passType.where((element) => element.isVisite == isVisite).toList();
+  BuyVisitePassViewModel({required this.isVisite, required this.isRenew}) {
+    passes = _authService.passType
+        .where((element) => element.isVisite == isVisite)
+        .toList();
   }
 
-  void navigateToEbank() async{
+  void navigateToEbank() async {
     await _navigationService.navigateTo(Routes.bank);
   }
-  void navigateToProfile() async{
+
+  void navigateToProfile() async {
     await _navigationService.navigateTo(Routes.profile);
   }
-  void navigateToTV() async{
+
+  void navigateToTV() async {
     await _navigationService.navigateTo(Routes.chanelTv);
   }
-  void navigateToRechercheBureau() async{
+
+  void navigateToRechercheBureau() async {
     await _navigationService.navigateToRecherche(isBureau: true);
   }
-  void navigateToRechercheLogement() async{
+
+  void navigateToRechercheLogement() async {
     await _navigationService.navigateToRecherche(isBureau: false);
   }
-  void navigateToGalery() async{
+
+  void navigateToGalery() async {
     await _navigationService.navigateTo(Routes.catalogue);
   }
-  void navigateToAcceuil() async{
+
+  void navigateToAcceuil() async {
     await _navigationService.navigateTo(Routes.acceuil);
   }
-  void navigateToSignIn() async{
+
+  void navigateToSignIn() async {
     await _navigationService.navigateTo(Routes.signInView);
   }
-  void navigateToLogIn() async{
+
+  void navigateToLogIn() async {
     await _navigationService.navigateTo(Routes.loginView);
   }
-  void navigateToBuyView( PassType pass) async{
+
+  void navigateToBuyView(PassType pass) async {
     await _navigationService.navigateToBuyPassView(pass: pass);
   }
-  void navigateToRenewView( PassType pass) async{
-    await _navigationService.navigateToRenewPassView(pass: pass, passVisite: _authService.passVisite!);
-  }
 
+  void navigateToRenewView(PassType pass) async {
+    await _navigationService.navigateToRenewPassView(
+        pass: pass, passVisite: _authService.passVisite!);
+  }
 }

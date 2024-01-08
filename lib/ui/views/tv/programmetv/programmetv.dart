@@ -20,21 +20,24 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
           appBar: AppBar(
             backgroundColor: Colors.deepOrange,
             centerTitle: true,
-            title: const Text('Tela TV',
+            title: const Text(
+              'Tela TV',
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.3,
-                  color: Colors.white
-              ),
+                  color: Colors.white),
             ),
             elevation: 5,
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
                   icon: const Icon(Icons.menu),
-                  onPressed: () { Scaffold.of(context).openDrawer(); },
-                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
                 );
               },
             ),
@@ -45,63 +48,58 @@ class _ProgrammeTvState extends State<ProgrammeTv> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    DrawerHeader(child: Center(
+                    DrawerHeader(
+                        child: Center(
                       child: Image.asset('assets/images/logo.png'),
                     )),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.navigateToAcceuil();
                         },
-                        child: const Text('Acceuil')
-                    ),
+                        child: const Text('Acceuil')),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.navigateToProfile();
                         },
-                        child: const Text('profile')
-                    ),
+                        child: const Text('profile')),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.navigateToRechercheLogement();
                         },
-                        child: const Text('Trouver un logement')
-                    ),
+                        child: const Text('Trouver un logement')),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.navigateToRechercheBureau();
                         },
-                        child: const Text('Trouver un Bureau')
-                    ),
+                        child: const Text('Trouver un Bureau')),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.navigateToEbank();
                         },
-                        child: const Text('Tela Finance')
-                    ),
+                        child: const Text('Tela Finance')),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.navigateToTV();
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.deepOrange,
-
                         ),
-                        child: const Text('Tela TV',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
-                        )
-                    ),
+                        child: const Text(
+                          'Tela TV',
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ]),
             ),
           ),
           body: ListView(
-            children: model.program.map((e) => InkWell(
-              onTap: () => model.navigateToLiveTV(e),
-                child: TelaTVProgrameCard(programmeTV: e,)
-            )).toList(),
-          )
-      ),
+            children: model.program
+                .map((e) => InkWell(
+                    onTap: () => model.navigateToLiveTV(e),
+                    child: TelaTVProgrameCard(
+                      programmeTV: e,
+                    )))
+                .toList(),
+          )),
     );
   }
 }

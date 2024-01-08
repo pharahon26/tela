@@ -9,22 +9,16 @@ import 'package:mobile/services/place_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class RechercheViewModel extends BaseViewModel{
-
+class RechercheViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   AuthService authService = locator<AuthService>();
   final PlaceService _placeService = locator<PlaceService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
-
   bool havePass = false;
-
-
-
 
   bool isBureau = false;
   Commune? commune;
-
 
   Stream<bool> get isAuth => authService.isConnected;
   bool isMaisonBasse = false;
@@ -49,40 +43,37 @@ class RechercheViewModel extends BaseViewModel{
   List<DropdownMenuItem<Commune>> dropDownItems = [];
   PassVisite? get passVisite => authService.passVisite;
 
-
-  Future<List<DropdownMenuItem<Commune>> > cc() async {
+  Future<List<DropdownMenuItem<Commune>>> cc() async {
     if (communes.isEmpty) {
       communes = authService.communes;
       commune = communes.first;
       for (Commune element in communes) {
-        dropDownItems.add(DropdownMenuItem(value: element,
-          child: Text(element.name,
+        dropDownItems.add(DropdownMenuItem(
+          value: element,
+          child: Text(
+            element.name,
             style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                letterSpacing: 1
-            ),
+                letterSpacing: 1),
           ),
         ));
       }
     }
 
-    return dropDownItems ;
+    return dropDownItems;
   }
 
-  RechercheViewModel(){
+  RechercheViewModel() {
     communes = authService.communes;
-    PassVisite? passVisite =authService.passVisite;
+    PassVisite? passVisite = authService.passVisite;
     if (passVisite != null) {
       havePass = true;
     }
   }
 
-
-
   Future search() async {
-
     List<TelaPlace> plac = await _placeService.searchLogement(
       communeId: commune!.id,
       nombrePiece: nombreDePieces,
@@ -107,45 +98,53 @@ class RechercheViewModel extends BaseViewModel{
       hasBalconAvant: hasBalconAvant,
     );
     List<TelaPlace> pp = [];
-    for(var pl in plac){
-      pl.commune = communes.where((element) => element.id == pl.communeId).first;
+    for (var pl in plac) {
+      pl.commune =
+          communes.where((element) => element.id == pl.communeId).first;
       pp.add(pl);
     }
 
     navigateToResult(pp);
   }
 
-  void navigateToResult(List<TelaPlace> places) async{
+  void navigateToResult(List<TelaPlace> places) async {
     await _navigationService.navigateToResultat(places: places);
   }
-  void navigateToVisiteAbonnement(bool isVisite) async{
-    await _navigationService.navigateToBuyVisitePass( isVisite: isVisite);
+
+  void navigateToVisiteAbonnement(bool isVisite) async {
+    await _navigationService.navigateToBuyVisitePass(isVisite: isVisite);
   }
 
-  void navigateToEbank() async{
-    await _navigationService.navigateToBank(hasEpargne: authService.bankProfile?.hasEpargne??false);
+  void navigateToEbank() async {
+    await _navigationService.navigateToBank(
+        hasEpargne: authService.bankProfile?.hasEpargne ?? false);
   }
-  void navigateToProfile() async{
+
+  void navigateToProfile() async {
     await _navigationService.navigateTo(Routes.profile);
   }
-  void navigateToTV() async{
+
+  void navigateToTV() async {
     await _navigationService.navigateTo(Routes.chanelTv);
   }
-  void navigateToRechercheBureau() async{
+
+  void navigateToRechercheBureau() async {
     await _navigationService.navigateToRecherche(isBureau: true);
   }
-  void navigateToRechercheLogement() async{
+
+  void navigateToRechercheLogement() async {
     await _navigationService.navigateToRecherche(isBureau: false);
   }
-  void navigateToGalery() async{
+
+  void navigateToGalery() async {
     await _navigationService.navigateTo(Routes.catalogue);
   }
-  void navigateToAcceuil() async{
+
+  void navigateToAcceuil() async {
     await _navigationService.navigateTo(Routes.acceuil);
   }
-  Future chechPass(String code) async{
+
+  Future chechPass(String code) async {
     await authService.verifCodeVisite(code: code);
   }
-
-
 }

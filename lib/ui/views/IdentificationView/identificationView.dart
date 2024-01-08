@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile/ui/views/IdentificationView//identificationViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-
 /// Created by Laty 26 PHARAHON entertainment on 17/09/2020.
 // home widget
 class IdentificationView extends StatefulWidget {
-
   const IdentificationView({super.key});
 
   @override
@@ -31,12 +29,14 @@ class _IdentificationViewState extends State<IdentificationView>
         viewModelBuilder: () => IdentificationViewModel(),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
-                title: const Text('Identification', style: TextStyle(color: Colors.white)),
+                title: const Text('Identification',
+                    style: TextStyle(color: Colors.white)),
                 centerTitle: true,
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 leading: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: const Icon(Icons.arrow_back_ios_new,
+                  child: const Icon(
+                    Icons.arrow_back_ios_new,
                     color: Colors.white,
                   ),
                 ),
@@ -59,7 +59,8 @@ class _IdentificationViewState extends State<IdentificationView>
                             const SizedBox(
                               height: 20.0,
                             ),
-                            const Text('Complétez votre profil pour accéder nos services'),
+                            const Text(
+                                'Complétez votre profil pour accéder nos services'),
                             const SizedBox(
                               height: 20.0,
                             ),
@@ -92,13 +93,14 @@ class _IdentificationViewState extends State<IdentificationView>
                             // ),
                             //
 
-
-
-
                             const Divider(),
-                            const Text('Informations',
+                            const Text(
+                              'Informations',
                               style: TextStyle(
-                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            ),
                             const Divider(),
 
                             /// nom field
@@ -111,15 +113,24 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.person_outline,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    labelText: 'Nom',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.person_outline,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Nom',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
                                 onChanged: (value) {
                                   model.nom = value;
@@ -137,15 +148,24 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.person_outline,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    labelText: 'Prénoms',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.person_outline,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Prénoms',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
                                 onChanged: (value) {
                                   model.prenom = value;
@@ -163,16 +183,25 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.phone_android,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    prefixText: '+225',
-                                    labelText: 'Numéro de téléphone',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.phone_android,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  prefixText: '+225',
+                                  labelText: 'Numéro de téléphone',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -180,7 +209,6 @@ class _IdentificationViewState extends State<IdentificationView>
                                   }
                                   return null;
                                 },
-
                                 onChanged: (value) {
                                   model.phone = value;
                                 },
@@ -197,18 +225,26 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.phone_android,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    prefixText: '+225',
-                                    labelText: 'Numéro de téléphone',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.phone_android,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  prefixText: '+225',
+                                  labelText: 'Numéro de téléphone',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
-
                                 onChanged: (value) {
                                   model.phone2 = value;
                                 },
@@ -229,7 +265,8 @@ class _IdentificationViewState extends State<IdentificationView>
                                     child: Text('Genre'),
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Column(
                                         children: [
@@ -241,8 +278,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                                 setState(() {
                                                   model.isMan = true;
                                                 });
-                                              }
-                                          ),
+                                              }),
                                         ],
                                       ),
                                       Column(
@@ -255,8 +291,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                                 setState(() {
                                                   model.isMan = false;
                                                 });
-                                              }
-                                          ),
+                                              }),
                                         ],
                                       ),
                                     ],
@@ -271,29 +306,38 @@ class _IdentificationViewState extends State<IdentificationView>
 
                             ///date de naissance
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
                               child: InkWell(
                                 splashColor: Colors.blue,
                                 borderRadius: BorderRadius.circular(30),
                                 onTap: () {
                                   showDatePicker(
                                     context: this.context,
-                                    initialDate: DateTime(DateTime.now().year - 15),
+                                    initialDate:
+                                        DateTime(DateTime.now().year - 15),
                                     firstDate: DateTime(1940),
-                                    lastDate: DateTime(DateTime.now().year - 15, 12, 31),
+                                    lastDate: DateTime(
+                                        DateTime.now().year - 15, 12, 31),
                                     builder: (datePickcontext, child) {
                                       return Theme(
                                         data: ThemeData.dark().copyWith(
                                           colorScheme: ColorScheme.light(
-                                            primary: Theme.of(context).colorScheme.primary,
+                                            primary: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
                                             onPrimary: Colors.white,
                                             surface: Colors.white,
-                                            onSurface: Theme.of(context).colorScheme.primary,
+                                            onSurface: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
                                           ),
                                           dialogBackgroundColor: Colors.white,
                                         ),
                                         child: ConstrainedBox(
-                                          constraints: BoxConstraints(maxHeight: mediaQuery.size.height * 0.7),
+                                          constraints: BoxConstraints(
+                                              maxHeight:
+                                                  mediaQuery.size.height * 0.7),
                                           child: child!,
                                         ),
                                       );
@@ -319,7 +363,9 @@ class _IdentificationViewState extends State<IdentificationView>
                                       child: Text(
                                         'Date de naissance',
                                         style: TextStyle(
-                                            color: Theme.of(context).colorScheme.secondary,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                             fontSize: 14.0),
                                       ),
                                     ),
@@ -328,14 +374,19 @@ class _IdentificationViewState extends State<IdentificationView>
                                       child: Icon(
                                         Icons.edit_calendar,
                                         size: 24,
-                                        color: Theme.of(context).colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('${model.birthDay.day} / ${model.birthDay.month} / ${model.birthDay.year}',
+                                      child: Text(
+                                        '${model.birthDay.day} / ${model.birthDay.month} / ${model.birthDay.year}',
                                         style: TextStyle(
-                                          color: Theme.of(context).colorScheme.primary,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16.0,
                                         ),
@@ -355,15 +406,24 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.place_outlined,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    labelText: 'Lieu de naissance',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.place_outlined,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Lieu de naissance',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -377,7 +437,6 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                             ),
 
-
                             /// nationnalité
 
                             TextButton.icon(
@@ -387,32 +446,34 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                               label: Row(
                                 children: [
-                                  const Text('nationnalité: ',
+                                  const Text(
+                                    'nationnalité: ',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         letterSpacing: 1.2,
-                                        color: Colors.grey
-                                    ),
+                                        color: Colors.grey),
                                   ),
-                                  Text(model.nationnalite,
+                                  Text(
+                                    model.nationnalite,
                                     style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: 1.2,
-                                        color: Colors.black
-                                    ),
+                                        color: Colors.black),
                                   ),
                                 ],
                               ),
                               style: TextButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(color: Theme.of(context).colorScheme.primary)
-                                )
-                              ),
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary))),
                               onPressed: () => showCountryPicker(
                                 context: context,
-                                showPhoneCode: false, // optional. Shows phone code before the country name.
+                                showPhoneCode:
+                                    false, // optional. Shows phone code before the country name.
                                 onSelect: (Country country) {
                                   print('Select country: ${country.name}');
                                   setState(() {
@@ -421,6 +482,7 @@ class _IdentificationViewState extends State<IdentificationView>
                                 },
                               ),
                             ),
+
                             /// PAYS
                             TextButton.icon(
                               icon: Icon(
@@ -429,34 +491,34 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                               label: Row(
                                 children: [
-                                  const Text('Pays: ',
+                                  const Text(
+                                    'Pays: ',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         letterSpacing: 1.2,
-                                        color: Colors.grey
-                                    ),
+                                        color: Colors.grey),
                                   ),
-                                  Text(model.pays,
+                                  Text(
+                                    model.pays,
                                     style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: 1.2,
-                                        color: Colors.black
-                                    ),
+                                        color: Colors.black),
                                   ),
-
                                 ],
                               ),
-
                               style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                      side: BorderSide(color: Theme.of(context).colorScheme.primary)
-                                  )
-                              ),
+                                      side: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary))),
                               onPressed: () => showCountryPicker(
                                 context: context,
-                                showPhoneCode: false, // optional. Shows phone code before the country name.
+                                showPhoneCode:
+                                    false, // optional. Shows phone code before the country name.
                                 onSelect: (Country country) {
                                   print('Select country: ${country.name}');
                                   setState(() {
@@ -475,15 +537,24 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.place_outlined,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    labelText: 'Ville de résidence',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.place_outlined,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText: 'Ville de résidence',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -497,11 +568,14 @@ class _IdentificationViewState extends State<IdentificationView>
                               ),
                             ),
 
-
                             const Divider(),
-                            const Text('Document d\'identification',
+                            const Text(
+                              'Document d\'identification',
                               style: TextStyle(
-                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            ),
                             const Divider(),
 
                             /// doc number
@@ -513,15 +587,25 @@ class _IdentificationViewState extends State<IdentificationView>
                                   color: Colors.black,
                                 ),
                                 decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.file_present,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    labelText: 'Numero de Carte d\'identitée / passeport',
-                                    labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                                    enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                                    focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                                    hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                  icon: Icon(
+                                    Icons.file_present,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  labelText:
+                                      'Numero de Carte d\'identitée / passeport',
+                                  labelStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .labelStyle,
+                                  enabledBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .enabledBorder,
+                                  focusedBorder: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .focusedBorder,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle,
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -536,36 +620,48 @@ class _IdentificationViewState extends State<IdentificationView>
                             ),
 
                             const Divider(),
-                            const Text('Document verso',
+                            const Text(
+                              'Document verso',
                               style: TextStyle(
-                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            ),
                             const Divider(),
+
                             /// doc recto
                             SizedBox(
                               height: mediaQuery.size.width,
                               width: mediaQuery.size.width,
                               child: InkWell(
-                                child: model.docRecto != null? Image.file(model.docRecto!,
-                                  fit: BoxFit.contain,
-                                )
-                                    :
-                                const Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.add, color: Colors.grey,),
-                                      Text('Document recto',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w600),)
-                                    ],
-                                  ),
-                                ),
+                                child: model.docRecto != null
+                                    ? Image.file(
+                                        model.docRecto!,
+                                        fit: BoxFit.contain,
+                                      )
+                                    : const Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.add,
+                                              color: Colors.grey,
+                                            ),
+                                            Text(
+                                              'Document recto',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                 onTap: () async {
                                   await model.pickRecto().whenComplete(() {
-                                    setState(() {
-
-                                    });
+                                    setState(() {});
                                   });
                                 },
                               ),
@@ -573,35 +669,46 @@ class _IdentificationViewState extends State<IdentificationView>
 
                             /// doc verso
                             const Divider(),
-                            const Text('Document verso',
+                            const Text(
+                              'Document verso',
                               style: TextStyle(
-                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),),
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            ),
                             const Divider(),
                             SizedBox(
                               height: mediaQuery.size.width,
                               width: mediaQuery.size.width,
                               child: InkWell(
-                                child: model.docVerso != null? Image.file(model.docVerso!,
-                                  fit: BoxFit.contain,
-                                )
-                                    :
-                                const Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.add, color: Colors.grey,),
-                                      Text('Document verso',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w600),)
-                                    ],
-                                  ),
-                                ),
+                                child: model.docVerso != null
+                                    ? Image.file(
+                                        model.docVerso!,
+                                        fit: BoxFit.contain,
+                                      )
+                                    : const Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.add,
+                                              color: Colors.grey,
+                                            ),
+                                            Text(
+                                              'Document verso',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                 onTap: () async {
                                   await model.pickVerso().whenComplete(() {
-                                    setState(() {
-
-                                    });
+                                    setState(() {});
                                   });
                                 },
                               ),
@@ -609,71 +716,91 @@ class _IdentificationViewState extends State<IdentificationView>
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton(
-                                onPressed: ()  {
-
+                                onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       loading = true;
                                     });
-                                    model.identify()
-                                        .catchError((error, trace)  {
+                                    model.identify().catchError((error, trace) {
                                       setState(() {
                                         loading = false;
                                       });
-                                      showDialog(context: context, builder: (buildContext) => Dialog(
-                                        backgroundColor: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(30)
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                              child: Text(error.toString(),
-                                                textAlign: TextAlign.center,
-                                                maxLines: 20,
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w600,
-                                                    letterSpacing: 1.1
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: TextButton(
-                                                  onPressed: () => Navigator.of(buildContext).pop(),
-                                                  child: Text('Ok',
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                        color: Theme.of(context).colorScheme.primary,
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w600
+                                      showDialog(
+                                          context: context,
+                                          builder: (buildContext) => Dialog(
+                                                backgroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30)),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 24.0,
+                                                          horizontal: 16),
+                                                      child: Text(
+                                                        error.toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        maxLines: 20,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            letterSpacing: 1.1),
+                                                      ),
                                                     ),
-                                                  )
-                                              ),
-                                            )
-
-                                          ],
-                                        ),
-
-                                      )
-                                      );
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      buildContext)
+                                                                  .pop(),
+                                                          child: Text(
+                                                            'Ok',
+                                                            maxLines: 2,
+                                                            style: TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          )),
+                                                    )
+                                                  ],
+                                                ),
+                                              ));
                                     });
                                   }
-                                  },
+                                },
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).colorScheme.primary,
-                                    fixedSize: Size(mediaQuery.size.width - 20, 40),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
-                                ),
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    fixedSize:
+                                        Size(mediaQuery.size.width - 20, 40),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30))),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 80.0),
                                   child: Visibility(
                                     visible: !loading,
-                                    replacement: const CircularProgressIndicator(color: Colors.white,),
+                                    replacement:
+                                        const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
                                     child: const Text(
                                       'Je confirme mes informations personnelles',
                                       textAlign: TextAlign.center,
@@ -684,10 +811,9 @@ class _IdentificationViewState extends State<IdentificationView>
                                       ),
                                     ),
                                   ),
-                                ) ,
+                                ),
                               ),
                             ),
-
                           ],
                         ),
                       ],
@@ -697,5 +823,4 @@ class _IdentificationViewState extends State<IdentificationView>
               ),
             ));
   }
-
 }

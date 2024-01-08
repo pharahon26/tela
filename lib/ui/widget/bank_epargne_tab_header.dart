@@ -13,7 +13,8 @@ class BankEpargneTabHeader extends StatelessWidget {
       height: 80,
       child: Column(
         children: [
-          Text('Epargne',
+          Text(
+            'Epargne',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -23,16 +24,19 @@ class BankEpargneTabHeader extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.all(4.0),
-            child: Text( '(Compte épargne)',
+            child: Text(
+              '(Compte épargne)',
               style: TextStyle(
-                  fontSize: 10 ,
+                  fontSize: 10,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.2,
-                  color: Colors.deepOrange
-              ),
+                  color: Colors.deepOrange),
             ),
           ),
-          Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(_authService.bankEpargne?.balance??0),
+          Text(
+            NumberFormat.currency(
+                    locale: 'fr_FR', name: 'F CFA', decimalDigits: 0)
+                .format(_authService.bankEpargne?.balance ?? 0),
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,

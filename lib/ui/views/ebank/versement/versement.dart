@@ -11,14 +11,12 @@ class Versement extends StatefulWidget {
 }
 
 class _VersementState extends State<Versement> {
-
   bool enCours = false;
   final _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mq =MediaQuery.of(context);
+    MediaQueryData mq = MediaQuery.of(context);
     return ViewModelBuilder<VersementViewModel>.reactive(
       viewModelBuilder: () => VersementViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -26,7 +24,8 @@ class _VersementState extends State<Versement> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: Text('Epargner',
+          title: Text(
+            'Epargner',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w600,
@@ -37,39 +36,39 @@ class _VersementState extends State<Versement> {
           elevation: 5,
           leading: InkWell(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.arrow_back_ios_new,
+            child: Icon(
+              Icons.arrow_back_ios_new,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: mq.size.height*0.8,
+            height: mq.size.height * 0.8,
             decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage('assets/images/fond_fin.jpg'),
-                    fit: BoxFit.fill
-                )
-            ),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/fond_fin.jpg'),
+                    fit: BoxFit.fill)),
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
                   Visibility(
                     visible: model.insuffisant,
-                    child:
-                    const Padding(
+                    child: const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text('Votre solde est insuffisant pour épargner',
+                      child: Text(
+                        'Votre solde est insuffisant pour épargner',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1.2,
-                            color: Colors.red
-                        ),
+                            color: Colors.red),
                       ),
                     ),
                   ),
+
                   /// SOLDE DISPO
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -77,18 +76,23 @@ class _VersementState extends State<Versement> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Solde disponible',
+                          child: Text(
+                            'Solde disponible',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1.2,
-                                color: Theme.of(context).colorScheme.primary
-                            ),
+                                color: Theme.of(context).colorScheme.primary),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.balance),
+                          child: Text(
+                            NumberFormat.currency(
+                                    locale: 'fr_FR',
+                                    name: 'F CFA',
+                                    decimalDigits: 0)
+                                .format(model.balance),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
@@ -100,13 +104,17 @@ class _VersementState extends State<Versement> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(
+                    height: 30,
+                  ),
+
                   /// amount field
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       initialValue: model.montant.toString(),
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       style: const TextStyle(
                         color: Colors.black,
                       ),
@@ -116,19 +124,25 @@ class _VersementState extends State<Versement> {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         labelText: 'Montant a épargner',
-                        labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                        enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
-                        focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                        hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                        labelStyle:
+                            Theme.of(context).inputDecorationTheme.labelStyle,
+                        enabledBorder: Theme.of(context)
+                            .inputDecorationTheme
+                            .enabledBorder,
+                        focusedBorder: Theme.of(context)
+                            .inputDecorationTheme
+                            .focusedBorder,
+                        hintStyle:
+                            Theme.of(context).inputDecorationTheme.hintStyle,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Vous devez entrer le montant du dépot';
                         }
-                        if ((model.balance -( model.montant)) <= 0) {
+                        if ((model.balance - (model.montant)) <= 0) {
                           return 'Fonds insuffisant';
                         }
-                        if (double.parse(value) <=100) {
+                        if (double.parse(value) <= 100) {
                           return 'Le montant du dépot doit être supérieur à 100 X0F';
                         }
                         if ((double.parse(value).toInt() % 5) != 0) {
@@ -141,25 +155,33 @@ class _VersementState extends State<Versement> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(
+                    height: 30,
+                  ),
+
                   /// SOLDE
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Container(
-                          child: Text('Nouveau solde disponible',
+                          child: Text(
+                            'Nouveau solde disponible',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1.2,
-                                color: Theme.of(context).colorScheme.primary
-                            ),
+                                color: Theme.of(context).colorScheme.primary),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format(model.balance - model.montant),
+                          child: Text(
+                            NumberFormat.currency(
+                                    locale: 'fr_FR',
+                                    name: 'F CFA',
+                                    decimalDigits: 0)
+                                .format(model.balance - model.montant),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
@@ -171,25 +193,36 @@ class _VersementState extends State<Versement> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(
+                    height: 30,
+                  ),
+
                   /// SOLDE
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Container(
-                          child: Text('Nouveau solde épargne',
+                          child: Text(
+                            'Nouveau solde épargne',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1.2,
-                                color: Theme.of(context).colorScheme.primary
-                            ),
+                                color: Theme.of(context).colorScheme.primary),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(NumberFormat.currency(locale: 'fr_FR', name: 'F CFA', decimalDigits: 0).format((model.authService.bankEpargne?.balance??0) + model.montant),
+                          child: Text(
+                            NumberFormat.currency(
+                                    locale: 'fr_FR',
+                                    name: 'F CFA',
+                                    decimalDigits: 0)
+                                .format(
+                                    (model.authService.bankEpargne?.balance ??
+                                            0) +
+                                        model.montant),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
@@ -202,148 +235,172 @@ class _VersementState extends State<Versement> {
                     ),
                   ),
                   const Spacer(),
+
                   /// epargner
-                  TextButton(onPressed: () async {
-
-                    if (_formKey.currentState!.validate() && !enCours) {
-                      showDialog(context: context, builder: (buildContext) => Dialog(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                              child: Text('Effectuer un versement de ${model.montant} vers le compte épargne?',
-                                textAlign: TextAlign.center,
-                                maxLines: 20,
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.1
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextButton(
-                                      onPressed: () => Navigator.of(buildContext).pop(),
-                                      child: const Text('Non',
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                            color: Colors.deepOrange,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600
+                  TextButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate() && !enCours) {
+                        showDialog(
+                            context: context,
+                            builder: (buildContext) => Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 24.0, horizontal: 16),
+                                        child: Text(
+                                          'Effectuer un versement de ${model.montant} vers le compte épargne?',
+                                          textAlign: TextAlign.center,
+                                          maxLines: 20,
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 1.1),
                                         ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(buildContext)
+                                                        .pop(),
+                                                child: const Text(
+                                                  'Non',
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: TextButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    enCours = true;
+                                                  });
+                                                  model.authService
+                                                      .postVersementToEpargne(
+                                                          amount: model.montant,
+                                                          profile: model
+                                                              .authService
+                                                              .bankProfile!)
+                                                      .then((value) => model
+                                                          .navigateToBank())
+                                                      .whenComplete(() {
+                                                    setState(() {
+                                                      enCours = false;
+                                                    });
+                                                  }).catchError((error, trace) {
+                                                    setState(() {
+                                                      enCours = false;
+                                                    });
+                                                    showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (buildContext) =>
+                                                                Dialog(
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              30)),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            vertical:
+                                                                                24.0,
+                                                                            horizontal:
+                                                                                16),
+                                                                        child:
+                                                                            Text(
+                                                                          error
+                                                                              .toString(),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          maxLines:
+                                                                              20,
+                                                                          style: const TextStyle(
+                                                                              fontSize: 14,
+                                                                              color: Colors.black,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              letterSpacing: 1.1),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                        child: TextButton(
+                                                                            onPressed: () => Navigator.of(buildContext).pop(),
+                                                                            child: Text(
+                                                                              'Ok',
+                                                                              maxLines: 2,
+                                                                              style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 18, fontWeight: FontWeight.w600),
+                                                                            )),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ));
+                                                  });
+                                                },
+                                                child: Text(
+                                                  'Oui',
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                )),
+                                          ),
+                                        ],
                                       )
+                                    ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: TextButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          enCours = true;
-                                        });
-                                        model.authService.postVersementToEpargne(amount: model
-                                            .montant,
-                                            profile: model.authService.bankProfile!)
-                                            .then((value) => model.navigateToBank())
-                                            .whenComplete(() {
-                                          setState(() {
-                                            enCours = false;
-                                          });
-                                        })
-                                            .catchError((error, trace)  {
-                                          setState(() {
-                                            enCours = false;
-                                          });
-                                          showDialog(context: context, builder: (buildContext) => Dialog(
-                                            backgroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(30)
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-                                                  child: Text(error.toString(),
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 20,
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.w600,
-                                                        letterSpacing: 1.1
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: TextButton(
-                                                      onPressed: () => Navigator.of(buildContext).pop(),
-                                                      child: Text('Ok',
-                                                        maxLines: 2,
-                                                        style: TextStyle(
-                                                            color: Theme.of(context).colorScheme.primary,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w600
-                                                        ),
-                                                      )
-                                                  ),
-                                                )
-
-                                              ],
-                                            ),
-
-                                          )
-                                          );
-                                        });
-                                      },
-                                      child: Text('Oui',
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                            color: Theme.of(context).colorScheme.primary,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600
-                                        ),
-                                      )
-                                  ),
-                                ),
-                              ],
-                            )
-
-                          ],
-                        ),
-
-                      )
-                      );
-
-                    }
-
-                  },
+                                ));
+                      }
+                    },
                     style: TextButton.styleFrom(
                       elevation: 8,
-                      minimumSize: Size(mq.size.width*0.7, 30),
+                      minimumSize: Size(mq.size.width * 0.7, 30),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       shape: const StadiumBorder(),
                     ),
-                    child:  enCours? const CircularProgressIndicator(color: Colors.white,) : const Text('Epargner',
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: enCours
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            'Epargner',
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ],
               ),

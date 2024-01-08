@@ -3,17 +3,16 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mobile/services/tv_service.dart';
 
-class TvSportViewModel extends BaseViewModel{
-
+class TvSportViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final TVService tvService = locator<TVService>();
 
-
-  TvSportViewModel(){
+  TvSportViewModel() {
     tvService.pause();
     tvService.playSport();
+    tvService.pubVideoController.setVolume(60);
   }
 
   @override
@@ -22,8 +21,5 @@ class TvSportViewModel extends BaseViewModel{
     super.dispose();
     tvService.pause();
     tvService.playPub();
-
   }
-
-
 }

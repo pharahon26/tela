@@ -19,18 +19,19 @@ class _DepotState extends State<Depot> {
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
-            title: const Text('Retrait',
+            title: const Text(
+              'Retrait',
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.3,
-                  color: Colors.white
-              ),
+                  color: Colors.white),
             ),
             elevation: 5,
             leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: const Icon(Icons.arrow_back_ios_new,
+              child: const Icon(
+                Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
             ),
@@ -44,15 +45,16 @@ class _DepotState extends State<Depot> {
                     padding: EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Text('Solde disponible',
+                        Text(
+                          'Solde disponible',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.2,
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
-                        Text('X0F 250.000',
+                        Text(
+                          'X0F 250.000',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -66,8 +68,7 @@ class _DepotState extends State<Depot> {
                 ],
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }

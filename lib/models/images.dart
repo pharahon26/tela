@@ -1,14 +1,13 @@
-class TelaImage{
+class TelaImage {
   int id = 0;
   int placeId = 0;
   String link = '';
 
-
   TelaImage({required this.id, required this.placeId, required this.link});
 
-  static TelaImage fromJson(Map<String, dynamic> json){
+  static TelaImage fromJson(Map<String, dynamic> json) {
     TelaImage u = TelaImage(
-      id : json["id"],
+      id: json["id"],
       placeId: json["place_id"],
       link: json["link"],
     );
@@ -16,7 +15,7 @@ class TelaImage{
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "link": link,

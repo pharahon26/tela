@@ -1,6 +1,6 @@
 import 'package:mobile/models/user.dart';
 
-class TelaBankProfile{
+class TelaBankProfile {
   int? id = 0;
   String? mail;
   String? nom;
@@ -21,7 +21,6 @@ class TelaBankProfile{
   int userIdentityId = 0;
   UserIdentity? userIdentity;
 
-
   TelaBankProfile({
     required this.phone,
     required this.balance,
@@ -39,7 +38,7 @@ class TelaBankProfile{
     this.creationDate,
   });
 
-  static TelaBankProfile fromJson(Map<String, dynamic> json){
+  static TelaBankProfile fromJson(Map<String, dynamic> json) {
     TelaBankProfile u = TelaBankProfile(
       nom: json["nom"],
       prenom: json["prenoms"],
@@ -47,19 +46,19 @@ class TelaBankProfile{
       photo: json["photo"],
       balance: double.parse(json["balance"].toString()),
       userIdentityId: json["information_identity_id"],
-      mail: json["email"]??'',
-      isValidated: json["is_validated"]==1,
-      isSuspended: json["is_suspended"]==1,
-      isStaff: json["is_staff"]==1,
-      isDemarcheur: json["is_demarcheur"]==1,
-      hasEpargne: json["has_epargne"]==1,
+      mail: json["email"] ?? '',
+      isValidated: json["is_validated"] == 1,
+      isSuspended: json["is_suspended"] == 1,
+      isStaff: json["is_staff"] == 1,
+      isDemarcheur: json["is_demarcheur"] == 1,
+      hasEpargne: json["has_epargne"] == 1,
     );
     u.id = json["id"];
     return u;
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "information_identity_id": userIdentityId,
@@ -70,11 +69,11 @@ class TelaBankProfile{
       "photo": photo,
       "balance": balance,
       "creationDate": creationDate,
-      "isSuspended": isSuspended?1:0,
-      "is_validated": isValidated?1:0,
-      "isStaff":isStaff?1:0,
-      "is_demarcheur":isDemarcheur?1:0,
-      "has_epargne":hasEpargne?1:0,
+      "isSuspended": isSuspended ? 1 : 0,
+      "is_validated": isValidated ? 1 : 0,
+      "isStaff": isStaff ? 1 : 0,
+      "is_demarcheur": isDemarcheur ? 1 : 0,
+      "has_epargne": hasEpargne ? 1 : 0,
     };
   }
 
@@ -85,7 +84,7 @@ class TelaBankProfile{
 }
 
 /// Epargne profile
-class TelaBankEpargne{
+class TelaBankEpargne {
   int? id = 0;
   double balance = 0;
   double amountFrezze = 0;
@@ -94,7 +93,6 @@ class TelaBankEpargne{
   DateTime? creationDate;
   int eBankId = 0;
   TelaBankProfile? eBankProfile;
-
 
   TelaBankEpargne({
     required this.debutEpargne,
@@ -106,21 +104,23 @@ class TelaBankEpargne{
     this.creationDate,
   });
 
-  static TelaBankEpargne fromJson(Map<String, dynamic> json){
+  static TelaBankEpargne fromJson(Map<String, dynamic> json) {
     TelaBankEpargne u = TelaBankEpargne(
       eBankId: json["ebank_profil_id"],
       balance: double.parse(json["balance"].toString()),
-      amountFrezze: double.parse((json["amount_freeze"]??0).toString()),
+      amountFrezze: double.parse((json["amount_freeze"] ?? 0).toString()),
       eBankProfile: json["ebank_profil"],
-      debutEpargne: DateTime.parse(json["debut_epargne"]??DateTime.now().toString()),
-      finEpargne: DateTime.parse(json["fin_epargne"]??DateTime.now().toString()),
+      debutEpargne:
+          DateTime.parse(json["debut_epargne"] ?? DateTime.now().toString()),
+      finEpargne:
+          DateTime.parse(json["fin_epargne"] ?? DateTime.now().toString()),
     );
     u.id = json["id"];
     return u;
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "ebank_profil_id": eBankId,

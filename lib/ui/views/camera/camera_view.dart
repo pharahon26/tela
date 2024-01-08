@@ -6,7 +6,6 @@ import 'package:mobile/services/telaSharedPrefs.dart';
 import 'package:mobile/ui/views/camera/cameraViewModel.dart';
 import 'package:stacked/stacked.dart';
 
-
 /// Created by Laty 26 PHARAHON entertainment on 15/09/2021.
 class CameraView extends StatefulWidget {
   const CameraView({super.key});
@@ -16,9 +15,7 @@ class CameraView extends StatefulWidget {
 }
 
 class _CameraViewState extends State<CameraView> {
-
   final TelaSharedPrefs _telaSharedPrefs = locator<TelaSharedPrefs>();
-
 
   late CameraController _cameraController;
 
@@ -28,14 +25,10 @@ class _CameraViewState extends State<CameraView> {
   bool _flash = false;
   late File image;
 
-
-  initCamera(int cam)async{
+  initCamera(int cam) async {
     cameras = _telaSharedPrefs.cameras;
 
-    _cameraController = CameraController(
-        cameras[cam],
-        ResolutionPreset.high
-    );
+    _cameraController = CameraController(cameras[cam], ResolutionPreset.high);
     _cameraInitialization = _cameraController.initialize().then((_) {
       if (!mounted) {
         return;
@@ -44,12 +37,9 @@ class _CameraViewState extends State<CameraView> {
     });
     _cameraController.setFlashMode(FlashMode.off);
   }
-  cam(int cam)async{
 
-    _cameraController = CameraController(
-        cameras[cam],
-        ResolutionPreset.high
-    );
+  cam(int cam) async {
+    _cameraController = CameraController(cameras[cam], ResolutionPreset.high);
     _cameraInitialization = _cameraController.initialize().then((_) {
       if (!mounted) {
         return;
@@ -71,7 +61,6 @@ class _CameraViewState extends State<CameraView> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CameraViewModel>.reactive(
@@ -89,8 +78,7 @@ class _CameraViewState extends State<CameraView> {
                     return Container(
                         alignment: Alignment.center,
                         width: double.infinity,
-                        child: CameraPreview(_cameraController)
-                    );
+                        child: CameraPreview(_cameraController));
                   } else {
                     // Otherwise, display a loading indicator.
                     return const Center(child: CircularProgressIndicator());
@@ -110,9 +98,13 @@ class _CameraViewState extends State<CameraView> {
                         IconButton(
                           onPressed: () => setState(() {
                             _flash = !_flash;
-                            _flash? _cameraController.setFlashMode(FlashMode.torch) : _cameraController.setFlashMode(FlashMode.off);
+                            _flash
+                                ? _cameraController
+                                    .setFlashMode(FlashMode.torch)
+                                : _cameraController.setFlashMode(FlashMode.off);
                           }),
-                          icon: Icon(_flash? Icons.flash_on: Icons.flash_off, color: _flash? Colors.yellow : Colors.grey),
+                          icon: Icon(_flash ? Icons.flash_on : Icons.flash_off,
+                              color: _flash ? Colors.yellow : Colors.grey),
                         ),
                       ],
                     ),
@@ -127,18 +119,19 @@ class _CameraViewState extends State<CameraView> {
                               if (cameras.length > 1) {
                                 selectedCamera = selectedCamera == 0 ? 1 : 0;
                                 await cam(selectedCamera);
-                                setState(() {
-
-                                });
+                                setState(() {});
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
                                   content: Text('Pas de seconde camera trouvé'),
                                   duration: Duration(seconds: 2),
                                 ));
                               }
                             },
-                            icon: Icon(Icons.switch_camera_rounded, color: Theme.of(context).colorScheme.primary),
+                            icon: Icon(Icons.switch_camera_rounded,
+                                color: Theme.of(context).colorScheme.primary),
                           ),
+
                           /// CAPTURE BUTTON
                           Container(
                             height: 60,
@@ -146,12 +139,15 @@ class _CameraViewState extends State<CameraView> {
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Theme.of(context).colorScheme.primary,
-                                border: Border.all(color: Theme.of(context).colorScheme.primary , width: 3.0)
-                            ),
+                                border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0)),
                             child: InkWell(
                               onTap: () async {
                                 await _cameraInitialization; //To make sure camera is initialized
-                                var xFile = await _cameraController.takePicture();
+                                var xFile =
+                                    await _cameraController.takePicture();
 
                                 // final ass = await getImageFileFromAssets('cnib.jpeg');
                                 image = File(xFile.path);
@@ -159,11 +155,13 @@ class _CameraViewState extends State<CameraView> {
                               },
                               splashColor: Colors.deepOrange,
                               borderRadius: BorderRadius.circular(50),
-                              customBorder: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
+                              customBorder: Border.all(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  width: 2),
                               child: Container(
                                 decoration: const BoxDecoration(
                                   color: Colors.white,
-                                    shape: BoxShape.circle,
+                                  shape: BoxShape.circle,
                                 ),
                               ),
                             ),
@@ -174,7 +172,11 @@ class _CameraViewState extends State<CameraView> {
                             onPressed: () => setState(() {
                               model.pickImage();
                             }),
-                            icon: Icon(Icons.image_outlined, color: Theme.of(context).colorScheme.primary, size: 32,),
+                            icon: Icon(
+                              Icons.image_outlined,
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 32,
+                            ),
                           ),
                         ],
                       ),

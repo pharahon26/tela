@@ -6,8 +6,7 @@ import 'package:mobile/services/tv_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ProgrammeTvViewModel extends BaseViewModel{
-
+class ProgrammeTvViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final TVService _tvService = locator<TVService>();
   final AuthService _authService = locator<AuthService>();
@@ -15,35 +14,40 @@ class ProgrammeTvViewModel extends BaseViewModel{
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
   List<TelaProgrammeTV> program = [];
-  ProgrammeTvViewModel(){
+  ProgrammeTvViewModel() {
     program = _tvService.progTest();
   }
 
-  void navigateToEbank() async{
-    await _navigationService.navigateToBank(hasEpargne: _authService.bankProfile?.hasEpargne??false);
+  void navigateToEbank() async {
+    await _navigationService.navigateToBank(
+        hasEpargne: _authService.bankProfile?.hasEpargne ?? false);
   }
-  void navigateToProfile() async{
+
+  void navigateToProfile() async {
     await _navigationService.navigateTo(Routes.profile);
   }
-  void navigateToTV() async{
+
+  void navigateToTV() async {
     await _navigationService.navigateTo(Routes.chanelTv);
   }
 
-  void navigateToRechercheBureau() async{
+  void navigateToRechercheBureau() async {
     await _navigationService.navigateToRecherche(isBureau: true);
   }
-  void navigateToRechercheLogement() async{
+
+  void navigateToRechercheLogement() async {
     await _navigationService.navigateToRecherche(isBureau: false);
   }
-  void navigateToGalery() async{
+
+  void navigateToGalery() async {
     await _navigationService.navigateTo(Routes.catalogue);
   }
-  void navigateToAcceuil() async{
+
+  void navigateToAcceuil() async {
     await _navigationService.navigateTo(Routes.acceuil);
   }
-  void navigateToLiveTV(TelaProgrammeTV programmeTV) async{
+
+  void navigateToLiveTV(TelaProgrammeTV programmeTV) async {
     await _navigationService.navigateToTv(programmeTV: programmeTV);
   }
-
-
 }

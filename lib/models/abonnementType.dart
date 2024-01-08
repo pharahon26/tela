@@ -1,24 +1,21 @@
-class AbonnementType{
-
+class AbonnementType {
   int id = 0;
   String type = '';
   int price = 0;
   String title = '';
   int pourcentage = 0;
 
+  AbonnementType({
+    required this.id,
+    required this.type,
+    required this.price,
+    required this.pourcentage,
+    required this.title,
+  });
 
-
-  AbonnementType(
-      {required this.id,
-      required this.type,
-      required this.price,
-      required this.pourcentage,
-      required this.title,});
-
-
-  static AbonnementType fromJson(Map<String, dynamic> json){
+  static AbonnementType fromJson(Map<String, dynamic> json) {
     AbonnementType u = AbonnementType(
-      id : json["id"],
+      id: json["id"],
       type: json["type"],
       pourcentage: json["pourcentage_demarcheur"],
       price: int.parse(json["price"]),
@@ -26,9 +23,10 @@ class AbonnementType{
     );
     return u;
   }
-  static AbonnementType fromString(Map<String, dynamic> json){
+
+  static AbonnementType fromString(Map<String, dynamic> json) {
     AbonnementType u = AbonnementType(
-      id : int.parse(json["id"]),
+      id: int.parse(json["id"]),
       type: json["type"],
       pourcentage: json["pourcentage"],
       price: int.parse(json["price"]),
@@ -38,7 +36,7 @@ class AbonnementType{
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "type": type,
@@ -46,8 +44,9 @@ class AbonnementType{
       "pourcentage_demarcheur": price,
       "title": title,
     };
-  }// map for database
-  Map<String, dynamic> toJson2(){
+  } // map for database
+
+  Map<String, dynamic> toJson2() {
     return {
       "type_abonnement_id": id,
       "type": type,
@@ -62,36 +61,35 @@ class AbonnementType{
   }
 }
 
-class PassType{
-
+class PassType {
   int id = 0;
   String name = '';
   bool isVisite = false;
   int numberOfVisites = 0;
   String price = '';
 
+  PassType({
+    required this.id,
+    required this.price,
+    required this.name,
+    required this.isVisite,
+    required this.numberOfVisites,
+  });
 
-  PassType(
-      {required this.id,
-        required this.price,
-        required this.name,
-        required this.isVisite,
-        required this.numberOfVisites,});
-
-
-  static PassType fromJson(Map<String, dynamic> json){
+  static PassType fromJson(Map<String, dynamic> json) {
     PassType u = PassType(
-      id : json["id"],
+      id: json["id"],
       name: json["name"],
       price: json["price"],
       numberOfVisites: json["nb_visite"],
-      isVisite: json["is_visite"]==1,
+      isVisite: json["is_visite"] == 1,
     );
     return u;
   }
-  static PassType fromString(Map<String, dynamic> json){
+
+  static PassType fromString(Map<String, dynamic> json) {
     PassType u = PassType(
-      id : int.parse(json["id"]),
+      id: int.parse(json["id"]),
       name: json["name"],
       price: (json["price"]),
       numberOfVisites: int.parse(json["numberOfVisites"]),
@@ -101,23 +99,23 @@ class PassType{
   }
 
   // map for database
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "name": name,
       "nb_visite": numberOfVisites,
       "price": price,
-      "is_visite": isVisite?1:0,
+      "is_visite": isVisite ? 1 : 0,
     };
   }
 
- Map<String, dynamic> toJson2(){
+  Map<String, dynamic> toJson2() {
     return {
       "pass_type_id": id,
       "name": name,
       "nb_visite": numberOfVisites,
       "price": price,
-      "is_visite": isVisite?1:0,
+      "is_visite": isVisite ? 1 : 0,
     };
   }
 
