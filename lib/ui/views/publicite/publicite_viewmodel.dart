@@ -20,8 +20,63 @@ class PubliciteViewModel extends BaseViewModel {
 
  
   List<PubPack>? packs = [
-    PubPack(
-      id: 1,
+      PubPack(
+       id: 1,
+      name: 'prestige',
+      chooseTarif: "150000",
+      tarif:[ 
+        {
+          "value":"150000",
+          "text":"FCFA(captures d'images effectuées par BSPRO)"
+        },
+        {
+          "value":"100000",
+          "text":"FCFA(le client prospose ses propres images)"
+        },
+      ],
+      particularite: "Prises de vue effectuées par l'Entreprise",
+      visibilite: "1 semaine",
+      avantages: [
+        "1- presence sur la page d'accueil (image figées) ",
+        "2- Vous êtes presenté comme sponsor officiel d'une emission live ",
+       "3- 01 passage publicitaire au cours de chacune des émissions LIVE ",
+       "4- passage en continu  pendant 01 semaine sur le canal Publicité",
+       "5- presence sur l interface TELA Finance de tous les abonnés",
+      "6- 01 passage au cours de chaque émission en differé",
+       "7- 01 passage au cours de chaque émission rediffusée"
+      ]
+    ),
+
+   
+
+      PubPack(
+       id: 2,
+      name: 'premium',
+      chooseTarif: "100000",
+      tarif:[ 
+        {
+          "value":"100000",
+          "text":"FCFA(captures d'images effectuées par BSPRO)"
+        },
+        {
+          "value":"75000",
+          "text":"FCFA(le client prospose ses propres images)"
+        },
+      ],
+      particularite: "Prises de vue effectuées par l'Entreprise",
+      visibilite: "1 semaine",
+      avantages: [
+        "1- presence sur la page Maison à louer (image) ",
+        "2- vous êtes désigné comme présentateur officiel d'une émission Live "
+        "3- 01 passage publicitaire au cours de chacune des émissions LIVE ",
+        "4- passage en continu  pendant 01 semaine sur le canal Publicité",
+         "5- 01 passage au cours de chaque émission en differé",
+       
+      ]
+    ),
+
+     PubPack(
+      id: 3,
       name: 'medium',
       chooseTarif: "75000",
       tarif:[ 
@@ -37,16 +92,15 @@ class PubliciteViewModel extends BaseViewModel {
       particularite: "Prises de vue effectuées par le commercial",
       visibilite: "5 jours",
       avantages: [
-        "1- 01 passage publicitaire au cours des films et clips musicaux",
-        "2- Passage en continue pendant 01 semaine sur le canal Publicité",
-        "3- 01 passage au cours de chaque émission en differé",
-        "4- 01 passage publicitaire au cours des films et clips musicaux",
-        "5- Passage en continue pendant 01 semaine sur le canal Publicité",
-        "6- 01 passage au cours de chaque émission en differé",
+         "1- presence sur la page de Profile(image)"
+        "2- 01 passage publicitaire au cours de chacune des émissions rédiffusées ",
+        "3- Passage en continu pendant 01 semaine sur le canal Publicité",
+        "4- 01 passage au cours de chaque émission en differé",
       ]
     ),
+
     PubPack(
-      id:2,
+      id:4,
       name: 'basic',
       chooseTarif: "50000",
       tarif:[ 
