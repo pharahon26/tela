@@ -10,6 +10,7 @@ class PubliciteViewModel extends BaseViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
+  int id = 0;
   String name = '';
   String companyName = '';
   String cardNumber = '';
@@ -20,6 +21,7 @@ class PubliciteViewModel extends BaseViewModel {
  
   List<PubPack>? packs = [
     PubPack(
+      id: 1,
       name: 'medium',
       chooseTarif: "75000",
       tarif:[ 
@@ -44,6 +46,7 @@ class PubliciteViewModel extends BaseViewModel {
       ]
     ),
     PubPack(
+      id:2,
       name: 'basic',
       chooseTarif: "50000",
       tarif:[ 
@@ -79,6 +82,7 @@ class PubliciteViewModel extends BaseViewModel {
   Future souscribe() async {
     log("souscribe");
     souscription = PackSouscription(
+        id: id,
       name: name,
       company: companyName,
       cardNumber: cardNumber,

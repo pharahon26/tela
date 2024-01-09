@@ -1,4 +1,5 @@
 import 'package:mobile/app/app.locator.dart';
+import 'package:mobile/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mobile/services/tv_service.dart';
@@ -10,16 +11,15 @@ class TvSportViewModel extends BaseViewModel {
   final TVService tvService = locator<TVService>();
 
   TvSportViewModel() {
-    tvService.pause();
     tvService.playSport();
-    tvService.pubVideoController.setVolume(60);
   }
+
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     tvService.pause();
-    tvService.playPub();
+    tvService.playSport();
   }
 }

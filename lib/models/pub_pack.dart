@@ -1,4 +1,5 @@
 class PubPack{
+  int id ;
   String name;
   String chooseTarif;
   List<Map<String,dynamic>> tarif;
@@ -7,6 +8,7 @@ class PubPack{
   List<String> avantages;
 
   PubPack({
+    required this.id,
     required this.name,
     required this.chooseTarif,
     required this.tarif,
@@ -18,7 +20,7 @@ class PubPack{
   Map<String, dynamic> toJson() {
 
     final Map<String, dynamic> data = <String, dynamic>{};
-    
+    data['id'] = id;
     data['name'] = name;
     data['chooseTarif'] = chooseTarif;
     data['tarif'] = tarif;
@@ -31,6 +33,7 @@ class PubPack{
 }
 
 class PackSouscription{
+  int id;
   String name;
   String company;
   String cardNumber;
@@ -39,6 +42,7 @@ class PackSouscription{
 
 
   PackSouscription({
+    required this.id,
     required this.name,
     required this.company,
     required this.cardNumber,
@@ -49,6 +53,7 @@ class PackSouscription{
 
    Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['name'] = name;
     data['company'] = company;
     data['cardNumber'] = cardNumber;

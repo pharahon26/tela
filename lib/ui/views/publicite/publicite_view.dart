@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/ui/views/publicite/pdf.dart';
 import 'package:stacked/stacked.dart';
 
@@ -229,9 +228,9 @@ class _PubliciteViewState extends State<PubliciteView> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(18),
                       alignment: Alignment.centerLeft,
-                      child: Text(
+                      child: const Text(
                         'Choisir un pack',
                         style: TextStyle(
                             fontSize: 18,
@@ -603,7 +602,7 @@ class _PubliciteViewState extends State<PubliciteView> {
                 Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (model.consentant == false) {
                       showDialog(
                         context: context,
@@ -651,6 +650,14 @@ class _PubliciteViewState extends State<PubliciteView> {
                         )
                       );
                       return;
+                    }else{
+                      await AuthService().createSubscribPackPublicitaire(
+                          name: model.name,
+                          company: model.companyName,
+                          cni: model.cardNumber,
+                          commerciale: model.commercial,
+                          packPublicitaireId: model.choosePack!.id
+                      );
                     }
                     Navigator.pop(context);
                   },

@@ -13,7 +13,6 @@ class TvSport extends StatefulWidget {
 }
 
 class _TvSportState extends State<TvSport> {
-  late VideoPlayerController videoController;
   final TVService _tvService = locator<TVService>();
 
   @override
@@ -59,7 +58,5 @@ class _TvSportState extends State<TvSport> {
   @override
   void dispose() {
     super.dispose();
-    videoController.dispose();
-    _tvService.playPub();
   }
 }

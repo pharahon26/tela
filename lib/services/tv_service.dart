@@ -14,9 +14,9 @@ class TVService {
 
   bool _certificateCheck(X509Certificate cert, String host, int port) => true;
   List<String> publicites = [];
+  late VideoPlayerController sportVideoController;
   late VideoPlayerController pubVideoController;
   late VideoPlayerController liveVideoController;
-  late VideoPlayerController sportVideoController;
   late VideoPlayerController excluVideoController;
   late VideoPlayerController filmVideoController;
   bool playing = false;
@@ -29,7 +29,9 @@ class TVService {
     liveVideoController = VideoPlayerController.networkUrl(
         Uri.parse("https://www.telaci.com/assets/videos/live_tela.mp4"));
     sportVideoController = VideoPlayerController.networkUrl(
-        Uri.parse("https://www.youtube.com/watch?v=1R8BHa5SSr8"));
+        Uri.parse("https://www.telaci.com/assets/videos/documentaireSport.mp4"));
+    /*sportVideoController = VideoPlayerController.networkUrl(
+        Uri.parse("https://www.youtube.com/watch?v=1R8BHa5SSr8"));*/
     excluVideoController = VideoPlayerController.networkUrl(
         Uri.parse("https://www.telaci.com/assets/videos/exclu_tela.mp4"));
     filmVideoController = VideoPlayerController.networkUrl(

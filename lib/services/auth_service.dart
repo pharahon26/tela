@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -1393,6 +1394,53 @@ class AuthService {
   //   _isConnected =true;
   //   _isConnectedSubject.sink.add(_isConnected);
   // }
+
+  /*
+   * Date : 09-01-2024
+   * Author :
+   * Description : Service web pour la creation d'un pack publicitaire
+   */
+  //
+
+  Future<void> createSubscribPackPublicitaire({required String name , required String company , required cni , required commerciale,  required int packPublicitaireId}) async {
+    print("Dans la fonction");
+    var client = _newClient();
+    try {
+      http.Response response = await client.post(
+        Uri.parse('http://back.telaci.com/api/souscription_pack_publicitaire/create'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'nom': name,
+          'entreprise':company,
+          'cni': cni,
+          'commerciale':commerciale,
+          'pack_publicite_id':packPublicitaireId
+        }),
+      );
+      //print(json.decode(response.body));
+      print(name!);
+      print(company!);
+      print(cni!);
+      print(commerciale!);
+      print(packPublicitaireId!);
+      log(response.statusCode.toString());
+      log("La reponse vaut ${response.body}");
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        print(json);
+
+      } else {
+        print('ERROR reponse status code not 200');
+      }
+    } catch (e) {
+      print('auth api service verif code error** $e');
+      throw ('auth api service verif code error** $e');
+    } finally {
+      client.close();
+    }
+  }
 
   void close() {
     _isConnectedSubject.close();
