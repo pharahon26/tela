@@ -25,11 +25,27 @@ class TVService {
 
   Future<void> init() async {
     pubVideoController = VideoPlayerController.networkUrl(
-        Uri.parse("https://www.telaci.com/assets/videos/pub_tela.mp4"));
-    liveVideoController = VideoPlayerController.networkUrl(
+        Uri.parse("https://www.telaci.com/assets/videos/pubnouveau.mp4"));
+    liveVideoController = VideoPlayerController.networkUrl(   
         Uri.parse("https://www.telaci.com/assets/videos/live_tela.mp4"));
-    sportVideoController = VideoPlayerController.networkUrl(
-        Uri.parse("https://www.telaci.com/assets/videos/documentaireSport.mp4"));
+
+
+   sportVideoController = VideoPlayerController.networkUrl( 
+  Uri.parse("https://www.telaci.com/assets/videos/documentaireSport.mp4"),
+
+       
+  )
+    ;
+
+
+
+
+   
+
+
+
+ 
+   
     /*sportVideoController = VideoPlayerController.networkUrl(
         Uri.parse("https://www.youtube.com/watch?v=1R8BHa5SSr8"));*/
     excluVideoController = VideoPlayerController.networkUrl(

@@ -93,7 +93,7 @@ class _TvPubState extends State<TvPub> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30))),
                 child: const Text(
-                  'Souscrire à une offre',
+                  'souscrire à une insertion pub',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,

@@ -27,11 +27,11 @@ class PubliciteViewModel extends BaseViewModel {
       tarif:[ 
         {
           "value":"150000",
-          "text":"FCFA(captures d'images effectuées par BSPRO)"
+          "text":"150000 FCFA(captures d'images effectuées par BSPRO)"
         },
         {
           "value":"100000",
-          "text":"FCFA(le client prospose ses propres images)"
+          "text":"100000 FCFA(le client prospose ses propres images)"
         },
       ],
       particularite: "Prises de vue effectuées par l'Entreprise",
@@ -56,11 +56,11 @@ class PubliciteViewModel extends BaseViewModel {
       tarif:[ 
         {
           "value":"100000",
-          "text":"FCFA(captures d'images effectuées par BSPRO)"
+          "text":"100000 FCFA(captures d'images effectuées par BSPRO)"
         },
         {
           "value":"75000",
-          "text":"FCFA(le client prospose ses propres images)"
+          "text":" 75000 FCFA(le client prospose ses propres images)"
         },
       ],
       particularite: "Prises de vue effectuées par l'Entreprise",
@@ -82,11 +82,11 @@ class PubliciteViewModel extends BaseViewModel {
       tarif:[ 
         {
           "value":"75000",
-          "text":"FCFA(captures d'images effectuées par BSPRO)"
+          "text":"75000 FCFA(captures d'images effectuées par BSPRO)"
         },
         {
           "value":"50000",
-          "text":"FCFA(le client prospose ses propres images)"
+          "text":"50000 FCFA(le client prospose ses propres images)"
         },
       ],
       particularite: "Prises de vue effectuées par le commercial",
@@ -106,11 +106,11 @@ class PubliciteViewModel extends BaseViewModel {
       tarif:[ 
         {
           "value":"50000",
-          "text":"FCFA(captures d'images effectuées par BSPRO)"
+          "text":"50000 FCFA(captures d'images effectuées par BSPRO)"
         },
         {
           "value":"35000",
-          "text":"FCFA(le client prospose ses propres images)"
+          "text":"35000 FCFA(le client prospose ses propres images)"
         },
       ],
       particularite: "Prises de vue effectuées par le commercial",
